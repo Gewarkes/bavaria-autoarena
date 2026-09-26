@@ -85,7 +85,7 @@ export function VehicleGallery({ images, title, badge }: { images: GalleryImage[
     </div>
 
     <Dialog open={open} onOpenChange={(next) => { if (!next) close(); }}>
-      <DialogContent className="fixed inset-0 left-0 top-0 z-50 block size-full max-w-none translate-x-0 translate-y-0 border-0 bg-navy-950/97 p-0 text-cream shadow-none data-[state=closed]:zoom-out-100 data-[state=open]:zoom-in-100 sm:rounded-none [&>button]:hidden">
+      <DialogContent className="fixed inset-0 left-0 top-0 z-50 block size-full max-w-none translate-x-0 translate-y-0 border-0 bg-navy-950/97 p-0 text-cream shadow-none data-[state=closed]:zoom-out-100 data-[state=open]:zoom-in-100 sm:rounded-none [&>button:last-child]:hidden">
         <DialogTitle className="sr-only">Fotogalerie: {title}</DialogTitle>
         <span className="absolute left-4 top-4 z-20 text-sm tabular-nums">{lightboxIndex + 1} / {images.length}</span>
         <button type="button" onClick={close} aria-label="Galerie schließen" className="absolute right-3 top-3 z-20 grid size-11 place-items-center rounded-sm bg-navy-900 text-cream"><X /></button>
