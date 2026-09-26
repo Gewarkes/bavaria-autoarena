@@ -1,96 +1,91 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { formatPrice } from "@/lib/format";
-import { vehicleQuery } from "@/lib/vehicles";
 import { Link, useRouterState } from "@tanstack/react-router";
-import { CarFront, Menu, MessageCircle, Phone } from "lucide-react";
-import { HeaderLogo, Logo, LogoMark } from "@/components/Logo";
+import { ChevronRight, Mail, Menu, MessageCircle, Phone } from "lucide-react";
+import { HeaderLogo, LogoMark } from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetClose, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { currentOpeningStatus, isOpenNow, siteConfig } from "@/config/site";
-import type { ReactNode } from "react";
+import { currentOpeningStatus, isOpenNow, phoneHref, siteConfig, whatsappHref } from "@/config/site";
+import { formatPrice } from "@/lib/format";
+import { vehicleQuery } from "@/lib/vehicles";
 
 const navItems = [
   { label: "Fahrzeuge", to: "/fahrzeuge" as const },
-  { label: "Auto verkaufen", to: "/auto-verkaufen" as const },
-  { label: "Leistungen", to: "/leistungen" as const },
-  { label: "Finanzierung", to: "/finanzierung" as const },
+  { label: "Ankauf", to: "/auto-verkaufen" as const },
+  { label: "Service", to: "/leistungen" as const },
   { label: "Über uns", to: "/ueber-uns" as const },
   { label: "Kontakt", to: "/kontakt" as const },
 ];
 
-const phoneHref = `tel:${siteConfig.phone.replace(/\s/g, "")}`;
+function WhatsAppIcon({ className = "size-5" }: { className?: string }) {
+  return <svg viewBox="0 0 24 24" className={`${className} fill-current`} aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2c0 1.3.9 2.5 1 2.7.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z" /></svg>;
+}
 
 function Header() {
+  const [compact, setCompact] = useState(false);
   const open = isOpenNow();
+  useEffect(() => {
+    const onScroll = () => setCompact(window.scrollY > 60);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
   return (
-    <header className="sticky top-0 z-40 border-b-2 border-gold bg-background">
-      <div className="mx-auto grid h-[60px] max-w-[1200px] grid-cols-[3rem_minmax(0,1fr)_3rem] items-center px-3 md:flex md:h-24 md:px-12">
-        <div className="md:hidden">
+    <header className="sticky top-0 z-50 border-b border-cream/5 bg-navy-900 text-cream">
+      <div className={`page-container flex items-center transition-[height] ${compact ? "h-17" : "h-16 lg:h-22"}`}>
+        <Link to="/" aria-label="Bavaria Autoarena Startseite" className="shrink-0"><span className={compact ? "block scale-[.8] transition-transform" : "block transition-transform"}><HeaderLogo /></span></Link>
+        <nav className="ml-10 hidden items-center gap-7 lg:flex">
+          {navItems.map((item) => <Link key={item.to} to={item.to} activeProps={{ className: "text-gold-400" }} className="font-display text-[15px] font-normal text-cream/85 transition-colors hover:text-gold-400">{item.label}</Link>)}
+        </nav>
+        <div className="ml-auto hidden items-center gap-6 lg:flex">
+          <a href={phoneHref} className="text-right"><span className="block font-display text-base font-normal text-gold-400">{siteConfig.phone}</span><span className="flex items-center justify-end gap-2 text-xs text-silver-400">{open ? <i className="size-1.5 rounded-full bg-success" /> : null}{currentOpeningStatus()}</span></a>
+          <Button asChild variant="gold"><Link to="/kontakt" hash="termin">Termin vereinbaren</Link></Button>
+        </div>
+        <a href={phoneHref} aria-label="Anrufen" className="ml-auto grid size-11 place-items-center text-gold-400 lg:hidden"><Phone className="size-5" strokeWidth={1.5} /></a>
+        <div className="lg:hidden">
           <Sheet>
-            <SheetTrigger asChild><Button variant="ghost" size="icon" aria-label="Menü öffnen"><Menu /></Button></SheetTrigger>
-            <SheetContent side="left" className="flex w-[86%] flex-col bg-card px-5 pb-6 pt-14">
+            <SheetTrigger asChild><Button variant="ghost" size="icon" aria-label="Menü öffnen" className="text-cream hover:bg-navy-800"><Menu /></Button></SheetTrigger>
+            <SheetContent side="right" className="flex w-full flex-col border-0 bg-navy-900 px-5 pb-7 pt-7 text-cream sm:max-w-full">
               <SheetTitle className="sr-only">Navigation</SheetTitle>
-              <SheetClose asChild><Link to="/" aria-label="Bavaria Autoarena Startseite" className="mb-6 inline-flex"><HeaderLogo /></Link></SheetClose>
-              <nav className="flex flex-col gap-1">
-                {navItems.map((item) => <SheetClose asChild key={item.to}><Link to={item.to} activeProps={{ className: "text-gold" }} className="flex min-h-12 items-center border-b border-border px-2 text-sm font-semibold text-foreground">{item.label}</Link></SheetClose>)}
+              <SheetClose asChild><Link to="/" className="inline-flex w-fit"><LogoMark size={72} /></Link></SheetClose>
+              <nav className="mt-10 flex flex-col">
+                {navItems.map((item) => <SheetClose asChild key={item.to}><Link to={item.to} activeProps={{ className: "text-gold-400" }} className="flex min-h-14 items-center border-b border-cream/10 font-display text-[28px] font-light uppercase tracking-[.06em]">{item.label}</Link></SheetClose>)}
               </nav>
-              <div className="mt-auto border-t border-border pt-5"><p className={open ? "text-sm text-success" : "text-sm text-muted-foreground"}>{currentOpeningStatus()}</p><Button asChild variant="gold" className="mt-4 w-full"><a href={phoneHref}><Phone />Anrufen</a></Button><a href={`https://wa.me/${siteConfig.whatsapp.replace(/\D/g, "")}`} target="_blank" rel="noopener noreferrer" className="tap-link mt-2 text-sm font-semibold text-silver underline underline-offset-4">WhatsApp schreiben</a><p className="mt-3 truncate text-xs text-muted-foreground">{siteConfig.street}, {siteConfig.zip} {siteConfig.city}</p></div>
+              <div className="mt-auto border-t border-cream/10 pt-6"><p className="mb-4 text-sm text-silver-400">{currentOpeningStatus()}</p><Button asChild variant="gold" className="w-full"><a href={phoneHref}><Phone />Anrufen</a></Button><a href={whatsappHref("Hallo Bavaria Autoarena, ich habe eine Frage.")} target="_blank" rel="noopener noreferrer" className="tap-link mt-2 text-sm text-cream underline underline-offset-[6px]">WhatsApp schreiben</a><p className="mt-3 truncate text-xs text-silver-400">{siteConfig.street}, {siteConfig.zip} {siteConfig.city}</p></div>
             </SheetContent>
           </Sheet>
         </div>
-        <Link to="/" aria-label="Bavaria Autoarena Startseite" className="justify-self-center md:mr-8 md:justify-self-auto"><HeaderLogo /></Link>
-        <nav className="hidden items-center gap-5 xl:flex">
-          {navItems.map((item) => <Link key={item.to} to={item.to} activeProps={{ className: "text-gold" }} className="whitespace-nowrap text-sm font-semibold text-muted-foreground transition-colors hover:text-foreground">{item.label}</Link>)}
-        </nav>
-        <div className="ml-auto hidden items-center gap-3 xl:gap-5 md:flex">
-          <a href={phoneHref} className="text-right">
-            <span className="block whitespace-nowrap text-sm font-semibold text-foreground">{siteConfig.phone}</span>
-            <span className={open ? "text-xs text-success" : "text-xs text-muted-foreground"}>{currentOpeningStatus()}</span>
-          </a>
-          <a href={`https://wa.me/${siteConfig.whatsapp.replace(/\D/g, "")}`} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp schreiben" className="grid size-10 place-items-center text-silver hover:text-gold"><WhatsAppIcon /></a>
-          <Button asChild variant="gold" className="px-5"><Link to="/auto-verkaufen">Auto bewerten</Link></Button>
-        </div>
-        <a href={phoneHref} aria-label="Anrufen" className="ml-auto grid size-11 place-items-center text-gold md:hidden"><Phone className="size-5" /></a>
       </div>
     </header>
   );
 }
 
-const iconCls = "size-5 fill-current";
-function WhatsAppIcon() { return <svg viewBox="0 0 24 24" className="size-5 fill-current" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2c0 1.3.9 2.5 1 2.7.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg>; }
-const socialIcons = {
-  tiktok: { label: "TikTok", path: "M16.6 5.8A4.3 4.3 0 0 1 15.5 3h-3.1v12.4a2.6 2.6 0 1 1-1.8-2.5V9.7a5.7 5.7 0 1 0 4.9 5.7V9.1a7.3 7.3 0 0 0 4.3 1.4V7.4a4.3 4.3 0 0 1-3.2-1.6Z" },
-  facebook: { label: "Facebook", path: "M14 8.5V6.8c0-.8.2-1.3 1.4-1.3H17V2.6A21 21 0 0 0 14.7 2.5c-2.3 0-3.9 1.4-3.9 4v2H8.2v3.2h2.6V21.5H14v-9.8h2.6l.4-3.2Z" },
-  instagram: { label: "Instagram", path: "M12 7.3a4.7 4.7 0 1 0 0 9.4 4.7 4.7 0 0 0 0-9.4Zm0 7.7a3 3 0 1 1 0-6 3 3 0 0 1 0 6Zm6-7.9a1.1 1.1 0 1 1-2.2 0 1.1 1.1 0 0 1 2.2 0ZM21 8c0-1.6-.4-3-1.6-4.2S16.8 2.1 15.2 2H8.8C7.2 2.1 5.8 2.5 4.6 3.7S3 6.4 3 8v8c0 1.6.4 3 1.6 4.2S7.2 21.9 8.8 22h6.4c1.6-.1 3-.5 4.2-1.7S21 17.6 21 16V8Zm-2 9.8a3 3 0 0 1-1.7 1.7c-1.2.5-4 .4-5.3.4s-4.1.1-5.3-.4a3 3 0 0 1-1.7-1.7c-.5-1.2-.4-4-.4-5.3s-.1-4.1.4-5.3A3 3 0 0 1 6.7 5.5C7.9 5 10.7 5.1 12 5.1s4.1-.1 5.3.4A3 3 0 0 1 19 7.2c.5 1.2.4 4 .4 5.3s.1 4.1-.4 5.3Z" },
-  google: { label: "Google-Bewertungen", path: "M21.6 10.2H12v3.9h5.5c-.5 2.5-2.6 3.9-5.5 3.9a6 6 0 1 1 3.9-10.6l2.9-2.9A10 10 0 1 0 12 22c5 0 9.6-3.6 9.6-10 0-.6-.1-1.2 0-1.8Z" },
-} as const;
-function SocialLinks() {
-  const entries = (Object.keys(socialIcons) as (keyof typeof socialIcons)[]).filter((k) => siteConfig.social[k]);
-  if (!entries.length) return null;
-  return <div className="mt-5 flex gap-3">{entries.map((k) => <a key={k} href={siteConfig.social[k]} target="_blank" rel="noopener noreferrer" aria-label={socialIcons[k].label} className="grid size-10 place-items-center rounded-full border border-border text-silver hover:border-gold/60 hover:text-gold"><svg viewBox="0 0 24 24" className={iconCls} aria-hidden="true"><path d={socialIcons[k].path} /></svg></a>)}</div>;
-}
-
 function Footer() {
-  return (
-    <footer className="bg-rauten-footer relative bg-darkest pb-24 pt-14 md:pb-8">
-      <div className="gold-divider absolute inset-x-0 top-0" />
-      <div className="mx-auto grid max-w-[1200px] gap-10 px-6 sm:grid-cols-2 md:px-12 lg:grid-cols-4">
-        <div><LogoMark size={96} className="mb-4" /><Logo /><p className="mt-4 text-sm font-semibold text-gold-light">Ihr Partner für Mobilität</p><p className="mt-3 max-w-xs text-sm leading-6 text-muted-foreground">Gebrauchtwagen in Perkam bei Straubing. Familienautos, SUV und Vans – selbst geprüft, mit Inzahlungnahme und Finanzierung.</p><SocialLinks /></div>
-        <div><h2 className="footer-title">Kontakt</h2><address className="mt-4 space-y-2 text-sm not-italic text-muted-foreground"><p>{siteConfig.street}<br />{siteConfig.zip} {siteConfig.city}</p><a className="block hover:text-gold" href={phoneHref}>{siteConfig.phone}</a><a className="block break-all hover:text-gold" href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a><p>Mo–Fr 09:00–18:00<br />Sa 09:00–13:00 · So geschlossen</p></address></div>
-        <div><h2 className="footer-title">Links</h2><nav className="mt-4 flex flex-col gap-2 text-sm text-muted-foreground">{navItems.map((item) => <Link key={item.to} to={item.to} className="hover:text-gold">{item.label}</Link>)}</nav></div>
-        <div><h2 className="footer-title">Rechtliches</h2><nav className="mt-4 flex flex-col gap-2 text-sm text-muted-foreground"><Link to="/impressum" className="hover:text-gold">Impressum</Link><Link to="/datenschutz" className="hover:text-gold">Datenschutz</Link></nav></div>
-      </div>
-      <div className="mx-auto mt-12 max-w-[1200px] px-6 md:px-12"><div className="gold-divider" /><div className="pt-6 text-xs leading-5 text-muted-foreground"><p>© 2026 Bavaria Autoarena GmbH · Perkam bei Straubing</p><p>Alle Preise sind Endpreise in Euro. Zwischenverkauf und Irrtum vorbehalten.</p></div></div>
-    </footer>
-  );
+  const pages = [...navItems.slice(0, 3), { label: "Finanzierung", to: "/finanzierung" as const }, ...navItems.slice(3)];
+  return <footer className="relative bg-navy-950 pb-24 pt-20 text-cream md:pb-8"><div className="footer-diamond-band absolute inset-x-0 top-0 h-1.5" /><div className="page-container grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
+    <div><LogoMark size={120} /><p className="mt-5 font-display text-xs font-light uppercase tracking-[.32em] text-silver-400">Ihr Partner für Mobilität</p><p className="mt-4 max-w-xs text-sm leading-6 text-silver-400">Gebrauchtwagen in Perkam bei Straubing – vom Alltagsauto bis zum Sportwagen.</p></div>
+    <div><h2 className="footer-title">Kontakt</h2><div className="mt-5 flex flex-col text-sm text-silver-400"><a className="tap-link text-gold-400" href={phoneHref}>{siteConfig.phone}</a><a className="tap-link" href={whatsappHref()} target="_blank" rel="noopener noreferrer">WhatsApp schreiben</a><a className="tap-link break-all" href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a></div></div>
+    <div><h2 className="footer-title">Standort</h2><address className="mt-5 text-sm not-italic leading-7 text-silver-400">{siteConfig.street}<br />{siteConfig.zip} {siteConfig.city}<br /><span className="mt-3 block">Mo–Fr 9–18 Uhr<br />Sa 9–13 Uhr</span></address></div>
+    <div><h2 className="footer-title">Seiten</h2><nav className="mt-5 grid grid-cols-2 gap-x-4 text-sm text-silver-400">{pages.map((item) => <Link key={item.to} to={item.to} className="tap-link hover:text-gold-400">{item.label}</Link>)}</nav></div>
+  </div><div className="page-container mt-14 border-t border-cream/10 pt-6 text-xs leading-6 text-silver-400"><div className="flex flex-wrap gap-x-6"><p>© {new Date().getFullYear()} Bavaria Autoarena GmbH</p><Link to="/impressum">Impressum</Link><Link to="/datenschutz">Datenschutz</Link><a href={siteConfig.social.tiktok} target="_blank" rel="noopener noreferrer">TikTok</a><a href={siteConfig.social.facebook} target="_blank" rel="noopener noreferrer">Facebook</a></div><p>Alle Preise sind Endpreise in Euro. Zwischenverkauf und Irrtum vorbehalten.</p></div></footer>;
 }
 
-function MobileBottomBar({ vehicleTitle, price, url }: { vehicleTitle?: string | undefined; price?: string | undefined; url?: string | undefined }) {
-  const text = vehicleTitle ? `Hallo, ich interessiere mich für ${vehicleTitle}${price ? ` (${price})` : ""}${url ? ` – ${url}` : ""}` : "Hallo Bavaria Autoarena, ich interessiere mich für ein Fahrzeug.";
-  const whatsappUrl = `https://wa.me/${siteConfig.whatsapp.replace(/\D/g, "")}?text=${encodeURIComponent(text)}`;
-  if (vehicleTitle && price) return <div className="fixed inset-x-0 bottom-0 z-50 grid min-h-16 grid-cols-[auto_1fr_auto_auto] items-center gap-1 border-t border-border bg-darkest px-2 pb-[env(safe-area-inset-bottom)] md:hidden"><span className="whitespace-nowrap px-1 font-display text-lg font-bold text-foreground">{price}</span><Button asChild variant="gold" className="min-h-11 px-2 text-xs"><a href="#anfrage">Probefahrt anfragen</a></Button><Button asChild variant="ghost" size="icon" className="size-11 min-h-11" aria-label="Anrufen"><a href={phoneHref}><Phone /></a></Button><Button asChild variant="ghost" size="icon" className="size-11 min-h-11" aria-label="WhatsApp"><a href={whatsappUrl} target="_blank" rel="noreferrer"><MessageCircle /></a></Button></div>;
-  return <div className="fixed inset-x-0 bottom-0 z-50 grid min-h-16 grid-cols-3 border-t border-border bg-darkest px-2 pb-[env(safe-area-inset-bottom)] md:hidden"><Button asChild variant="ghost" className="h-full flex-col gap-1 text-xs"><a href={phoneHref}><Phone />Anrufen</a></Button><Button asChild variant="ghost" className="h-full flex-col gap-1 text-xs"><a href={whatsappUrl} target="_blank" rel="noreferrer"><MessageCircle />WhatsApp</a></Button><Button asChild variant="gold" className="my-2 h-auto flex-col gap-1 px-2 text-xs"><Link to="/auto-verkaufen"><CarFront />Auto verkaufen</Link></Button></div>;
+function FloatingContact({ show }: { show: boolean }) {
+  if (!show) return null;
+  const items = [
+    { label: siteConfig.phone, href: phoneHref, icon: <Phone />, className: "bg-gold-500 text-navy-900" },
+    { label: "WhatsApp schreiben", href: whatsappHref(), icon: <WhatsAppIcon />, className: "bg-whatsapp text-navy-900" },
+    { label: "E-Mail senden", href: `mailto:${siteConfig.email}`, icon: <Mail />, className: "bg-navy-800 text-cream" },
+  ];
+  return <div className="fixed right-0 top-1/2 z-40 hidden -translate-y-1/2 flex-col lg:flex">{items.map((item) => <a key={item.label} href={item.href} className={`group ml-auto flex h-13 w-13 items-center overflow-hidden transition-[width] hover:w-[220px] ${item.className}`}><span className="grid size-13 shrink-0 place-items-center [&_svg]:size-5">{item.icon}</span><span className="whitespace-nowrap pr-5 text-sm font-semibold">{item.label}</span></a>)}</div>;
+}
+
+function MobileBottomBar({ vehicleTitle, price, url, show }: { vehicleTitle?: string; price?: string; url?: string; show: boolean }) {
+  if (!show) return null;
+  const text = vehicleTitle ? `Hallo, ich interessiere mich für ${vehicleTitle}${price ? ` (${price})` : ""}${url ? ` – ${url}` : ""}` : "Hallo Bavaria Autoarena, ich habe eine Frage.";
+  const whatsappUrl = whatsappHref(text);
+  if (vehicleTitle && price) return <div className="fixed inset-x-0 bottom-0 z-50 grid min-h-16 grid-cols-[auto_1fr_auto_auto] items-center gap-1 border-t border-cream/10 bg-navy-950 px-2 pb-[env(safe-area-inset-bottom)] text-cream md:hidden"><span className="whitespace-nowrap px-1 font-display text-lg font-bold">{price}</span><Button asChild variant="gold" className="min-h-11 px-2 text-[11px]"><a href="#anfrage">Probefahrt anfragen</a></Button><Button asChild variant="ghost" size="icon" className="size-11" aria-label="Anrufen"><a href={phoneHref}><Phone /></a></Button><Button asChild variant="ghost" size="icon" className="size-11" aria-label="WhatsApp"><a href={whatsappUrl} target="_blank" rel="noreferrer"><MessageCircle /></a></Button></div>;
+  return <div className="fixed inset-x-0 bottom-0 z-50 grid min-h-16 grid-cols-3 border-t border-cream/10 pb-[env(safe-area-inset-bottom)] text-[11px] md:hidden"><a href={phoneHref} className="flex flex-col items-center justify-center bg-gold-500 font-display uppercase tracking-[.08em] text-navy-900"><Phone className="mb-1 size-4" />Anrufen</a><a href={whatsappUrl} target="_blank" rel="noreferrer" className="flex flex-col items-center justify-center bg-whatsapp font-display uppercase tracking-[.08em] text-navy-900"><WhatsAppIcon className="mb-1 size-4" />WhatsApp</a><Link to="/kontakt" hash="termin" className="flex flex-col items-center justify-center bg-navy-900 font-display uppercase tracking-[.08em] text-cream"><ChevronRight className="mb-1 size-4" />Termin</Link></div>;
 }
 
 export function SiteLayout({ children }: { children: ReactNode }) {
@@ -98,8 +93,10 @@ export function SiteLayout({ children }: { children: ReactNode }) {
   const detailMatch = pathname.match(/^\/fahrzeuge\/([^/]+)$/);
   const slug = detailMatch?.[1];
   const { data: vehicle } = useQuery({ ...vehicleQuery(slug ?? ""), enabled: !!slug });
-  const [url, setUrl] = useState<string | undefined>(undefined);
+  const [url, setUrl] = useState<string>();
+  const [scrolled, setScrolled] = useState(false);
   useEffect(() => { setUrl(slug ? window.location.href : undefined); }, [slug]);
+  useEffect(() => { const fn = () => setScrolled(window.scrollY > 500); fn(); window.addEventListener("scroll", fn, { passive: true }); return () => window.removeEventListener("scroll", fn); }, []);
   const hideBar = pathname === "/auto-verkaufen";
-  return <div className={hideBar ? "min-h-screen bg-background" : "min-h-screen bg-background pb-[calc(72px+env(safe-area-inset-bottom))] md:pb-0"}><Header /><main>{children}</main><Footer />{hideBar ? null : slug && vehicle && url ? <MobileBottomBar vehicleTitle={vehicle.title} price={formatPrice(vehicle.price_eur)} url={url} /> : <MobileBottomBar />}</div>;
+  return <div className={hideBar ? "min-h-screen bg-background" : "min-h-screen bg-background pb-[calc(72px+env(safe-area-inset-bottom))] md:pb-0"}><Header /><main>{children}</main><Footer /><FloatingContact show={scrolled} />{hideBar ? null : slug && vehicle && url ? <MobileBottomBar show vehicleTitle={vehicle.title} price={formatPrice(vehicle.price_eur)} url={url} /> : <MobileBottomBar show={scrolled} />}</div>;
 }
