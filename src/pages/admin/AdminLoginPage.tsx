@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { supabase } from "@/integrations/supabase/client";
-import { Logo } from "@/components/Logo";
+import { Logo, LogoMark } from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -25,7 +25,7 @@ export default function AdminLoginPage() {
   return (
     <div className="bg-rauten flex min-h-screen items-center justify-center bg-background px-5">
       <form onSubmit={submit} className="w-full max-w-sm rounded-lg border border-border bg-card p-8 shadow-xl">
-        <div className="mb-8 flex justify-center"><Logo /></div>
+        <div className="mb-8 flex flex-col items-center gap-4"><LogoMark size={96} /><Logo /></div>
         <h1 className="text-center font-display text-lg font-bold uppercase tracking-wide">Verwaltung – Anmeldung</h1>
         <div className="mt-6 space-y-4">
           <div className="space-y-2"><Label htmlFor="email">E-Mail</Label><Input id="email" type="email" autoComplete="username" required value={email} onChange={(e) => setEmail(e.target.value)} className="h-12" /></div>

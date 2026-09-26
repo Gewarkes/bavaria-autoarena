@@ -28,7 +28,13 @@ export const siteConfig = {
     vatId: "[[PLATZHALTER: DE…]]",
     responsibleMStV: "[[PLATZHALTER: Name, Anschrift]]",
   },
-  financingPartner: "[[PLATZHALTER: Finanzierungspartner]]",
+  financingPartners: ["Santander Consumer Bank", "DKB"],
+  social: {
+    tiktok: "https://www.tiktok.com/@bavaria_autoarena",
+    facebook: "https://www.facebook.com/people/Bavaria-Autoarena-Straubing/100057080275525/",
+    instagram: "",
+    google: "",
+  },
   // Repräsentatives Beispiel nach § 6a PAngV – nur sichtbar, wenn features.showMonthlyRate true ist
   financingExample: {
     cashPrice: "[[PLATZHALTER: Barzahlungspreis]]",

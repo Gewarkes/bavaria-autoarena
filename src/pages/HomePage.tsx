@@ -9,6 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { VehicleCard, VehicleCardSkeleton } from "@/components/vehicles/VehicleCard";
 import { siteConfig } from "@/config/site";
 import { MapGraphic, Testimonials } from "@/components/site/shared";
+import { ServicesGrid } from "@/components/site/Services";
 import { brandsQuery, highlightsQuery, testimonialsQuery } from "@/lib/vehicles";
 
 const heroImage = "https://img.classistatic.de/api/v1/mo-prod/images/37/37cb9a67-af05-48a8-aa73-cf055badd95d?rule=mo-1600";
@@ -82,7 +83,9 @@ export default function HomePage() {
 
     <TradeInTeaser />
 
-    <Reveal className="border-y border-border bg-darkest"><div className="mx-auto max-w-7xl px-5 py-20 lg:px-6"><SectionTitle eyebrow="Darauf können Sie sich verlassen">Warum Bavaria Autoarena</SectionTitle><div className="mt-10 grid gap-8 sm:grid-cols-3">{[["85+", "Bewertungen auf mobile.de"], ["4,7 / 5", "Durchschnitt"], ["25+", "Fahrzeuge sofort verfügbar"]].map(([value, label]) => <div key={value} className="border-l border-gold/50 pl-5"><p className="text-gold-gradient font-display text-4xl font-extrabold tracking-wide">{value}</p><p className="mt-2 text-sm text-muted-foreground">{label}</p></div>)}</div><p className="mt-10 max-w-3xl leading-7 text-muted-foreground">Wir beraten Sie ehrlich und auf Augenhöhe. In unserem neu gebauten Autohaus in Perkam nehmen wir uns Zeit für Ihr Anliegen. Sie erhalten Fahrzeuge so, wie sie beschrieben sind.</p></div></Reveal>
+    <Reveal className="border-y border-border bg-darkest"><div className="mx-auto max-w-7xl px-5 py-20 lg:px-6"><SectionTitle eyebrow="Darauf können Sie sich verlassen">Warum Bavaria Autoarena</SectionTitle><div className="mt-10 grid gap-8 sm:grid-cols-3">{[["85+", "Bewertungen auf mobile.de"], ["4,7 / 5", "Durchschnitt"], ["25+", "Fahrzeuge sofort verfügbar"]].map(([value, label]) => <div key={value} className="border-l border-gold/50 pl-5"><p className="text-gold-gradient font-display text-4xl font-extrabold tracking-wide">{value}</p><p className="mt-2 text-sm text-muted-foreground">{label}</p></div>)}</div><p className="mt-10 max-w-3xl leading-7 text-foreground">Wir sind ein inhabergeführtes Autohaus aus Niederbayern. Seit [[PLATZHALTER: Jahr]] handeln wir mit Gebrauchtwagen – zuerst in Aiterhofen, jetzt in unserem neu gebauten Autohaus in Perkam. Bei uns sprechen Sie direkt mit den Menschen, die die Autos einkaufen, prüfen und verkaufen.</p><p className="mt-4 max-w-3xl leading-7 text-muted-foreground">Wir beraten Sie ehrlich und auf Augenhöhe. In unserem neu gebauten Autohaus in Perkam nehmen wir uns Zeit für Ihr Anliegen. Sie erhalten Fahrzeuge so, wie sie beschrieben sind.</p></div></Reveal>
+
+    <Reveal className="mx-auto max-w-7xl px-5 pt-20 lg:px-6"><SectionTitle eyebrow="Was wir für Sie tun">Unsere Leistungen</SectionTitle><ServicesGrid /></Reveal>
 
     <Reveal className="mx-auto max-w-7xl px-5 py-20 lg:px-6"><SectionTitle eyebrow="Erfahrungen unserer Kunden">Kundenstimmen</SectionTitle><Testimonials /><p className="mt-6 max-w-5xl text-xs leading-5 text-muted-foreground">Bewertungen stammen von mobile.de (Stand 09/2026). Dort können nur Nutzer bewerten, die über die Plattform Kontakt aufgenommen haben; mobile.de prüft die Bewertungen nach eigenen Richtlinien. Die Kundenstimmen sind gekürzt wiedergegeben. <a href={siteConfig.mobileDeUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-gold hover:text-gold-light">Alle Bewertungen auf mobile.de</a></p></Reveal>
 

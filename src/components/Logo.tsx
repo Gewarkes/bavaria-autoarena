@@ -13,3 +13,28 @@ export function Logo({ className }: { className?: string }) {
     </div>
   );
 }
+
+/** Original-Wappenlogo (public/logo.webp). */
+export function LogoMark({ size = 56, className }: { size?: number; className?: string }) {
+  return (
+    <img
+      src="/logo.webp"
+      alt="Bavaria Autoarena Wappen"
+      width={size}
+      height={size}
+      style={{ width: size, height: size }}
+      className={cn("shrink-0 rounded-lg border border-gold/40 object-cover", className)}
+    />
+  );
+}
+
+/** Header-Variante: Bild + Wortmarke; unter 380px nur das Bild. */
+export function HeaderLogo() {
+  return (
+    <span className="inline-flex items-center gap-3">
+      <LogoMark size={44} className="md:hidden" />
+      <LogoMark size={56} className="hidden md:block" />
+      <Logo className="max-[379px]:hidden" />
+    </span>
+  );
+}

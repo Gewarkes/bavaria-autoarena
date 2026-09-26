@@ -77,6 +77,7 @@ export default function VehicleDetailPage() {
             <p className="mt-2 text-sm text-muted-foreground">EZ {formatFirstRegistration(v.first_registration)} · {formatKm(v.mileage_km)} · {formatFuel(v.fuel)} · {formatTransmission(v.transmission)}{v.power_ps ? ` · ${v.power_ps} PS` : ""}</p>
             <p className="text-gold-gradient mt-6 font-display text-4xl font-extrabold tracking-wide">{formatPrice(v.price_eur)}</p>
             <p className="mt-2 text-xs leading-5 text-muted-foreground">{v.tax_status === "differenz" ? "Differenzbesteuert nach § 25a UStG, MwSt. nicht ausweisbar" : "inkl. 19 % MwSt., MwSt. ausweisbar"}</p>
+            <p className="mt-1 text-xs leading-5 text-muted-foreground">Finanzierung über Santander Consumer Bank oder DKB, Bonität vorausgesetzt.</p>
             {siteConfig.features.showMonthlyRate ? <p className="mt-3 text-sm text-foreground">Finanzierung auf Anfrage</p> : null}
             <div className="mt-6 grid gap-3">
               <Button variant="gold" onClick={() => goToForm("probefahrt")}>Probefahrt vereinbaren</Button>

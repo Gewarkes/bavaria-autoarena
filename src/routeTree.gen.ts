@@ -17,6 +17,7 @@ import { Route as FahrzeugeRouteImport } from './routes/fahrzeuge'
 import { Route as FinanzierungRouteImport } from './routes/finanzierung'
 import { Route as ImpressumRouteImport } from './routes/impressum'
 import { Route as KontaktRouteImport } from './routes/kontakt'
+import { Route as LeistungenRouteImport } from './routes/leistungen'
 import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as UeberUnsRouteImport } from './routes/ueber-uns'
@@ -74,6 +75,11 @@ const ImpressumRoute = ImpressumRouteImport.update({
 const KontaktRoute = KontaktRouteImport.update({
   id: '/kontakt',
   path: '/kontakt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LeistungenRoute = LeistungenRouteImport.update({
+  id: '/leistungen',
+  path: '/leistungen',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RobotsDottxtRoute = RobotsDottxtRouteImport.update({
@@ -177,6 +183,7 @@ export interface FileRoutesByFullPath {
   '/finanzierung': typeof FinanzierungRoute
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
+  '/leistungen': typeof LeistungenRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/ueber-uns': typeof UeberUnsRoute
@@ -202,6 +209,7 @@ export interface FileRoutesByTo {
   '/finanzierung': typeof FinanzierungRoute
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
+  '/leistungen': typeof LeistungenRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/ueber-uns': typeof UeberUnsRoute
@@ -231,6 +239,7 @@ export interface FileRoutesById {
   '/finanzierung': typeof FinanzierungRoute
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
+  '/leistungen': typeof LeistungenRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/ueber-uns': typeof UeberUnsRoute
@@ -261,6 +270,7 @@ export interface FileRouteTypes {
     | '/finanzierung'
     | '/impressum'
     | '/kontakt'
+    | '/leistungen'
     | '/robots.txt'
     | '/sitemap.xml'
     | '/ueber-uns'
@@ -286,6 +296,7 @@ export interface FileRouteTypes {
     | '/finanzierung'
     | '/impressum'
     | '/kontakt'
+    | '/leistungen'
     | '/robots.txt'
     | '/sitemap.xml'
     | '/ueber-uns'
@@ -314,6 +325,7 @@ export interface FileRouteTypes {
     | '/finanzierung'
     | '/impressum'
     | '/kontakt'
+    | '/leistungen'
     | '/robots.txt'
     | '/sitemap.xml'
     | '/ueber-uns'
@@ -343,6 +355,7 @@ export interface RootRouteChildren {
   FinanzierungRoute: typeof FinanzierungRoute
   ImpressumRoute: typeof ImpressumRoute
   KontaktRoute: typeof KontaktRoute
+  LeistungenRoute: typeof LeistungenRoute
   RobotsDottxtRoute: typeof RobotsDottxtRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   UeberUnsRoute: typeof UeberUnsRoute
@@ -406,6 +419,13 @@ declare module '@tanstack/react-router' {
       path: '/kontakt'
       fullPath: '/kontakt'
       preLoaderRoute: typeof KontaktRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/leistungen': {
+      id: '/leistungen'
+      path: '/leistungen'
+      fullPath: '/leistungen'
+      preLoaderRoute: typeof LeistungenRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/robots.txt': {
@@ -600,6 +620,7 @@ const rootRouteChildren: RootRouteChildren = {
   FinanzierungRoute: FinanzierungRoute,
   ImpressumRoute: ImpressumRoute,
   KontaktRoute: KontaktRoute,
+  LeistungenRoute: LeistungenRoute,
   RobotsDottxtRoute: RobotsDottxtRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   UeberUnsRoute: UeberUnsRoute,

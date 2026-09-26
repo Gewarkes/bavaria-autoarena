@@ -3,7 +3,7 @@ import { Link, Outlet, useNavigate } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
 import { CarFront, ClipboardList, LayoutDashboard, LogOut, Menu, MessageSquareQuote, Repeat2, ShieldAlert } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { Logo } from "@/components/Logo";
+import { Logo, LogoMark } from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetClose, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -84,7 +84,7 @@ export function AdminShell() {
   return (
     <div className="min-h-screen bg-background lg:grid lg:grid-cols-[16rem_1fr]">
       <aside className="sticky top-0 hidden h-screen flex-col border-r border-border bg-darkest p-4 lg:flex">
-        <Link to="/admin" className="mb-8 block px-2 pt-2"><Logo /></Link>
+        <Link to="/admin" className="mb-8 flex items-center gap-3 px-2 pt-2"><LogoMark size={44} /><Logo /></Link>
         <NavLinks />
       </aside>
       <div className="min-w-0">
