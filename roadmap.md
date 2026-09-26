@@ -68,3 +68,11 @@
 - [x] Admin: Spalte Wunschtermin, Filter Termine
 - [x] Browserprüfung, Testdaten gelöscht, Produktions-Build
 - [ ] Galerien per Admin-Import (wartet auf Bildquelle); BMW 540i vorerst nicht anlegen
+
+# Redesign v2 – Schritt D
+
+- [x] Siegel-Zuschnitt auf Karten, Startseite und Detail-Hauptbild vereinheitlichen
+- [x] Bildfehler-Fallback, Startseiten-Ersatz und Admin-Hinweis ergänzen
+- [x] Ankauf- und Kundenstimmenbilder fest vorgeben
+- [x] Admin-Schalter „Titelbild hat Siegel“ ergänzen und Werte erhalten
+- [x] Startseite, Bestand und Detail bei 1440/390 px prüfen; Produktions-Build ausführen

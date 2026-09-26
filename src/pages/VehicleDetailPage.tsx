@@ -50,7 +50,7 @@ export default function VehicleDetailPage() {
 
       <div className="mt-2 grid gap-8 sm:mt-6 lg:grid-cols-[minmax(0,1fr)_400px] lg:gap-10">
         <div className="contents lg:block lg:min-w-0 lg:space-y-10">
-           <div className="order-1"><VehicleGallery images={publicGallery(v)} title={v.title} badge={badge} /></div>
+            <div className="order-1"><VehicleGallery images={publicGallery(v)} title={v.title} badge={badge} sealIndices={v.seal_indices} /></div>
 
           <section className="order-3"><h2 className="section-h2">Daten</h2><dl className="mt-6 grid grid-cols-2 border-t border-border sm:grid-cols-3">{facts.map(({ label, value }) => <div key={label} className="border-b border-border py-4 pr-4"><dt className="text-xs text-muted-foreground">{label}</dt><dd className="mt-1 font-semibold text-foreground">{value}</dd></div>)}</dl></section>
 
