@@ -17,6 +17,8 @@ import { Route as FahrzeugeRouteImport } from './routes/fahrzeuge'
 import { Route as FinanzierungRouteImport } from './routes/finanzierung'
 import { Route as ImpressumRouteImport } from './routes/impressum'
 import { Route as KontaktRouteImport } from './routes/kontakt'
+import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as UeberUnsRouteImport } from './routes/ueber-uns'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminAnfragenRouteImport } from './routes/admin.anfragen'
@@ -72,6 +74,16 @@ const ImpressumRoute = ImpressumRouteImport.update({
 const KontaktRoute = KontaktRouteImport.update({
   id: '/kontakt',
   path: '/kontakt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RobotsDottxtRoute = RobotsDottxtRouteImport.update({
+  id: '/robots.txt',
+  path: '/robots.txt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const UeberUnsRoute = UeberUnsRouteImport.update({
@@ -165,6 +177,8 @@ export interface FileRoutesByFullPath {
   '/finanzierung': typeof FinanzierungRoute
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
+  '/robots.txt': typeof RobotsDottxtRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/ueber-uns': typeof UeberUnsRoute
   '/admin/anfragen': typeof AdminAnfragenRoute
   '/admin/kundenstimmen': typeof AdminKundenstimmenRoute
@@ -188,6 +202,8 @@ export interface FileRoutesByTo {
   '/finanzierung': typeof FinanzierungRoute
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
+  '/robots.txt': typeof RobotsDottxtRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/ueber-uns': typeof UeberUnsRoute
   '/admin/anfragen': typeof AdminAnfragenRoute
   '/admin/kundenstimmen': typeof AdminKundenstimmenRoute
@@ -215,6 +231,8 @@ export interface FileRoutesById {
   '/finanzierung': typeof FinanzierungRoute
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
+  '/robots.txt': typeof RobotsDottxtRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/ueber-uns': typeof UeberUnsRoute
   '/admin/anfragen': typeof AdminAnfragenRoute
   '/admin/kundenstimmen': typeof AdminKundenstimmenRoute
@@ -243,6 +261,8 @@ export interface FileRouteTypes {
     | '/finanzierung'
     | '/impressum'
     | '/kontakt'
+    | '/robots.txt'
+    | '/sitemap.xml'
     | '/ueber-uns'
     | '/admin/anfragen'
     | '/admin/kundenstimmen'
@@ -266,6 +286,8 @@ export interface FileRouteTypes {
     | '/finanzierung'
     | '/impressum'
     | '/kontakt'
+    | '/robots.txt'
+    | '/sitemap.xml'
     | '/ueber-uns'
     | '/admin/anfragen'
     | '/admin/kundenstimmen'
@@ -292,6 +314,8 @@ export interface FileRouteTypes {
     | '/finanzierung'
     | '/impressum'
     | '/kontakt'
+    | '/robots.txt'
+    | '/sitemap.xml'
     | '/ueber-uns'
     | '/admin/anfragen'
     | '/admin/kundenstimmen'
@@ -319,6 +343,8 @@ export interface RootRouteChildren {
   FinanzierungRoute: typeof FinanzierungRoute
   ImpressumRoute: typeof ImpressumRoute
   KontaktRoute: typeof KontaktRoute
+  RobotsDottxtRoute: typeof RobotsDottxtRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   UeberUnsRoute: typeof UeberUnsRoute
   AdminLoginRoute: typeof AdminLoginRoute
   ApiPublicSendLeadMailRoute: typeof ApiPublicSendLeadMailRoute
@@ -380,6 +406,20 @@ declare module '@tanstack/react-router' {
       path: '/kontakt'
       fullPath: '/kontakt'
       preLoaderRoute: typeof KontaktRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/robots.txt': {
+      id: '/robots.txt'
+      path: '/robots.txt'
+      fullPath: '/robots.txt'
+      preLoaderRoute: typeof RobotsDottxtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/ueber-uns': {
@@ -560,6 +600,8 @@ const rootRouteChildren: RootRouteChildren = {
   FinanzierungRoute: FinanzierungRoute,
   ImpressumRoute: ImpressumRoute,
   KontaktRoute: KontaktRoute,
+  RobotsDottxtRoute: RobotsDottxtRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   UeberUnsRoute: UeberUnsRoute,
   AdminLoginRoute: AdminLoginRoute,
   ApiPublicSendLeadMailRoute: ApiPublicSendLeadMailRoute,
