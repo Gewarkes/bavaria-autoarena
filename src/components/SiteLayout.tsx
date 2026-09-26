@@ -38,12 +38,12 @@ function Header() {
           </Sheet>
         </div>
         <Link to="/" aria-label="Bavaria Autoarena Startseite" className="justify-self-center md:mr-8 md:justify-self-auto"><HeaderLogo /></Link>
-        <nav className="hidden items-center gap-6 xl:flex">
-          {navItems.map((item) => <Link key={item.to} to={item.to} activeProps={{ className: "text-gold" }} className="font-display text-xs font-bold uppercase tracking-wide text-muted-foreground transition-colors hover:text-foreground">{item.label}</Link>)}
+        <nav className="hidden items-center gap-5 xl:flex">
+          {navItems.map((item) => <Link key={item.to} to={item.to} activeProps={{ className: "text-gold" }} className="whitespace-nowrap font-display text-xs font-bold uppercase tracking-wide text-muted-foreground transition-colors hover:text-foreground">{item.label}</Link>)}
         </nav>
         <div className="ml-auto hidden items-center gap-5 md:flex">
           <a href={phoneHref} className="text-right">
-            <span className="block text-sm font-semibold text-foreground">{siteConfig.phone}</span>
+            <span className="block whitespace-nowrap text-sm font-semibold text-foreground">{siteConfig.phone}</span>
             <span className={open ? "text-xs text-success" : "text-xs text-muted-foreground"}>{currentOpeningStatus()}</span>
           </a>
           <a href={`https://wa.me/${siteConfig.whatsapp.replace(/\D/g, "")}`} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp schreiben" className="grid size-10 place-items-center rounded-full border border-border text-gold hover:border-gold/60"><WhatsAppIcon /></a>
