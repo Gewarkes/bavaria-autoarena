@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { getRouteApi, useNavigate } from "@tanstack/react-router";
 import { SlidersHorizontal } from "lucide-react";
 import { useState } from "react";
@@ -41,11 +41,11 @@ export default function VehiclesPage() {
   const [sheet, setSheet] = useState(false);
   const update = (patch: Partial<VehicleSearch>) => navigate({ search: (prev) => ({ ...prev, ...patch }), replace: true, resetScroll: false });
   const reset = () => navigate({ search: {}, replace: true, resetScroll: false });
-  const { data, isPending, isError } = useQuery(vehiclesQuery(searchToFilter(search)));
-  const all = useQuery(vehiclesQuery({}));
+  const { data } = useSuspenseQuery(vehiclesQuery(searchToFilter(search)));
+  const all = useSuspenseQuery(vehiclesQuery({}));
   const hasFilters = Object.entries(search).some(([k, v]) => k !== "sort" && v !== undefined);
   const sortSelect = <UnderlineSelect label="Sortierung" value={search.sort ?? "neu"} onChange={(v) => update({ sort: v === "neu" ? undefined : v })} options={sortOptions.map((o) => [o.value, o.label] as const)} />;
-  const hits = isPending ? null : `${data?.length ?? 0} ${data?.length === 1 ? "Treffer" : "Treffer"}`;
+  const hits = `${data.length} Treffer`;
 
   return <>
     <section className="bg-navy-900 py-16 text-cream">
@@ -80,9 +80,7 @@ export default function VehiclesPage() {
       <div className="page-container py-12">
         {hasFilters ? <button type="button" onClick={reset} className="text-link mb-4 hidden text-navy-900 md:inline-flex">Filter zurücksetzen</button> : null}
         <div className="grid gap-x-5 gap-y-10 md:grid-cols-2 md:gap-x-6 md:gap-y-12 lg:grid-cols-3 lg:gap-x-8">
-          {isPending ? <span className="sr-only">Fahrzeuge werden geladen</span>
-            : isError ? <div className="col-span-full bg-white p-8 text-center text-ink-500">Die Fahrzeuge konnten gerade nicht geladen werden. <a href={siteConfig.mobileDeUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-gold-700 underline">Bestand auf mobile.de ansehen</a></div>
-            : data.length === 0 ? <div className="col-span-full bg-white p-8 text-center text-ink-500">Keine Fahrzeuge mit diesen Kriterien. <button type="button" onClick={reset} className="font-semibold text-gold-700 underline">Filter zurücksetzen</button></div>
+          {data.length === 0 ? <div className="col-span-full bg-white p-8 text-center text-ink-500">Keine Fahrzeuge mit diesen Kriterien. <button type="button" onClick={reset} className="font-semibold text-gold-700 underline">Filter zurücksetzen</button></div>
             : data.map((v, i) => <VehicleCard key={v.id} vehicle={v} eager={i < 3} />)}
         </div>
         <p className="mt-12 text-xs leading-5 text-ink-500">Alle Preise sind Endpreise in Euro. Zulassung und Überführung sind nicht enthalten und werden nur auf Wunsch gegen gesonderte Berechnung übernommen. Zwischenverkauf und Irrtum vorbehalten.</p>

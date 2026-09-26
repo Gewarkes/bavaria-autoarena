@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import { ChevronRight, MapPin, MessageCircle, Phone } from "lucide-react";
 import { useState } from "react";
@@ -86,7 +86,7 @@ function MapArtwork() {
 }
 
 export default function HomePage() {
-  const { data: vehicles = [] } = useQuery(vehiclesQuery({}));
+  const { data: vehicles } = useSuspenseQuery(vehiclesQuery({}));
   const [brokenVehicleIds, setBrokenVehicleIds] = useState<Set<string>>(() => new Set());
   const visibleVehicles = vehicles.filter((vehicle) => !brokenVehicleIds.has(vehicle.id));
   const markImageBroken = (vehicle: Vehicle) => setBrokenVehicleIds((previous) => previous.has(vehicle.id) ? previous : new Set(previous).add(vehicle.id));

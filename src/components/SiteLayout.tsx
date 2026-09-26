@@ -1,11 +1,11 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useRouterState } from "@tanstack/react-router";
-import { ChevronRight, Mail, Menu, Phone } from "lucide-react";
+import { ChevronRight, Menu, Phone } from "lucide-react";
 import { HeaderLogo, LogoMark } from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetClose, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { currentOpeningStatus, isOpenNow, phoneHref, siteConfig, whatsappHref } from "@/config/site";
+import { currentOpeningStatus, phoneHref, siteConfig, whatsappHref } from "@/config/site";
 import { formatPrice } from "@/lib/format";
 import { coverImage, vehicleQuery } from "@/lib/vehicles";
 import { openTermin, type TerminVehicle } from "@/lib/termin";
@@ -26,7 +26,6 @@ function WhatsAppIcon({ className = "size-5" }: { className?: string }) {
 
 function Header() {
   const [compact, setCompact] = useState(false);
-  const open = isOpenNow();
   useEffect(() => {
     const onScroll = () => setCompact(window.scrollY > 60);
     onScroll();
@@ -34,14 +33,14 @@ function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
   return (
-    <header className="sticky top-0 z-50 border-b border-cream/5 bg-navy-900 text-cream">
-      <div className={`page-container flex items-center transition-[height] ${compact ? "h-17" : "h-16 lg:h-22"}`}>
+    <header className={`sticky top-0 z-50 bg-navy-900 text-cream ${compact ? "border-b border-gold-500/20" : "border-b border-cream/5"}`}>
+      <div className="page-container flex h-16 items-center lg:h-20">
         <Link to="/" aria-label="Bavaria Autoarena Startseite" className="shrink-0"><span className={compact ? "block scale-[.8] transition-transform" : "block transition-transform"}><HeaderLogo /></span></Link>
         <nav className="ml-10 hidden items-center gap-7 lg:flex">
-          {navItems.map((item) => <Link key={item.to} to={item.to} activeProps={{ className: "text-gold-400" }} className="font-display text-[15px] font-normal text-cream/85 transition-colors hover:text-gold-400">{item.label}</Link>)}
+          {navItems.map((item) => <Link key={item.to} to={item.to} activeProps={{ className: "border-gold-400 text-gold-400" }} className="border-b border-transparent py-2 font-display text-[15px] font-normal text-cream/85 transition-colors hover:text-gold-400">{item.label}</Link>)}
         </nav>
         <div className="ml-auto hidden items-center gap-6 lg:flex">
-          <a href={phoneHref} className="text-right"><span className="block font-display text-base font-normal text-gold-400">{siteConfig.phone}</span><span className="flex items-center justify-end gap-2 text-xs text-silver-400">{open ? <i className="size-1.5 rounded-full bg-success" /> : null}{currentOpeningStatus()}</span></a>
+          <a href={phoneHref} className="text-right"><span className="block font-display text-base font-normal text-gold-400">{siteConfig.phone}</span><span className="block text-[13px] text-silver-400">Mo–Fr 9–18 · Sa 9–13</span></a>
           <Button type="button" variant="gold" onClick={() => openTermin()}>Termin vereinbaren</Button>
         </div>
         <a href={phoneHref} aria-label="Anrufen" className="ml-auto grid size-11 place-items-center text-gold-400 lg:hidden"><Phone className="size-5" strokeWidth={1.5} /></a>
@@ -73,22 +72,12 @@ function Footer() {
   </div><div className="page-container mt-14 border-t border-cream/10 pt-6 text-xs leading-6 text-silver-400"><div className="flex flex-wrap gap-x-6"><p>© {new Date().getFullYear()} Bavaria Autoarena GmbH</p><Link to="/impressum">Impressum</Link><Link to="/datenschutz">Datenschutz</Link><a href={siteConfig.social.tiktok} target="_blank" rel="noopener noreferrer">TikTok</a><a href={siteConfig.social.facebook} target="_blank" rel="noopener noreferrer">Facebook</a></div><p>Alle Preise sind Endpreise in Euro. Zwischenverkauf und Irrtum vorbehalten.</p></div></footer>;
 }
 
-function FloatingContact({ show }: { show: boolean }) {
-  if (!show) return null;
-  const items = [
-    { label: siteConfig.phone, href: phoneHref, icon: <Phone />, className: "bg-gold-500 text-navy-900" },
-    { label: "WhatsApp schreiben", href: whatsappHref(), icon: <WhatsAppIcon />, className: "bg-whatsapp text-navy-900" },
-    { label: "E-Mail senden", href: `mailto:${siteConfig.email}`, icon: <Mail />, className: "bg-navy-800 text-cream" },
-  ];
-  return <div className="fixed right-0 top-1/2 z-40 hidden -translate-y-1/2 flex-col lg:flex">{items.map((item) => <a key={item.label} href={item.href} className={`group ml-auto flex h-13 w-13 items-center overflow-hidden transition-[width] hover:w-[220px] ${item.className}`}><span className="grid size-13 shrink-0 place-items-center [&_svg]:size-5">{item.icon}</span><span className="whitespace-nowrap pr-5 text-sm font-semibold">{item.label}</span></a>)}</div>;
-}
-
 function MobileBottomBar({ vehicleTitle, price, url, show, terminVehicle }: { vehicleTitle?: string; price?: string; url?: string; show: boolean; terminVehicle?: TerminVehicle }) {
   if (!show) return null;
   const text = vehicleTitle ? `Hallo, ich interessiere mich für ${vehicleTitle}${price ? ` (${price})` : ""}${url ? ` – ${url}` : ""}` : "Hallo Bavaria Autoarena, ich habe eine Frage.";
   const whatsappUrl = whatsappHref(text);
-  if (vehicleTitle && price && terminVehicle) return <div className="fixed inset-x-0 bottom-0 z-50 flex min-h-16 items-center gap-2 border-t border-cream/10 bg-navy-950 px-3 pb-[env(safe-area-inset-bottom)] text-cream md:hidden"><span className="mr-auto whitespace-nowrap font-display text-xl font-light tabular-nums">{price}</span><Button asChild variant="ghost" size="icon" className="size-11 text-cream" aria-label="Anrufen"><a href={phoneHref}><Phone strokeWidth={1.5} /></a></Button><Button type="button" variant="gold" className="min-h-11 px-5" onClick={() => openTermin({ vehicle: terminVehicle, topic: "Probefahrt" })}>Probefahrt</Button></div>;
-  return <div className="fixed inset-x-0 bottom-0 z-50 grid min-h-16 grid-cols-3 border-t border-cream/10 pb-[env(safe-area-inset-bottom)] text-[11px] md:hidden"><a href={phoneHref} className="flex flex-col items-center justify-center bg-gold-500 font-display uppercase tracking-[.08em] text-navy-900"><Phone className="mb-1 size-4" />Anrufen</a><a href={whatsappUrl} target="_blank" rel="noreferrer" className="flex flex-col items-center justify-center bg-whatsapp font-display uppercase tracking-[.08em] text-navy-900"><WhatsAppIcon className="mb-1 size-4" />WhatsApp</a><button type="button" onClick={() => openTermin()} className="flex flex-col items-center justify-center bg-navy-900 font-display uppercase tracking-[.08em] text-cream"><ChevronRight className="mb-1 size-4" />Termin</button></div>;
+  if (vehicleTitle && price && terminVehicle) return <div className="fixed inset-x-0 bottom-0 z-50 flex min-h-16 items-center gap-2 border-t border-cream/10 bg-navy-900 px-3 pb-[env(safe-area-inset-bottom)] text-cream md:hidden"><span className="mr-auto whitespace-nowrap font-display text-xl font-light tabular-nums">{price}</span><Button asChild variant="gold" size="icon" className="size-11" aria-label="Anrufen"><a href={phoneHref}><Phone strokeWidth={1.5} /></a></Button><Button type="button" variant="outline" className="h-11 border-cream px-4 text-xs text-cream" onClick={() => openTermin({ vehicle: terminVehicle, topic: "Probefahrt" })}>Probefahrt</Button></div>;
+  return <div className="fixed inset-x-0 bottom-0 z-50 grid min-h-16 grid-cols-3 border-t border-cream/10 bg-navy-900 pb-[env(safe-area-inset-bottom)] text-xs md:hidden"><a href={phoneHref} className="flex flex-col items-center justify-center bg-gold-500 font-display uppercase tracking-[.08em] text-navy-900"><Phone className="mb-1 size-4" />Anrufen</a><a href={whatsappUrl} target="_blank" rel="noreferrer" className="flex flex-col items-center justify-center font-display uppercase tracking-[.08em] text-cream"><WhatsAppIcon className="mb-1 size-4" />WhatsApp</a><button type="button" onClick={() => openTermin()} className="m-1 flex flex-col items-center justify-center border border-cream/30 font-display uppercase tracking-[.08em] text-cream"><ChevronRight className="mb-1 size-4" />Termin</button></div>;
 }
 
 export function SiteLayout({ children }: { children: ReactNode }) {
@@ -97,9 +86,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
   const slug = detailMatch?.[1];
   const { data: vehicle } = useQuery({ ...vehicleQuery(slug ?? ""), enabled: !!slug });
   const [url, setUrl] = useState<string>();
-  const [scrolled, setScrolled] = useState(false);
   useEffect(() => { setUrl(slug ? window.location.href : undefined); }, [slug]);
-  useEffect(() => { const fn = () => setScrolled(window.scrollY > 500); fn(); window.addEventListener("scroll", fn, { passive: true }); return () => window.removeEventListener("scroll", fn); }, []);
   const hideBar = pathname === "/auto-verkaufen";
-  return <div className={hideBar ? "min-h-screen bg-background" : "min-h-screen bg-background pb-[calc(72px+env(safe-area-inset-bottom))] md:pb-0"}><Header /><main>{children}</main><Footer /><FloatingContact show={scrolled} /><TerminHost />{hideBar ? null : slug && vehicle && url ? <MobileBottomBar show vehicleTitle={vehicle.title} price={formatPrice(vehicle.price_eur)} url={url} terminVehicle={{ id: vehicle.id, title: vehicle.title, price: formatPrice(vehicle.price_eur), image: coverImage(vehicle) ? sizedImage(coverImage(vehicle)!.url, "card") : undefined }} /> : <MobileBottomBar show={scrolled} />}</div>;
+  return <div className={hideBar ? "min-h-screen bg-background" : "min-h-screen bg-background pb-20 md:pb-0"}><Header /><main>{children}</main><Footer /><TerminHost />{hideBar ? null : slug && vehicle && url ? <MobileBottomBar show vehicleTitle={vehicle.title} price={formatPrice(vehicle.price_eur)} url={url} terminVehicle={{ id: vehicle.id, title: vehicle.title, price: formatPrice(vehicle.price_eur), image: coverImage(vehicle) ? sizedImage(coverImage(vehicle)!.url, "card") : undefined }} /> : <MobileBottomBar show />}</div>;
 }
