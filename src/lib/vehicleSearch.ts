@@ -1,8 +1,8 @@
 import type { VehicleFilter } from "@/lib/vehicles";
 
 export type VehicleSearch = {
-  marke?: string; preisBis?: number; preisAb?: number; kraftstoff?: string; karosserie?: string;
-  getriebe?: string; kmBis?: number; ezAb?: number; sort?: string;
+  marke?: string | undefined; preisBis?: number | undefined; preisAb?: number | undefined; kraftstoff?: string | undefined; karosserie?: string | undefined;
+  getriebe?: string | undefined; kmBis?: number | undefined; ezAb?: number | undefined; sort?: string | undefined;
 };
 
 const str = (v: unknown) => (typeof v === "string" && v.trim() ? v.trim().slice(0, 60) : undefined);

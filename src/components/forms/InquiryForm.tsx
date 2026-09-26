@@ -64,13 +64,13 @@ export function VehicleInquiryForm({ vehicleId, vehicleTitle, kind, onKindChange
       <div role="radiogroup" aria-label="Art der Anfrage" className="grid grid-cols-3 gap-1 rounded-lg border border-border bg-background p-1">
         {kinds.map((k) => <button key={k.value} type="button" role="radio" aria-checked={kind === k.value} onClick={() => onKindChange(k.value)} className={cn("h-11 rounded-md text-sm font-semibold transition-colors", kind === k.value ? "bg-gold-gradient text-primary-foreground" : "text-muted-foreground hover:text-foreground")}>{k.label}</button>)}
       </div>
-      <Field label="Name *" error={errors.name}><Input value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" className="h-12" /></Field>
+      <Field label="Name *" error={errors["name"]}><Input value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" className="h-12" /></Field>
       <div className="grid gap-4 sm:grid-cols-2">
-        <Field label="Telefon" error={errors.phone}><Input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} autoComplete="tel" className="h-12" /></Field>
-        <Field label="E-Mail" error={errors.email}><Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" className="h-12" /></Field>
+        <Field label="Telefon" error={errors["phone"]}><Input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} autoComplete="tel" className="h-12" /></Field>
+        <Field label="E-Mail" error={errors["email"]}><Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" className="h-12" /></Field>
       </div>
       <p className="-mt-2 text-xs text-muted-foreground">Telefon oder E-Mail genügt.</p>
-      <Field label="Nachricht" error={errors.message}><Textarea value={message} onChange={(e) => setMessage(e.target.value)} rows={4} /></Field>
+      <Field label="Nachricht" error={errors["message"]}><Textarea value={message} onChange={(e) => setMessage(e.target.value)} rows={4} /></Field>
       <label className="flex items-start gap-3 text-sm text-muted-foreground"><Checkbox checked={marketing} onCheckedChange={(v) => setMarketing(v === true)} className="mt-0.5" />Ich möchte über passende Angebote informiert werden (optional, jederzeit widerrufbar).</label>
       {state === "error" ? <InquiryError /> : null}
       <PrivacyNotice />
@@ -79,6 +79,6 @@ export function VehicleInquiryForm({ vehicleId, vehicleTitle, kind, onKindChange
   );
 }
 
-export function Field({ label, error, children }: { label: string; error?: string; children: React.ReactNode }) {
+export function Field({ label, error, children }: { label: string; error?: string | undefined; children: React.ReactNode }) {
   return <label className="block text-xs font-semibold uppercase tracking-wide text-muted-foreground">{label}<div className="mt-2 normal-case tracking-normal">{children}</div>{error ? <span className="mt-1 block text-xs normal-case tracking-normal text-warning">{error}</span> : null}</label>;
 }

@@ -12,15 +12,15 @@ export type Vehicle = Pick<Row, "id" | "slug" | "brand" | "model" | "title" | "p
 export type VehicleDetail = Vehicle & Pick<Row, "variant" | "color" | "hu_until" | "previous_owners" | "description" | "envkv_required" | "created_at">;
 
 export type VehicleFilter = {
-  brand?: string;
-  minPrice?: number;
-  maxPrice?: number;
-  bodyTypes?: string[];
-  maxKm?: number;
-  minYear?: number;
-  fuel?: Row["fuel"];
-  transmission?: Row["transmission"];
-  sort?: "neu" | "preis-auf" | "preis-ab" | "km-auf" | "ez-neu";
+  brand?: string | undefined;
+  minPrice?: number | undefined;
+  maxPrice?: number | undefined;
+  bodyTypes?: string[] | undefined;
+  maxKm?: number | undefined;
+  minYear?: number | undefined;
+  fuel?: Row["fuel"] | undefined;
+  transmission?: Row["transmission"] | undefined;
+  sort?: "neu" | "preis-auf" | "preis-ab" | "km-auf" | "ez-neu" | undefined;
 };
 
 function normalize<T extends { images: unknown }>(row: T) {

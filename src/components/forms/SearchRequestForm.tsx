@@ -33,10 +33,10 @@ export function SearchRequestForm() {
   return (
     <form onSubmit={submit} noValidate className="relative mt-6 space-y-4">
       <Honeypot value={honeypot} onChange={setHoneypot} />
-      <Field label="Wunschfahrzeug *" error={errors.wish}><Input value={wish} onChange={(e) => setWish(e.target.value)} placeholder="z. B. VW Tiguan, Automatik, AHK" className="h-12" maxLength={200} /></Field>
+      <Field label="Wunschfahrzeug *" error={errors["wish"]}><Input value={wish} onChange={(e) => setWish(e.target.value)} placeholder="z. B. VW Tiguan, Automatik, AHK" className="h-12" maxLength={200} /></Field>
       <Field label="Budget"><Input value={budget} onChange={(e) => setBudget(e.target.value)} placeholder="z. B. bis 20.000 €" className="h-12" maxLength={60} /></Field>
-      <Field label="Name *" error={errors.name}><Input value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" className="h-12" /></Field>
-      <Field label="Telefon oder E-Mail *" error={errors.contact}><Input value={contact} onChange={(e) => setContact(e.target.value)} className="h-12" /></Field>
+      <Field label="Name *" error={errors["name"]}><Input value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" className="h-12" /></Field>
+      <Field label="Telefon oder E-Mail *" error={errors["contact"]}><Input value={contact} onChange={(e) => setContact(e.target.value)} className="h-12" /></Field>
       {state === "error" ? <InquiryError /> : null}
       <PrivacyNotice />
       <Button type="submit" variant="silver" className="w-full" disabled={state === "sending"}>Suchauftrag senden</Button>

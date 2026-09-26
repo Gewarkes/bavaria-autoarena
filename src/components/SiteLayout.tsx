@@ -67,7 +67,7 @@ function Footer() {
   );
 }
 
-function MobileBottomBar({ vehicleTitle, price, url }: { vehicleTitle?: string; price?: string; url?: string }) {
+function MobileBottomBar({ vehicleTitle, price, url }: { vehicleTitle?: string | undefined; price?: string | undefined; url?: string | undefined }) {
   const text = vehicleTitle ? `Hallo, ich interessiere mich für ${vehicleTitle}${price ? ` (${price})` : ""}${url ? ` – ${url}` : ""}` : "Hallo Bavaria Autoarena, ich interessiere mich für ein Fahrzeug.";
   const whatsappUrl = `https://wa.me/${siteConfig.whatsapp.replace(/\D/g, "")}?text=${encodeURIComponent(text)}`;
   return <div className="fixed inset-x-0 bottom-0 z-50 grid h-18 grid-cols-3 border-t border-border bg-darkest/95 p-2 backdrop-blur md:hidden"><Button asChild variant="ghost" className="h-full flex-col gap-1 text-xs"><a href={phoneHref}><Phone />Anrufen</a></Button><Button asChild variant="ghost" className="h-full flex-col gap-1 text-xs"><a href={whatsappUrl} target="_blank" rel="noreferrer"><MessageCircle />WhatsApp</a></Button><Button asChild variant="gold" className="h-full flex-col gap-1 text-xs"><Link to="/auto-verkaufen"><CarFront />Auto verkaufen</Link></Button></div>;
