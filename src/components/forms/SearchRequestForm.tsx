@@ -21,7 +21,7 @@ export function SearchRequestForm() {
       message: `Fahrzeugsuchauftrag\nWunschfahrzeug: ${wish.trim() || "-"}\nBudget: ${budget.trim() || "-"}` };
     const parsed = inquirySchema.safeParse(input);
     const next: Record<string, string> = {};
-    if (!wish.trim()) next.wish = "Bitte beschreiben Sie Ihr Wunschfahrzeug.";
+    if (!wish.trim()) next["wish"] = "Bitte beschreiben Sie Ihr Wunschfahrzeug.";
     if (!parsed.success) for (const i of parsed.error.issues) next[i.path[0] === "email" || i.path[0] === "phone" ? "contact" : String(i.path[0])] ??= i.message;
     if (Object.keys(next).length) { setErrors(next); return; }
     setErrors({}); setState("sending");

@@ -10,8 +10,8 @@ const num = (v: unknown) => { const n = typeof v === "number" ? v : typeof v ===
 
 export function validateVehicleSearch(raw: Record<string, unknown>): VehicleSearch {
   return {
-    marke: str(raw.marke), preisBis: num(raw.preisBis), preisAb: num(raw.preisAb), kraftstoff: str(raw.kraftstoff),
-    karosserie: str(raw.karosserie), getriebe: str(raw.getriebe), kmBis: num(raw.kmBis), ezAb: num(raw.ezAb), sort: str(raw.sort),
+    marke: str(raw["marke"]), preisBis: num(raw["preisBis"]), preisAb: num(raw["preisAb"]), kraftstoff: str(raw["kraftstoff"]),
+    karosserie: str(raw["karosserie"]), getriebe: str(raw["getriebe"]), kmBis: num(raw["kmBis"]), ezAb: num(raw["ezAb"]), sort: str(raw["sort"]),
   };
 }
 
