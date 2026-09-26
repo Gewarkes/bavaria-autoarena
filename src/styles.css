@@ -191,6 +191,10 @@
     border-color: var(--color-border);
   }
 
+  html, body {
+    overflow-x: clip;
+  }
+
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
@@ -200,6 +204,36 @@
 
   ::selection { background: var(--gold); color: var(--primary-foreground); }
   a, button { -webkit-tap-highlight-color: transparent; }
+}
+
+@utility tap-link {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+}
+
+@utility hide-scrollbar {
+  scrollbar-width: none;
+  scroll-snap-type: x proximity;
+  &::-webkit-scrollbar { display: none; }
+  & > * { scroll-snap-align: start; }
+}
+
+@utility chip-fade {
+  position: relative;
+  &::after {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    inset-block: 0;
+    right: -1px;
+    width: 36px;
+    background: linear-gradient(90deg, transparent, var(--background));
+  }
+}
+
+@media (max-width: 767px) {
+  input, textarea, [role="combobox"] { font-size: 16px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
