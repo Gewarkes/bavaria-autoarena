@@ -3,7 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import type { Database } from "@/integrations/supabase/types";
 
 type Row = Database["public"]["Tables"]["vehicles"]["Row"];
-export type VehicleImage = { url: string; alt: string };
+export type VehicleImage = { url: string; thumbUrl?: string; alt: string; sort?: number };
 
 const LIST_COLUMNS = "id, slug, brand, model, title, price_eur, first_registration, mileage_km, fuel, transmission, power_ps, power_kw, body_type, tax_status, features, images, status, is_highlight, is_demo" as const;
 const DETAIL_COLUMNS = `${LIST_COLUMNS}, created_at, variant, color, hu_until, previous_owners, description, envkv_required` as const;

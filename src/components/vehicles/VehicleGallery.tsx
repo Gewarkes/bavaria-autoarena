@@ -1,4 +1,5 @@
 import useEmblaCarousel from "embla-carousel-react";
+import { VehicleImg } from "./VehicleImg";
 import { ChevronLeft, ChevronRight, Expand, ZoomIn, ZoomOut } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
@@ -20,7 +21,7 @@ export function VehicleGallery({ images, title, badge }: { images: VehicleImage[
     <div>
       <div className="relative overflow-hidden rounded-lg border border-border bg-darkest">
         <div ref={emblaRef} className="overflow-hidden"><div className="flex">
-          {images.map((img, i) => <button key={img.url} type="button" onClick={() => setOpen(true)} className="relative aspect-16/10 min-w-0 flex-[0_0_100%] cursor-zoom-in" aria-label="Bild vergrößern"><img src={img.url} alt={img.alt || title} width="1600" height="1000" loading={i === 0 ? "eager" : "lazy"} fetchPriority={i === 0 ? "high" : undefined} className="size-full object-cover" /></button>)}
+          {images.map((img, i) => <button key={img.url} type="button" onClick={() => setOpen(true)} className="relative aspect-16/10 min-w-0 flex-[0_0_100%] cursor-zoom-in" aria-label="Bild vergrößern"><VehicleImg src={img.url} alt={img.alt || title} width="1600" height="1000" loading={i === 0 ? "eager" : "lazy"} fetchPriority={i === 0 ? "high" : undefined} className="size-full object-cover" /></button>)}
         </div></div>
         {badge ? <div className="pointer-events-none absolute left-4 top-4">{badge}</div> : null}
         <span className="pointer-events-none absolute bottom-3 right-3 grid size-10 place-items-center rounded-full bg-darkest/80 text-foreground"><Expand className="size-4" /></span>
@@ -29,12 +30,12 @@ export function VehicleGallery({ images, title, badge }: { images: VehicleImage[
           <button type="button" onClick={() => go(1)} aria-label="Nächstes Bild" className="absolute right-3 top-1/2 grid size-11 -translate-y-1/2 place-items-center rounded-full bg-darkest/80 text-foreground hover:text-gold"><ChevronRight /></button>
         </> : null}
       </div>
-      {multi ? <div className="mt-3 grid grid-cols-5 gap-2">{images.map((img, i) => <button key={img.url} type="button" onClick={() => embla?.scrollTo(i)} aria-label={`Bild ${i + 1}`} className={cn("aspect-4/3 overflow-hidden rounded-md border", i === index ? "border-gold" : "border-border opacity-70 hover:opacity-100")}><img src={img.url} alt="" width="200" height="150" loading="lazy" className="size-full object-cover" /></button>)}</div> : null}
+      {multi ? <div className="mt-3 grid grid-cols-5 gap-2">{images.map((img, i) => <button key={img.url} type="button" onClick={() => embla?.scrollTo(i)} aria-label={`Bild ${i + 1}`} className={cn("aspect-4/3 overflow-hidden rounded-md border", i === index ? "border-gold" : "border-border opacity-70 hover:opacity-100")}><VehicleImg src={img.thumbUrl || img.url} alt="" width="200" height="150" loading="lazy" className="size-full object-cover" /></button>)}</div> : null}
       <Dialog open={open} onOpenChange={(o) => { setOpen(o); if (!o) setZoom(false); }}>
         <DialogContent className="max-w-6xl border-border bg-darkest p-2">
           <DialogTitle className="sr-only">{title}</DialogTitle>
           <div className={cn("relative max-h-[80vh] overflow-auto", zoom ? "cursor-zoom-out" : "cursor-zoom-in")} onClick={() => setZoom((z) => !z)}>
-            {current ? <img src={current.url} alt={current.alt || title} width="1600" height="1000" className={cn("mx-auto transition-transform", zoom ? "max-w-none w-[200%]" : "w-full")} /> : null}
+            {current ? <VehicleImg src={current.url} alt={current.alt || title} width="1600" height="1000" className={cn("mx-auto transition-transform", zoom ? "max-w-none w-[200%]" : "w-full")} /> : null}
           </div>
           <div className="flex items-center justify-between p-2 text-sm text-muted-foreground">
             <span>{multi ? `${index + 1} / ${images.length}` : title}</span>

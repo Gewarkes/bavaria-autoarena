@@ -18,10 +18,20 @@ import { Route as FinanzierungRouteImport } from './routes/finanzierung'
 import { Route as ImpressumRouteImport } from './routes/impressum'
 import { Route as KontaktRouteImport } from './routes/kontakt'
 import { Route as UeberUnsRouteImport } from './routes/ueber-uns'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AdminAnfragenRouteImport } from './routes/admin.anfragen'
+import { Route as AdminKundenstimmenRouteImport } from './routes/admin.kundenstimmen'
+import { Route as AdminLoginRouteImport } from './routes/admin_.login'
 import { Route as AutoVerkaufenIndexRouteImport } from './routes/auto-verkaufen.index'
 import { Route as AutoVerkaufenDankeRouteImport } from './routes/auto-verkaufen.danke'
 import { Route as FahrzeugeIndexRouteImport } from './routes/fahrzeuge.index'
 import { Route as FahrzeugeSlugRouteImport } from './routes/fahrzeuge.$slug'
+import { Route as AdminFahrzeugeIndexRouteImport } from './routes/admin.fahrzeuge.index'
+import { Route as AdminFahrzeugeIdRouteImport } from './routes/admin.fahrzeuge.$id'
+import { Route as AdminFahrzeugeImportRouteImport } from './routes/admin.fahrzeuge.import'
+import { Route as AdminFahrzeugeNeuRouteImport } from './routes/admin.fahrzeuge.neu'
+import { Route as AdminInzahlungnahmeIndexRouteImport } from './routes/admin.inzahlungnahme.index'
+import { Route as AdminInzahlungnahmeIdRouteImport } from './routes/admin.inzahlungnahme.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -68,6 +78,26 @@ const UeberUnsRoute = UeberUnsRouteImport.update({
   path: '/ueber-uns',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminAnfragenRoute = AdminAnfragenRouteImport.update({
+  id: '/anfragen',
+  path: '/anfragen',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminKundenstimmenRoute = AdminKundenstimmenRouteImport.update({
+  id: '/kundenstimmen',
+  path: '/kundenstimmen',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/admin_/login',
+  path: '/admin/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AutoVerkaufenIndexRoute = AutoVerkaufenIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -88,10 +118,41 @@ const FahrzeugeSlugRoute = FahrzeugeSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => FahrzeugeRoute,
 } as any)
+const AdminFahrzeugeIndexRoute = AdminFahrzeugeIndexRouteImport.update({
+  id: '/fahrzeuge/',
+  path: '/fahrzeuge/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminFahrzeugeIdRoute = AdminFahrzeugeIdRouteImport.update({
+  id: '/fahrzeuge/$id',
+  path: '/fahrzeuge/$id',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminFahrzeugeImportRoute = AdminFahrzeugeImportRouteImport.update({
+  id: '/fahrzeuge/import',
+  path: '/fahrzeuge/import',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminFahrzeugeNeuRoute = AdminFahrzeugeNeuRouteImport.update({
+  id: '/fahrzeuge/neu',
+  path: '/fahrzeuge/neu',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminInzahlungnahmeIndexRoute =
+  AdminInzahlungnahmeIndexRouteImport.update({
+    id: '/inzahlungnahme/',
+    path: '/inzahlungnahme/',
+    getParentRoute: () => AdminRoute,
+  } as any)
+const AdminInzahlungnahmeIdRoute = AdminInzahlungnahmeIdRouteImport.update({
+  id: '/inzahlungnahme/$id',
+  path: '/inzahlungnahme/$id',
+  getParentRoute: () => AdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
+  '/admin': typeof AdminRouteWithChildren
   '/auto-verkaufen': typeof AutoVerkaufenRouteWithChildren
   '/datenschutz': typeof DatenschutzRoute
   '/fahrzeuge': typeof FahrzeugeRouteWithChildren
@@ -99,28 +160,47 @@ export interface FileRoutesByFullPath {
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
   '/ueber-uns': typeof UeberUnsRoute
+  '/admin/anfragen': typeof AdminAnfragenRoute
+  '/admin/kundenstimmen': typeof AdminKundenstimmenRoute
+  '/admin/login': typeof AdminLoginRoute
   '/auto-verkaufen/danke': typeof AutoVerkaufenDankeRoute
   '/fahrzeuge/$slug': typeof FahrzeugeSlugRoute
+  '/admin/': typeof AdminIndexRoute
   '/auto-verkaufen/': typeof AutoVerkaufenIndexRoute
   '/fahrzeuge/': typeof FahrzeugeIndexRoute
+  '/admin/fahrzeuge/$id': typeof AdminFahrzeugeIdRoute
+  '/admin/fahrzeuge/import': typeof AdminFahrzeugeImportRoute
+  '/admin/fahrzeuge/neu': typeof AdminFahrzeugeNeuRoute
+  '/admin/inzahlungnahme/$id': typeof AdminInzahlungnahmeIdRoute
+  '/admin/fahrzeuge/': typeof AdminFahrzeugeIndexRoute
+  '/admin/inzahlungnahme/': typeof AdminInzahlungnahmeIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
   '/datenschutz': typeof DatenschutzRoute
   '/finanzierung': typeof FinanzierungRoute
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
   '/ueber-uns': typeof UeberUnsRoute
+  '/admin/anfragen': typeof AdminAnfragenRoute
+  '/admin/kundenstimmen': typeof AdminKundenstimmenRoute
+  '/admin/login': typeof AdminLoginRoute
   '/auto-verkaufen/danke': typeof AutoVerkaufenDankeRoute
   '/fahrzeuge/$slug': typeof FahrzeugeSlugRoute
+  '/admin': typeof AdminIndexRoute
   '/auto-verkaufen': typeof AutoVerkaufenIndexRoute
   '/fahrzeuge': typeof FahrzeugeIndexRoute
+  '/admin/fahrzeuge/$id': typeof AdminFahrzeugeIdRoute
+  '/admin/fahrzeuge/import': typeof AdminFahrzeugeImportRoute
+  '/admin/fahrzeuge/neu': typeof AdminFahrzeugeNeuRoute
+  '/admin/inzahlungnahme/$id': typeof AdminInzahlungnahmeIdRoute
+  '/admin/fahrzeuge': typeof AdminFahrzeugeIndexRoute
+  '/admin/inzahlungnahme': typeof AdminInzahlungnahmeIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
+  '/admin': typeof AdminRouteWithChildren
   '/auto-verkaufen': typeof AutoVerkaufenRouteWithChildren
   '/datenschutz': typeof DatenschutzRoute
   '/fahrzeuge': typeof FahrzeugeRouteWithChildren
@@ -128,10 +208,20 @@ export interface FileRoutesById {
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
   '/ueber-uns': typeof UeberUnsRoute
+  '/admin/anfragen': typeof AdminAnfragenRoute
+  '/admin/kundenstimmen': typeof AdminKundenstimmenRoute
+  '/admin_/login': typeof AdminLoginRoute
   '/auto-verkaufen/danke': typeof AutoVerkaufenDankeRoute
   '/fahrzeuge/$slug': typeof FahrzeugeSlugRoute
+  '/admin/': typeof AdminIndexRoute
   '/auto-verkaufen/': typeof AutoVerkaufenIndexRoute
   '/fahrzeuge/': typeof FahrzeugeIndexRoute
+  '/admin/fahrzeuge/$id': typeof AdminFahrzeugeIdRoute
+  '/admin/fahrzeuge/import': typeof AdminFahrzeugeImportRoute
+  '/admin/fahrzeuge/neu': typeof AdminFahrzeugeNeuRoute
+  '/admin/inzahlungnahme/$id': typeof AdminInzahlungnahmeIdRoute
+  '/admin/fahrzeuge/': typeof AdminFahrzeugeIndexRoute
+  '/admin/inzahlungnahme/': typeof AdminInzahlungnahmeIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -145,23 +235,42 @@ export interface FileRouteTypes {
     | '/impressum'
     | '/kontakt'
     | '/ueber-uns'
+    | '/admin/anfragen'
+    | '/admin/kundenstimmen'
+    | '/admin/login'
     | '/auto-verkaufen/danke'
     | '/fahrzeuge/$slug'
+    | '/admin/'
     | '/auto-verkaufen/'
     | '/fahrzeuge/'
+    | '/admin/fahrzeuge/$id'
+    | '/admin/fahrzeuge/import'
+    | '/admin/fahrzeuge/neu'
+    | '/admin/inzahlungnahme/$id'
+    | '/admin/fahrzeuge/'
+    | '/admin/inzahlungnahme/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/admin'
     | '/datenschutz'
     | '/finanzierung'
     | '/impressum'
     | '/kontakt'
     | '/ueber-uns'
+    | '/admin/anfragen'
+    | '/admin/kundenstimmen'
+    | '/admin/login'
     | '/auto-verkaufen/danke'
     | '/fahrzeuge/$slug'
+    | '/admin'
     | '/auto-verkaufen'
     | '/fahrzeuge'
+    | '/admin/fahrzeuge/$id'
+    | '/admin/fahrzeuge/import'
+    | '/admin/fahrzeuge/neu'
+    | '/admin/inzahlungnahme/$id'
+    | '/admin/fahrzeuge'
+    | '/admin/inzahlungnahme'
   id:
     | '__root__'
     | '/'
@@ -173,15 +282,25 @@ export interface FileRouteTypes {
     | '/impressum'
     | '/kontakt'
     | '/ueber-uns'
+    | '/admin/anfragen'
+    | '/admin/kundenstimmen'
+    | '/admin_/login'
     | '/auto-verkaufen/danke'
     | '/fahrzeuge/$slug'
+    | '/admin/'
     | '/auto-verkaufen/'
     | '/fahrzeuge/'
+    | '/admin/fahrzeuge/$id'
+    | '/admin/fahrzeuge/import'
+    | '/admin/fahrzeuge/neu'
+    | '/admin/inzahlungnahme/$id'
+    | '/admin/fahrzeuge/'
+    | '/admin/inzahlungnahme/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AdminRoute: typeof AdminRoute
+  AdminRoute: typeof AdminRouteWithChildren
   AutoVerkaufenRoute: typeof AutoVerkaufenRouteWithChildren
   DatenschutzRoute: typeof DatenschutzRoute
   FahrzeugeRoute: typeof FahrzeugeRouteWithChildren
@@ -189,6 +308,7 @@ export interface RootRouteChildren {
   ImpressumRoute: typeof ImpressumRoute
   KontaktRoute: typeof KontaktRoute
   UeberUnsRoute: typeof UeberUnsRoute
+  AdminLoginRoute: typeof AdminLoginRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -256,6 +376,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UeberUnsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/anfragen': {
+      id: '/admin/anfragen'
+      path: '/anfragen'
+      fullPath: '/admin/anfragen'
+      preLoaderRoute: typeof AdminAnfragenRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/kundenstimmen': {
+      id: '/admin/kundenstimmen'
+      path: '/kundenstimmen'
+      fullPath: '/admin/kundenstimmen'
+      preLoaderRoute: typeof AdminKundenstimmenRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin_/login': {
+      id: '/admin_/login'
+      path: '/admin/login'
+      fullPath: '/admin/login'
+      preLoaderRoute: typeof AdminLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/auto-verkaufen/': {
       id: '/auto-verkaufen/'
       path: '/'
@@ -284,8 +432,76 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FahrzeugeSlugRouteImport
       parentRoute: typeof FahrzeugeRoute
     }
+    '/admin/fahrzeuge/': {
+      id: '/admin/fahrzeuge/'
+      path: '/fahrzeuge'
+      fullPath: '/admin/fahrzeuge/'
+      preLoaderRoute: typeof AdminFahrzeugeIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/fahrzeuge/$id': {
+      id: '/admin/fahrzeuge/$id'
+      path: '/fahrzeuge/$id'
+      fullPath: '/admin/fahrzeuge/$id'
+      preLoaderRoute: typeof AdminFahrzeugeIdRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/fahrzeuge/import': {
+      id: '/admin/fahrzeuge/import'
+      path: '/fahrzeuge/import'
+      fullPath: '/admin/fahrzeuge/import'
+      preLoaderRoute: typeof AdminFahrzeugeImportRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/fahrzeuge/neu': {
+      id: '/admin/fahrzeuge/neu'
+      path: '/fahrzeuge/neu'
+      fullPath: '/admin/fahrzeuge/neu'
+      preLoaderRoute: typeof AdminFahrzeugeNeuRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/inzahlungnahme/': {
+      id: '/admin/inzahlungnahme/'
+      path: '/inzahlungnahme'
+      fullPath: '/admin/inzahlungnahme/'
+      preLoaderRoute: typeof AdminInzahlungnahmeIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/inzahlungnahme/$id': {
+      id: '/admin/inzahlungnahme/$id'
+      path: '/inzahlungnahme/$id'
+      fullPath: '/admin/inzahlungnahme/$id'
+      preLoaderRoute: typeof AdminInzahlungnahmeIdRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
+
+interface AdminRouteChildren {
+  AdminAnfragenRoute: typeof AdminAnfragenRoute
+  AdminKundenstimmenRoute: typeof AdminKundenstimmenRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+  AdminFahrzeugeIdRoute: typeof AdminFahrzeugeIdRoute
+  AdminFahrzeugeImportRoute: typeof AdminFahrzeugeImportRoute
+  AdminFahrzeugeNeuRoute: typeof AdminFahrzeugeNeuRoute
+  AdminInzahlungnahmeIdRoute: typeof AdminInzahlungnahmeIdRoute
+  AdminFahrzeugeIndexRoute: typeof AdminFahrzeugeIndexRoute
+  AdminInzahlungnahmeIndexRoute: typeof AdminInzahlungnahmeIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminAnfragenRoute: AdminAnfragenRoute,
+  AdminKundenstimmenRoute: AdminKundenstimmenRoute,
+  AdminIndexRoute: AdminIndexRoute,
+  AdminFahrzeugeIdRoute: AdminFahrzeugeIdRoute,
+  AdminFahrzeugeImportRoute: AdminFahrzeugeImportRoute,
+  AdminFahrzeugeNeuRoute: AdminFahrzeugeNeuRoute,
+  AdminInzahlungnahmeIdRoute: AdminInzahlungnahmeIdRoute,
+  AdminFahrzeugeIndexRoute: AdminFahrzeugeIndexRoute,
+  AdminInzahlungnahmeIndexRoute: AdminInzahlungnahmeIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
 interface AutoVerkaufenRouteChildren {
   AutoVerkaufenDankeRoute: typeof AutoVerkaufenDankeRoute
@@ -317,7 +533,7 @@ const FahrzeugeRouteWithChildren = FahrzeugeRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AdminRoute: AdminRoute,
+  AdminRoute: AdminRouteWithChildren,
   AutoVerkaufenRoute: AutoVerkaufenRouteWithChildren,
   DatenschutzRoute: DatenschutzRoute,
   FahrzeugeRoute: FahrzeugeRouteWithChildren,
@@ -325,6 +541,7 @@ const rootRouteChildren: RootRouteChildren = {
   ImpressumRoute: ImpressumRoute,
   KontaktRoute: KontaktRoute,
   UeberUnsRoute: UeberUnsRoute,
+  AdminLoginRoute: AdminLoginRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

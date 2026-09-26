@@ -4,12 +4,14 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 import { SiteLayout } from "@/components/SiteLayout";
 import NotFoundPage from "@/pages/NotFoundPage";
+import { Toaster } from "@/components/ui/sonner";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -95,10 +97,12 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const isAdmin = useRouterState({ select: (s) => s.location.pathname.startsWith("/admin") });
 
   return (
     <QueryClientProvider client={queryClient}>
-      <SiteLayout><Outlet /></SiteLayout>
+      {isAdmin ? <Outlet /> : <SiteLayout><Outlet /></SiteLayout>}
+      <Toaster richColors position="top-right" />
     </QueryClientProvider>
   );
 }
