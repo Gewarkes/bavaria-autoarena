@@ -5,8 +5,7 @@ import { useState } from "react";
 import { SearchRequestForm } from "@/components/forms/SearchRequestForm";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetDescription, SheetTitle } from "@/components/ui/sheet";
-import { VehicleCard, VehicleCardSkeleton } from "@/components/vehicles/VehicleCard";
-import { siteConfig } from "@/config/site";
+import { VehicleCard } from "@/components/vehicles/VehicleCard";
 import { categories, priceLimits, searchToFilter, sortOptions, type VehicleSearch } from "@/lib/vehicleSearch";
 import { brandsQuery, vehiclesQuery } from "@/lib/vehicles";
 

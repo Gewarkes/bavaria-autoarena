@@ -76,9 +76,9 @@ export async function getVehicleBySlug(slug: string): Promise<VehicleDetail | nu
 }
 
 export async function getBrands(): Promise<string[]> {
-  const { data, error } = await supabase.from("vehicles").select("brand").neq("status", "verkauft").limit(500);
+  const { data, error } = await supabase.from("vehicles").select("brand, slug").neq("status", "verkauft").limit(500);
   if (error) throw error;
-  return [...new Set(data.filter((row) => !UNREACHABLE_COVER_SLUGS.has((row as { slug?: string }).slug ?? "")).map((r) => r.brand))].sort((a, b) => a.localeCompare(b, "de"));
+  return [...new Set(data.filter((row) => !UNREACHABLE_COVER_SLUGS.has(row.slug)).map((r) => r.brand))].sort((a, b) => a.localeCompare(b, "de"));
 }
 
 export type Testimonial = { id: string; author: string; text: string; rating: number | null };
