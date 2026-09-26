@@ -36,6 +36,13 @@
       "when": 1790417521926,
       "tag": "0004_notify_cleanup",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1790421196668,
+      "tag": "0005_tighten_lead_insert_policies_and_vehicle_images",
+      "breakpoints": true
     }
   ]
 }
