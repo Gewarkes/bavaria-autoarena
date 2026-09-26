@@ -14,16 +14,333 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      inquiries: {
+        Row: {
+          created_at: string
+          email: string | null
+          id: string
+          internal_notes: string | null
+          kind: string
+          message: string | null
+          name: string
+          phone: string | null
+          privacy_notice_version: string
+          status: Database["public"]["Enums"]["lead_status"]
+          vehicle_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          id?: string
+          internal_notes?: string | null
+          kind: string
+          message?: string | null
+          name: string
+          phone?: string | null
+          privacy_notice_version: string
+          status?: Database["public"]["Enums"]["lead_status"]
+          vehicle_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          id?: string
+          internal_notes?: string | null
+          kind?: string
+          message?: string | null
+          name?: string
+          phone?: string | null
+          privacy_notice_version?: string
+          status?: Database["public"]["Enums"]["lead_status"]
+          vehicle_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "inquiries_vehicle_id_fkey"
+            columns: ["vehicle_id"]
+            isOneToOne: false
+            referencedRelation: "vehicles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      testimonials: {
+        Row: {
+          approved_at: string | null
+          author: string
+          id: string
+          is_visible: boolean
+          rating: number | null
+          sort_order: number
+          source: string
+          text: string
+        }
+        Insert: {
+          approved_at?: string | null
+          author: string
+          id?: string
+          is_visible?: boolean
+          rating?: number | null
+          sort_order?: number
+          source?: string
+          text: string
+        }
+        Update: {
+          approved_at?: string | null
+          author?: string
+          id?: string
+          is_visible?: boolean
+          rating?: number | null
+          sort_order?: number
+          source?: string
+          text?: string
+        }
+        Relationships: []
+      }
+      trade_in_requests: {
+        Row: {
+          accident_status: string
+          brand: string
+          condition_exterior: string | null
+          condition_interior: string | null
+          contact_channel: string | null
+          created_at: string
+          damage_notes: string | null
+          desired_vehicle_id: string | null
+          email: string | null
+          engine_variant: string | null
+          financing_active: boolean | null
+          first_name: string
+          first_registration_year: number
+          fuel: string | null
+          hu_until: string | null
+          id: string
+          intent: string
+          internal_notes: string | null
+          internal_valuation_eur: number | null
+          last_name: string
+          marketing_opt_in: boolean
+          mileage_km: number
+          model: string
+          phone: string | null
+          photo_paths: string[]
+          previous_owners: string | null
+          privacy_notice_version: string
+          service_book: string | null
+          status: Database["public"]["Enums"]["lead_status"]
+          transmission: string | null
+          zip: string | null
+        }
+        Insert: {
+          accident_status: string
+          brand: string
+          condition_exterior?: string | null
+          condition_interior?: string | null
+          contact_channel?: string | null
+          created_at?: string
+          damage_notes?: string | null
+          desired_vehicle_id?: string | null
+          email?: string | null
+          engine_variant?: string | null
+          financing_active?: boolean | null
+          first_name: string
+          first_registration_year: number
+          fuel?: string | null
+          hu_until?: string | null
+          id?: string
+          intent: string
+          internal_notes?: string | null
+          internal_valuation_eur?: number | null
+          last_name: string
+          marketing_opt_in?: boolean
+          mileage_km: number
+          model: string
+          phone?: string | null
+          photo_paths?: string[]
+          previous_owners?: string | null
+          privacy_notice_version: string
+          service_book?: string | null
+          status?: Database["public"]["Enums"]["lead_status"]
+          transmission?: string | null
+          zip?: string | null
+        }
+        Update: {
+          accident_status?: string
+          brand?: string
+          condition_exterior?: string | null
+          condition_interior?: string | null
+          contact_channel?: string | null
+          created_at?: string
+          damage_notes?: string | null
+          desired_vehicle_id?: string | null
+          email?: string | null
+          engine_variant?: string | null
+          financing_active?: boolean | null
+          first_name?: string
+          first_registration_year?: number
+          fuel?: string | null
+          hu_until?: string | null
+          id?: string
+          intent?: string
+          internal_notes?: string | null
+          internal_valuation_eur?: number | null
+          last_name?: string
+          marketing_opt_in?: boolean
+          mileage_km?: number
+          model?: string
+          phone?: string | null
+          photo_paths?: string[]
+          previous_owners?: string | null
+          privacy_notice_version?: string
+          service_book?: string | null
+          status?: Database["public"]["Enums"]["lead_status"]
+          transmission?: string | null
+          zip?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "trade_in_requests_desired_vehicle_id_fkey"
+            columns: ["desired_vehicle_id"]
+            isOneToOne: false
+            referencedRelation: "vehicles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
+      vehicles: {
+        Row: {
+          body_type: string
+          brand: string
+          color: string | null
+          created_at: string
+          description: string | null
+          envkv_required: boolean
+          features: string[]
+          first_registration: string
+          fuel: Database["public"]["Enums"]["fuel_type"]
+          hu_until: string | null
+          id: string
+          images: Json
+          is_demo: boolean
+          is_highlight: boolean
+          mileage_km: number
+          model: string
+          power_kw: number | null
+          power_ps: number | null
+          previous_owners: number | null
+          price_eur: number
+          slug: string
+          status: Database["public"]["Enums"]["vehicle_status"]
+          tax_status: Database["public"]["Enums"]["tax_status"]
+          title: string
+          transmission: Database["public"]["Enums"]["gearbox"]
+          updated_at: string
+          variant: string | null
+        }
+        Insert: {
+          body_type: string
+          brand: string
+          color?: string | null
+          created_at?: string
+          description?: string | null
+          envkv_required?: boolean
+          features?: string[]
+          first_registration: string
+          fuel: Database["public"]["Enums"]["fuel_type"]
+          hu_until?: string | null
+          id?: string
+          images?: Json
+          is_demo?: boolean
+          is_highlight?: boolean
+          mileage_km: number
+          model: string
+          power_kw?: number | null
+          power_ps?: number | null
+          previous_owners?: number | null
+          price_eur: number
+          slug: string
+          status?: Database["public"]["Enums"]["vehicle_status"]
+          tax_status?: Database["public"]["Enums"]["tax_status"]
+          title: string
+          transmission: Database["public"]["Enums"]["gearbox"]
+          updated_at?: string
+          variant?: string | null
+        }
+        Update: {
+          body_type?: string
+          brand?: string
+          color?: string | null
+          created_at?: string
+          description?: string | null
+          envkv_required?: boolean
+          features?: string[]
+          first_registration?: string
+          fuel?: Database["public"]["Enums"]["fuel_type"]
+          hu_until?: string | null
+          id?: string
+          images?: Json
+          is_demo?: boolean
+          is_highlight?: boolean
+          mileage_km?: number
+          model?: string
+          power_kw?: number | null
+          power_ps?: number | null
+          previous_owners?: number | null
+          price_eur?: number
+          slug?: string
+          status?: Database["public"]["Enums"]["vehicle_status"]
+          tax_status?: Database["public"]["Enums"]["tax_status"]
+          title?: string
+          transmission?: Database["public"]["Enums"]["gearbox"]
+          updated_at?: string
+          variant?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin"
+      fuel_type: "benzin" | "diesel" | "hybrid" | "elektro" | "gas"
+      gearbox: "schaltung" | "automatik"
+      lead_status:
+        | "neu"
+        | "kontaktiert"
+        | "termin"
+        | "angebot"
+        | "abgeschlossen"
+        | "abgelehnt"
+      tax_status: "differenz" | "regel"
+      vehicle_status: "verfuegbar" | "reserviert" | "verkauft"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +467,20 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin"],
+      fuel_type: ["benzin", "diesel", "hybrid", "elektro", "gas"],
+      gearbox: ["schaltung", "automatik"],
+      lead_status: [
+        "neu",
+        "kontaktiert",
+        "termin",
+        "angebot",
+        "abgeschlossen",
+        "abgelehnt",
+      ],
+      tax_status: ["differenz", "regel"],
+      vehicle_status: ["verfuegbar", "reserviert", "verkauft"],
+    },
   },
 } as const
