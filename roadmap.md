@@ -79,10 +79,10 @@
 
 # Redesign v3 – Schritt E
 
-- [ ] Audi-Titelbild und Bildnachweis ersetzen
-- [ ] Fahrzeugbilder überall auf 4:3 ohne Siegel-Zuschnitt umstellen
-- [ ] Startseite neu ordnen und Marken-/Historienbereiche ergänzen
-- [ ] Typografie, Raster, Kopfzeile und mobile Leiste vereinheitlichen
-- [ ] Fahrzeugzahlen, Filterdaten und Detailseite angleichen
-- [ ] Startseite, Bestand, R8-Detail und Ankauf bei 1440/1280/390 px prüfen
-- [ ] Produktions-Build ausführen
+- [x] Audi-Titelbild und Bildnachweis ersetzen
+- [x] Fahrzeugbilder überall auf 4:3 ohne Siegel-Zuschnitt umstellen
+- [x] Startseite neu ordnen und Marken-/Historienbereiche ergänzen
+- [x] Typografie, Raster, Kopfzeile und mobile Leiste vereinheitlichen
+- [x] Fahrzeugzahlen, Filterdaten und Detailseite angleichen
+- [x] Startseite, Bestand, R8-Detail und Ankauf bei 1440/1280/390 px prüfen
+- [x] Produktions-Build ausführen

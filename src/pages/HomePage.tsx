@@ -2,8 +2,8 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import { ChevronRight, MapPin, MessageCircle, Phone } from "lucide-react";
 import { useState } from "react";
-import audiDesktop from "@/assets/audi-a6-desktop.webp.asset.json";
-import audiMobile from "@/assets/audi-a6-mobile.webp.asset.json";
+import audiDesktop from "@/assets/audi-a5-desktop.webp.asset.json";
+import audiMobile from "@/assets/audi-a5-mobile.webp.asset.json";
 import { Ornament } from "@/components/Ornament";
 import { Button } from "@/components/ui/button";
 import { VehicleCard } from "@/components/vehicles/VehicleCard";
@@ -26,7 +26,7 @@ function Hero({ count }: { count: number }) {
     <section className="bg-navy-900 text-cream lg:relative lg:h-[min(86vh,820px)] lg:min-h-[620px]">
       <picture className="block aspect-[4/3] w-full lg:absolute lg:inset-0 lg:aspect-auto lg:h-full">
         <source media="(max-width: 639px)" srcSet={audiMobile.url} />
-        <img src={audiDesktop.url} alt="Schwarzer Audi A6 Avant in Seitenansicht unter bedecktem Himmel" width="2400" height="1600" fetchPriority="high" className="size-full object-cover object-center lg:object-[58%_50%]" />
+        <img src={audiDesktop.url} alt="Dunkelgrüner Audi A5 Sportback in Seitenansicht unter bedecktem Himmel" width="2400" height="1600" fetchPriority="high" className="size-full object-cover object-[62%_60%] lg:object-[60%_55%]" />
       </picture>
       <div className="hero-copy-shade hidden lg:absolute lg:inset-0 lg:block" />
       <div className="page-container relative flex h-full items-center px-6 py-10 lg:pb-28 lg:pt-20">
