@@ -1,3 +1,7 @@
+import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { formatPrice } from "@/lib/format";
+import { vehicleQuery } from "@/lib/vehicles";
 import { Link, useRouterState } from "@tanstack/react-router";
 import { CarFront, Menu, MessageCircle, Phone } from "lucide-react";
 import { Logo } from "@/components/Logo";
@@ -64,8 +68,8 @@ function Footer() {
   );
 }
 
-function MobileBottomBar({ vehicleTitle, price }: { vehicleTitle?: string; price?: string }) {
-  const text = vehicleTitle ? `Hallo Bavaria Autoarena, ich interessiere mich für ${vehicleTitle}${price ? ` zum Preis von ${price}` : ""}.` : "Hallo Bavaria Autoarena, ich interessiere mich für ein Fahrzeug.";
+function MobileBottomBar({ vehicleTitle, price, url }: { vehicleTitle?: string | undefined; price?: string | undefined; url?: string | undefined }) {
+  const text = vehicleTitle ? `Hallo, ich interessiere mich für ${vehicleTitle}${price ? ` (${price})` : ""}${url ? ` – ${url}` : ""}` : "Hallo Bavaria Autoarena, ich interessiere mich für ein Fahrzeug.";
   const whatsappUrl = `https://wa.me/${siteConfig.whatsapp.replace(/\D/g, "")}?text=${encodeURIComponent(text)}`;
   return <div className="fixed inset-x-0 bottom-0 z-50 grid h-18 grid-cols-3 border-t border-border bg-darkest/95 p-2 backdrop-blur md:hidden"><Button asChild variant="ghost" className="h-full flex-col gap-1 text-xs"><a href={phoneHref}><Phone />Anrufen</a></Button><Button asChild variant="ghost" className="h-full flex-col gap-1 text-xs"><a href={whatsappUrl} target="_blank" rel="noreferrer"><MessageCircle />WhatsApp</a></Button><Button asChild variant="gold" className="h-full flex-col gap-1 text-xs"><Link to="/auto-verkaufen"><CarFront />Auto verkaufen</Link></Button></div>;
 }
@@ -74,6 +78,8 @@ export function SiteLayout({ children }: { children: ReactNode }) {
   const pathname = useRouterState({ select: (state) => state.location.pathname });
   const detailMatch = pathname.match(/^\/fahrzeuge\/([^/]+)$/);
   const slug = detailMatch?.[1];
-  const vehicleTitle = slug ? decodeURIComponent(slug).replace(/-/g, " ") : undefined;
-  return <div className="min-h-screen bg-background"><Header /><main>{children}</main><Footer />{vehicleTitle ? <MobileBottomBar vehicleTitle={vehicleTitle} price="Preis auf Anfrage" /> : <MobileBottomBar />}</div>;
+  const { data: vehicle } = useQuery({ ...vehicleQuery(slug ?? ""), enabled: !!slug });
+  const [url, setUrl] = useState<string | undefined>(undefined);
+  useEffect(() => { setUrl(slug ? window.location.href : undefined); }, [slug]);
+  return <div className="min-h-screen bg-background pb-18 md:pb-0"><Header /><main>{children}</main><Footer />{slug && vehicle && url ? <MobileBottomBar vehicleTitle={vehicle.title} price={formatPrice(vehicle.price_eur)} url={url} /> : <MobileBottomBar />}</div>;
 }

@@ -1,5 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { lazy } from "react";
 import { seo } from "@/lib/seo";
+import { validateVehicleSearch } from "@/lib/vehicleSearch";
+
 const VehiclesPage = lazy(() => import("@/pages/VehiclesPage"));
-export const Route = createFileRoute("/fahrzeuge/")({ head: () => seo("Fahrzeuge", "Ausgewählte Gebrauchtwagen bei Bavaria Autoarena in Perkam entdecken.", "/fahrzeuge"), component: VehiclesPage });
+const title = "Gebrauchtwagen kaufen in Perkam bei Straubing | Bavaria Autoarena";
+
+export const Route = createFileRoute("/fahrzeuge/")({
+  validateSearch: validateVehicleSearch,
+  head: () => {
+    const base = seo("Fahrzeuge", "Geprüfte Gebrauchtwagen mit 12 Monaten Gewährleistung bei Bavaria Autoarena in Perkam bei Straubing. Jetzt Bestand filtern.", "/fahrzeuge");
+    return { ...base, meta: base.meta.map((m) => ("title" in m ? { title } : m.property === "og:title" ? { property: "og:title", content: title } : m)) };
+  },
+  component: VehiclesPage,
+});
