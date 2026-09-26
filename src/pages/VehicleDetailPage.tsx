@@ -1,7 +1,7 @@
 import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { getRouteApi, Link } from "@tanstack/react-router";
 import { ArrowLeft, CalendarDays, Car, Check, ChevronRight, Fuel, Gauge, MessageCircle, Palette, Phone, Settings2, ShieldCheck, Users, Zap } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { VehicleInquiryForm } from "@/components/forms/InquiryForm";
 import { Button } from "@/components/ui/button";
 import { VehicleCard } from "@/components/vehicles/VehicleCard";
@@ -23,13 +23,14 @@ export default function VehicleDetailPage() {
   const { slug } = route.useParams();
   const { data: v } = useSuspenseQuery(vehicleQuery(slug));
   const [kind, setKind] = useState<Kind>("anfrage");
+  const [pageUrl, setPageUrl] = useState("");
+  useEffect(() => { setPageUrl(window.location.href); }, [slug]);
   const similar = useQuery({ ...similarQuery(v ?? { id: "", body_type: "", price_eur: 1 }), enabled: !!v });
   if (!v) return null;
 
   const isNew = Date.now() - new Date(v.created_at).getTime() < 14 * 86_400_000;
   const badge = v.status === "reserviert" ? <span className="rounded-md bg-warning px-3 py-1 text-xs font-bold text-primary-foreground">Reserviert</span>
     : isNew ? <span className="bg-gold-gradient rounded-md px-3 py-1 text-xs font-bold text-primary-foreground">Neu eingetroffen</span> : null;
-  const pageUrl = typeof window !== "undefined" ? window.location.href : `/fahrzeuge/${v.slug}`;
   const goToForm = (k: Kind) => { setKind(k); document.getElementById("anfrage")?.scrollIntoView({ behavior: "smooth", block: "start" }); };
 
   const facts = [

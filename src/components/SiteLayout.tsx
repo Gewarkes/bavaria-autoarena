@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { formatPrice } from "@/lib/format";
 import { vehicleQuery } from "@/lib/vehicles";
@@ -78,6 +79,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
   const detailMatch = pathname.match(/^\/fahrzeuge\/([^/]+)$/);
   const slug = detailMatch?.[1];
   const { data: vehicle } = useQuery({ ...vehicleQuery(slug ?? ""), enabled: !!slug });
-  const url = slug && typeof window !== "undefined" ? window.location.href : undefined;
-  return <div className="min-h-screen bg-background pb-18 md:pb-0"><Header /><main>{children}</main><Footer />{slug && vehicle ? <MobileBottomBar vehicleTitle={vehicle.title} price={formatPrice(vehicle.price_eur)} url={url} /> : <MobileBottomBar />}</div>;
+  const [url, setUrl] = useState<string | undefined>(undefined);
+  useEffect(() => { setUrl(slug ? window.location.href : undefined); }, [slug]);
+  return <div className="min-h-screen bg-background pb-18 md:pb-0"><Header /><main>{children}</main><Footer />{slug && vehicle && url ? <MobileBottomBar vehicleTitle={vehicle.title} price={formatPrice(vehicle.price_eur)} url={url} /> : <MobileBottomBar />}</div>;
 }
