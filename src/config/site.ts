@@ -99,6 +99,8 @@ export function isOpenNow(date = new Date()) {
 }
 
 export function currentOpeningStatus(date = new Date()) {
-  if (!isOpenNow(date)) return "Jetzt geschlossen";
-  return `Heute geöffnet bis ${date && getGermanTime(date).day === 6 ? "13:00" : "18:00"}`;
+  if (isOpenNow(date)) return "Jetzt erreichbar";
+  const { day } = getGermanTime(date);
+  if (day === 6 || day === 0) return "Mo ab 9 Uhr";
+  return "Morgen ab 9 Uhr";
 }

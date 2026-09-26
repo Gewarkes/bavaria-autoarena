@@ -10,15 +10,15 @@ export function VehicleCard({ vehicle, eager = false }: { vehicle: Vehicle; eage
   const secondFacts = `${formatFuel(vehicle.fuel)} · ${formatTransmission(vehicle.transmission)}`;
 
   return (
-    <Link to="/fahrzeuge/$slug" params={{ slug: vehicle.slug }} className="group grid min-h-[130px] grid-cols-[40%_minmax(0,1fr)] overflow-hidden rounded border border-border bg-card transition-colors hover:border-gold sm:block">
-      <div className="relative min-h-full overflow-hidden bg-muted sm:aspect-4/3">
+    <Link to="/fahrzeuge/$slug" params={{ slug: vehicle.slug }} className="group grid min-h-[130px] grid-cols-[40%_minmax(0,1fr)] overflow-hidden bg-card ring-1 ring-navy-900/5 transition-colors hover:ring-gold-600 sm:block">
+      <div className="relative min-h-full overflow-hidden bg-muted sm:aspect-video">
         {image ? <VehicleImg src={sizedImage(image.thumbUrl || image.url, "card")} alt={image.alt || vehicle.title} width="800" height="600" loading={eager ? "eager" : "lazy"} fetchPriority={eager ? "high" : "auto"} className="size-full bg-image-placeholder object-cover" /> : null}
         {vehicle.status === "reserviert" ? <span className="absolute left-3 top-3 rounded bg-background/95 px-2.5 py-1 text-xs font-medium text-foreground">Reserviert</span> : null}
       </div>
       <div className="min-w-0 p-3 sm:p-5">
-        <h3 className="line-clamp-2 font-display text-[15px] font-semibold leading-5 text-foreground sm:text-lg">{vehicle.title}</h3>
+        <h3 className="line-clamp-2 font-display text-[15px] font-normal uppercase leading-5 tracking-[.04em] text-foreground sm:text-lg">{vehicle.title}</h3>
         <div className="mt-2 text-[13px] leading-5 text-muted-foreground sm:text-sm"><p>{firstFacts}</p><p>{secondFacts}</p></div>
-        <div className="mt-2 sm:mt-5 sm:flex sm:flex-wrap sm:items-baseline sm:gap-x-3 sm:gap-y-1"><p className="font-display text-xl font-bold text-foreground sm:text-2xl">{formatPrice(vehicle.price_eur)}</p><p className="text-[11px] text-muted-foreground sm:text-xs">{vehicle.tax_status === "differenz" ? "§ 25a" : "MwSt. ausweisbar"}</p></div>
+        <div className="mt-2 sm:mt-5 sm:flex sm:flex-wrap sm:items-baseline sm:gap-x-3 sm:gap-y-1"><p className="font-display text-xl font-medium text-foreground sm:text-2xl">{formatPrice(vehicle.price_eur)}</p><p className="text-[11px] text-muted-foreground sm:text-xs">{vehicle.tax_status === "differenz" ? "§ 25a" : "MwSt. ausweisbar"}</p></div>
       </div>
     </Link>
   );

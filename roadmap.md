@@ -38,3 +38,11 @@
 - [x] Filter und kurze Sortierlabels in einer bündigen Zeile darstellen
 - [x] Erste vier Fahrzeugbilder priorisiert laden und Bildflächen hinterlegen
 - [x] Drei Handygrößen im Browser prüfen; Produktions-Build ausführen
+
+# Redesign v2 – Schritt A
+
+- [x] Designsystem, Schriften und Buttons umstellen
+- [x] Header, Vollbild-Menü und schwebende Kontaktleiste erneuern
+- [x] Startseite mit acht neuen Bereichen und echten Bildern aufbauen
+- [x] Footer und Bildnachweise erneuern
+- [x] Desktop 1280/1440 und Mobil 375 visuell prüfen; Produktions-Build ausführen

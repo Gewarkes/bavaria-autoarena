@@ -9,6 +9,8 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
+import "@fontsource-variable/jost";
+import "@fontsource-variable/source-sans-3";
 import { SiteLayout } from "@/components/SiteLayout";
 import NotFoundPage from "@/pages/NotFoundPage";
 import { Toaster } from "@/components/ui/sonner";
@@ -64,7 +66,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
       { name: "author", content: "Bavaria Autoarena GmbH" },
-      { name: "theme-color", content: "#141A26" },
+      { name: "theme-color", content: "#1A1F35" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -73,7 +75,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: appCss,
       },
-      { rel: "icon", href: "/favicon.png", type: "image/png", sizes: "64x64" },
+      { rel: "icon", href: "/logo.webp", type: "image/webp", sizes: "400x400" },
       { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
       { rel: "manifest", href: "/manifest.webmanifest" },
     ],
