@@ -19,6 +19,7 @@ import { Route as ImpressumRouteImport } from './routes/impressum'
 import { Route as KontaktRouteImport } from './routes/kontakt'
 import { Route as UeberUnsRouteImport } from './routes/ueber-uns'
 import { Route as AutoVerkaufenDankeRouteImport } from './routes/auto-verkaufen.danke'
+import { Route as FahrzeugeIndexRouteImport } from './routes/fahrzeuge.index'
 import { Route as FahrzeugeSlugRouteImport } from './routes/fahrzeuge.$slug'
 
 const IndexRoute = IndexRouteImport.update({
@@ -71,6 +72,11 @@ const AutoVerkaufenDankeRoute = AutoVerkaufenDankeRouteImport.update({
   path: '/danke',
   getParentRoute: () => AutoVerkaufenRoute,
 } as any)
+const FahrzeugeIndexRoute = FahrzeugeIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => FahrzeugeRoute,
+} as any)
 const FahrzeugeSlugRoute = FahrzeugeSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -89,19 +95,20 @@ export interface FileRoutesByFullPath {
   '/ueber-uns': typeof UeberUnsRoute
   '/auto-verkaufen/danke': typeof AutoVerkaufenDankeRoute
   '/fahrzeuge/$slug': typeof FahrzeugeSlugRoute
+  '/fahrzeuge/': typeof FahrzeugeIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
   '/auto-verkaufen': typeof AutoVerkaufenRouteWithChildren
   '/datenschutz': typeof DatenschutzRoute
-  '/fahrzeuge': typeof FahrzeugeRouteWithChildren
   '/finanzierung': typeof FinanzierungRoute
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
   '/ueber-uns': typeof UeberUnsRoute
   '/auto-verkaufen/danke': typeof AutoVerkaufenDankeRoute
   '/fahrzeuge/$slug': typeof FahrzeugeSlugRoute
+  '/fahrzeuge': typeof FahrzeugeIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -116,6 +123,7 @@ export interface FileRoutesById {
   '/ueber-uns': typeof UeberUnsRoute
   '/auto-verkaufen/danke': typeof AutoVerkaufenDankeRoute
   '/fahrzeuge/$slug': typeof FahrzeugeSlugRoute
+  '/fahrzeuge/': typeof FahrzeugeIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -131,19 +139,20 @@ export interface FileRouteTypes {
     | '/ueber-uns'
     | '/auto-verkaufen/danke'
     | '/fahrzeuge/$slug'
+    | '/fahrzeuge/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/admin'
     | '/auto-verkaufen'
     | '/datenschutz'
-    | '/fahrzeuge'
     | '/finanzierung'
     | '/impressum'
     | '/kontakt'
     | '/ueber-uns'
     | '/auto-verkaufen/danke'
     | '/fahrzeuge/$slug'
+    | '/fahrzeuge'
   id:
     | '__root__'
     | '/'
@@ -157,6 +166,7 @@ export interface FileRouteTypes {
     | '/ueber-uns'
     | '/auto-verkaufen/danke'
     | '/fahrzeuge/$slug'
+    | '/fahrzeuge/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -243,6 +253,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AutoVerkaufenDankeRouteImport
       parentRoute: typeof AutoVerkaufenRoute
     }
+    '/fahrzeuge/': {
+      id: '/fahrzeuge/'
+      path: '/'
+      fullPath: '/fahrzeuge/'
+      preLoaderRoute: typeof FahrzeugeIndexRouteImport
+      parentRoute: typeof FahrzeugeRoute
+    }
     '/fahrzeuge/$slug': {
       id: '/fahrzeuge/$slug'
       path: '/$slug'
@@ -267,10 +284,12 @@ const AutoVerkaufenRouteWithChildren = AutoVerkaufenRoute._addFileChildren(
 
 interface FahrzeugeRouteChildren {
   FahrzeugeSlugRoute: typeof FahrzeugeSlugRoute
+  FahrzeugeIndexRoute: typeof FahrzeugeIndexRoute
 }
 
 const FahrzeugeRouteChildren: FahrzeugeRouteChildren = {
   FahrzeugeSlugRoute: FahrzeugeSlugRoute,
+  FahrzeugeIndexRoute: FahrzeugeIndexRoute,
 }
 
 const FahrzeugeRouteWithChildren = FahrzeugeRoute._addFileChildren(
