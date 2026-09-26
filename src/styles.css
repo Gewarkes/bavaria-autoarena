@@ -195,10 +195,6 @@
   background-size: 28px 20px;
 }
 
-@utility hero-copy-shade {
-  background: linear-gradient(90deg, color-mix(in oklab, var(--navy-900) 70%, transparent) 0%, color-mix(in oklab, var(--navy-900) 70%, transparent) 22%, transparent 55%);
-}
-
 @utility reveal {
   opacity: 0;
   transform: translateY(18px);
