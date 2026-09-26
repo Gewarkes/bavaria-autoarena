@@ -22,7 +22,7 @@ export function VehicleGallery({ images, title, badge }: { images: VehicleImage[
     <div>
       <div className="relative overflow-hidden rounded-lg border border-border bg-darkest">
         <div ref={emblaRef} className="overflow-hidden"><div className="flex">
-          {images.map((img, i) => <button key={img.url} type="button" onClick={() => setOpen(true)} className="relative aspect-16/10 min-w-0 flex-[0_0_100%] cursor-zoom-in" aria-label="Bild vergrößern"><VehicleImg src={sizedImage(img.url, "full")} alt={img.alt || title} width="1600" height="1000" loading={i === 0 ? "eager" : "lazy"} fetchPriority={i === 0 ? "high" : undefined} className="size-full object-cover" /></button>)}
+          {images.map((img, i) => <button key={img.url} type="button" onClick={() => setOpen(true)} className="relative aspect-16/10 min-w-0 flex-[0_0_100%] cursor-zoom-in" aria-label="Bild vergrößern"><VehicleImg src={sizedImage(img.url, "full")} alt={img.alt || title} width="1600" height="1000" loading={i === 0 ? "eager" : "lazy" fetchPriority={i === 0 ? "high" : undefined} className="size-full object-cover" /></button>)}
         </div></div>
         {badge ? <div className="pointer-events-none absolute left-4 top-4">{badge}</div> : null}
         <span className="pointer-events-none absolute bottom-3 right-3 grid size-10 place-items-center rounded-full bg-darkest/80 text-foreground"><Expand className="size-4" /></span>
