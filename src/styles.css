@@ -163,6 +163,16 @@
   background-image: linear-gradient(90deg, transparent, color-mix(in oklab, var(--gold) 75%, transparent), transparent);
 }
 
+@utility hero-overlay {
+  background: rgb(20 26 38 / 70%);
+}
+
+@media (min-width: 768px) {
+  .hero-overlay {
+    background: linear-gradient(90deg, rgb(20 26 38 / 82%) 0%, transparent 55%);
+  }
+}
+
 @utility reveal {
   opacity: 0;
   transform: translateY(18px);
