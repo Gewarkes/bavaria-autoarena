@@ -1,7 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { lazy } from "react";
 import { formatFirstRegistration, formatFuel, formatKm, formatPrice, formatTransmission } from "@/lib/format";
-import { vehicleQuery } from "@/lib/vehicles";
+import { coverImage, publicGallery, vehicleQuery } from "@/lib/vehicles";
 import { absUrl, ogImageMeta } from "@/lib/seo";
 import { sizedImage } from "@/lib/vehicleImages";
 
@@ -21,7 +21,7 @@ export const Route = createFileRoute("/fahrzeuge/$slug")({
     const title = full.length <= 60 ? full : `${v.title.slice(0, 60 - 22 - formatPrice(v.price_eur).length).trim()}… – ${formatPrice(v.price_eur)}`;
     const rawDesc = `${v.title}: EZ ${formatFirstRegistration(v.first_registration)}, ${formatKm(v.mileage_km)}, ${formatFuel(v.fuel)}, ${formatTransmission(v.transmission)}${v.power_ps ? `, ${v.power_ps} PS` : ""}. Jetzt Probefahrt in Perkam bei Straubing vereinbaren.`;
     const description = rawDesc.length <= 155 ? rawDesc : `${rawDesc.slice(0, 152).trimEnd()}…`;
-    const first = v.images[0]?.url;
+    const first = coverImage(v)?.url;
     const image = first && /^https?:/.test(first) ? sizedImage(first, "full") : undefined;
     const path = `/fahrzeuge/${params.slug}`;
     return {
@@ -36,7 +36,7 @@ export const Route = createFileRoute("/fahrzeuge/$slug")({
       scripts: [
         { type: "application/ld+json", children: JSON.stringify({
           "@context": "https://schema.org", "@type": "Car", name: v.title, brand: { "@type": "Brand", name: v.brand }, model: v.model,
-          image: v.images.map((i) => i.url).filter((u) => /^https?:/.test(u)), bodyType: v.body_type, vehicleModelDate: v.first_registration.slice(0, 4),
+          image: publicGallery(v).map((i) => i.url).filter((u) => /^https?:/.test(u)), bodyType: v.body_type, vehicleModelDate: v.first_registration.slice(0, 4),
           mileageFromOdometer: { "@type": "QuantitativeValue", value: v.mileage_km, unitCode: "KMT" },
           fuelType: fuelSchema[v.fuel] ?? v.fuel, vehicleTransmission: v.transmission === "automatik" ? "AutomaticTransmission" : "ManualTransmission",
           ...(v.color ? { color: v.color } : {}),
