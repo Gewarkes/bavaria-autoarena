@@ -1,0 +1,2 @@
+import { PagePlaceholder } from "./PagePlaceholder";
+export default function FinancingPage() { return <PagePlaceholder title="Finanzierung">Gemeinsam finden wir eine Finanzierung, die zu Ihrem Wunschfahrzeug und Ihrem Budget passt.</PagePlaceholder>; }

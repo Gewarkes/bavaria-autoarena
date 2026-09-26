@@ -1,0 +1,2 @@
+import { PagePlaceholder } from "./PagePlaceholder";
+export default function VehicleDetailPage() { return <PagePlaceholder eyebrow="Fahrzeugangebot" title="Fahrzeugdetails">Alle Angaben, Ausstattungsmerkmale und Kontaktmöglichkeiten zu diesem Fahrzeug folgen hier.</PagePlaceholder>; }

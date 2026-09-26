@@ -1,0 +1,2 @@
+import { PagePlaceholder } from "./PagePlaceholder";
+export default function SellCarThanksPage() { return <PagePlaceholder title="Vielen Dank">Ihre Fahrzeugdaten sind bei uns eingegangen. Wir melden uns persönlich bei Ihnen.</PagePlaceholder>; }

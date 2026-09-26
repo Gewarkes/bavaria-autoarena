@@ -1,0 +1,2 @@
+import { PagePlaceholder } from "./PagePlaceholder";
+export default function HomePage() { return <PagePlaceholder eyebrow="Neu in Perkam" title="Bavaria Autoarena">Willkommen in unserem neu gebauten Autohaus bei Straubing – persönlich, hochwertig und zuverlässig.</PagePlaceholder>; }

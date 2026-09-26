@@ -1,0 +1,2 @@
+import { PagePlaceholder } from "./PagePlaceholder";
+export default function SellCarPage() { return <PagePlaceholder title="Auto verkaufen">Lassen Sie Ihr Fahrzeug unverbindlich bewerten und erhalten Sie ein faires Angebot.</PagePlaceholder>; }
