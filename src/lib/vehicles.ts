@@ -66,7 +66,7 @@ export async function getVehicles(filter: VehicleFilter = {}): Promise<Vehicle[]
   query = query.order("id", { ascending: true });
   const { data, error } = await query.limit(200);
   if (error) throw error;
-  return data.map(normalize) as Vehicle[];
+  return (data.map(normalize) as Vehicle[]).filter((vehicle) => !UNREACHABLE_COVER_SLUGS.has(vehicle.slug));
 }
 
 export async function getVehicleBySlug(slug: string): Promise<VehicleDetail | null> {

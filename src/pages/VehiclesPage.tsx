@@ -1,4 +1,4 @@
-import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { getRouteApi, useNavigate } from "@tanstack/react-router";
 import { SlidersHorizontal } from "lucide-react";
 import { useState } from "react";
@@ -24,7 +24,7 @@ function UnderlineSelect({ label, value, onChange, options }: { label: string; v
 }
 
 function Filters({ search, update }: { search: VehicleSearch; update: (p: Partial<VehicleSearch>) => void }) {
-  const brands = useQuery(brandsQuery()).data ?? [];
+  const { data: brands } = useSuspenseQuery(brandsQuery());
   const u = (v: string) => (v ? v : undefined);
   return <>
     <UnderlineSelect label="Marke" value={search.marke ?? ""} onChange={(v) => update({ marke: u(v) })} options={[["", "Alle Marken"], ...brands.map((b) => [b, b] as const)]} />

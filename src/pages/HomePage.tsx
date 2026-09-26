@@ -1,4 +1,4 @@
-import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import { ChevronRight, MapPin, MessageCircle, Phone } from "lucide-react";
 import { useState } from "react";
@@ -77,7 +77,7 @@ function Services() {
 const COURTYARD_IMAGES = [["de/de1dc43a-a013-4e53-a5bc-cd3dac97fbf1", "Mercedes Vito"], ["65/65594664-fed2-4381-939b-048d6c7c7cda", "Ford Focus ST-Line"], ["b1/b1277a2c-8ac3-47ac-abc7-cbeceb5b8790", "BMW X1"], ["71/7163354d-f6c1-404c-9f3e-69f09e425a27", "Seat Ateca"]] as const;
 
 function TestimonialsSection() {
-  const { data = [] } = useQuery(testimonialsQuery());
+  const { data } = useSuspenseQuery(testimonialsQuery());
   return <section className="section-space bg-navy-900 text-cream"><div className="page-container grid gap-14 lg:grid-cols-2 lg:items-center"><div className="grid grid-cols-2 gap-2">{COURTYARD_IMAGES.map(([path, title], index) => <div key={path} className="aspect-[4/3] overflow-hidden bg-[#D6D6D3]"><VehicleImg src={`https://img.classistatic.de/api/v1/mo-prod/images/${path}?rule=mo-640.jpg`} alt={`${title} bei Bavaria Autoarena`} width={640} height={480} loading={index < 3 ? "eager" : "lazy"} fetchPriority={index < 3 ? "high" : undefined} className="size-full object-cover object-center" /></div>)}</div><div><Heading eyebrow="Bewertungen" dark>Was unsere Kunden schreiben</Heading><div className="mt-8 divide-y divide-cream/10 lg:mt-12">{data.slice(0, 3).map((testimonial) => <figure key={testimonial.id} className="py-6 first:pt-0"><blockquote className="text-[19px] italic leading-[1.55]">„{testimonial.text}“</blockquote><figcaption className="mt-4"><span className="eyebrow text-gold-400">{testimonial.author}</span><span className="ml-3 text-sm text-silver-400">Bewertung auf mobile.de</span></figcaption></figure>)}</div><p className="mt-7 text-sm text-silver-400">4,7 von 5 · 85 Bewertungen auf mobile.de (Stand 09/2026)</p></div></div></section>;
 }
 
