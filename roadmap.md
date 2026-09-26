@@ -41,8 +41,8 @@
 
 # Redesign v2 – Schritt A
 
-- [ ] Designsystem, Schriften und Buttons umstellen
-- [ ] Header, Vollbild-Menü und schwebende Kontaktleiste erneuern
-- [ ] Startseite mit acht neuen Bereichen und echten Bildern aufbauen
-- [ ] Footer und Bildnachweise erneuern
-- [ ] Desktop 1280/1440 und Mobil 375 visuell prüfen; Produktions-Build ausführen
+- [x] Designsystem, Schriften und Buttons umstellen
+- [x] Header, Vollbild-Menü und schwebende Kontaktleiste erneuern
+- [x] Startseite mit acht neuen Bereichen und echten Bildern aufbauen
+- [x] Footer und Bildnachweise erneuern
+- [x] Desktop 1280/1440 und Mobil 375 visuell prüfen; Produktions-Build ausführen
