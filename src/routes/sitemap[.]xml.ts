@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { createClient } from "@supabase/supabase-js";
 import type { Database } from "@/integrations/supabase/types";
 
-const STATIC = ["/", "/fahrzeuge", "/auto-verkaufen", "/finanzierung", "/ueber-uns", "/kontakt", "/impressum", "/datenschutz"];
+const STATIC = ["/", "/fahrzeuge", "/auto-verkaufen", "/leistungen", "/finanzierung", "/ueber-uns", "/kontakt", "/impressum", "/datenschutz"];
 const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;");
 
 export const Route = createFileRoute("/sitemap.xml")({

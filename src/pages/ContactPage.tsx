@@ -7,9 +7,9 @@ import { Chip, MapGraphic, PrivacyHint } from "@/components/site/shared";
 import { LeadBasicsFields, LeadSubmit, LeadSuccess, useLeadForm } from "@/components/forms/LeadBasics";
 import { currentOpeningStatus, isOpenNow, mapsRouteUrl, openingRows, phoneHref, siteConfig, whatsappHref } from "@/config/site";
 
-const topics = ["Termin vereinbaren", "Probefahrt", "Frage zu einem Fahrzeug", "Sonstiges"] as const;
+const topics = ["Termin vereinbaren", "Probefahrt", "Frage zu einem Fahrzeug", "Zulassung", "Lieferung", "Export", "Sonstiges"] as const;
 
-function ContactForm() {
+export function ContactForm() {
   const form = useLeadForm();
   const [topic, setTopic] = useState<(typeof topics)[number]>("Termin vereinbaren");
   const [date, setDate] = useState("");

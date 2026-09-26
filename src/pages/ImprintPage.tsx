@@ -13,6 +13,7 @@ export default function ImprintPage() {
       <S title="Angaben gemäß § 5 DDG"><p>{siteConfig.name}<br />{siteConfig.street}<br />{siteConfig.zip} {siteConfig.city}</p><p>Vertreten durch den Geschäftsführer: {l.managingDirector}</p></S>
       <S title="Kontakt"><p>Telefon: <a href={`tel:${siteConfig.phone.replace(/\s/g, "")}`} className="text-gold hover:underline">{siteConfig.phone}</a><br />E-Mail: <a href={`mailto:${siteConfig.email}`} className="text-gold hover:underline">{siteConfig.email}</a></p></S>
       <S title="Registereintrag"><p>Registergericht: {l.registerCourt}<br />Registernummer: {l.registerNumber}</p></S>
+      <S title="Vermittlung von Finanzierungen"><p>Vermittlung von Finanzierungen als ungebundener Vermittler für die Santander Consumer Bank AG und die Deutsche Kreditbank AG (DKB). [[PLATZHALTER: Erlaubnis nach § 34c GewO und Aufsichtsbehörde prüfen]]</p></S>
       <S title="Umsatzsteuer-ID"><p>Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG: {l.vatId}</p></S>
       <S title="Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV"><p>{l.responsibleMStV}</p></S>
       <S title="Gewerberechtliche Angaben"><p>[[PLATZHALTER: falls Finanzierungsvermittlung: Erlaubnis nach § 34c GewO, Aufsichtsbehörde Landratsamt Straubing-Bogen]]</p></S>

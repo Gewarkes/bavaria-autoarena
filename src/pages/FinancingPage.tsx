@@ -58,7 +58,8 @@ export default function FinancingPage() {
   return (
     <>
       <PageHero eyebrow="Finanzierung & Leasing" title="Ihr Wunschauto – zu Raten, die zu Ihnen passen.">
-        Wir arbeiten mit {siteConfig.financingPartner} zusammen und finden gemeinsam die passende Lösung – auch mit Inzahlungnahme Ihres bisherigen Fahrzeugs.
+        Wir arbeiten mit der Santander Consumer Bank und der DKB zusammen und finden gemeinsam die passende Lösung – auch mit Inzahlungnahme Ihres bisherigen Fahrzeugs.
+        <span className="mt-5 flex flex-wrap gap-2">{siteConfig.financingPartners.map((p) => <span key={p} className="rounded-md border border-gold/50 px-3 py-1.5 font-display text-xs font-bold uppercase tracking-wide text-gold-light">{p}</span>)}</span>
       </PageHero>
       <div className="mx-auto grid max-w-7xl gap-12 px-5 py-16 lg:grid-cols-[1fr_minmax(0,520px)] lg:px-6">
         <div className="space-y-14">
@@ -74,7 +75,7 @@ export default function FinancingPage() {
         </div>
         <div className="lg:sticky lg:top-28 lg:self-start"><FinancingForm /></div>
       </div>
-      <p className="mx-auto max-w-7xl px-5 pb-16 text-xs leading-5 text-muted-foreground lg:px-6">Finanzierung vorbehaltlich Bonitätsprüfung durch den Finanzierungspartner. Wir vermitteln Finanzierungen als ungebundener Vermittler.</p>
+      <p className="mx-auto max-w-7xl px-5 pb-16 text-xs leading-5 text-muted-foreground lg:px-6">Finanzierung über Santander Consumer Bank oder DKB, Bonität vorausgesetzt. Wir vermitteln Finanzierungen als ungebundener Vermittler.</p>
     </>
   );
 }
