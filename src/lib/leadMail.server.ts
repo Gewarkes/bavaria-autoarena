@@ -9,14 +9,14 @@ const fmt = (v: Row[1]) => (v === true ? "Ja" : v === false ? "Nein" : v == null
 
 export function renderMail(opts: { heading: string; intro: string[]; rows: Row[]; cta?: { href: string; label: string }; origin: string }) {
   const privacy = `${opts.origin}/datenschutz`;
-  const table = opts.rows.map(([k, v, href]) => `<tr><td style="padding:6px 12px 6px 0;color:#6b7280;vertical-align:top;white-space:nowrap">${esc(k)}</td><td style="padding:6px 0;color:#141A26">${href ? `<a href="${esc(href)}" style="color:#A8863E">${esc(fmt(v))}</a>` : esc(fmt(v)).replace(/\n/g, "<br>")}</td></tr>`).join("");
+  const table = opts.rows.map(([k, v, href]) => `<tr><td style="padding:6px 12px 6px 0;color:#72798A;vertical-align:top;white-space:nowrap">${esc(k)}</td><td style="padding:6px 0;color:#1A1F35">${href ? `<a href="${esc(href)}" style="color:#9A783F">${esc(fmt(v))}</a>` : esc(fmt(v)).replace(/\n/g, "<br>")}</td></tr>`).join("");
   const html = `<!doctype html><html lang="de"><body style="margin:0;background:#ffffff;font-family:Arial,Helvetica,sans-serif">
 <div style="max-width:600px;margin:0 auto;padding:24px">
-<div style="background:#141A26;padding:18px 24px;border-bottom:3px solid #C9A961"><span style="color:#C9A961;font-size:11px;letter-spacing:4px">BAVARIA</span><br><span style="color:#B8BEC7;font-size:22px;font-weight:bold">AUTO</span><span style="color:#C9A961;font-size:22px;font-weight:bold">ARENA</span></div>
-<h1 style="font-size:20px;color:#141A26;margin:24px 0 12px">${esc(opts.heading)}</h1>
-${opts.intro.map((p) => `<p style="font-size:14px;line-height:1.6;color:#141A26;margin:0 0 12px">${esc(p)}</p>`).join("")}
+<div style="background:#1A1F35;padding:18px 24px;border-bottom:3px solid #C4A26A"><span style="color:#C4A26A;font-size:11px;letter-spacing:4px">BAVARIA AUTOARENA</span></div>
+<h1 style="font-size:20px;color:#1A1F35;margin:24px 0 12px">${esc(opts.heading)}</h1>
+${opts.intro.map((p) => `<p style="font-size:14px;line-height:1.6;color:#1A1F35;margin:0 0 12px">${esc(p)}</p>`).join("")}
 <table style="font-size:14px;border-collapse:collapse;margin:12px 0 20px">${table}</table>
-${opts.cta ? `<p><a href="${esc(opts.cta.href)}" style="display:inline-block;background:#C9A961;color:#141A26;padding:12px 20px;border-radius:8px;text-decoration:none;font-weight:bold">${esc(opts.cta.label)}</a></p>` : ""}
+${opts.cta ? `<p><a href="${esc(opts.cta.href)}" style="display:inline-block;background:#C4A26A;color:#1A1F35;padding:12px 20px;border-radius:2px;text-decoration:none;font-weight:bold">${esc(opts.cta.label)}</a></p>` : ""}
 <hr style="border:none;border-top:1px solid #e5e7eb;margin:28px 0 12px">
 <p style="font-size:11px;line-height:1.5;color:#6b7280">${esc(FOOTER)}<br><a href="${privacy}" style="color:#6b7280">Datenschutzerklärung</a></p>
 </div></body></html>`;
