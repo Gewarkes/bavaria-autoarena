@@ -24,7 +24,7 @@ export default function AboutPage() {
         <p>Wir beraten Sie persönlich und ohne Verkaufsdruck. Sie entscheiden in Ruhe – wir nehmen uns die Zeit dafür.</p>
       </Reveal>
       <section className="border-y border-border bg-darkest"><div className="mx-auto grid max-w-7xl gap-8 px-5 py-14 sm:grid-cols-2 lg:grid-cols-4 lg:px-6">
-        {[["85+", "Bewertungen"], ["4,7 / 5", "auf mobile.de (Stand 09/2026)"], ["25+", "Fahrzeuge"], ["[[PLATZHALTER: seit Jahr]]", "im Gebrauchtwagenhandel"]].map(([v, l]) => <div key={l} className="border-l border-gold/50 pl-5"><p className={`text-gold-gradient break-words font-display font-extrabold tracking-wide ${v.startsWith("[[") ? "text-lg" : "text-3xl"}`}>{v}</p><p className="mt-2 text-sm text-muted-foreground">{l}</p></div>)}
+        {[["85+", "Bewertungen"], ["4,7 / 5", "auf mobile.de (Stand 09/2026)"], ["25+", "Fahrzeuge"], ["[[PLATZHALTER: seit Jahr]]", "im Gebrauchtwagenhandel"]].map(([v, l]) => <div key={l} className="border-l border-gold/50 pl-5"><p className={`text-gold-gradient break-words font-display font-extrabold tracking-wide ${String(v).startsWith("[[") ? "text-lg" : "text-3xl"}`}>{v}</p><p className="mt-2 text-sm text-muted-foreground">{l}</p></div>)}
       </div></section>
       <Reveal className="mx-auto max-w-7xl px-5 py-16 lg:px-6">
         <H2 eyebrow="Wofür wir stehen">Unsere Werte</H2>
