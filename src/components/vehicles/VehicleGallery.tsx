@@ -31,7 +31,7 @@ export function VehicleGallery({ images, title, badge }: { images: VehicleImage[
           <button type="button" onClick={() => go(1)} aria-label="Nächstes Bild" className="absolute right-3 top-1/2 grid size-11 -translate-y-1/2 place-items-center rounded-full bg-darkest/80 text-foreground hover:text-gold"><ChevronRight /></button>
         </> : null}
       </div>
-      {multi ? <div className="mt-3 grid grid-cols-5 gap-2">{images.map((img, i) => <button key={img.url} type="button" onClick={() => embla?.scrollTo(i)} aria-label={`Bild ${i + 1}`} className={cn("aspect-4/3 overflow-hidden rounded-md border", i === index ? "border-gold" : "border-border opacity-70 hover:opacity-100")}><VehicleImg src={img.thumbUrl || sizedImage(img.url, "card")} alt="" width="200" height="150" loading="lazy" className="size-full object-cover" /></button>)}</div> : null}
+      {multi ? <div className="mt-3 grid grid-cols-5 gap-2">{images.map((img, i) => <button key={img.url} type="button" onClick={() => embla?.scrollTo(i)} aria-label={`Bild ${i + 1}`} className={cn("aspect-4/3 overflow-hidden rounded-md border", i === index ? "border-gold" : "border-border opacity-70 hover:opacity-100")}><VehicleImg src={sizedImage(img.thumbUrl || img.url, "card")} alt="" width="200" height="150" loading="lazy" className="size-full object-cover" /></button>)}</div> : null}
       <Dialog open={open} onOpenChange={(o) => { setOpen(o); if (!o) setZoom(false); }}>
         <DialogContent className="max-w-6xl border-border bg-darkest p-2">
           <DialogTitle className="sr-only">{title}</DialogTitle>

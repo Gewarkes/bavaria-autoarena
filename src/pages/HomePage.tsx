@@ -12,7 +12,7 @@ import { MapGraphic, Testimonials } from "@/components/site/shared";
 import { ServicesGrid } from "@/components/site/Services";
 import { brandsQuery, highlightsQuery, testimonialsQuery } from "@/lib/vehicles";
 
-const heroImage = "https://img.classistatic.de/api/v1/mo-prod/images/37/37cb9a67-af05-48a8-aa73-cf055badd95d?rule=mo-1600";
+const heroImage = "https://img.classistatic.de/api/v1/mo-prod/images/37/37cb9a67-af05-48a8-aa73-cf055badd95d?rule=mo-1600.jpg";
 function useBrands() { return useQuery(brandsQuery()).data ?? []; }
 const openingRows = [
   ["Montag", "monday"], ["Dienstag", "tuesday"], ["Mittwoch", "wednesday"], ["Donnerstag", "thursday"],
@@ -66,7 +66,8 @@ export default function HomePage() {
   const today = new Date().toLocaleDateString("de-DE", { timeZone: "Europe/Berlin", weekday: "long" });
   return <>
     <section className="bg-rauten relative min-h-[720px] overflow-hidden md:min-h-[calc(85vh-6rem)]">
-      {heroImage && <img src={heroImage} alt="Audi R8 aus dem Fahrzeugbestand der Bavaria Autoarena" width="1200" height="900" fetchPriority="high" className="hero-image-mask absolute inset-y-0 right-0 hidden h-full w-[62%] object-cover opacity-60 md:block" />}
+      {heroImage && <img src={heroImage} alt="Audi R8 aus dem Fahrzeugbestand der Bavaria Autoarena" width="1200" height="900" fetchPriority="high" style={{ objectPosition: "70% 60%", transform: "scale(1.15)", transformOrigin: "70% 60%" }} className="hero-image-mask absolute inset-y-0 right-0 hidden h-full w-[62%] object-cover opacity-60 md:block" />}
+      <div className="pointer-events-none absolute inset-0 hidden bg-[radial-gradient(ellipse_at_38%_0%,var(--background)_0%,transparent_55%)] md:block" />
       <div className="absolute inset-0 bg-linear-to-r from-background via-background/85 to-background/10" />
       <div className="relative mx-auto flex min-h-[720px] max-w-7xl items-center px-5 pb-24 pt-16 md:min-h-[calc(85vh-6rem)] lg:px-6"><div className="max-w-3xl"><p className="font-display text-xs font-bold uppercase tracking-wide text-gold">Neu eröffnet · Perkam bei Straubing</p><h1 className="mt-5 font-display text-4xl font-extrabold uppercase tracking-wide text-foreground sm:text-6xl lg:text-7xl">Ihr neues Autohaus in Niederbayern.</h1><p className="mt-6 max-w-2xl text-lg leading-8 text-silver sm:text-xl">Geprüfte Gebrauchtwagen, ehrliche Beratung und faire Preise – jetzt im neu gebauten Autohaus in Perkam.</p><div className="mt-8 flex flex-col gap-3 sm:flex-row"><Button asChild variant="gold"><Link to="/fahrzeuge">Fahrzeuge ansehen</Link></Button><Button asChild variant="silver"><Link to="/auto-verkaufen">Auto in Zahlung geben</Link></Button></div><a href={siteConfig.mobileDeUrl} target="_blank" rel="noopener noreferrer" className="mt-8 flex max-w-xl items-start gap-3 text-sm leading-6 text-muted-foreground hover:text-foreground"><span className="shrink-0 tracking-wide text-gold">★★★★★</span><span>4,7 / 5 · 85 Bewertungen auf mobile.de (Stand 09/2026)</span></a></div></div>
     </section>
