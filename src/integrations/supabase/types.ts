@@ -23,6 +23,7 @@ export type Database = {
           kind: string
           message: string | null
           name: string
+          notified_at: string | null
           phone: string | null
           privacy_notice_version: string
           status: Database["public"]["Enums"]["lead_status"]
@@ -36,6 +37,7 @@ export type Database = {
           kind: string
           message?: string | null
           name: string
+          notified_at?: string | null
           phone?: string | null
           privacy_notice_version: string
           status?: Database["public"]["Enums"]["lead_status"]
@@ -49,6 +51,7 @@ export type Database = {
           kind?: string
           message?: string | null
           name?: string
+          notified_at?: string | null
           phone?: string | null
           privacy_notice_version?: string
           status?: Database["public"]["Enums"]["lead_status"]
@@ -63,6 +66,21 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      pending_photo_deletions: {
+        Row: {
+          created_at: string
+          path: string
+        }
+        Insert: {
+          created_at?: string
+          path: string
+        }
+        Update: {
+          created_at?: string
+          path?: string
+        }
+        Relationships: []
       }
       testimonials: {
         Row: {
@@ -122,6 +140,7 @@ export type Database = {
           marketing_opt_in: boolean
           mileage_km: number
           model: string
+          notified_at: string | null
           phone: string | null
           photo_paths: string[]
           previous_owners: string | null
@@ -155,6 +174,7 @@ export type Database = {
           marketing_opt_in?: boolean
           mileage_km: number
           model: string
+          notified_at?: string | null
           phone?: string | null
           photo_paths?: string[]
           previous_owners?: string | null
@@ -188,6 +208,7 @@ export type Database = {
           marketing_opt_in?: boolean
           mileage_km?: number
           model?: string
+          notified_at?: string | null
           phone?: string | null
           photo_paths?: string[]
           previous_owners?: string | null
@@ -320,6 +341,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      cleanup_old_leads: { Args: never; Returns: Json }
       complete_trade_in_request: {
         Args: {
           _condition_exterior: string

@@ -23,13 +23,22 @@ export async function submitInquiry(input: InquiryInput, meta: { honeypot: strin
   const data = inquirySchema.parse(input);
   // Bots: silently pretend success
   if (meta.honeypot || Date.now() - meta.startedAt < MIN_FILL_MS) return { ok: true as const };
+  const id = crypto.randomUUID();
   const { error } = await supabase.from("inquiries").insert({
-    kind: data.kind, name: data.name, phone: data.phone ?? null, email: data.email ?? null,
+    id, kind: data.kind, name: data.name, phone: data.phone ?? null, email: data.email ?? null,
     message: data.message ?? null, vehicle_id: data.vehicleId, privacy_notice_version: PRIVACY_NOTICE_VERSION,
   });
   if (error) {
     console.error("inquiry_insert_failed", error.code);
     return { ok: false as const };
   }
+  notifyLead("inquiry", id);
   return { ok: true as const };
+}
+
+/** Fire-and-forget mail notification; failures never affect the success state. */
+export function notifyLead(type: "trade_in" | "inquiry", id: string) {
+  try {
+    void fetch("/api/public/send-lead-mail", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ type, id }), keepalive: true }).catch(() => undefined);
+  } catch { /* ignore */ }
 }

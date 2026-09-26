@@ -1,6 +1,7 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
+import { supabase } from "@/integrations/supabase/client";
 import { LEAD_STATUSES, VEHICLE_STATUSES, type LeadStatus, type VehicleStatus } from "@/lib/admin";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -81,3 +82,33 @@ export function LeadEditor({ status, notes, onSave, extra }: {
 }
 
 export const waLink = (phone: string) => `https://wa.me/${phone.replace(/\D/g, "").replace(/^0/, "49")}`;
+
+/** Hinweis + manuelle Bereinigung; entfernt außerdem vorgemerkte Fotos aus dem privaten Bucket. */
+export function CleanupNotice({ onDone }: { onDone?: () => void }) {
+  const [busy, setBusy] = useState(false);
+  const flushPhotos = async () => {
+    const { data } = await supabase.from("pending_photo_deletions").select("path").limit(500);
+    const paths = (data ?? []).map((r) => r.path);
+    if (!paths.length) return 0;
+    const { error } = await supabase.storage.from("trade-in-photos").remove(paths);
+    if (!error) await supabase.from("pending_photo_deletions").delete().in("path", paths);
+    return paths.length;
+  };
+  useEffect(() => { void flushPhotos(); }, []);
+  const run = async () => {
+    if (!window.confirm("Alle Anfragen mit Status abgeschlossen/abgelehnt, die älter als 6 Monate sind, samt Fotos endgültig löschen?")) return;
+    setBusy(true);
+    const { data, error } = await supabase.rpc("cleanup_old_leads");
+    if (error) { toast.error("Bereinigung fehlgeschlagen."); setBusy(false); return; }
+    const photos = await flushPhotos();
+    const r = data as { trade_in: number; inquiries: number };
+    toast.success(`Bereinigt: ${r.trade_in} Inzahlungnahme-, ${r.inquiries} Fahrzeuganfragen, ${photos} Fotos.`);
+    setBusy(false); onDone?.();
+  };
+  return (
+    <div className="mb-4 flex flex-wrap items-center gap-3 rounded-md border border-border bg-card p-3 text-xs text-muted-foreground">
+      <span>Anfragen mit Status abgeschlossen/abgelehnt werden 6 Monate nach Eingang automatisch samt Fotos gelöscht.</span>
+      <Button variant="ghost" size="sm" className="ml-auto" disabled={busy} onClick={run}>Alte Anfragen bereinigen</Button>
+    </div>
+  );
+}

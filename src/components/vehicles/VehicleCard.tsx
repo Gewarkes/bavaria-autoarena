@@ -1,3 +1,4 @@
+import { sizedImage } from "@/lib/vehicleImages";
 import { Link } from "@tanstack/react-router";
 import { CalendarDays, Fuel, Gauge, Settings2, Zap } from "lucide-react";
 import { siteConfig } from "@/config/site";
@@ -18,7 +19,7 @@ export function VehicleCard({ vehicle }: { vehicle: Vehicle }) {
   return (
     <Link to="/fahrzeuge/$slug" params={{ slug: vehicle.slug }} className="group block overflow-hidden rounded-lg border border-border bg-card transition-all hover:-translate-y-1 hover:border-gold/50 hover:shadow-gold">
       <div className="relative aspect-4/3 overflow-hidden bg-muted">
-        {image ? <VehicleImg src={image.thumbUrl || image.url} alt={image.alt || vehicle.title} width="800" height="600" loading="lazy" className="size-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" /> : null}
+        {image ? <VehicleImg src={image.thumbUrl || sizedImage(image.url, "card")} alt={image.alt || vehicle.title} width="800" height="600" loading="lazy" className="size-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" /> : null}
         {vehicle.status === "reserviert" ? <span className="absolute left-3 top-3 rounded-md bg-warning px-2.5 py-1 text-xs font-bold text-primary-foreground">Reserviert</span> : vehicle.is_highlight ? <span className="bg-gold-gradient absolute left-3 top-3 rounded-md px-2.5 py-1 text-xs font-bold text-primary-foreground">Highlight</span> : null}
       </div>
       <div className="p-5">

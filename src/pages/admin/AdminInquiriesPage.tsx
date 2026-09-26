@@ -4,7 +4,7 @@ import { Link, useNavigate } from "@tanstack/react-router";
 import { Download, Mail, MessageCircle, Phone, Search, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { deleteInquiry, downloadCsv, fmtDateTime, KIND_LABEL, listInquiries, updateInquiry, type LeadStatus } from "@/lib/admin";
-import { ErrorBox, LeadBadge, LeadEditor, PageTitle, StatusChips, TableSkeleton, waLink } from "@/components/admin/common";
+import { CleanupNotice, ErrorBox, LeadBadge, LeadEditor, PageTitle, StatusChips, TableSkeleton, waLink } from "@/components/admin/common";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
@@ -36,6 +36,7 @@ export default function AdminInquiriesPage({ selectedId }: { selectedId?: string
   return (
     <div>
       <PageTitle title="Fahrzeuganfragen"><Button variant="silver" onClick={exportCsv} disabled={!rows.length}><Download className="size-4" /> CSV-Export</Button></PageTitle>
+      <CleanupNotice onDone={() => void qc.invalidateQueries({ queryKey: ["admin"] })} />
       <div className="mb-4 flex flex-col gap-3 lg:flex-row lg:items-center">
         <StatusChips value={status} onChange={setStatus} />
         <div className="relative lg:ml-auto lg:w-72"><Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" /><Input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Name, Fahrzeug" className="h-10 pl-9" aria-label="Suche" /></div>

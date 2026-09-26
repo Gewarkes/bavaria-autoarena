@@ -30,7 +30,7 @@ function normalize<T extends { images: unknown }>(row: T) {
 
 export async function getHighlights(limit = 8): Promise<Vehicle[]> {
   const { data, error } = await supabase.from("vehicles").select(LIST_COLUMNS)
-    .eq("is_highlight", true).neq("status", "verkauft").order("created_at", { ascending: false }).limit(limit);
+    .eq("is_highlight", true).neq("status", "verkauft").order("created_at", { ascending: false }).order("id", { ascending: true }).limit(limit);
   if (error) throw error;
   return data.map(normalize) as Vehicle[];
 }
@@ -51,6 +51,7 @@ export async function getVehicles(filter: VehicleFilter = {}): Promise<Vehicle[]
     : sort === "km-auf" ? query.order("mileage_km", { ascending: true })
     : sort === "ez-neu" ? query.order("first_registration", { ascending: false })
     : query.order("created_at", { ascending: false });
+  query = query.order("id", { ascending: true });
   const { data, error } = await query.limit(200);
   if (error) throw error;
   return data.map(normalize) as Vehicle[];

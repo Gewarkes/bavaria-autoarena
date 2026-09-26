@@ -1,6 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /admin
-
-# Sitemap folgt in Schritt 8
-# Sitemap: https://[[PLATZHALTER: Domain]]/sitemap.xml

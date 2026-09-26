@@ -17,6 +17,8 @@ import { Route as FahrzeugeRouteImport } from './routes/fahrzeuge'
 import { Route as FinanzierungRouteImport } from './routes/finanzierung'
 import { Route as ImpressumRouteImport } from './routes/impressum'
 import { Route as KontaktRouteImport } from './routes/kontakt'
+import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as UeberUnsRouteImport } from './routes/ueber-uns'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminAnfragenRouteImport } from './routes/admin.anfragen'
@@ -32,6 +34,7 @@ import { Route as AdminFahrzeugeImportRouteImport } from './routes/admin.fahrzeu
 import { Route as AdminFahrzeugeNeuRouteImport } from './routes/admin.fahrzeuge.neu'
 import { Route as AdminInzahlungnahmeIndexRouteImport } from './routes/admin.inzahlungnahme.index'
 import { Route as AdminInzahlungnahmeIdRouteImport } from './routes/admin.inzahlungnahme.$id'
+import { Route as ApiPublicSendLeadMailRouteImport } from './routes/api/public/send-lead-mail'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -71,6 +74,16 @@ const ImpressumRoute = ImpressumRouteImport.update({
 const KontaktRoute = KontaktRouteImport.update({
   id: '/kontakt',
   path: '/kontakt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RobotsDottxtRoute = RobotsDottxtRouteImport.update({
+  id: '/robots.txt',
+  path: '/robots.txt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const UeberUnsRoute = UeberUnsRouteImport.update({
@@ -149,6 +162,11 @@ const AdminInzahlungnahmeIdRoute = AdminInzahlungnahmeIdRouteImport.update({
   path: '/inzahlungnahme/$id',
   getParentRoute: () => AdminRoute,
 } as any)
+const ApiPublicSendLeadMailRoute = ApiPublicSendLeadMailRouteImport.update({
+  id: '/api/public/send-lead-mail',
+  path: '/api/public/send-lead-mail',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -159,6 +177,8 @@ export interface FileRoutesByFullPath {
   '/finanzierung': typeof FinanzierungRoute
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
+  '/robots.txt': typeof RobotsDottxtRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/ueber-uns': typeof UeberUnsRoute
   '/admin/anfragen': typeof AdminAnfragenRoute
   '/admin/kundenstimmen': typeof AdminKundenstimmenRoute
@@ -172,6 +192,7 @@ export interface FileRoutesByFullPath {
   '/admin/fahrzeuge/import': typeof AdminFahrzeugeImportRoute
   '/admin/fahrzeuge/neu': typeof AdminFahrzeugeNeuRoute
   '/admin/inzahlungnahme/$id': typeof AdminInzahlungnahmeIdRoute
+  '/api/public/send-lead-mail': typeof ApiPublicSendLeadMailRoute
   '/admin/fahrzeuge/': typeof AdminFahrzeugeIndexRoute
   '/admin/inzahlungnahme/': typeof AdminInzahlungnahmeIndexRoute
 }
@@ -181,6 +202,8 @@ export interface FileRoutesByTo {
   '/finanzierung': typeof FinanzierungRoute
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
+  '/robots.txt': typeof RobotsDottxtRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/ueber-uns': typeof UeberUnsRoute
   '/admin/anfragen': typeof AdminAnfragenRoute
   '/admin/kundenstimmen': typeof AdminKundenstimmenRoute
@@ -194,6 +217,7 @@ export interface FileRoutesByTo {
   '/admin/fahrzeuge/import': typeof AdminFahrzeugeImportRoute
   '/admin/fahrzeuge/neu': typeof AdminFahrzeugeNeuRoute
   '/admin/inzahlungnahme/$id': typeof AdminInzahlungnahmeIdRoute
+  '/api/public/send-lead-mail': typeof ApiPublicSendLeadMailRoute
   '/admin/fahrzeuge': typeof AdminFahrzeugeIndexRoute
   '/admin/inzahlungnahme': typeof AdminInzahlungnahmeIndexRoute
 }
@@ -207,6 +231,8 @@ export interface FileRoutesById {
   '/finanzierung': typeof FinanzierungRoute
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
+  '/robots.txt': typeof RobotsDottxtRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/ueber-uns': typeof UeberUnsRoute
   '/admin/anfragen': typeof AdminAnfragenRoute
   '/admin/kundenstimmen': typeof AdminKundenstimmenRoute
@@ -220,6 +246,7 @@ export interface FileRoutesById {
   '/admin/fahrzeuge/import': typeof AdminFahrzeugeImportRoute
   '/admin/fahrzeuge/neu': typeof AdminFahrzeugeNeuRoute
   '/admin/inzahlungnahme/$id': typeof AdminInzahlungnahmeIdRoute
+  '/api/public/send-lead-mail': typeof ApiPublicSendLeadMailRoute
   '/admin/fahrzeuge/': typeof AdminFahrzeugeIndexRoute
   '/admin/inzahlungnahme/': typeof AdminInzahlungnahmeIndexRoute
 }
@@ -234,6 +261,8 @@ export interface FileRouteTypes {
     | '/finanzierung'
     | '/impressum'
     | '/kontakt'
+    | '/robots.txt'
+    | '/sitemap.xml'
     | '/ueber-uns'
     | '/admin/anfragen'
     | '/admin/kundenstimmen'
@@ -247,6 +276,7 @@ export interface FileRouteTypes {
     | '/admin/fahrzeuge/import'
     | '/admin/fahrzeuge/neu'
     | '/admin/inzahlungnahme/$id'
+    | '/api/public/send-lead-mail'
     | '/admin/fahrzeuge/'
     | '/admin/inzahlungnahme/'
   fileRoutesByTo: FileRoutesByTo
@@ -256,6 +286,8 @@ export interface FileRouteTypes {
     | '/finanzierung'
     | '/impressum'
     | '/kontakt'
+    | '/robots.txt'
+    | '/sitemap.xml'
     | '/ueber-uns'
     | '/admin/anfragen'
     | '/admin/kundenstimmen'
@@ -269,6 +301,7 @@ export interface FileRouteTypes {
     | '/admin/fahrzeuge/import'
     | '/admin/fahrzeuge/neu'
     | '/admin/inzahlungnahme/$id'
+    | '/api/public/send-lead-mail'
     | '/admin/fahrzeuge'
     | '/admin/inzahlungnahme'
   id:
@@ -281,6 +314,8 @@ export interface FileRouteTypes {
     | '/finanzierung'
     | '/impressum'
     | '/kontakt'
+    | '/robots.txt'
+    | '/sitemap.xml'
     | '/ueber-uns'
     | '/admin/anfragen'
     | '/admin/kundenstimmen'
@@ -294,6 +329,7 @@ export interface FileRouteTypes {
     | '/admin/fahrzeuge/import'
     | '/admin/fahrzeuge/neu'
     | '/admin/inzahlungnahme/$id'
+    | '/api/public/send-lead-mail'
     | '/admin/fahrzeuge/'
     | '/admin/inzahlungnahme/'
   fileRoutesById: FileRoutesById
@@ -307,8 +343,11 @@ export interface RootRouteChildren {
   FinanzierungRoute: typeof FinanzierungRoute
   ImpressumRoute: typeof ImpressumRoute
   KontaktRoute: typeof KontaktRoute
+  RobotsDottxtRoute: typeof RobotsDottxtRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   UeberUnsRoute: typeof UeberUnsRoute
   AdminLoginRoute: typeof AdminLoginRoute
+  ApiPublicSendLeadMailRoute: typeof ApiPublicSendLeadMailRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -367,6 +406,20 @@ declare module '@tanstack/react-router' {
       path: '/kontakt'
       fullPath: '/kontakt'
       preLoaderRoute: typeof KontaktRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/robots.txt': {
+      id: '/robots.txt'
+      path: '/robots.txt'
+      fullPath: '/robots.txt'
+      preLoaderRoute: typeof RobotsDottxtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/ueber-uns': {
@@ -474,6 +527,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminInzahlungnahmeIdRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/api/public/send-lead-mail': {
+      id: '/api/public/send-lead-mail'
+      path: '/api/public/send-lead-mail'
+      fullPath: '/api/public/send-lead-mail'
+      preLoaderRoute: typeof ApiPublicSendLeadMailRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -540,8 +600,11 @@ const rootRouteChildren: RootRouteChildren = {
   FinanzierungRoute: FinanzierungRoute,
   ImpressumRoute: ImpressumRoute,
   KontaktRoute: KontaktRoute,
+  RobotsDottxtRoute: RobotsDottxtRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   UeberUnsRoute: UeberUnsRoute,
   AdminLoginRoute: AdminLoginRoute,
+  ApiPublicSendLeadMailRoute: ApiPublicSendLeadMailRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

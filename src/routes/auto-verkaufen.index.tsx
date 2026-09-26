@@ -4,7 +4,7 @@ import { seo } from "@/lib/seo";
 import { faqJsonLd } from "@/lib/tradeInFaq";
 
 const SellCarPage = lazy(() => import("@/pages/SellCarPage"));
-const title = "Auto verkaufen oder in Zahlung geben in Straubing | Bavaria Autoarena";
+const title = "Auto verkaufen in Straubing | Bavaria Autoarena";
 const str = (v: unknown, max = 80) => (typeof v === "string" && v.trim() ? v.trim().slice(0, max) : undefined);
 const uuid = (v: unknown) => (typeof v === "string" && /^[0-9a-f-]{36}$/i.test(v) ? v : undefined);
 
