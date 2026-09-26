@@ -19,7 +19,8 @@ export const Route = createFileRoute("/fahrzeuge/$slug")({
     if (!v) return { meta: [{ title: "Fahrzeug nicht gefunden | Bavaria Autoarena" }, { name: "robots", content: "noindex" }] };
     const full = `${v.title} – ${formatPrice(v.price_eur)} | Bavaria Autoarena`;
     const title = full.length <= 60 ? full : `${v.title.slice(0, 60 - 22 - formatPrice(v.price_eur).length).trim()}… – ${formatPrice(v.price_eur)}`;
-    const description = `${v.title}: EZ ${formatFirstRegistration(v.first_registration)}, ${formatKm(v.mileage_km)}, ${formatFuel(v.fuel)}, ${formatTransmission(v.transmission)}${v.power_ps ? `, ${v.power_ps} PS` : ""}. Jetzt Probefahrt in Perkam bei Straubing vereinbaren.`;
+    const rawDesc = `${v.title}: EZ ${formatFirstRegistration(v.first_registration)}, ${formatKm(v.mileage_km)}, ${formatFuel(v.fuel)}, ${formatTransmission(v.transmission)}${v.power_ps ? `, ${v.power_ps} PS` : ""}. Jetzt Probefahrt in Perkam bei Straubing vereinbaren.`;
+    const description = rawDesc.length <= 155 ? rawDesc : `${rawDesc.slice(0, 152).trimEnd()}…`;
     const first = v.images[0]?.url;
     const image = first && /^https?:/.test(first) ? sizedImage(first, "full") : undefined;
     const path = `/fahrzeuge/${params.slug}`;
