@@ -26,6 +26,7 @@ export default function AdminVehiclesPage() {
   }, [data, q]);
 
   const patch = async (v: AdminVehicle, p: Partial<Pick<AdminVehicle, "status" | "is_highlight">>, msg: string) => {
+    await qc.cancelQueries({ queryKey: ["admin", "vehicles"] });
     qc.setQueryData<AdminVehicle[]>(["admin", "vehicles"], (old) => old?.map((x) => (x.id === v.id ? { ...x, ...p } : x)));
     try { await updateVehicle(v.id, p); toast.success(msg); void qc.invalidateQueries({ queryKey: ["vehicles"] }); }
     catch { toast.error("Änderung fehlgeschlagen."); }
