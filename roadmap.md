@@ -34,7 +34,7 @@
 
 # Schritt 12a
 
-- [ ] Hero-H1 bei 320–390 px mit sicherem Rand darstellen
-- [ ] Filter und kurze Sortierlabels in einer bündigen Zeile darstellen
-- [ ] Erste vier Fahrzeugbilder priorisiert laden und Bildflächen hinterlegen
-- [ ] Drei Handygrößen im Browser prüfen; Produktions-Build ausführen
+- [x] Hero-H1 bei 320–390 px mit sicherem Rand darstellen
+- [x] Filter und kurze Sortierlabels in einer bündigen Zeile darstellen
+- [x] Erste vier Fahrzeugbilder priorisiert laden und Bildflächen hinterlegen
+- [x] Drei Handygrößen im Browser prüfen; Produktions-Build ausführen
