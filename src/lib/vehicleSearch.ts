@@ -30,9 +30,9 @@ export const priceChips = [
 ] as const;
 
 export const sortOptions = [
-  { value: "neu", label: "Neueste zuerst" }, { value: "preis-auf", label: "Preis aufsteigend" },
-  { value: "preis-ab", label: "Preis absteigend" }, { value: "km-auf", label: "Kilometer aufsteigend" },
-  { value: "ez-neu", label: "Erstzulassung neueste" },
+  { value: "neu", label: "Neueste" }, { value: "preis-auf", label: "Preis ↑" },
+  { value: "preis-ab", label: "Preis ↓" }, { value: "km-auf", label: "km ↑" },
+  { value: "ez-neu", label: "Baujahr" },
 ] as const;
 
 const fuelMap: Record<string, VehicleFilter["fuel"]> = { benzin: "benzin", diesel: "diesel", hybrid: "hybrid", elektro: "elektro", gas: "gas" };

@@ -4,7 +4,7 @@ import { formatFirstRegistration, formatFuel, formatKm, formatPrice, formatTrans
 import { VehicleImg } from "./VehicleImg";
 import type { Vehicle } from "@/lib/vehicles";
 
-export function VehicleCard({ vehicle }: { vehicle: Vehicle }) {
+export function VehicleCard({ vehicle, eager = false }: { vehicle: Vehicle; eager?: boolean }) {
   const image = vehicle.images[0];
   const firstFacts = `EZ ${formatFirstRegistration(vehicle.first_registration)} · ${formatKm(vehicle.mileage_km)}`;
   const secondFacts = `${formatFuel(vehicle.fuel)} · ${formatTransmission(vehicle.transmission)}`;
@@ -12,7 +12,7 @@ export function VehicleCard({ vehicle }: { vehicle: Vehicle }) {
   return (
     <Link to="/fahrzeuge/$slug" params={{ slug: vehicle.slug }} className="group grid min-h-[130px] grid-cols-[40%_minmax(0,1fr)] overflow-hidden rounded border border-border bg-card transition-colors hover:border-gold sm:block">
       <div className="relative min-h-full overflow-hidden bg-muted sm:aspect-4/3">
-        {image ? <VehicleImg src={sizedImage(image.thumbUrl || image.url, "card")} alt={image.alt || vehicle.title} width="800" height="600" loading="lazy" className="size-full object-cover" /> : null}
+        {image ? <VehicleImg src={sizedImage(image.thumbUrl || image.url, "card")} alt={image.alt || vehicle.title} width="800" height="600" loading={eager ? "eager" : "lazy"} fetchPriority={eager ? "high" : "auto"} className="size-full bg-image-placeholder object-cover" /> : null}
         {vehicle.status === "reserviert" ? <span className="absolute left-3 top-3 rounded bg-background/95 px-2.5 py-1 text-xs font-medium text-foreground">Reserviert</span> : null}
       </div>
       <div className="min-w-0 p-3 sm:p-5">
