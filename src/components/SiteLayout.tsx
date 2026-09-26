@@ -51,14 +51,15 @@ function Header() {
 
 function Footer() {
   return (
-    <footer className="bg-rauten border-t border-gold/40 bg-darkest pb-24 pt-14 md:pb-8">
+    <footer className="bg-rauten-footer relative bg-darkest pb-24 pt-14 md:pb-8">
+      <div className="gold-divider absolute inset-x-0 top-0" />
       <div className="mx-auto grid max-w-7xl gap-10 px-5 sm:grid-cols-2 lg:grid-cols-4 lg:px-6">
         <div><Logo /><p className="mt-4 font-display text-sm font-bold uppercase tracking-wide text-gold-light">Ihr Partner für Mobilität</p><p className="mt-3 max-w-xs text-sm leading-6 text-muted-foreground">Ausgewählte Gebrauchtwagen und persönliche Beratung in unserem neuen Autohaus in Perkam.</p></div>
         <div><h2 className="footer-title">Kontakt</h2><address className="mt-4 space-y-2 text-sm not-italic text-muted-foreground"><p>{siteConfig.street}<br />{siteConfig.zip} {siteConfig.city}</p><a className="block hover:text-gold" href={phoneHref}>{siteConfig.phone}</a><a className="block break-all hover:text-gold" href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a><p>Mo–Fr 09:00–18:00<br />Sa 09:00–13:00 · So geschlossen</p></address></div>
         <div><h2 className="footer-title">Links</h2><nav className="mt-4 flex flex-col gap-2 text-sm text-muted-foreground">{navItems.map((item) => <Link key={item.to} to={item.to} className="hover:text-gold">{item.label}</Link>)}</nav></div>
         <div><h2 className="footer-title">Rechtliches</h2><nav className="mt-4 flex flex-col gap-2 text-sm text-muted-foreground"><Link to="/impressum" className="hover:text-gold">Impressum</Link><Link to="/datenschutz" className="hover:text-gold">Datenschutz</Link></nav></div>
       </div>
-      <div className="mx-auto mt-12 max-w-7xl border-t border-gold/40 px-5 pt-6 text-xs leading-5 text-muted-foreground lg:px-6"><p>© 2026 Bavaria Autoarena GmbH · Perkam bei Straubing</p><p>Alle Preise sind Endpreise in Euro. Zwischenverkauf und Irrtum vorbehalten.</p></div>
+      <div className="mx-auto mt-12 max-w-7xl px-5 lg:px-6"><div className="gold-divider" /><div className="pt-6 text-xs leading-5 text-muted-foreground"><p>© 2026 Bavaria Autoarena GmbH · Perkam bei Straubing</p><p>Alle Preise sind Endpreise in Euro. Zwischenverkauf und Irrtum vorbehalten.</p></div></div>
     </footer>
   );
 }
