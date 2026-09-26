@@ -34,7 +34,7 @@ export function HeaderLogo() {
     <span className="inline-flex items-center gap-3">
       <LogoMark size={44} className="md:hidden" />
       <LogoMark size={56} className="hidden md:block" />
-      <Logo className="max-[379px]:hidden" />
+      <Logo className="max-[379px]:hidden xl:max-2xl:hidden" />
     </span>
   );
 }
