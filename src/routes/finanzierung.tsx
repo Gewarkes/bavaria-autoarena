@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { lazy } from "react";
-import { seo, withTitle, dealerJsonLd } from "@/lib/seo";
+import { seo, withTitle } from "@/lib/seo";
 const FinancingPage = lazy(() => import("@/pages/FinancingPage"));
-export const Route = createFileRoute("/finanzierung")({ head: () => ({ ...withTitle(seo("x", 'Gebrauchtwagen flexibel finanzieren: Laufzeit 12–84 Monate, Anzahlung flexibel, Inzahlungnahme als Anzahlung. Jetzt unverbindlich anfragen.', "/finanzierung"), 'Autofinanzierung & Leasing in Straubing | Bavaria Autoarena') }), component: FinancingPage });
+export const Route = createFileRoute("/finanzierung")({ head: () => withTitle(seo("x", "Finanzierung über Santander und DKB: 12 bis 84 Monate, mit oder ohne Anzahlung. Wir rechnen das gemeinsam im Autohaus durch.", "/finanzierung"), "Finanzierung | Bavaria Autoarena Perkam"), component: FinancingPage });

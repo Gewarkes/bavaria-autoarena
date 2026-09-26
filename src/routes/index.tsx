@@ -5,8 +5,8 @@ import { seo, dealerJsonLd } from "@/lib/seo";
 const HomePage = lazy(() => import("@/pages/HomePage"));
 export const Route = createFileRoute("/")({
   head: () => {
-    const base = seo("Gebrauchtwagen in Perkam bei Straubing", "Geprüfte Gebrauchtwagen, faire Inzahlungnahme und persönliche Beratung im neuen Autohaus in Perkam. 4,7 Sterne auf mobile.de.", "/");
-    const exactTitle = "Gebrauchtwagen in Perkam bei Straubing | Bavaria Autoarena";
+    const base = seo("Gebrauchtwagen in Perkam bei Straubing", "Familienautos, SUV und Vans in Perkam. Selbst eingekauft, geprüft und Probe gefahren – mit Inzahlungnahme und Finanzierung.", "/");
+    const exactTitle = "Bavaria Autoarena – Gebrauchtwagen in Perkam bei Straubing";
     return {
       ...base,
       meta: base.meta.map((entry) => "title" in entry ? { title: exactTitle } : entry.property === "og:title" ? { property: "og:title", content: exactTitle } : entry),

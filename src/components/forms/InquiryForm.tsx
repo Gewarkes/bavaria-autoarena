@@ -24,7 +24,7 @@ export function Honeypot({ value, onChange }: { value: string; onChange: (v: str
 }
 
 export function InquirySuccess({ name }: { name: string }) {
-  return <div role="status" className="rounded-lg border border-success/50 bg-card p-6"><CheckCircle2 className="size-8 text-success" /><p className="mt-3 font-display text-lg font-bold uppercase tracking-wide text-foreground">Vielen Dank, {name}.</p><p className="mt-2 text-muted-foreground">Wir melden uns an Werktagen innerhalb von 24 Stunden.</p><a href={phoneHref} className="mt-4 inline-flex items-center gap-2 font-semibold text-gold hover:text-gold-light"><Phone className="size-4" />{siteConfig.phone}</a></div>;
+  return <div role="status" className="rounded border border-success/50 bg-card p-6"><CheckCircle2 className="size-8 text-success" /><p className="mt-3 text-lg font-semibold text-foreground">Vielen Dank, {name}.</p><p className="mt-2 text-muted-foreground">Wir melden uns am nächsten Werktag.</p><a href={phoneHref} className="mt-4 inline-flex items-center gap-2 font-semibold text-silver underline underline-offset-4 hover:text-gold"><Phone className="size-4" />{siteConfig.phone}</a></div>;
 }
 
 export function InquiryError() {
@@ -62,7 +62,7 @@ export function VehicleInquiryForm({ vehicleId, vehicleTitle, kind, onKindChange
     <form onSubmit={submit} noValidate className="relative space-y-4">
       <Honeypot value={honeypot} onChange={setHoneypot} />
       <div role="radiogroup" aria-label="Art der Anfrage" className="grid grid-cols-3 gap-1 rounded-lg border border-border bg-background p-1">
-        {kinds.map((k) => <button key={k.value} type="button" role="radio" aria-checked={kind === k.value} onClick={() => onKindChange(k.value)} className={cn("h-11 rounded-md text-sm font-semibold transition-colors", kind === k.value ? "bg-gold-gradient text-primary-foreground" : "text-muted-foreground hover:text-foreground")}>{k.label}</button>)}
+        {kinds.map((k) => <button key={k.value} type="button" role="radio" aria-checked={kind === k.value} onClick={() => onKindChange(k.value)} className={cn("h-11 rounded text-sm font-semibold transition-colors", kind === k.value ? "bg-gold text-primary-foreground" : "text-muted-foreground hover:text-foreground")}>{k.label}</button>)}
       </div>
       <Field label="Name *" error={errors["name"]}><Input value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" className="h-12" /></Field>
       <div className="grid gap-4 sm:grid-cols-2">

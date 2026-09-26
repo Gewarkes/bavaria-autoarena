@@ -65,7 +65,7 @@ export const Route = createFileRoute("/api/public/send-lead-mail")({
         } catch (e) { console.log("dealer mail failed", id, e instanceof Error ? e.message : "error"); }
         if (email) {
           try {
-            const c = renderMail({ heading: "Vielen Dank für Ihre Anfrage", intro: [salutation, "vielen Dank für Ihre Anfrage bei der Bavaria Autoarena. Wir haben folgende Angaben erhalten:", "Wir melden uns innerhalb von 24 Stunden an Werktagen bei Ihnen."], rows: [...summary, ...dealerContactRows()], origin });
+            const c = renderMail({ heading: "Ihre Anfrage ist angekommen", intro: [salutation, "vielen Dank für Ihre Anfrage bei der Bavaria Autoarena. Wir haben Ihre Angaben erhalten und sehen sie uns an.", "Wir melden uns am nächsten Werktag bei Ihnen."], rows: [...summary, ...dealerContactRows()], origin });
             await sendResend(key, { from, to: email, subject: "Ihre Anfrage bei Bavaria Autoarena", ...c });
             sent++;
           } catch (e) { console.log("customer mail failed", id, e instanceof Error ? e.message : "error"); }
