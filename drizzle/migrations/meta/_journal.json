@@ -8,6 +8,13 @@
       "when": 1790414710707,
       "tag": "0000_schema_security_storage",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1790414759633,
+      "tag": "0001_seed_demo_data",
+      "breakpoints": true
     }
   ]
 }
