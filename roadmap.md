@@ -14,3 +14,11 @@
 - [x] Fahrzeugsuche und Inzahlungnahme-Verlinkung testen
 - [x] SEO-Daten und AutoDealer-Strukturdaten ergänzen
 - [x] Produktions-Build und Desktop-/Mobilprüfung
+
+# Schritt 11
+
+- [ ] A. Formulierungen auf allen öffentlichen Seiten, Metadaten und E-Mails überarbeiten
+- [ ] B. Gestaltungssystem vereinfachen und gleichförmige Kartenmuster entfernen
+- [ ] C. Startseite auf sechs Bereiche reduzieren
+- [ ] D. Fahrzeugseiten, Autoankauf, Leistungen, Finanzierung und Über uns überarbeiten
+- [ ] E. Desktop- und Mobilansichten prüfen, Textsuche und Produktions-Build kontrollieren
