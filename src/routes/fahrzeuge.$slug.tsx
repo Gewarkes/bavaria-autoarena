@@ -22,8 +22,7 @@ export const Route = createFileRoute("/fahrzeuge/$slug")({
     const rawDesc = `${v.title}: EZ ${formatFirstRegistration(v.first_registration)}, ${formatKm(v.mileage_km)}, ${formatFuel(v.fuel)}, ${formatTransmission(v.transmission)}${v.power_ps ? `, ${v.power_ps} PS` : ""}. Jetzt Probefahrt in Perkam bei Straubing vereinbaren.`;
     const description = rawDesc.length <= 155 ? rawDesc : `${rawDesc.slice(0, 152).trimEnd()}…`;
     const first = coverImage(v)?.url;
-    const coverIndex = v.cover_index ?? 0;
-    const image = first && /^https?:/.test(first) && !v.seal_indices.includes(coverIndex) ? sizedImage(first, "medium") : undefined;
+    const image = first && /^https?:/.test(first) ? sizedImage(first, "medium") : undefined;
     const path = `/fahrzeuge/${params.slug}`;
     return {
       meta: [
