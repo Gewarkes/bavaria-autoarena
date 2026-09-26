@@ -14,6 +14,9 @@ export const inquirySchema = z.object({
   email: optionalText(255).refine((v) => !v || z.string().email().safeParse(v).success, "Bitte eine gültige E-Mail-Adresse angeben."),
   message: optionalText(2000),
   vehicleId: z.string().uuid().nullable(),
+  preferredDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
+  preferredSlot: optionalText(40),
+  topic: optionalText(60),
 }).refine((d) => d.phone || d.email, { message: "Bitte Telefon oder E-Mail angeben.", path: ["phone"] });
 
 export type InquiryInput = z.input<typeof inquirySchema>;
@@ -26,7 +29,7 @@ export async function submitInquiry(input: InquiryInput, meta: { honeypot: strin
   const id = crypto.randomUUID();
   const { error } = await supabase.from("inquiries").insert({
     id, kind: data.kind, name: data.name, phone: data.phone ?? null, email: data.email ?? null,
-    message: data.message ?? null, vehicle_id: data.vehicleId, privacy_notice_version: PRIVACY_NOTICE_VERSION,
+    message: data.message ?? null, vehicle_id: data.vehicleId, preferred_date: data.preferredDate ?? null, preferred_slot: data.preferredSlot ?? null, topic: data.topic ?? null, privacy_notice_version: PRIVACY_NOTICE_VERSION,
   });
   if (error) {
     console.error("inquiry_insert_failed", error.code);

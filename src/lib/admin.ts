@@ -46,7 +46,7 @@ export async function deleteTradeIn(id: string, photos: string[]) {
   if (error) throw error;
 }
 
-const INQ_LIST = "id, created_at, kind, name, phone, email, message, status, internal_notes, vehicle_id, privacy_notice_version, vehicles(title, slug)" as const;
+const INQ_LIST = "id, created_at, kind, name, phone, email, message, status, internal_notes, vehicle_id, privacy_notice_version, preferred_date, preferred_slot, topic, vehicles(title, slug)" as const;
 export type InquiryListItem = Omit<InquiryRow, never> & { vehicles: { title: string; slug: string } | null };
 export async function listInquiries(): Promise<InquiryListItem[]> {
   const { data, error } = await supabase.from("inquiries").select(INQ_LIST).order("created_at", { ascending: false }).limit(1000);

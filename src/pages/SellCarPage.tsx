@@ -1,3 +1,4 @@
+import { Ornament } from "@/components/Ornament";
 import { getRouteApi } from "@tanstack/react-router";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { TradeInWizard } from "@/components/tradein/TradeInWizard";
@@ -22,33 +23,33 @@ export default function SellCarPage() {
   const search = route.useSearch();
   return (
     <>
-      <section className="border-b border-border">
-        <div className="mx-auto grid max-w-[1200px] gap-10 px-6 py-16 md:px-12 md:py-24 lg:grid-cols-[1fr_minmax(0,560px)] lg:items-start">
+      <section className="bg-navy-900 text-cream">
+        <div className="page-container grid gap-10 py-16 md:py-20 lg:grid-cols-[1fr_minmax(0,560px)] lg:items-start">
           <div className="lg:pt-8">
-            <h1 className="font-display text-4xl font-bold leading-[1.05] text-foreground sm:text-5xl">Auto verkaufen oder in Zahlung geben</h1>
-            <p className="mt-6 max-w-xl text-[17px] leading-[1.6] text-foreground/80">Sie tragen die wichtigsten Daten ein. Wir sehen uns den Markt und Ihre Angaben an und melden uns am nächsten Werktag mit einem Preis. Danach entscheiden Sie.</p>
+            <p className="eyebrow text-gold-400">Ankauf</p><h1 className="display-title mt-4">Auto verkaufen oder in Zahlung geben</h1><Ornament />
+            <p className="mt-6 max-w-xl text-lg leading-[1.6] text-silver-300">Sie tragen die wichtigsten Daten ein. Wir sehen uns den Markt und Ihre Angaben an und melden uns am nächsten Werktag mit einem Preis. Danach entscheiden Sie.</p>
           </div>
           <TradeInWizard initialBrand={search.marke} initialModel={search.modell} initialDesiredVehicleId={search.wunschfahrzeug} />
         </div>
       </section>
 
-      <Reveal className="mx-auto max-w-[1200px] border-b border-border px-6 py-16 md:px-12 md:py-24">
+      <Reveal className="page-container border-b border-border py-16  md:py-24">
         <h2 className="section-h2">So läuft der Verkauf</h2>
         <ol className="mt-10 divide-y divide-border md:grid md:grid-cols-3 md:divide-x md:divide-y-0">
           {steps.map((s, i) => (
             <li key={s.title} className="py-7 md:px-8 md:py-0 first:pl-0">
               <span className="text-sm text-muted-foreground">0{i + 1}</span>
               <h3 className="mt-3 text-lg font-semibold text-foreground">{s.title}</h3>
-              <p className="mt-2 leading-[1.6] text-foreground/75">{s.text}</p>
+              <p className="mt-2 leading-[1.6] text-ink-500">{s.text}</p>
             </li>
           ))}
         </ol>
         <h2 className="section-h2 mt-16">Was wir übernehmen</h2><ul className="mt-8 max-w-3xl space-y-3">
-          {benefits.map((title) => <li key={title} className="border-b border-border pb-3 leading-[1.6] text-foreground/80">{title}</li>)}
+          {benefits.map((title) => <li key={title} className="border-b border-border pb-3 leading-[1.6] text-ink-500">{title}</li>)}
         </ul>
       </Reveal>
 
-      <Reveal className="mx-auto max-w-[1200px] px-6 py-16 md:px-12 md:py-24"><div className="max-w-3xl">
+      <Reveal className="page-container py-16  md:py-24"><div className="max-w-3xl">
         <h2 className="section-h2">Häufige Fragen</h2>
         <Accordion type="single" collapsible className="mt-6">
           {tradeInFaq.map((f, i) => (

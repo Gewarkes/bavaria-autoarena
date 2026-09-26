@@ -44,9 +44,9 @@ function ChoiceCards<T extends string>({ options, value, onChange, label, cols =
         const active = value === o.value;
         return <button key={o.value} type="button" role="radio" aria-checked={active} onClick={() => onChange(o.value)}
           className={cn("flex min-h-14 items-center gap-3 rounded-lg border p-3 text-left transition-colors sm:flex-col sm:items-start", active ? "border-gold bg-gold/10" : "border-border bg-background hover:border-gold/50")}>
-          {o.icon && <span className="text-gold">{o.icon}</span>}
+          {o.icon && <span className="text-gold-700">{o.icon}</span>}
           <span><span className="block text-sm font-semibold text-foreground">{o.label}</span>{o.hint && <span className="mt-0.5 block text-xs text-muted-foreground">{o.hint}</span>}</span>
-          {active && <Check className="ml-auto size-4 text-gold sm:hidden" />}
+          {active && <Check className="ml-auto size-4 text-gold-700 sm:hidden" />}
         </button>;
       })}
     </div>
@@ -56,7 +56,7 @@ function ChoiceCards<T extends string>({ options, value, onChange, label, cols =
 function Field({ label, error, children, optional, id }: { label: string; error?: string | undefined; children: ReactNode; optional?: boolean; id?: string }) {
   return (
     <div className="space-y-2">
-      <label htmlFor={id} className="block text-xs font-semibold uppercase tracking-wide text-muted-foreground">{label}{optional ? <span className="ml-1 normal-case tracking-normal text-muted-foreground/70">(optional)</span> : <span className="text-gold"> *</span>}</label>
+      <label htmlFor={id} className="block text-xs font-semibold uppercase tracking-wide text-muted-foreground">{label}{optional ? <span className="ml-1 normal-case tracking-normal text-muted-foreground/70">(optional)</span> : <span className="text-gold-700"> *</span>}</label>
       {children}
       {error && <p className="text-sm text-destructive" role="alert">{error}</p>}
     </div>
@@ -175,7 +175,7 @@ export function TradeInWizard({ initialBrand, initialModel, initialDesiredVehicl
   return (
     <div ref={topRef} id="bewertung" className="scroll-mt-28 rounded border border-border bg-card p-5 sm:p-7">
       <div className="mb-6">
-        <div className="flex items-baseline justify-between text-xs font-semibold uppercase tracking-wide"><span className="text-gold">Schritt {step} von 4</span><span className="text-muted-foreground">{titles[step - 1]}</span></div>
+        <div className="flex items-baseline justify-between text-xs font-semibold uppercase tracking-wide"><span className="text-gold-700">Schritt {step} von 4</span><span className="text-muted-foreground">{titles[step - 1]}</span></div>
         <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-border" role="progressbar" aria-valuemin={1} aria-valuemax={4} aria-valuenow={step} aria-label="Fortschritt">
           <div className="h-full rounded-full bg-gold transition-all duration-500 motion-reduce:transition-none" style={{ width: `${step * 25}%` }} />
         </div>
@@ -261,9 +261,9 @@ export function TradeInWizard({ initialBrand, initialModel, initialDesiredVehicl
           </div>
           <Field label="Bevorzugter Kontaktweg" optional><Chips label="Kontaktweg" value={s3.channel} onChange={(v) => setS3({ ...s3, channel: v })} options={[{ value: "anruf", label: "Anruf" }, { value: "whatsapp", label: "WhatsApp" }, { value: "email", label: "E-Mail" }]} /></Field>
           <label className="flex min-h-11 cursor-pointer items-start gap-3 py-2 text-sm text-muted-foreground"><Checkbox className="mt-0.5" checked={s3.marketing} onCheckedChange={(c) => setS3({ ...s3, marketing: c === true })} />Ich möchte über passende Fahrzeuge und Aktionen per E-Mail oder WhatsApp informiert werden (jederzeit widerrufbar).</label>
-          <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden"><label>Website<input tabIndex={-1} autoComplete="off" name="website" value={honeypot} onChange={(e) => setHoneypot(e.target.value)} /></label></div>
-          <p className="text-xs leading-5 text-muted-foreground">Mit dem Absenden verarbeiten wir Ihre Angaben zur Erstellung eines Angebots. Details in unserer <a href="/datenschutz" className="inline-flex min-h-11 items-center text-gold underline-offset-4 hover:underline">Datenschutzerklärung</a>.</p>
-          {submitError && <p role="alert" className="rounded-md border border-destructive/50 bg-destructive/10 p-3 text-sm text-foreground">{submitError} <a href={phoneHref} className="text-gold underline">Jetzt anrufen</a></p>}
+          <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden"><input tabIndex={-1} autoComplete="off" name="hp_field" value={honeypot} onChange={(e) => setHoneypot(e.target.value)} /></div>
+          <p className="text-xs leading-5 text-muted-foreground">Mit dem Absenden verarbeiten wir Ihre Angaben zur Erstellung eines Angebots. Details in unserer <a href="/datenschutz" className="inline-flex min-h-11 items-center text-gold-700 underline-offset-4 hover:underline">Datenschutzerklärung</a>.</p>
+          {submitError && <p role="alert" className="rounded-md border border-destructive/50 bg-destructive/10 p-3 text-sm text-foreground">{submitError} <a href={phoneHref} className="text-gold-700 underline">Jetzt anrufen</a></p>}
           {nav(2, "Anfrage absenden")}
         </form>
       )}
@@ -294,20 +294,20 @@ export function TradeInWizard({ initialBrand, initialModel, initialDesiredVehicl
               {photos.map((p) => (
                 <div key={p.id} className="relative aspect-square overflow-hidden rounded-md border border-border">
                   <img src={p.preview} alt="Vorschau Fahrzeugfoto" width={200} height={200} loading="lazy" className="size-full object-cover" />
-                  {p.state === "laedt" && <div className="absolute inset-0 grid place-items-center bg-darkest/70"><Loader2 className="size-5 animate-spin text-gold" /></div>}
+                  {p.state === "laedt" && <div className="absolute inset-0 grid place-items-center bg-navy-900/70"><Loader2 className="size-5 animate-spin text-gold-700" /></div>}
                   {p.state === "fertig" && <span className="absolute bottom-1 left-1 grid size-6 place-items-center rounded-full bg-success text-primary-foreground"><Check className="size-3.5" /></span>}
                   {p.state === "fehler" && <span className="absolute inset-x-0 bottom-0 bg-destructive/90 px-1 py-0.5 text-center text-[10px] text-foreground">Fehler</span>}
-                  {!busy && <button type="button" onClick={() => removePhoto(p.id)} aria-label="Foto entfernen" className="absolute right-1 top-1 grid size-8 place-items-center rounded-full bg-darkest/80 text-foreground hover:text-gold"><X className="size-4" /></button>}
+                  {!busy && <button type="button" onClick={() => removePhoto(p.id)} aria-label="Foto entfernen" className="absolute right-1 top-1 grid size-8 place-items-center rounded-full bg-navy-900/80 text-foreground hover:text-gold-700"><X className="size-4" /></button>}
                 </div>
               ))}
               {photos.length < MAX_PHOTOS && (
-                <label className="flex aspect-square cursor-pointer flex-col items-center justify-center gap-1 rounded-md border border-dashed border-gold/50 text-xs text-muted-foreground hover:border-gold hover:text-gold">
+                <label className="flex aspect-square cursor-pointer flex-col items-center justify-center gap-1 rounded-md border border-dashed border-gold/50 text-xs text-muted-foreground hover:border-gold hover:text-gold-700">
                   <Camera className="size-6" />Foto hinzufügen
                   <input type="file" accept="image/*" multiple capture="environment" className="sr-only" onChange={(e) => { addFiles(e.target.files); e.target.value = ""; }} />
                 </label>
               )}
             </div>
-            <a href={whatsappPhotos} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-gold hover:underline"><MessageCircle className="size-4" />Fotos lieber per WhatsApp senden</a>
+            <a href={whatsappPhotos} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-gold-700 hover:underline"><MessageCircle className="size-4" />Fotos lieber per WhatsApp senden</a>
           </Field>
           {submitError && <p role="alert" className="rounded-md border border-destructive/50 bg-destructive/10 p-3 text-sm text-foreground">{submitError}</p>}
           <div className="flex flex-col-reverse gap-3 pt-2 sm:flex-row sm:items-center sm:justify-between">

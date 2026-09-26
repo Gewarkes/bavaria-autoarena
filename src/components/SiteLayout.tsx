@@ -1,13 +1,16 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useRouterState } from "@tanstack/react-router";
-import { ChevronRight, Mail, Menu, MessageCircle, Phone } from "lucide-react";
+import { ChevronRight, Mail, Menu, Phone } from "lucide-react";
 import { HeaderLogo, LogoMark } from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetClose, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { currentOpeningStatus, isOpenNow, phoneHref, siteConfig, whatsappHref } from "@/config/site";
 import { formatPrice } from "@/lib/format";
-import { vehicleQuery } from "@/lib/vehicles";
+import { coverImage, vehicleQuery } from "@/lib/vehicles";
+import { openTermin, type TerminVehicle } from "@/lib/termin";
+import { sizedImage } from "@/lib/vehicleImages";
+import { TerminHost } from "@/components/termin/TerminDialog";
 
 const navItems = [
   { label: "Fahrzeuge", to: "/fahrzeuge" as const },
@@ -39,7 +42,7 @@ function Header() {
         </nav>
         <div className="ml-auto hidden items-center gap-6 lg:flex">
           <a href={phoneHref} className="text-right"><span className="block font-display text-base font-normal text-gold-400">{siteConfig.phone}</span><span className="flex items-center justify-end gap-2 text-xs text-silver-400">{open ? <i className="size-1.5 rounded-full bg-success" /> : null}{currentOpeningStatus()}</span></a>
-          <Button asChild variant="gold"><Link to="/kontakt" hash="termin">Termin vereinbaren</Link></Button>
+          <Button type="button" variant="gold" onClick={() => openTermin()}>Termin vereinbaren</Button>
         </div>
         <a href={phoneHref} aria-label="Anrufen" className="ml-auto grid size-11 place-items-center text-gold-400 lg:hidden"><Phone className="size-5" strokeWidth={1.5} /></a>
         <div className="lg:hidden">
@@ -80,12 +83,12 @@ function FloatingContact({ show }: { show: boolean }) {
   return <div className="fixed right-0 top-1/2 z-40 hidden -translate-y-1/2 flex-col lg:flex">{items.map((item) => <a key={item.label} href={item.href} className={`group ml-auto flex h-13 w-13 items-center overflow-hidden transition-[width] hover:w-[220px] ${item.className}`}><span className="grid size-13 shrink-0 place-items-center [&_svg]:size-5">{item.icon}</span><span className="whitespace-nowrap pr-5 text-sm font-semibold">{item.label}</span></a>)}</div>;
 }
 
-function MobileBottomBar({ vehicleTitle, price, url, show }: { vehicleTitle?: string; price?: string; url?: string; show: boolean }) {
+function MobileBottomBar({ vehicleTitle, price, url, show, terminVehicle }: { vehicleTitle?: string; price?: string; url?: string; show: boolean; terminVehicle?: TerminVehicle }) {
   if (!show) return null;
   const text = vehicleTitle ? `Hallo, ich interessiere mich für ${vehicleTitle}${price ? ` (${price})` : ""}${url ? ` – ${url}` : ""}` : "Hallo Bavaria Autoarena, ich habe eine Frage.";
   const whatsappUrl = whatsappHref(text);
-  if (vehicleTitle && price) return <div className="fixed inset-x-0 bottom-0 z-50 grid min-h-16 grid-cols-[auto_1fr_auto_auto] items-center gap-1 border-t border-cream/10 bg-navy-950 px-2 pb-[env(safe-area-inset-bottom)] text-cream md:hidden"><span className="whitespace-nowrap px-1 font-display text-lg font-bold">{price}</span><Button asChild variant="gold" className="min-h-11 px-2 text-[11px]"><a href="#anfrage">Probefahrt anfragen</a></Button><Button asChild variant="ghost" size="icon" className="size-11" aria-label="Anrufen"><a href={phoneHref}><Phone /></a></Button><Button asChild variant="ghost" size="icon" className="size-11" aria-label="WhatsApp"><a href={whatsappUrl} target="_blank" rel="noreferrer"><MessageCircle /></a></Button></div>;
-  return <div className="fixed inset-x-0 bottom-0 z-50 grid min-h-16 grid-cols-3 border-t border-cream/10 pb-[env(safe-area-inset-bottom)] text-[11px] md:hidden"><a href={phoneHref} className="flex flex-col items-center justify-center bg-gold-500 font-display uppercase tracking-[.08em] text-navy-900"><Phone className="mb-1 size-4" />Anrufen</a><a href={whatsappUrl} target="_blank" rel="noreferrer" className="flex flex-col items-center justify-center bg-whatsapp font-display uppercase tracking-[.08em] text-navy-900"><WhatsAppIcon className="mb-1 size-4" />WhatsApp</a><Link to="/kontakt" hash="termin" className="flex flex-col items-center justify-center bg-navy-900 font-display uppercase tracking-[.08em] text-cream"><ChevronRight className="mb-1 size-4" />Termin</Link></div>;
+  if (vehicleTitle && price && terminVehicle) return <div className="fixed inset-x-0 bottom-0 z-50 flex min-h-16 items-center gap-2 border-t border-cream/10 bg-navy-950 px-3 pb-[env(safe-area-inset-bottom)] text-cream md:hidden"><span className="mr-auto whitespace-nowrap font-display text-xl font-light tabular-nums">{price}</span><Button asChild variant="ghost" size="icon" className="size-11 text-cream" aria-label="Anrufen"><a href={phoneHref}><Phone strokeWidth={1.5} /></a></Button><Button type="button" variant="gold" className="min-h-11 px-5" onClick={() => openTermin({ vehicle: terminVehicle, topic: "Probefahrt" })}>Probefahrt</Button></div>;
+  return <div className="fixed inset-x-0 bottom-0 z-50 grid min-h-16 grid-cols-3 border-t border-cream/10 pb-[env(safe-area-inset-bottom)] text-[11px] md:hidden"><a href={phoneHref} className="flex flex-col items-center justify-center bg-gold-500 font-display uppercase tracking-[.08em] text-navy-900"><Phone className="mb-1 size-4" />Anrufen</a><a href={whatsappUrl} target="_blank" rel="noreferrer" className="flex flex-col items-center justify-center bg-whatsapp font-display uppercase tracking-[.08em] text-navy-900"><WhatsAppIcon className="mb-1 size-4" />WhatsApp</a><button type="button" onClick={() => openTermin()} className="flex flex-col items-center justify-center bg-navy-900 font-display uppercase tracking-[.08em] text-cream"><ChevronRight className="mb-1 size-4" />Termin</button></div>;
 }
 
 export function SiteLayout({ children }: { children: ReactNode }) {
@@ -98,5 +101,5 @@ export function SiteLayout({ children }: { children: ReactNode }) {
   useEffect(() => { setUrl(slug ? window.location.href : undefined); }, [slug]);
   useEffect(() => { const fn = () => setScrolled(window.scrollY > 500); fn(); window.addEventListener("scroll", fn, { passive: true }); return () => window.removeEventListener("scroll", fn); }, []);
   const hideBar = pathname === "/auto-verkaufen";
-  return <div className={hideBar ? "min-h-screen bg-background" : "min-h-screen bg-background pb-[calc(72px+env(safe-area-inset-bottom))] md:pb-0"}><Header /><main>{children}</main><Footer /><FloatingContact show={scrolled} />{hideBar ? null : slug && vehicle && url ? <MobileBottomBar show vehicleTitle={vehicle.title} price={formatPrice(vehicle.price_eur)} url={url} /> : <MobileBottomBar show={scrolled} />}</div>;
+  return <div className={hideBar ? "min-h-screen bg-background" : "min-h-screen bg-background pb-[calc(72px+env(safe-area-inset-bottom))] md:pb-0"}><Header /><main>{children}</main><Footer /><FloatingContact show={scrolled} /><TerminHost />{hideBar ? null : slug && vehicle && url ? <MobileBottomBar show vehicleTitle={vehicle.title} price={formatPrice(vehicle.price_eur)} url={url} terminVehicle={{ id: vehicle.id, title: vehicle.title, price: formatPrice(vehicle.price_eur), image: coverImage(vehicle) ? sizedImage(coverImage(vehicle)!.url, "card") : undefined }} /> : <MobileBottomBar show={scrolled} />}</div>;
 }

@@ -25,8 +25,11 @@ export type Database = {
           name: string
           notified_at: string | null
           phone: string | null
+          preferred_date: string | null
+          preferred_slot: string | null
           privacy_notice_version: string
           status: Database["public"]["Enums"]["lead_status"]
+          topic: string | null
           vehicle_id: string | null
         }
         Insert: {
@@ -39,8 +42,11 @@ export type Database = {
           name: string
           notified_at?: string | null
           phone?: string | null
+          preferred_date?: string | null
+          preferred_slot?: string | null
           privacy_notice_version: string
           status?: Database["public"]["Enums"]["lead_status"]
+          topic?: string | null
           vehicle_id?: string | null
         }
         Update: {
@@ -53,8 +59,11 @@ export type Database = {
           name?: string
           notified_at?: string | null
           phone?: string | null
+          preferred_date?: string | null
+          preferred_slot?: string | null
           privacy_notice_version?: string
           status?: Database["public"]["Enums"]["lead_status"]
+          topic?: string | null
           vehicle_id?: string | null
         }
         Relationships: [

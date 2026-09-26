@@ -16,10 +16,14 @@ export default function AdminInquiriesPage({ selectedId }: { selectedId?: string
   const { data, isLoading, error } = useQuery({ queryKey: ["admin", "inquiries"], queryFn: listInquiries });
   const [status, setStatus] = useState<LeadStatus | "alle">("alle");
   const [q, setQ] = useState("");
+  const [onlyAppointments, setOnlyAppointments] = useState(false);
+  const [sortWish, setSortWish] = useState(false);
   const rows = useMemo(() => {
     const s = q.trim().toLowerCase();
-    return (data ?? []).filter((r) => (status === "alle" || r.status === status) && (!s || `${r.name} ${r.vehicles?.title ?? ""} ${r.email ?? ""}`.toLowerCase().includes(s)));
-  }, [data, status, q]);
+    return (data ?? []).filter((r) => (status === "alle" || r.status === status) && (!s || `${r.name} ${r.vehicles?.title ?? ""} ${r.email ?? ""}`.toLowerCase().includes(s)) && (!onlyAppointments || !!r.preferred_date || !!r.preferred_slot))
+      .sort((a, b) => sortWish ? (a.preferred_date ?? "9999").localeCompare(b.preferred_date ?? "9999") || (a.preferred_slot ?? "").localeCompare(b.preferred_slot ?? "") : 0);
+  }, [data, status, q, onlyAppointments, sortWish]);
+  const wish = (r: { preferred_date: string | null; preferred_slot: string | null }) => r.preferred_date ? `${new Date(r.preferred_date + "T12:00:00").toLocaleDateString("de-DE", { weekday: "short", day: "2-digit", month: "2-digit" })} ${r.preferred_slot ?? ""}` : r.preferred_slot ?? "–";
   const sel = data?.find((r) => r.id === selectedId);
   const select = (id?: string) => navigate({ to: "/admin/anfragen", search: id ? { id } : {}, replace: true });
 
@@ -39,19 +43,21 @@ export default function AdminInquiriesPage({ selectedId }: { selectedId?: string
       <CleanupNotice onDone={() => void qc.invalidateQueries({ queryKey: ["admin"] })} />
       <div className="mb-4 flex flex-col gap-3 lg:flex-row lg:items-center">
         <StatusChips value={status} onChange={setStatus} />
+        <Button variant={onlyAppointments ? "gold" : "silver"} size="sm" aria-pressed={onlyAppointments} onClick={() => setOnlyAppointments(!onlyAppointments)}>Termine</Button>
         <div className="relative lg:ml-auto lg:w-72"><Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" /><Input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Name, Fahrzeug" className="h-10 pl-9" aria-label="Suche" /></div>
       </div>
       {error ? <ErrorBox error={error} /> : isLoading ? <TableSkeleton /> : (
         <div className="rounded-lg border border-border bg-card">
           <Table>
-            <TableHeader><TableRow><TableHead>Datum</TableHead><TableHead>Art</TableHead><TableHead>Name</TableHead><TableHead>Fahrzeug</TableHead><TableHead>Kontakt</TableHead><TableHead>Status</TableHead></TableRow></TableHeader>
+            <TableHeader><TableRow><TableHead>Datum</TableHead><TableHead>Art</TableHead><TableHead>Name</TableHead><TableHead>Fahrzeug</TableHead><TableHead><button type="button" onClick={() => setSortWish(!sortWish)} className="font-semibold underline-offset-4 hover:underline">Wunschtermin{sortWish ? " ↑" : ""}</button></TableHead><TableHead>Kontakt</TableHead><TableHead>Status</TableHead></TableRow></TableHeader>
             <TableBody>
-              {rows.length === 0 ? <TableRow><TableCell colSpan={6} className="py-8 text-center text-muted-foreground">Keine Anfragen gefunden.</TableCell></TableRow> : rows.map((r) => (
+              {rows.length === 0 ? <TableRow><TableCell colSpan={7} className="py-8 text-center text-muted-foreground">Keine Anfragen gefunden.</TableCell></TableRow> : rows.map((r) => (
                 <TableRow key={r.id} className="cursor-pointer" onClick={() => select(r.id)}>
                   <TableCell className="whitespace-nowrap text-xs text-muted-foreground">{fmtDateTime(r.created_at)}</TableCell>
                   <TableCell>{KIND_LABEL[r.kind] ?? r.kind}</TableCell>
                   <TableCell className="font-medium">{r.name}</TableCell>
                   <TableCell>{r.vehicles ? <Link to="/fahrzeuge/$slug" params={{ slug: r.vehicles.slug }} target="_blank" onClick={(e) => e.stopPropagation()} className="text-gold underline">{r.vehicles.title}</Link> : "–"}</TableCell>
+                  <TableCell className="whitespace-nowrap text-sm">{wish(r)}{r.topic ? <span className="block text-xs text-muted-foreground">{r.topic}</span> : null}</TableCell>
                   <TableCell className="text-sm">{r.phone ?? r.email ?? "–"}</TableCell>
                   <TableCell><LeadBadge status={r.status} /></TableCell>
                 </TableRow>

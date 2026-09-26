@@ -1,91 +1,105 @@
 import { useQuery } from "@tanstack/react-query";
-import { getRouteApi, Link, useNavigate } from "@tanstack/react-router";
+import { getRouteApi, useNavigate } from "@tanstack/react-router";
 import { SlidersHorizontal } from "lucide-react";
-import { useState, type ReactNode } from "react";
-import { Reveal } from "@/components/Reveal";
+import { useState } from "react";
+import { Ornament } from "@/components/Ornament";
 import { SearchRequestForm } from "@/components/forms/SearchRequestForm";
 import { Button } from "@/components/ui/button";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { Slider } from "@/components/ui/slider";
+import { Sheet, SheetContent, SheetDescription, SheetTitle } from "@/components/ui/sheet";
 import { VehicleCard, VehicleCardSkeleton } from "@/components/vehicles/VehicleCard";
 import { siteConfig } from "@/config/site";
-import { cn } from "@/lib/utils";
-import { bodyChips, priceChips, searchToFilter, sortOptions, type VehicleSearch } from "@/lib/vehicleSearch";
+import { categories, priceLimits, searchToFilter, sortOptions, type VehicleSearch } from "@/lib/vehicleSearch";
 import { brandsQuery, vehiclesQuery } from "@/lib/vehicles";
 
 const route = getRouteApi("/fahrzeuge/");
-const kmSteps = [50000, 100000, 150000, 200000];
-const ALL = "alle";
-const currentYear = new Date().getFullYear();
-const years = Array.from({ length: 20 }, (_, i) => currentYear - i);
+const fuels = [["benzin", "Benzin"], ["diesel", "Diesel"], ["hybrid", "Hybrid"], ["elektro", "Elektro"]] as const;
 
-function Chip({ active, onClick, children }: { active: boolean; onClick: () => void; children: ReactNode }) {
-  return <button type="button" aria-pressed={active} onClick={onClick} className={cn("h-11 shrink-0 rounded border px-4 text-sm font-semibold transition-colors", active ? "border-gold bg-gold text-primary-foreground" : "border-border text-foreground hover:border-gold")}>{children}</button>;
+function UnderlineSelect({ label, value, onChange, options }: { label: string; value: string; onChange: (v: string) => void; options: readonly (readonly [string, string])[] }) {
+  return (
+    <label className="block min-w-0">
+      <span className="block font-display text-[11px] font-medium uppercase tracking-[.16em] text-ink-500">{label}</span>
+      <select value={value} onChange={(e) => onChange(e.target.value)} className="mt-1 h-11 w-full min-w-[150px] cursor-pointer appearance-none rounded-none border-0 border-b border-navy-900/25 bg-transparent bg-[url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%2212%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%231A1F35%22 stroke-width=%221.5%22><path d=%22m6 9 6 6 6-6%22/></svg>')] bg-[length:12px] bg-[right_2px_center] bg-no-repeat pr-6 text-[15px] text-navy-900 focus:border-gold-600 focus:outline-none">
+        {options.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
+      </select>
+    </label>
+  );
 }
 
-function MoreFilters({ search, update }: { search: VehicleSearch; update: (patch: Partial<VehicleSearch>) => void }) {
+function Filters({ search, update }: { search: VehicleSearch; update: (p: Partial<VehicleSearch>) => void }) {
   const brands = useQuery(brandsQuery()).data ?? [];
-  const kmIndex = search.kmBis ? Math.max(0, kmSteps.indexOf(search.kmBis)) : kmSteps.length - 1;
-  const label = "block text-xs font-semibold uppercase tracking-wide text-muted-foreground";
-  return (
-    <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
-      <label className={label}>Marke<Select value={search.marke ?? ALL} onValueChange={(v) => update({ marke: v === ALL ? undefined : v })}><SelectTrigger className="mt-2 h-12 bg-background"><SelectValue /></SelectTrigger><SelectContent><SelectItem value={ALL}>Alle Marken</SelectItem>{brands.map((b) => <SelectItem key={b} value={b}>{b}</SelectItem>)}</SelectContent></Select></label>
-      <label className={label}>Kraftstoff<Select value={search.kraftstoff?.toLowerCase() ?? ALL} onValueChange={(v) => update({ kraftstoff: v === ALL ? undefined : v })}><SelectTrigger className="mt-2 h-12 bg-background"><SelectValue /></SelectTrigger><SelectContent><SelectItem value={ALL}>Alle</SelectItem><SelectItem value="benzin">Benzin</SelectItem><SelectItem value="diesel">Diesel</SelectItem><SelectItem value="hybrid">Hybrid</SelectItem><SelectItem value="elektro">Elektro</SelectItem></SelectContent></Select></label>
-      <label className={label}>Getriebe<Select value={search.getriebe?.toLowerCase() ?? ALL} onValueChange={(v) => update({ getriebe: v === ALL ? undefined : v })}><SelectTrigger className="mt-2 h-12 bg-background"><SelectValue /></SelectTrigger><SelectContent><SelectItem value={ALL}>Alle</SelectItem><SelectItem value="schaltung">Schaltung</SelectItem><SelectItem value="automatik">Automatik</SelectItem></SelectContent></Select></label>
-      <div className={label}>Kilometer bis<p className="mt-2 text-sm normal-case tracking-normal text-foreground">{search.kmBis ? `${search.kmBis.toLocaleString("de-DE")} km` : "Beliebig"}</p><Slider className="mt-4" min={0} max={kmSteps.length - 1} step={1} value={[kmIndex]} onValueChange={([i]) => update({ kmBis: i === kmSteps.length - 1 ? undefined : kmSteps[i ?? 0] })} aria-label="Kilometer bis" /></div>
-      <label className={label}>Erstzulassung ab<Select value={search.ezAb ? String(search.ezAb) : ALL} onValueChange={(v) => update({ ezAb: v === ALL ? undefined : Number(v) })}><SelectTrigger className="mt-2 h-12 bg-background"><SelectValue /></SelectTrigger><SelectContent><SelectItem value={ALL}>Beliebig</SelectItem>{years.map((y) => <SelectItem key={y} value={String(y)}>{y}</SelectItem>)}</SelectContent></Select></label>
-    </div>
-  );
+  const u = (v: string) => (v ? v : undefined);
+  return <>
+    <UnderlineSelect label="Marke" value={search.marke ?? ""} onChange={(v) => update({ marke: u(v) })} options={[["", "Alle Marken"], ...brands.map((b) => [b, b] as const)]} />
+    <UnderlineSelect label="Kategorie" value={search.kategorie ?? ""} onChange={(v) => update({ kategorie: u(v), karosserie: undefined })} options={[["", "Alle Kategorien"], ...categories.map((c) => [c.value, c.label] as const)]} />
+    <UnderlineSelect label="Kraftstoff" value={search.kraftstoff?.toLowerCase() ?? ""} onChange={(v) => update({ kraftstoff: u(v) })} options={[["", "Alle"], ...fuels]} />
+    <UnderlineSelect label="Preis bis" value={search.preisBis ? String(search.preisBis) : ""} onChange={(v) => update({ preisBis: v ? Number(v) : undefined, preisAb: undefined })} options={[["", "beliebig"], ...priceLimits.map((p) => [String(p), `${p.toLocaleString("de-DE")} €`] as const)]} />
+  </>;
 }
 
 export default function VehiclesPage() {
   const search = route.useSearch();
   const navigate = useNavigate({ from: "/fahrzeuge/" });
-  const [open, setOpen] = useState(false);
+  const [sheet, setSheet] = useState(false);
   const update = (patch: Partial<VehicleSearch>) => navigate({ search: (prev) => ({ ...prev, ...patch }), replace: true, resetScroll: false });
   const reset = () => navigate({ search: {}, replace: true, resetScroll: false });
   const { data, isPending, isError } = useQuery(vehiclesQuery(searchToFilter(search)));
+  const all = useQuery(vehiclesQuery({}));
   const hasFilters = Object.entries(search).some(([k, v]) => k !== "sort" && v !== undefined);
+  const sortSelect = <UnderlineSelect label="Sortierung" value={search.sort ?? "neu"} onChange={(v) => update({ sort: v === "neu" ? undefined : v })} options={sortOptions.map((o) => [o.value, o.label] as const)} />;
+  const hits = isPending ? null : `${data?.length ?? 0} ${data?.length === 1 ? "Treffer" : "Treffer"}`;
 
   return <>
-    <section className="border-b border-border">
-      <div className="mx-auto flex max-w-[1200px] flex-col gap-5 px-6 py-12 md:flex-row md:items-end md:justify-between md:px-12">
-        <div><h1 className="font-display text-3xl font-bold leading-[1.1] text-foreground sm:text-5xl">Gebrauchtwagen in Perkam</h1><p className="mt-4 text-[17px] text-foreground/80">Jedes Auto geprüft und Probe gefahren. 12 Monate gesetzliche Gewährleistung.</p></div>
-        <div className="shrink-0 text-sm text-muted-foreground" aria-live="polite">{isPending ? <span className="block h-4 w-16 animate-pulse rounded bg-muted" aria-label="Ergebniszahl wird geladen" /> : `${data?.length ?? 0} Autos`}</div>
+    <section className="bg-navy-900 py-16 text-cream">
+      <div className="page-container">
+        <p className="eyebrow text-gold-400">Unser Bestand</p>
+        <h1 className="display-title mt-4">Unsere Fahrzeuge</h1>
+        <Ornament />
+        <p className="mt-6 text-silver-300">{all.data ? `${all.data.length} Fahrzeuge vor Ort in Perkam` : "Fahrzeuge vor Ort in Perkam"} · Besichtigung nach Termin</p>
       </div>
     </section>
 
-    <div className="mx-auto max-w-[1200px] px-6 py-10 md:px-12">
-      <div className="space-y-4">
-        <div className="chip-fade -mx-5 lg:mx-0"><div className="hide-scrollbar flex gap-2 overflow-x-auto px-5 pb-1 lg:flex-wrap lg:px-0">{bodyChips.map((c) => <Chip key={c.label} active={search.karosserie === c.value} onClick={() => update({ karosserie: c.value })}>{c.label}</Chip>)}</div></div>
-        <div className="chip-fade -mx-5 lg:mx-0"><div className="hide-scrollbar flex gap-2 overflow-x-auto px-5 pb-1 lg:flex-wrap lg:px-0">{priceChips.map((c) => <Chip key={c.label} active={search.preisAb === c.preisAb && search.preisBis === c.preisBis} onClick={() => update({ preisAb: c.preisAb, preisBis: c.preisBis })}>{c.label}</Chip>)}</div></div>
+    <div className="sticky top-16 z-30 border-b border-silver-300 bg-silver-100/95 backdrop-blur lg:top-[68px]">
+      <div className="page-container hidden items-end gap-6 py-4 md:flex">
+        <div className="grid flex-1 grid-cols-4 gap-6"><Filters search={search} update={update} /></div>
+        <div className="w-48">{sortSelect}</div>
+        <div className="pb-3 text-sm tabular-nums text-ink-500" aria-live="polite">{hits}</div>
       </div>
+      <div className="page-container flex items-center justify-between py-3 md:hidden">
+        <Button type="button" variant="outline" className="border-navy-900 text-navy-900" onClick={() => setSheet(true)}><SlidersHorizontal strokeWidth={1.5} />Filter & Sortierung</Button>
+        <span className="text-sm tabular-nums text-ink-500" aria-live="polite">{hits}</span>
+      </div>
+    </div>
+    <Sheet open={sheet} onOpenChange={setSheet}>
+      <SheetContent side="bottom" className="max-h-[90dvh] overflow-y-auto bg-silver-100 p-6">
+        <SheetTitle className="font-display text-sm font-medium uppercase tracking-[.16em] text-navy-900">Filter & Sortierung</SheetTitle>
+        <SheetDescription className="sr-only">Fahrzeuge filtern und sortieren</SheetDescription>
+        <div className="mt-6 grid gap-5"><Filters search={search} update={update} />{sortSelect}</div>
+        <div className="mt-8 grid gap-3"><Button type="button" variant="gold" onClick={() => setSheet(false)}>{hits ? `${hits} anzeigen` : "Anzeigen"}</Button>{hasFilters ? <Button type="button" variant="ghost" onClick={reset}>Filter zurücksetzen</Button> : null}</div>
+      </SheetContent>
+    </Sheet>
 
-      <Collapsible open={open} onOpenChange={setOpen} className="mt-6">
-        <div className="grid w-full grid-cols-[auto_minmax(0,1fr)] items-center gap-3 md:flex md:flex-wrap md:justify-between">
-          <div className="flex min-w-0 justify-self-start gap-2">
-            <CollapsibleTrigger asChild><Button variant="silver" className="hidden md:inline-flex"><SlidersHorizontal />Mehr Filter</Button></CollapsibleTrigger>
-            <Sheet><SheetTrigger asChild><Button variant="silver" className="md:hidden"><SlidersHorizontal />Mehr Filter</Button></SheetTrigger><SheetContent side="bottom" className="max-h-[85vh] overflow-y-auto"><SheetHeader><SheetTitle>Mehr Filter</SheetTitle></SheetHeader><div className="p-4"><MoreFilters search={search} update={update} /><Button variant="ghost" className="mt-6 w-full" onClick={reset}>Filter zurücksetzen</Button></div></SheetContent></Sheet>
-            {hasFilters ? <Button variant="ghost" onClick={reset}>Filter zurücksetzen</Button> : null}
-          </div>
-          <label className="flex min-w-0 justify-self-end items-center justify-end gap-2 text-sm text-muted-foreground"><span className="sr-only sm:not-sr-only">Sortierung</span><Select value={search.sort ?? "neu"} onValueChange={(v) => update({ sort: v === "neu" ? undefined : v })}><SelectTrigger aria-label="Sortierung" className="h-11 w-[124px] min-w-0 bg-background sm:w-40 md:w-48"><SelectValue /></SelectTrigger><SelectContent>{sortOptions.map((o) => <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>)}</SelectContent></Select></label>
+    <div className="bg-silver-100">
+      <div className="page-container py-12">
+        {hasFilters ? <button type="button" onClick={reset} className="text-link mb-4 hidden text-navy-900 md:inline-flex">Filter zurücksetzen</button> : null}
+        <div className="grid gap-x-8 gap-y-12 sm:grid-cols-2 xl:grid-cols-3">
+          {isPending ? Array.from({ length: 6 }, (_, i) => <VehicleCardSkeleton key={i} />)
+            : isError ? <div className="col-span-full bg-white p-8 text-center text-ink-500">Die Fahrzeuge konnten gerade nicht geladen werden. <a href={siteConfig.mobileDeUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-gold-700 underline">Bestand auf mobile.de ansehen</a></div>
+            : data.length === 0 ? <div className="col-span-full bg-white p-8 text-center text-ink-500">Keine Fahrzeuge mit diesen Kriterien. <button type="button" onClick={reset} className="font-semibold text-gold-700 underline">Filter zurücksetzen</button></div>
+            : data.map((v, i) => <VehicleCard key={v.id} vehicle={v} eager={i < 3} />)}
         </div>
-        <CollapsibleContent className="mt-4 hidden rounded-lg border border-border bg-card p-5 md:block"><MoreFilters search={search} update={update} /></CollapsibleContent>
-      </Collapsible>
-
-      <div className="mt-8 grid gap-x-8 gap-y-12 sm:grid-cols-2 xl:grid-cols-3">
-        {isPending ? Array.from({ length: 6 }, (_, i) => <VehicleCardSkeleton key={i} />)
-          : isError ? <div className="col-span-full rounded-lg border border-border bg-card p-8 text-center text-muted-foreground">Die Fahrzeuge konnten gerade nicht geladen werden. <a href={siteConfig.mobileDeUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-gold">Bestand auf mobile.de ansehen</a></div>
-          : data.length === 0 ? <div className="col-span-full rounded-lg border border-border bg-card p-8 text-center text-muted-foreground">Keine Fahrzeuge mit diesen Kriterien – <button type="button" onClick={reset} className="font-semibold text-gold hover:text-gold-light">Filter zurücksetzen</button> oder <a href={siteConfig.mobileDeUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-gold hover:text-gold-light">alle Fahrzeuge auf mobile.de ansehen</a>.</div>
-          : data.map((v, index) => <VehicleCard key={v.id} vehicle={v} eager={index < 4} />)}
+        <p className="mt-12 text-xs leading-5 text-ink-500">Alle Preise sind Endpreise in Euro. Zulassung und Überführung sind nicht enthalten und werden nur auf Wunsch gegen gesonderte Berechnung übernommen. Zwischenverkauf und Irrtum vorbehalten.</p>
       </div>
     </div>
 
-    <Reveal className="mx-auto max-w-[1200px] border-t border-border px-6 py-16 md:px-12">
-      <div className="max-w-2xl"><h2 className="section-h2">Nicht das richtige Auto dabei?</h2><p className="mt-4 text-foreground/80">Schreiben Sie uns, was Sie suchen. Wir melden uns, wenn ein passendes Auto hereinkommt.</p><div className="mt-8"><SearchRequestForm /></div></div>
-      <p className="mt-10 text-xs leading-5 text-muted-foreground">Alle Preise sind Endpreise in Euro. Zulassung und Überführung sind nicht enthalten und werden nur auf Wunsch gegen gesonderte Berechnung übernommen. Zwischenverkauf und Irrtum vorbehalten.</p>
-    </Reveal>
+    <section id="suchauftrag" className="scroll-mt-24 bg-navy-900 py-16 text-cream md:py-20">
+      <div className="page-container grid gap-10 lg:grid-cols-2 lg:gap-16">
+        <div>
+          <h2 className="section-h2">Nicht das Richtige dabei?</h2>
+          <Ornament />
+          <p className="mt-6 max-w-xl leading-[1.7] text-silver-300">Unser Bestand wechselt schnell, manches Auto ist verkauft, bevor es online steht. Sagen Sie uns, was Sie suchen – ob Familienkombi oder seltenen Sportwagen. Wir melden uns, sobald wir etwas Passendes haben. Ihre Anfrage behandeln wir vertraulich.</p>
+        </div>
+        <SearchRequestForm />
+      </div>
+    </section>
   </>;
 }
