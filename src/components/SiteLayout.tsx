@@ -41,13 +41,13 @@ function Header() {
         <nav className="hidden items-center gap-5 xl:flex">
           {navItems.map((item) => <Link key={item.to} to={item.to} activeProps={{ className: "text-gold" }} className="whitespace-nowrap text-sm font-semibold text-muted-foreground transition-colors hover:text-foreground">{item.label}</Link>)}
         </nav>
-        <div className="ml-auto hidden items-center gap-5 md:flex">
+        <div className="ml-auto hidden items-center gap-3 xl:gap-5 md:flex">
           <a href={phoneHref} className="text-right">
             <span className="block whitespace-nowrap text-sm font-semibold text-foreground">{siteConfig.phone}</span>
             <span className={open ? "text-xs text-success" : "text-xs text-muted-foreground"}>{currentOpeningStatus()}</span>
           </a>
           <a href={`https://wa.me/${siteConfig.whatsapp.replace(/\D/g, "")}`} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp schreiben" className="grid size-10 place-items-center text-silver hover:text-gold"><WhatsAppIcon /></a>
-          <Button asChild variant="gold"><Link to="/auto-verkaufen">Fahrzeug bewerten</Link></Button>
+          <Button asChild variant="gold" className="px-5"><Link to="/auto-verkaufen">Auto bewerten</Link></Button>
         </div>
         <a href={phoneHref} aria-label="Anrufen" className="ml-auto grid size-11 place-items-center text-gold md:hidden"><Phone className="size-5" /></a>
       </div>
