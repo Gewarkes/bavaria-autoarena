@@ -40,7 +40,13 @@ export default function AdminDashboardPage() {
       {loading ? <TableSkeleton rows={5} /> : (
         <div className="divide-y divide-border rounded-lg border border-border bg-card">
           {latest.length === 0 ? <p className="p-5 text-sm text-muted-foreground">Noch keine Anfragen.</p> : latest.map((l) => (
-            <Link key={l.id} to={l.trade ? "/admin/inzahlungnahme/$id" : "/admin/anfragen"} params={l.trade ? { id: l.id } : undefined} search={l.trade ? undefined : { id: l.id }} className="flex flex-wrap items-center gap-x-4 gap-y-1 p-4 hover:bg-muted/40">
+            l.trade ? <Link key={l.id} to="/admin/inzahlungnahme/$id" params={{ id: l.id }} className="flex flex-wrap items-center gap-x-4 gap-y-1 p-4 hover:bg-muted/40">
+              <span className="w-36 text-xs text-muted-foreground">{fmtDateTime(l.at)}</span>
+              <span className="w-32 text-xs font-semibold uppercase text-gold">{l.type}</span>
+              <span className="font-medium">{l.name}</span>
+              <span className="text-sm text-muted-foreground">{l.info}</span>
+              <span className="ml-auto"><LeadBadge status={l.status} /></span>
+            </Link> : <Link key={l.id} to="/admin/anfragen" search={{ id: l.id }} className="flex flex-wrap items-center gap-x-4 gap-y-1 p-4 hover:bg-muted/40">
               <span className="w-36 text-xs text-muted-foreground">{fmtDateTime(l.at)}</span>
               <span className="w-32 text-xs font-semibold uppercase text-gold">{l.type}</span>
               <span className="font-medium">{l.name}</span>

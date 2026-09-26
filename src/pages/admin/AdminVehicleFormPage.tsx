@@ -17,7 +17,7 @@ import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-type Img = { url: string; thumbUrl?: string; alt: string; sort: number };
+type Img = { url: string; thumbUrl?: string | undefined; alt: string; sort: number };
 type Form = {
   brand: string; model: string; variant: string; title: string; price: string; tax_status: AdminVehicle["tax_status"];
   month: string; year: string; km: string; fuel: AdminVehicle["fuel"]; transmission: AdminVehicle["transmission"]; ps: string;
