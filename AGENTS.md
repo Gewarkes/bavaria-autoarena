@@ -11,3 +11,4 @@
 
 - Öffentliche Seiten bleiben als einzelne TanStack-Dateirouten unter `src/routes`; gemeinsame Darstellung liegt im Root-Layout, damit Navigation und Metadaten konsistent und serverseitig auslieferbar sind.
 - Fahrzeug-/Bewertungsdaten laufen über src/lib/vehicles.ts (Browser-Client + React Query, explizite Spaltenlisten), damit RLS greift und Queries zentral bleiben.
+- Das öffentliche Designsystem nutzt Jost Variable, Source Sans 3 Variable und die Navy/Gold/Silber-Tokens aus src/styles.css; so bleiben alle Seiten markenkonsistent.

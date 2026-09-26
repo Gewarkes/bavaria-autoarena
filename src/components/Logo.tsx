@@ -22,19 +22,12 @@ export function LogoMark({ size = 56, className }: { size?: number; className?: 
       alt="Bavaria Autoarena Wappen"
       width={size}
       height={size}
-      style={{ width: size, height: size }}
-      className={cn("shrink-0 rounded-lg border border-gold/40 object-cover", className)}
+      className={cn("aspect-square shrink-0 object-cover [mask-image:radial-gradient(closest-side,black_88%,transparent_100%)]", className)}
     />
   );
 }
 
 /** Header-Variante: Bild + Wortmarke; unter 380px nur das Bild. */
 export function HeaderLogo() {
-  return (
-    <span className="inline-flex items-center gap-2 md:gap-3">
-      <LogoMark size={36} className="md:hidden" />
-      <LogoMark size={56} className="hidden md:block" />
-      <Logo className="[&_span:first-child]:text-[0.42rem] [&_span:last-child]:text-[0.78rem] max-[339px]:hidden md:[&_span:first-child]:text-[0.57rem] md:[&_span:last-child]:text-[1.15rem]" />
-    </span>
-  );
+  return <LogoMark size={56} className="size-10 md:size-14" />;
 }

@@ -5,19 +5,18 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex min-h-11 items-center justify-center gap-2 whitespace-nowrap rounded px-7 py-3.5 text-[15px] font-semibold cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "inline-flex min-h-12 items-center justify-center gap-2 whitespace-nowrap rounded-sm px-8 font-display text-[13px] font-medium uppercase tracking-[0.16em] cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
         default: "bg-primary text-primary-foreground hover:bg-primary/90",
         destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-        outline:
-          "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+        outline: "border border-current bg-transparent hover:bg-current/5",
         secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
-        gold: "bg-gold text-primary-foreground hover:bg-gold-light",
-        silver: "min-h-0 rounded-none px-0 py-1 text-silver underline decoration-silver/60 underline-offset-4 hover:text-gold",
+        gold: "bg-gold-500 text-navy-900 hover:bg-gold-400",
+        silver: "min-h-11 rounded-none px-0 py-1 text-current underline decoration-current/50 underline-offset-[6px] hover:text-gold-600",
       },
       size: {
         default: "min-h-12 px-7",
