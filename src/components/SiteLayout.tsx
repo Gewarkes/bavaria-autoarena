@@ -72,6 +72,7 @@ function MobileBottomBar({ vehicleTitle, price }: { vehicleTitle?: string; price
 export function SiteLayout({ children }: { children: ReactNode }) {
   const pathname = useRouterState({ select: (state) => state.location.pathname });
   const detailMatch = pathname.match(/^\/fahrzeuge\/([^/]+)$/);
-  const vehicleTitle = detailMatch ? decodeURIComponent(detailMatch[1]).replace(/-/g, " ") : undefined;
-  return <div className="min-h-screen bg-background"><Header /><main>{children}</main><Footer /><MobileBottomBar vehicleTitle={vehicleTitle} price={detailMatch ? "Preis auf Anfrage" : undefined} /></div>;
+  const slug = detailMatch?.[1];
+  const vehicleTitle = slug ? decodeURIComponent(slug).replace(/-/g, " ") : undefined;
+  return <div className="min-h-screen bg-background"><Header /><main>{children}</main><Footer />{vehicleTitle ? <MobileBottomBar vehicleTitle={vehicleTitle} price="Preis auf Anfrage" /> : <MobileBottomBar />}</div>;
 }

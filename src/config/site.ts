@@ -48,7 +48,8 @@ function getGermanTime(date = new Date()) {
 
 export function todaysHours(date = new Date()) {
   const { day } = getGermanTime(date);
-  return siteConfig.openingHours[dayKeys[day]];
+  const dayKey = dayKeys[day] ?? "sunday";
+  return siteConfig.openingHours[dayKey];
 }
 
 export function isOpenNow(date = new Date()) {
