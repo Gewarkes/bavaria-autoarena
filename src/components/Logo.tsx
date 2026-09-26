@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 
 export function Logo({ className }: { className?: string }) {
-  return <LogoMark size={96} className={className} />;
+  return <LogoMark size={96} {...(className ? { className } : {})} />;
 }
 
 /** Original-Wappenlogo (public/logo.webp). */
