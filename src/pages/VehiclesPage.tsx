@@ -64,13 +64,13 @@ export default function VehiclesPage() {
       </div>
 
       <Collapsible open={open} onOpenChange={setOpen} className="mt-6">
-        <div className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-3 md:flex md:flex-wrap md:justify-between">
-          <div className="flex min-w-0 gap-2">
+        <div className="grid w-full grid-cols-[auto_minmax(0,1fr)] items-center gap-3 md:flex md:flex-wrap md:justify-between">
+          <div className="flex min-w-0 justify-self-start gap-2">
             <CollapsibleTrigger asChild><Button variant="silver" className="hidden md:inline-flex"><SlidersHorizontal />Mehr Filter</Button></CollapsibleTrigger>
             <Sheet><SheetTrigger asChild><Button variant="silver" className="md:hidden"><SlidersHorizontal />Mehr Filter</Button></SheetTrigger><SheetContent side="bottom" className="max-h-[85vh] overflow-y-auto"><SheetHeader><SheetTitle>Mehr Filter</SheetTitle></SheetHeader><div className="p-4"><MoreFilters search={search} update={update} /><Button variant="ghost" className="mt-6 w-full" onClick={reset}>Filter zurücksetzen</Button></div></SheetContent></Sheet>
             {hasFilters ? <Button variant="ghost" onClick={reset}>Filter zurücksetzen</Button> : null}
           </div>
-          <label className="flex min-w-0 items-center justify-end gap-2 text-sm text-muted-foreground"><span className="sr-only sm:not-sr-only">Sortierung</span><Select value={search.sort ?? "neu"} onValueChange={(v) => update({ sort: v === "neu" ? undefined : v })}><SelectTrigger aria-label="Sortierung" className="h-11 min-w-0 max-w-56 bg-background"><SelectValue /></SelectTrigger><SelectContent>{sortOptions.map((o) => <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>)}</SelectContent></Select></label>
+          <label className="flex min-w-0 justify-self-end items-center justify-end gap-2 text-sm text-muted-foreground"><span className="sr-only sm:not-sr-only">Sortierung</span><Select value={search.sort ?? "neu"} onValueChange={(v) => update({ sort: v === "neu" ? undefined : v })}><SelectTrigger aria-label="Sortierung" className="h-11 w-[124px] min-w-0 bg-background sm:w-40 md:w-48"><SelectValue /></SelectTrigger><SelectContent>{sortOptions.map((o) => <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>)}</SelectContent></Select></label>
         </div>
         <CollapsibleContent className="mt-4 hidden rounded-lg border border-border bg-card p-5 md:block"><MoreFilters search={search} update={update} /></CollapsibleContent>
       </Collapsible>
@@ -79,7 +79,7 @@ export default function VehiclesPage() {
         {isPending ? Array.from({ length: 6 }, (_, i) => <VehicleCardSkeleton key={i} />)
           : isError ? <div className="col-span-full rounded-lg border border-border bg-card p-8 text-center text-muted-foreground">Die Fahrzeuge konnten gerade nicht geladen werden. <a href={siteConfig.mobileDeUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-gold">Bestand auf mobile.de ansehen</a></div>
           : data.length === 0 ? <div className="col-span-full rounded-lg border border-border bg-card p-8 text-center text-muted-foreground">Keine Fahrzeuge mit diesen Kriterien – <button type="button" onClick={reset} className="font-semibold text-gold hover:text-gold-light">Filter zurücksetzen</button> oder <a href={siteConfig.mobileDeUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-gold hover:text-gold-light">alle Fahrzeuge auf mobile.de ansehen</a>.</div>
-          : data.map((v) => <VehicleCard key={v.id} vehicle={v} />)}
+          : data.map((v, index) => <VehicleCard key={v.id} vehicle={v} eager={index < 4} />)}
       </div>
     </div>
 

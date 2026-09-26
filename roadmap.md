@@ -31,3 +31,10 @@
 - [x] Formulare, Funnel-Schrittwechsel und sichere Bildschirmränder anpassen
 - [x] Galerie, Bilder und mobile Ladeleistung verbessern
 - [x] Drei Handygrößen und Desktop im Browser prüfen; Produktions-Build ausführen
+
+# Schritt 12a
+
+- [ ] Hero-H1 bei 320–390 px mit sicherem Rand darstellen
+- [ ] Filter und kurze Sortierlabels in einer bündigen Zeile darstellen
+- [ ] Erste vier Fahrzeugbilder priorisiert laden und Bildflächen hinterlegen
+- [ ] Drei Handygrößen im Browser prüfen; Produktions-Build ausführen
