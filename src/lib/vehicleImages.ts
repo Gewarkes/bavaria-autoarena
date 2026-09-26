@@ -40,6 +40,6 @@ export function useVehicleImage(url: string | undefined) {
 /** mobile.de-Bilder in passender Größe laden (Karten mo-640, Detail mo-1600). */
 export function sizedImage(url: string | undefined, size: "card" | "full") {
   if (!url || !/classistatic\.de|mobile\.de/.test(url)) return url;
-  const rule = size === "card" ? "mo-640" : "mo-1600";
+  const rule = size === "card" ? "mo-640.jpg" : "mo-1600.jpg";
   return /[?&]rule=/.test(url) ? url.replace(/rule=[^&]*/, `rule=${rule}`) : `${url}${url.includes("?") ? "&" : "?"}rule=${rule}`;
 }

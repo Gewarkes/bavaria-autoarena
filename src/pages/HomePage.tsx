@@ -12,7 +12,7 @@ import { MapGraphic, Testimonials } from "@/components/site/shared";
 import { ServicesGrid } from "@/components/site/Services";
 import { brandsQuery, highlightsQuery, testimonialsQuery } from "@/lib/vehicles";
 
-const heroImage = "https://img.classistatic.de/api/v1/mo-prod/images/37/37cb9a67-af05-48a8-aa73-cf055badd95d?rule=mo-1600";
+const heroImage = "https://img.classistatic.de/api/v1/mo-prod/images/37/37cb9a67-af05-48a8-aa73-cf055badd95d?rule=mo-1600.jpg";
 function useBrands() { return useQuery(brandsQuery()).data ?? []; }
 const openingRows = [
   ["Montag", "monday"], ["Dienstag", "tuesday"], ["Mittwoch", "wednesday"], ["Donnerstag", "thursday"],
