@@ -34,12 +34,12 @@ export function LeadBasicsFields({ form }: { form: ReturnType<typeof useLeadForm
   const lbl = "block text-xs font-semibold uppercase tracking-wide text-muted-foreground";
   return (
     <>
-      <label className={lbl}>Name <span className="text-gold">*</span><Input className="mt-2 h-12" autoComplete="name" maxLength={100} value={basics.name} onChange={(e) => setBasics({ ...basics, name: e.target.value })} /></label>
+      <label className={lbl}>Name <span className="text-gold">*</span><Input className="mt-2 h-12" autoComplete="name" enterKeyHint="next" maxLength={100} value={basics.name} onChange={(e) => setBasics({ ...basics, name: e.target.value })} /></label>
       {errors["name"] && <p className="text-sm text-destructive">{errors["name"]}</p>}
       <p className="text-sm text-muted-foreground">Telefon oder E-Mail – mindestens eines davon.</p>
       <div className="grid gap-4 sm:grid-cols-2">
-        <label className={lbl}>Telefon<Input className="mt-2 h-12" type="tel" autoComplete="tel" maxLength={40} value={basics.phone} onChange={(e) => setBasics({ ...basics, phone: e.target.value })} /></label>
-        <label className={lbl}>E-Mail<Input className="mt-2 h-12" type="email" autoComplete="email" maxLength={255} value={basics.email} onChange={(e) => setBasics({ ...basics, email: e.target.value })} /></label>
+        <label className={lbl}>Telefon<Input className="mt-2 h-12" type="tel" inputMode="tel" autoComplete="tel" enterKeyHint="next" maxLength={40} value={basics.phone} onChange={(e) => setBasics({ ...basics, phone: e.target.value })} /></label>
+        <label className={lbl}>E-Mail<Input className="mt-2 h-12" type="email" inputMode="email" autoComplete="email" enterKeyHint="next" maxLength={255} value={basics.email} onChange={(e) => setBasics({ ...basics, email: e.target.value })} /></label>
       </div>
       {(errors["phone"] || errors["email"]) && <p className="text-sm text-destructive">{errors["phone"] ?? errors["email"]}</p>}
       <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden"><label>Website<input tabIndex={-1} autoComplete="off" name="website" value={honeypot} onChange={(e) => setHoneypot(e.target.value)} /></label></div>
