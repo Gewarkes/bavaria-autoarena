@@ -1,10 +1,10 @@
 export const tradeInFaq = [
-  { q: "Kostet die Bewertung etwas?", a: "Nein. Die Bewertung ist für Sie vollständig kostenlos und unverbindlich." },
-  { q: "Muss ich das Auto verkaufen?", a: "Nein. Sie erhalten ein unverbindliches Angebot und entscheiden in Ruhe, ob Sie es annehmen." },
-  { q: "Wie schnell bekomme ich das Angebot?", a: "In der Regel innerhalb von 24 Stunden an Werktagen – per Telefon, WhatsApp oder E-Mail, wie Sie es wünschen. Das Angebot gilt unter Vorbehalt einer Besichtigung des Fahrzeugs." },
-  { q: "Was ist mit laufender Finanzierung?", a: "Kein Problem. Wir klären die Restschuld mit Ihrer Bank und verrechnen sie mit dem Ankaufspreis." },
-  { q: "Kaufen Sie auch Unfallfahrzeuge?", a: "Ja. Geben Sie den Schaden einfach im Formular an – wir bewerten auch Fahrzeuge mit Unfallschaden fair." },
-  { q: "Welche Unterlagen brauche ich?", a: "Zulassungsbescheinigung Teil I und II, Ihren Personalausweis, alle Schlüssel sowie – falls vorhanden – Serviceheft und HU-Bericht." },
+  { q: "Kostet die Bewertung etwas?", a: "Nein. Anfrage und Angebot sind kostenlos, egal ob Sie verkaufen oder nicht." },
+  { q: "Muss ich verkaufen, wenn ich angefragt habe?", a: "Nein. Sie bekommen den Preis, dann entscheiden Sie. Wir rufen auch nicht dreimal nach." },
+  { q: "Wie schnell bekomme ich das Angebot?", a: "Am nächsten Werktag. Anfragen vom Samstagnachmittag beantworten wir am Montag." },
+  { q: "Was ist, wenn das Auto noch finanziert ist?", a: "Das geht. Sie nennen uns die Bank und die Restschuld, wir lösen den Kredit mit dem Ankaufspreis ab und zahlen Ihnen die Differenz aus." },
+  { q: "Kaufen Sie auch Unfallfahrzeuge?", a: "Ja, auch mit nicht reparierten Schäden. Geben Sie den Schaden im Formular an und hängen Sie Fotos an, dann fällt das Angebot realistischer aus." },
+  { q: "Welche Unterlagen brauche ich?", a: "Zulassungsbescheinigung Teil I und II, alle Schlüssel, Serviceheft und HU-Bericht (falls vorhanden) und Ihren Personalausweis. Bei laufender Finanzierung die Ablöseinformation der Bank." },
 ];
 
 export function faqJsonLd() {

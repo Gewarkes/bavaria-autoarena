@@ -200,8 +200,8 @@
   transform: translateY(0);
 }
 
-@utility shadow-gold { box-shadow: 0 8px 24px color-mix(in oklab, var(--gold) 16%, transparent); }
-@utility shadow-gold-lg { box-shadow: 0 10px 32px color-mix(in oklab, var(--gold) 28%, transparent); }
+@utility shadow-gold { box-shadow: none; }
+@utility shadow-gold-lg { box-shadow: none; }
 @utility footer-title { font-family: var(--font-display); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--foreground); }
 
 @layer base {
@@ -227,9 +227,10 @@
 
 @utility section-h2 {
   font-family: var(--font-display);
-  font-size: 1.25rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.025em;
+  font-size: 1.75rem;
+  line-height: 1.15;
+  font-weight: 600;
   color: var(--foreground);
 }
+
+@media (min-width: 768px) { .section-h2 { font-size: 2.25rem; } }
