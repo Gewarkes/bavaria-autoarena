@@ -7,13 +7,12 @@ import type { Vehicle } from "@/lib/vehicles";
 export function VehicleCard({ vehicle }: { vehicle: Vehicle }) {
   const image = vehicle.images[0];
   const facts = `EZ ${formatFirstRegistration(vehicle.first_registration)} · ${formatKm(vehicle.mileage_km)} · ${formatFuel(vehicle.fuel)} · ${formatTransmission(vehicle.transmission)}`;
-  const isNew = !vehicle.is_demo && Date.now() - new Date(vehicle.created_at).getTime() < 14 * 86_400_000;
 
   return (
     <Link to="/fahrzeuge/$slug" params={{ slug: vehicle.slug }} className="group block overflow-hidden rounded border border-border bg-card transition-colors hover:border-gold">
       <div className="relative aspect-4/3 overflow-hidden bg-muted">
         {image ? <VehicleImg src={sizedImage(image.thumbUrl || image.url, "card")} alt={image.alt || vehicle.title} width="800" height="600" loading="lazy" className="size-full object-cover" /> : null}
-        {vehicle.status === "reserviert" ? <span className="absolute left-3 top-3 rounded bg-background/95 px-2.5 py-1 text-xs font-medium text-foreground">Reserviert</span> : isNew ? <span className="absolute left-3 top-3 rounded bg-background/95 px-2.5 py-1 text-xs font-medium text-foreground">Neu eingetroffen</span> : null}
+        {vehicle.status === "reserviert" ? <span className="absolute left-3 top-3 rounded bg-background/95 px-2.5 py-1 text-xs font-medium text-foreground">Reserviert</span> : null}
       </div>
       <div className="p-5">
         <h3 className="line-clamp-2 font-display text-lg font-semibold text-foreground">{vehicle.title}</h3>
