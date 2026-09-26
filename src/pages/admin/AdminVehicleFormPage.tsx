@@ -188,7 +188,7 @@ export default function AdminVehicleFormPage({ id }: { id?: string }) {
                 <GripVertical className="absolute bottom-1 left-1 size-4 text-foreground/70" />
                 <button type="button" aria-label="Bild entfernen" onClick={() => removeImg(i)} className="absolute right-1 top-1 rounded bg-background/80 p-1"><X className="size-4" /></button>
                 <div className="grid grid-cols-2 gap-1 bg-card p-1.5">
-                  <Button type="button" variant={f.cover_index === i ? "gold" : "ghost"} size="sm" className="min-h-9 px-2 text-[10px]" onClick={() => set("cover_index", i)}><Star className="size-3" />Titelbild</Button>
+                   <Button type="button" variant={f.cover_index === i ? "gold" : "ghost"} size="sm" className="min-h-9 px-2 text-[10px]" onClick={() => set("cover_index", i)}><Star className="size-3" />Als Titelbild</Button>
                   <Button type="button" variant="ghost" size="sm" className="min-h-9 px-2 text-[10px]" onClick={() => set("gallery_hidden", f.gallery_hidden.includes(i) ? f.gallery_hidden.filter((x) => x !== i) : [...f.gallery_hidden, i])}>{f.gallery_hidden.includes(i) ? <Eye className="size-3" /> : <EyeOff className="size-3" />}{f.gallery_hidden.includes(i) ? "Einblenden" : "Ausblenden"}</Button>
                 </div>
               </div>

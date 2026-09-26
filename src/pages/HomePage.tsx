@@ -21,9 +21,9 @@ function Hero({ count, loaded }: { count: number; loaded: boolean }) {
     <section className="relative bg-silver-100 lg:h-[calc(100svh-88px)] lg:min-h-[600px] lg:max-h-[920px]">
       <picture className="block h-[46svh] min-h-[340px] lg:absolute lg:inset-0 lg:h-full">
         <source type="image/webp" srcSet="/hero-911-1280.webp 1280w, /hero-911-1920.webp 1920w, /hero-911-2560.webp 2560w" sizes="100vw" />
-        <img src="/hero-911-1920.jpg" srcSet="/hero-911-1280.jpg 1280w, /hero-911-1920.jpg 1920w, /hero-911-2560.jpg 2560w" sizes="100vw" alt="Schwarzer Porsche 911 auf einem Parkdeck vor Bergkulisse" width="2560" height="1708" fetchPriority="high" className="size-full object-cover object-[62%_78%] lg:object-[50%_38%]" />
+        <img src="/hero-911-1920.jpg" srcSet="/hero-911-1280.jpg 1280w, /hero-911-1920.jpg 1920w, /hero-911-2560.jpg 2560w" sizes="100vw" alt="Schwarzer Porsche 911 auf einem Parkdeck vor Bergkulisse" width="2560" height="1708" fetchPriority="high" className="size-full object-cover object-[62%_78%] lg:object-[50%_0%]" />
       </picture>
-      <div className="page-container relative bg-silver-100 py-12 lg:bg-transparent lg:pt-[8vh]">
+      <div className="page-container relative bg-silver-100 py-12 lg:bg-transparent lg:pt-[6vh]">
         <div className="max-w-[680px]"><p className="eyebrow text-gold-700">Autohaus in Perkam bei Straubing</p><h1 className="display-title mt-4 text-navy-900">Ihr nächstes Auto steht in Perkam.</h1><p className="mt-5 max-w-[520px] text-xl leading-[1.5] text-navy-900/80">Vom sparsamen Alltagsauto bis zum Sportwagen – ausgesucht, durchgesehen und vor Ort Probe zu fahren.</p><div className="mt-7 grid gap-3 sm:flex"><Button asChild variant="gold"><Link to="/fahrzeuge">Fahrzeuge ansehen{loaded ? ` (${count})` : ""}</Link></Button><Button asChild variant="outline" className="border-navy-900 text-navy-900"><Link to="/kontakt" hash="termin">Termin vereinbaren</Link></Button></div></div>
       </div>
     </section>

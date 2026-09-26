@@ -14,6 +14,7 @@ export function VehicleGallery({ images, title, badge }: { images: GalleryImage[
   const [mobileIndex, setMobileIndex] = useState(0);
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const [open, setOpen] = useState(false);
+  const [touchStartY, setTouchStartY] = useState<number | null>(null);
 
   const openAt = useCallback((index: number) => {
     setLightboxIndex(index);
@@ -90,7 +91,7 @@ export function VehicleGallery({ images, title, badge }: { images: GalleryImage[
         <button type="button" onClick={close} aria-label="Galerie schließen" className="absolute right-3 top-3 z-20 grid size-11 place-items-center rounded-sm bg-navy-900 text-cream"><X /></button>
         <button type="button" onClick={() => lightboxApi?.scrollPrev()} aria-label="Vorheriges Foto" className="absolute left-2 top-1/2 z-20 hidden size-12 -translate-y-1/2 place-items-center bg-navy-900/80 text-cream md:grid"><ChevronLeft /></button>
         <button type="button" onClick={() => lightboxApi?.scrollNext()} aria-label="Nächstes Foto" className="absolute right-2 top-1/2 z-20 hidden size-12 -translate-y-1/2 place-items-center bg-navy-900/80 text-cream md:grid"><ChevronRight /></button>
-        <div ref={lightboxRef} className="h-[calc(100dvh-88px)] overflow-hidden"><div className="flex h-full">{images.map((image, index) => <div key={image.url} className="flex min-w-0 flex-[0_0_100%] items-center justify-center p-3 pt-16 md:p-16"><VehicleImg src={sizedImage(image.url, "full")} alt={image.alt || `${title} – Foto ${index + 1}`} width={1600} height={1200} loading={Math.abs(index - lightboxIndex) <= 1 ? "eager" : "lazy"} className="size-full object-contain" /></div>)}</div></div>
+        <div ref={lightboxRef} onTouchStart={(event) => setTouchStartY(event.touches[0]?.clientY ?? null)} onTouchEnd={(event) => { const endY = event.changedTouches[0]?.clientY; if (touchStartY != null && endY != null && endY - touchStartY > 100) close(); setTouchStartY(null); }} className="h-[calc(100dvh-88px)] overflow-hidden"><div className="flex h-full">{images.map((image, index) => <div key={image.url} className="flex min-w-0 flex-[0_0_100%] items-center justify-center p-3 pt-16 md:p-16"><VehicleImg src={sizedImage(image.url, "full")} alt={image.alt || `${title} – Foto ${index + 1}`} width={1600} height={1200} loading={Math.abs(index - lightboxIndex) <= 1 ? "eager" : "lazy"} className="size-full object-contain" /></div>)}</div></div>
         <div className="hide-scrollbar flex h-[88px] gap-2 overflow-x-auto border-t border-cream/10 bg-navy-950 px-3 py-3">{images.map((image, index) => <button key={image.url} type="button" onClick={() => lightboxApi?.scrollTo(index)} aria-label={`Foto ${index + 1}`} className={`h-16 aspect-[4/3] shrink-0 overflow-hidden rounded-sm ring-1 ${index === lightboxIndex ? "ring-gold-500" : "ring-cream/20"}`}><VehicleImg src={sizedImage(image.url, "card")} alt="" width={160} height={120} loading="lazy" className="size-full object-cover object-[50%_60%]" /></button>)}</div>
       </DialogContent>
     </Dialog>
