@@ -1,16 +1,17 @@
 import { useMemo, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { Download, Search } from "lucide-react";
 import { downloadCsv, fmtDateTime, INTENT_LABEL, listTradeIns, type LeadStatus } from "@/lib/admin";
 import { formatKm } from "@/lib/format";
-import { ErrorBox, LeadBadge, PageTitle, StatusChips, TableSkeleton } from "@/components/admin/common";
+import { CleanupNotice, ErrorBox, LeadBadge, PageTitle, StatusChips, TableSkeleton } from "@/components/admin/common";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 export default function AdminTradeInsPage() {
   const navigate = useNavigate();
+  const qc = useQueryClient();
   const { data, isLoading, error } = useQuery({ queryKey: ["admin", "tradeins"], queryFn: listTradeIns });
   const [status, setStatus] = useState<LeadStatus | "alle">("alle");
   const [q, setQ] = useState("");
@@ -27,6 +28,7 @@ export default function AdminTradeInsPage() {
   return (
     <div>
       <PageTitle title="Inzahlungnahme-Anfragen"><Button variant="silver" onClick={exportCsv} disabled={!rows.length}><Download className="size-4" /> CSV-Export</Button></PageTitle>
+      <CleanupNotice onDone={() => void qc.invalidateQueries({ queryKey: ["admin"] })} />
       <div className="mb-4 flex flex-col gap-3 lg:flex-row lg:items-center">
         <StatusChips value={status} onChange={setStatus} />
         <div className="relative lg:ml-auto lg:w-72"><Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" /><Input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Name, Marke, Modell" className="h-10 pl-9" aria-label="Suche" /></div>
