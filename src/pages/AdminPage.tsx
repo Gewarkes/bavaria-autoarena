@@ -1,0 +1,2 @@
+import { PagePlaceholder } from "./PagePlaceholder";
+export default function AdminPage() { return <PagePlaceholder title="Verwaltung">Der geschützte Verwaltungsbereich wird in einem späteren Schritt eingerichtet.</PagePlaceholder>; }

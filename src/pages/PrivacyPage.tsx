@@ -1,0 +1,2 @@
+import { PagePlaceholder } from "./PagePlaceholder";
+export default function PrivacyPage() { return <PagePlaceholder title="Datenschutz">Die vollständigen Informationen zum Datenschutz werden hier vor der Veröffentlichung ergänzt.</PagePlaceholder>; }

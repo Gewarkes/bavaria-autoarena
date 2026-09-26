@@ -10,33 +10,175 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as AutoVerkaufenRouteImport } from './routes/auto-verkaufen'
+import { Route as DatenschutzRouteImport } from './routes/datenschutz'
+import { Route as FahrzeugeRouteImport } from './routes/fahrzeuge'
+import { Route as FinanzierungRouteImport } from './routes/finanzierung'
+import { Route as ImpressumRouteImport } from './routes/impressum'
+import { Route as KontaktRouteImport } from './routes/kontakt'
+import { Route as UeberUnsRouteImport } from './routes/ueber-uns'
+import { Route as AutoVerkaufenDankeRouteImport } from './routes/auto-verkaufen.danke'
+import { Route as FahrzeugeIndexRouteImport } from './routes/fahrzeuge.index'
+import { Route as FahrzeugeSlugRouteImport } from './routes/fahrzeuge.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AutoVerkaufenRoute = AutoVerkaufenRouteImport.update({
+  id: '/auto-verkaufen',
+  path: '/auto-verkaufen',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DatenschutzRoute = DatenschutzRouteImport.update({
+  id: '/datenschutz',
+  path: '/datenschutz',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FahrzeugeRoute = FahrzeugeRouteImport.update({
+  id: '/fahrzeuge',
+  path: '/fahrzeuge',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FinanzierungRoute = FinanzierungRouteImport.update({
+  id: '/finanzierung',
+  path: '/finanzierung',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ImpressumRoute = ImpressumRouteImport.update({
+  id: '/impressum',
+  path: '/impressum',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KontaktRoute = KontaktRouteImport.update({
+  id: '/kontakt',
+  path: '/kontakt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UeberUnsRoute = UeberUnsRouteImport.update({
+  id: '/ueber-uns',
+  path: '/ueber-uns',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AutoVerkaufenDankeRoute = AutoVerkaufenDankeRouteImport.update({
+  id: '/danke',
+  path: '/danke',
+  getParentRoute: () => AutoVerkaufenRoute,
+} as any)
+const FahrzeugeIndexRoute = FahrzeugeIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => FahrzeugeRoute,
+} as any)
+const FahrzeugeSlugRoute = FahrzeugeSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => FahrzeugeRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/auto-verkaufen': typeof AutoVerkaufenRouteWithChildren
+  '/datenschutz': typeof DatenschutzRoute
+  '/fahrzeuge': typeof FahrzeugeRouteWithChildren
+  '/finanzierung': typeof FinanzierungRoute
+  '/impressum': typeof ImpressumRoute
+  '/kontakt': typeof KontaktRoute
+  '/ueber-uns': typeof UeberUnsRoute
+  '/auto-verkaufen/danke': typeof AutoVerkaufenDankeRoute
+  '/fahrzeuge/$slug': typeof FahrzeugeSlugRoute
+  '/fahrzeuge/': typeof FahrzeugeIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/auto-verkaufen': typeof AutoVerkaufenRouteWithChildren
+  '/datenschutz': typeof DatenschutzRoute
+  '/finanzierung': typeof FinanzierungRoute
+  '/impressum': typeof ImpressumRoute
+  '/kontakt': typeof KontaktRoute
+  '/ueber-uns': typeof UeberUnsRoute
+  '/auto-verkaufen/danke': typeof AutoVerkaufenDankeRoute
+  '/fahrzeuge/$slug': typeof FahrzeugeSlugRoute
+  '/fahrzeuge': typeof FahrzeugeIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/auto-verkaufen': typeof AutoVerkaufenRouteWithChildren
+  '/datenschutz': typeof DatenschutzRoute
+  '/fahrzeuge': typeof FahrzeugeRouteWithChildren
+  '/finanzierung': typeof FinanzierungRoute
+  '/impressum': typeof ImpressumRoute
+  '/kontakt': typeof KontaktRoute
+  '/ueber-uns': typeof UeberUnsRoute
+  '/auto-verkaufen/danke': typeof AutoVerkaufenDankeRoute
+  '/fahrzeuge/$slug': typeof FahrzeugeSlugRoute
+  '/fahrzeuge/': typeof FahrzeugeIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/auto-verkaufen'
+    | '/datenschutz'
+    | '/fahrzeuge'
+    | '/finanzierung'
+    | '/impressum'
+    | '/kontakt'
+    | '/ueber-uns'
+    | '/auto-verkaufen/danke'
+    | '/fahrzeuge/$slug'
+    | '/fahrzeuge/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/admin'
+    | '/auto-verkaufen'
+    | '/datenschutz'
+    | '/finanzierung'
+    | '/impressum'
+    | '/kontakt'
+    | '/ueber-uns'
+    | '/auto-verkaufen/danke'
+    | '/fahrzeuge/$slug'
+    | '/fahrzeuge'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/auto-verkaufen'
+    | '/datenschutz'
+    | '/fahrzeuge'
+    | '/finanzierung'
+    | '/impressum'
+    | '/kontakt'
+    | '/ueber-uns'
+    | '/auto-verkaufen/danke'
+    | '/fahrzeuge/$slug'
+    | '/fahrzeuge/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRoute
+  AutoVerkaufenRoute: typeof AutoVerkaufenRouteWithChildren
+  DatenschutzRoute: typeof DatenschutzRoute
+  FahrzeugeRoute: typeof FahrzeugeRouteWithChildren
+  FinanzierungRoute: typeof FinanzierungRoute
+  ImpressumRoute: typeof ImpressumRoute
+  KontaktRoute: typeof KontaktRoute
+  UeberUnsRoute: typeof UeberUnsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +190,122 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auto-verkaufen': {
+      id: '/auto-verkaufen'
+      path: '/auto-verkaufen'
+      fullPath: '/auto-verkaufen'
+      preLoaderRoute: typeof AutoVerkaufenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/datenschutz': {
+      id: '/datenschutz'
+      path: '/datenschutz'
+      fullPath: '/datenschutz'
+      preLoaderRoute: typeof DatenschutzRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fahrzeuge': {
+      id: '/fahrzeuge'
+      path: '/fahrzeuge'
+      fullPath: '/fahrzeuge'
+      preLoaderRoute: typeof FahrzeugeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/finanzierung': {
+      id: '/finanzierung'
+      path: '/finanzierung'
+      fullPath: '/finanzierung'
+      preLoaderRoute: typeof FinanzierungRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/impressum': {
+      id: '/impressum'
+      path: '/impressum'
+      fullPath: '/impressum'
+      preLoaderRoute: typeof ImpressumRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/kontakt': {
+      id: '/kontakt'
+      path: '/kontakt'
+      fullPath: '/kontakt'
+      preLoaderRoute: typeof KontaktRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ueber-uns': {
+      id: '/ueber-uns'
+      path: '/ueber-uns'
+      fullPath: '/ueber-uns'
+      preLoaderRoute: typeof UeberUnsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auto-verkaufen/danke': {
+      id: '/auto-verkaufen/danke'
+      path: '/danke'
+      fullPath: '/auto-verkaufen/danke'
+      preLoaderRoute: typeof AutoVerkaufenDankeRouteImport
+      parentRoute: typeof AutoVerkaufenRoute
+    }
+    '/fahrzeuge/': {
+      id: '/fahrzeuge/'
+      path: '/'
+      fullPath: '/fahrzeuge/'
+      preLoaderRoute: typeof FahrzeugeIndexRouteImport
+      parentRoute: typeof FahrzeugeRoute
+    }
+    '/fahrzeuge/$slug': {
+      id: '/fahrzeuge/$slug'
+      path: '/$slug'
+      fullPath: '/fahrzeuge/$slug'
+      preLoaderRoute: typeof FahrzeugeSlugRouteImport
+      parentRoute: typeof FahrzeugeRoute
+    }
   }
 }
 
+interface AutoVerkaufenRouteChildren {
+  AutoVerkaufenDankeRoute: typeof AutoVerkaufenDankeRoute
+}
+
+const AutoVerkaufenRouteChildren: AutoVerkaufenRouteChildren = {
+  AutoVerkaufenDankeRoute: AutoVerkaufenDankeRoute,
+}
+
+const AutoVerkaufenRouteWithChildren = AutoVerkaufenRoute._addFileChildren(
+  AutoVerkaufenRouteChildren,
+)
+
+interface FahrzeugeRouteChildren {
+  FahrzeugeSlugRoute: typeof FahrzeugeSlugRoute
+  FahrzeugeIndexRoute: typeof FahrzeugeIndexRoute
+}
+
+const FahrzeugeRouteChildren: FahrzeugeRouteChildren = {
+  FahrzeugeSlugRoute: FahrzeugeSlugRoute,
+  FahrzeugeIndexRoute: FahrzeugeIndexRoute,
+}
+
+const FahrzeugeRouteWithChildren = FahrzeugeRoute._addFileChildren(
+  FahrzeugeRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRoute,
+  AutoVerkaufenRoute: AutoVerkaufenRouteWithChildren,
+  DatenschutzRoute: DatenschutzRoute,
+  FahrzeugeRoute: FahrzeugeRouteWithChildren,
+  FinanzierungRoute: FinanzierungRoute,
+  ImpressumRoute: ImpressumRoute,
+  KontaktRoute: KontaktRoute,
+  UeberUnsRoute: UeberUnsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

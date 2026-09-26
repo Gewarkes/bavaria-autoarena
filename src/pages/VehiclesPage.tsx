@@ -1,0 +1,2 @@
+import { PagePlaceholder } from "./PagePlaceholder";
+export default function VehiclesPage() { return <PagePlaceholder title="Fahrzeuge">Entdecken Sie in Kürze unsere sorgfältig ausgewählten Gebrauchtwagen.</PagePlaceholder>; }

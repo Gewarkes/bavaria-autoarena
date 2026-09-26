@@ -1,0 +1,2 @@
+import { PagePlaceholder } from "./PagePlaceholder";
+export default function ContactPage() { return <PagePlaceholder title="Kontakt">Wir freuen uns auf Ihren Anruf, Ihre Nachricht oder Ihren Besuch in Perkam.</PagePlaceholder>; }

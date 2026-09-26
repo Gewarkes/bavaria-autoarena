@@ -1,0 +1,2 @@
+import { PagePlaceholder } from "./PagePlaceholder";
+export default function ImprintPage() { return <PagePlaceholder title="Impressum">Die vollständigen Anbieterangaben werden hier vor der Veröffentlichung ergänzt.</PagePlaceholder>; }

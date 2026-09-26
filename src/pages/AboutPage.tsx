@@ -1,0 +1,2 @@
+import { PagePlaceholder } from "./PagePlaceholder";
+export default function AboutPage() { return <PagePlaceholder title="Über uns">Lernen Sie Bavaria Autoarena und unser neues Autohaus in Perkam kennen.</PagePlaceholder>; }
