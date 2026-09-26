@@ -25,15 +25,17 @@ function Header() {
   const open = isOpenNow();
   return (
     <header className="sticky top-0 z-40 border-b-2 border-gold bg-background">
-      <div className="mx-auto grid h-20 max-w-[1200px] grid-cols-[3rem_1fr_3rem] items-center px-6 md:flex md:h-24 md:px-12">
+      <div className="mx-auto grid h-[60px] max-w-[1200px] grid-cols-[3rem_minmax(0,1fr)_3rem] items-center px-3 md:flex md:h-24 md:px-12">
         <div className="md:hidden">
           <Sheet>
             <SheetTrigger asChild><Button variant="ghost" size="icon" aria-label="Menü öffnen"><Menu /></Button></SheetTrigger>
-            <SheetContent side="left" className="w-[86%] bg-card pt-16">
+            <SheetContent side="left" className="flex w-[86%] flex-col bg-card px-5 pb-6 pt-14">
               <SheetTitle className="sr-only">Navigation</SheetTitle>
+              <SheetClose asChild><Link to="/" aria-label="Bavaria Autoarena Startseite" className="mb-6 inline-flex"><HeaderLogo /></Link></SheetClose>
               <nav className="flex flex-col gap-1">
-                {navItems.map((item) => <SheetClose asChild key={item.to}><Link to={item.to} className="border-b border-border px-2 py-4 text-sm font-semibold text-foreground">{item.label}</Link></SheetClose>)}
+                {navItems.map((item) => <SheetClose asChild key={item.to}><Link to={item.to} activeProps={{ className: "text-gold" }} className="flex min-h-12 items-center border-b border-border px-2 text-sm font-semibold text-foreground">{item.label}</Link></SheetClose>)}
               </nav>
+              <div className="mt-auto border-t border-border pt-5"><p className={open ? "text-sm text-success" : "text-sm text-muted-foreground"}>{currentOpeningStatus()}</p><Button asChild variant="gold" className="mt-4 w-full"><a href={phoneHref}><Phone />Anrufen</a></Button><a href={`https://wa.me/${siteConfig.whatsapp.replace(/\D/g, "")}`} target="_blank" rel="noopener noreferrer" className="tap-link mt-2 text-sm font-semibold text-silver underline underline-offset-4">WhatsApp schreiben</a><p className="mt-3 truncate text-xs text-muted-foreground">{siteConfig.street}, {siteConfig.zip} {siteConfig.city}</p></div>
             </SheetContent>
           </Sheet>
         </div>
@@ -87,7 +89,8 @@ function Footer() {
 function MobileBottomBar({ vehicleTitle, price, url }: { vehicleTitle?: string | undefined; price?: string | undefined; url?: string | undefined }) {
   const text = vehicleTitle ? `Hallo, ich interessiere mich für ${vehicleTitle}${price ? ` (${price})` : ""}${url ? ` – ${url}` : ""}` : "Hallo Bavaria Autoarena, ich interessiere mich für ein Fahrzeug.";
   const whatsappUrl = `https://wa.me/${siteConfig.whatsapp.replace(/\D/g, "")}?text=${encodeURIComponent(text)}`;
-  return <div className="fixed inset-x-0 bottom-0 z-50 grid h-18 grid-cols-3 border-t border-border bg-darkest p-2 md:hidden"><Button asChild variant="ghost" className="h-full flex-col gap-1 text-xs"><a href={phoneHref}><Phone />Anrufen</a></Button><Button asChild variant="ghost" className="h-full flex-col gap-1 text-xs"><a href={whatsappUrl} target="_blank" rel="noreferrer"><MessageCircle />WhatsApp</a></Button><Button asChild variant="gold" className="h-full flex-col gap-1 text-xs"><Link to="/auto-verkaufen"><CarFront />Auto verkaufen</Link></Button></div>;
+  if (vehicleTitle && price) return <div className="fixed inset-x-0 bottom-0 z-50 grid min-h-16 grid-cols-[auto_1fr_auto_auto] items-center gap-1 border-t border-border bg-darkest px-2 pb-[env(safe-area-inset-bottom)] md:hidden"><span className="whitespace-nowrap px-1 font-display text-lg font-bold text-foreground">{price}</span><Button asChild variant="gold" className="min-h-11 px-2 text-xs"><a href="#anfrage">Probefahrt anfragen</a></Button><Button asChild variant="ghost" size="icon" className="size-11 min-h-11" aria-label="Anrufen"><a href={phoneHref}><Phone /></a></Button><Button asChild variant="ghost" size="icon" className="size-11 min-h-11" aria-label="WhatsApp"><a href={whatsappUrl} target="_blank" rel="noreferrer"><MessageCircle /></a></Button></div>;
+  return <div className="fixed inset-x-0 bottom-0 z-50 grid min-h-16 grid-cols-3 border-t border-border bg-darkest px-2 pb-[env(safe-area-inset-bottom)] md:hidden"><Button asChild variant="ghost" className="h-full flex-col gap-1 text-xs"><a href={phoneHref}><Phone />Anrufen</a></Button><Button asChild variant="ghost" className="h-full flex-col gap-1 text-xs"><a href={whatsappUrl} target="_blank" rel="noreferrer"><MessageCircle />WhatsApp</a></Button><Button asChild variant="gold" className="my-2 h-auto flex-col gap-1 px-2 text-xs"><Link to="/auto-verkaufen"><CarFront />Auto verkaufen</Link></Button></div>;
 }
 
 export function SiteLayout({ children }: { children: ReactNode }) {
@@ -97,5 +100,6 @@ export function SiteLayout({ children }: { children: ReactNode }) {
   const { data: vehicle } = useQuery({ ...vehicleQuery(slug ?? ""), enabled: !!slug });
   const [url, setUrl] = useState<string | undefined>(undefined);
   useEffect(() => { setUrl(slug ? window.location.href : undefined); }, [slug]);
-  return <div className="min-h-screen bg-background pb-18 md:pb-0"><Header /><main>{children}</main><Footer />{slug && vehicle && url ? <MobileBottomBar vehicleTitle={vehicle.title} price={formatPrice(vehicle.price_eur)} url={url} /> : <MobileBottomBar />}</div>;
+  const hideBar = pathname === "/auto-verkaufen";
+  return <div className={hideBar ? "min-h-screen bg-background" : "min-h-screen bg-background pb-[calc(72px+env(safe-area-inset-bottom))] md:pb-0"}><Header /><main>{children}</main><Footer />{hideBar ? null : slug && vehicle && url ? <MobileBottomBar vehicleTitle={vehicle.title} price={formatPrice(vehicle.price_eur)} url={url} /> : <MobileBottomBar />}</div>;
 }
