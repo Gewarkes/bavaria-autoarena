@@ -16,7 +16,7 @@ const kinds: { value: Kind; label: string }[] = [
 const phoneHref = `tel:${siteConfig.phone.replace(/\s/g, "")}`;
 
 export function PrivacyNotice() {
-  return <p className="text-xs leading-5 text-muted-foreground">Mit dem Absenden verarbeiten wir Ihre Angaben zur Bearbeitung Ihrer Anfrage. Details in unserer <Link to="/datenschutz" className="font-semibold text-gold hover:text-gold-light">Datenschutzerklärung</Link>.</p>;
+  return <p className="text-xs leading-5 text-muted-foreground">Mit dem Absenden verarbeiten wir Ihre Angaben zur Bearbeitung Ihrer Anfrage. Details in unserer <Link to="/datenschutz" className="inline-flex min-h-11 items-center font-semibold text-gold hover:text-gold-light">Datenschutzerklärung</Link>.</p>;
 }
 
 export function Honeypot({ value, onChange }: { value: string; onChange: (v: string) => void }) {
@@ -24,7 +24,7 @@ export function Honeypot({ value, onChange }: { value: string; onChange: (v: str
 }
 
 export function InquirySuccess({ name }: { name: string }) {
-  return <div role="status" className="rounded border border-success/50 bg-card p-6"><CheckCircle2 className="size-8 text-success" /><p className="mt-3 text-lg font-semibold text-foreground">Vielen Dank, {name}.</p><p className="mt-2 text-muted-foreground">Wir melden uns am nächsten Werktag.</p><a href={phoneHref} className="mt-4 inline-flex items-center gap-2 font-semibold text-silver underline underline-offset-4 hover:text-gold"><Phone className="size-4" />{siteConfig.phone}</a></div>;
+  return <div role="status" className="rounded border border-success/50 bg-card p-6"><CheckCircle2 className="size-8 text-success" /><p className="mt-3 text-lg font-semibold text-foreground">Vielen Dank, {name}.</p><p className="mt-2 text-muted-foreground">Wir melden uns am nächsten Werktag.</p><a href={phoneHref} className="mt-4 inline-flex min-h-11 items-center gap-2 font-semibold text-silver underline underline-offset-4 hover:text-gold"><Phone className="size-4" />{siteConfig.phone}</a></div>;
 }
 
 export function InquiryError() {

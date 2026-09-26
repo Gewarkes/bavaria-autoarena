@@ -51,7 +51,7 @@ export function TestimonialsNote() {
 }
 
 export function PrivacyHint() {
-  return <p className="text-xs leading-5 text-muted-foreground">Mit dem Absenden verarbeiten wir Ihre Angaben zur Bearbeitung Ihrer Anfrage. Details in unserer <a href="/datenschutz" className="text-gold underline-offset-4 hover:underline">Datenschutzerklärung</a>.</p>;
+  return <p className="text-xs leading-5 text-muted-foreground">Mit dem Absenden verarbeiten wir Ihre Angaben zur Bearbeitung Ihrer Anfrage. Details in unserer <a href="/datenschutz" className="inline-flex min-h-11 items-center text-gold underline-offset-4 hover:underline">Datenschutzerklärung</a>.</p>;
 }
 
 export function Chip({ active, onClick, children }: { active: boolean; onClick: () => void; children: ReactNode }) {
