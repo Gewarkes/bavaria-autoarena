@@ -1,3 +1,4 @@
+import { PageHero } from "@/components/site/shared";
 import type { ReactNode } from "react";
 import { PRIVACY_VERSION, siteConfig } from "@/config/site";
 
@@ -25,17 +26,17 @@ const sections: { id: string; title: string; body: ReactNode }[] = [
 ];
 
 export default function PrivacyPage() {
-  return (
-    <div className="mx-auto grid max-w-7xl gap-10 px-5 py-14 lg:grid-cols-[260px_1fr] lg:px-6">
+  return (<>
+    <PageHero eyebrow="Rechtliches" title="Datenschutzerklärung" />
+    <div className="page-container grid gap-10 py-14 lg:grid-cols-[260px_1fr]">
       <nav aria-label="Inhalt" className="lg:sticky lg:top-28 lg:self-start">
-        <p className="font-display text-xs font-bold uppercase tracking-wide text-gold">Inhalt</p>
-        <ol className="mt-4 space-y-2 text-sm">{sections.map((s, i) => <li key={s.id}><a href={`#${s.id}`} className="text-muted-foreground hover:text-gold">{i + 1}. {s.title}</a></li>)}</ol>
+        <p className="font-display text-xs font-medium uppercase tracking-wide text-gold-700">Inhalt</p>
+        <ol className="mt-4 space-y-2 text-sm">{sections.map((s, i) => <li key={s.id}><a href={`#${s.id}`} className="text-muted-foreground hover:text-gold-700">{i + 1}. {s.title}</a></li>)}</ol>
       </nav>
       <div className="max-w-3xl space-y-10">
-        <h1 className="font-display text-3xl font-extrabold uppercase tracking-wide text-foreground sm:text-4xl">Datenschutzerklärung</h1>
         <p className="text-muted-foreground">Informationen nach Art. 13 DSGVO zur Verarbeitung Ihrer personenbezogenen Daten auf dieser Website.</p>
-        {sections.map((s, i) => <section key={s.id} id={s.id} className="scroll-mt-28 space-y-3"><h2 className="font-display text-lg font-bold uppercase tracking-wide text-foreground">{i + 1}. {s.title}</h2><div className="space-y-3 leading-7 text-muted-foreground">{s.body}</div></section>)}
+        {sections.map((s, i) => <section key={s.id} id={s.id} className="scroll-mt-28 space-y-3"><h2 className="font-display text-lg font-light uppercase tracking-[.06em] text-navy-900">{i + 1}. {s.title}</h2><div className="space-y-3 leading-7 text-muted-foreground">{s.body}</div></section>)}
       </div>
     </div>
-  );
+  </>);
 }

@@ -42,7 +42,7 @@ export function LeadBasicsFields({ form }: { form: ReturnType<typeof useLeadForm
         <label className={lbl}>E-Mail<Input className="mt-2 h-12" type="email" inputMode="email" autoComplete="email" enterKeyHint="next" maxLength={255} value={basics.email} onChange={(e) => setBasics({ ...basics, email: e.target.value })} /></label>
       </div>
       {(errors["phone"] || errors["email"]) && <p className="text-sm text-destructive">{errors["phone"] ?? errors["email"]}</p>}
-      <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden"><label>Website<input tabIndex={-1} autoComplete="off" name="website" value={honeypot} onChange={(e) => setHoneypot(e.target.value)} /></label></div>
+      <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden"><input tabIndex={-1} autoComplete="off" name="hp_field" value={honeypot} onChange={(e) => setHoneypot(e.target.value)} /></div>
     </>
   );
 }

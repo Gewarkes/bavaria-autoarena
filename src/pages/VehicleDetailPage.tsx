@@ -1,37 +1,36 @@
 import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { getRouteApi, Link } from "@tanstack/react-router";
-import { ArrowLeft, Check, ChevronRight } from "lucide-react";
-import { useEffect, useState } from "react";
-import { VehicleInquiryForm } from "@/components/forms/InquiryForm";
+import { ArrowLeft, Check, ChevronRight, MessageCircle, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { VehicleCard } from "@/components/vehicles/VehicleCard";
 import { VehicleGallery } from "@/components/vehicles/VehicleGallery";
 import { siteConfig } from "@/config/site";
 import { formatFirstRegistration, formatFuel, formatKm, formatPrice, formatTransmission } from "@/lib/format";
-import { publicGallery, similarQuery, vehicleQuery } from "@/lib/vehicles";
+import { coverImage, publicGallery, similarQuery, vehicleQuery } from "@/lib/vehicles";
+import { openTermin } from "@/lib/termin";
+import { sizedImage } from "@/lib/vehicleImages";
 
 const route = getRouteApi("/fahrzeuge/$slug");
 const phoneHref = `tel:${siteConfig.phone.replace(/\s/g, "")}`;
-type Kind = "probefahrt" | "anfrage" | "rueckruf";
 
-export function vehicleWhatsappUrl(title: string, price: number, url: string) {
-  const text = `Hallo, ich interessiere mich für ${title} (${formatPrice(price)}) – ${url}`;
+export function vehicleWhatsappUrl(title: string, price: number, url?: string) {
+  const text = `Grüß Gott, ich interessiere mich für den ${title} (${formatPrice(price)}). ${url ?? ""}`.trim() + " ";
   return `https://wa.me/${siteConfig.whatsapp.replace(/\D/g, "")}?text=${encodeURIComponent(text)}`;
 }
 
 export default function VehicleDetailPage() {
   const { slug } = route.useParams();
   const { data: v } = useSuspenseQuery(vehicleQuery(slug));
-  const [kind, setKind] = useState<Kind>("anfrage");
-  const [pageUrl, setPageUrl] = useState("");
-  useEffect(() => { setPageUrl(window.location.href); }, [slug]);
   const similar = useQuery({ ...similarQuery(v ?? { id: "", body_type: "", price_eur: 1 }), enabled: !!v });
   if (!v) return null;
 
   const isNew = !v.is_demo && Date.now() - new Date(v.created_at).getTime() < 14 * 86_400_000;
   const badge = v.status === "reserviert" ? <span className="rounded-md bg-warning px-3 py-1 text-xs font-bold text-primary-foreground">Reserviert</span>
      : isNew ? <span className="rounded bg-background/95 px-3 py-1 text-xs font-medium text-foreground">Neu eingetroffen</span> : null;
-  const goToForm = (k: Kind) => { setKind(k); document.getElementById("anfrage")?.scrollIntoView({ behavior: "smooth", block: "start" }); };
+  const cover = coverImage(v);
+  const termin = () => openTermin({ topic: "Probefahrt", vehicle: { id: v.id, title: v.title, price: formatPrice(v.price_eur), image: cover ? sizedImage(cover.url, "card") : undefined } });
+  const wa = vehicleWhatsappUrl(v.title, v.price_eur);
+  const phoneLabel = siteConfig.phone.replace(/^\+49\s?/, "0");
 
   const facts = [
     { label: "Erstzulassung", value: formatFirstRegistration(v.first_registration) }, { label: "Kilometer", value: formatKm(v.mileage_km) },
@@ -59,9 +58,7 @@ export default function VehicleDetailPage() {
 
            {v.description ? <section className="order-5"><h2 className="section-h2">Beschreibung</h2>{v.seal_indices.length ? <p className="mt-5 font-semibold text-navy-900">Fahrzeughistorie geprüft (carVertical)</p> : null}<p className="mt-5 max-w-3xl whitespace-pre-line leading-7 text-muted-foreground">{v.description}</p></section> : null}
 
-          <section className="order-6 border-y border-border py-7"><h2 className="text-lg font-semibold text-foreground">Ihr Auto in Zahlung geben?</h2><p className="mt-2 text-sm text-muted-foreground">Wir rechnen Ihr bisheriges Auto direkt auf dieses Angebot an.</p><Button asChild variant="silver" className="mt-4"><Link to="/auto-verkaufen" search={{ wunschfahrzeug: v.id }}>Preis anfragen →</Link></Button></section>
-
-          <section id="anfrage" className="order-7 scroll-mt-28 rounded-lg border border-border bg-card p-5 md:p-8"><h2 className="section-h2">Anfrage zu diesem Fahrzeug</h2><p className="mt-2 text-sm text-muted-foreground">{v.title} · {formatPrice(v.price_eur)}</p><div className="mt-6"><VehicleInquiryForm vehicleId={v.id} vehicleTitle={v.title} kind={kind} onKindChange={setKind} /></div></section>
+          <section id="anfrage" className="order-7 scroll-mt-28 bg-navy-900 p-6 text-cream md:p-10"><h2 className="section-h2">Noch Fragen zu diesem Auto?</h2><p className="mt-4 text-silver-300">Rufen Sie an, schreiben Sie per WhatsApp oder machen Sie gleich einen Termin aus.</p><div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center"><Button asChild variant="gold"><a href={phoneHref}><Phone strokeWidth={1.5} />Anrufen</a></Button><Button type="button" variant="outline" className="border-cream text-cream" onClick={termin}>Probefahrt vereinbaren</Button><a href={wa} target="_blank" rel="noopener noreferrer" className="text-link gap-2 sm:ml-2"><MessageCircle className="size-4" strokeWidth={1.5} />Frage per WhatsApp</a></div><p className="mt-6 text-sm text-silver-400">Ihr bisheriges Auto nehmen wir gern in Zahlung – <Link to="/auto-verkaufen" search={{ wunschfahrzeug: v.id }} className="underline underline-offset-4">Bewertung anfragen</Link>.</p></section>
 
           <p className="order-8 text-xs leading-5 text-muted-foreground">Diese Seite dient der Information. Ein Kaufvertrag kommt ausschließlich vor Ort in unserem Autohaus oder nach individueller Absprache zustande. Eine verbindliche Reservierung ist über die Website nicht möglich.</p>
         </div>
@@ -75,8 +72,9 @@ export default function VehicleDetailPage() {
             <p className="mt-1 text-xs leading-5 text-muted-foreground">Finanzierung über Santander Consumer Bank oder DKB, Bonität vorausgesetzt.</p>
             {siteConfig.features.showMonthlyRate ? <p className="mt-3 text-sm text-foreground">Finanzierung auf Anfrage</p> : null}
             <div className="mt-6 grid gap-3">
-                <Button variant="gold" className="w-full" onClick={() => goToForm("probefahrt")}>Probefahrt anfragen</Button>
-                <div className="grid grid-cols-3 gap-1 text-sm lg:flex lg:flex-wrap lg:gap-x-5 lg:gap-y-3"><button className="tap-link justify-center text-silver underline underline-offset-4 hover:text-gold" onClick={() => goToForm("anfrage")}>Anfrage</button><a className="tap-link justify-center text-silver underline underline-offset-4 hover:text-gold" href={phoneHref}>Anrufen</a><a className="tap-link justify-center text-silver underline underline-offset-4 hover:text-gold" href={vehicleWhatsappUrl(v.title, v.price_eur, pageUrl)} target="_blank" rel="noopener noreferrer">WhatsApp</a></div>
+              <Button asChild variant="gold" className="w-full"><a href={phoneHref}><Phone strokeWidth={1.5} />Anrufen · {phoneLabel}</a></Button>
+              <Button type="button" className="w-full bg-navy-900 text-cream hover:bg-navy-800" onClick={termin}>Probefahrt vereinbaren</Button>
+              <a href={wa} target="_blank" rel="noopener noreferrer" className="text-link justify-center gap-2 text-navy-900"><MessageCircle className="size-4" strokeWidth={1.5} />Frage per WhatsApp</a>
             </div>
             <ul className="mt-6 flex flex-wrap gap-x-4 gap-y-2 border-t border-border pt-4 text-xs text-muted-foreground">{["Geprüft", "12 Monate Gewährleistung", "Inzahlungnahme möglich"].map((t) => <li key={t} className="flex items-center gap-1.5"><Check className="size-3.5 text-gold" />{t}</li>)}</ul>
           </div>

@@ -50,9 +50,10 @@ export const Route = createFileRoute("/api/public/send-lead-mail")({
           dealerSubject = `Neue Fahrzeuganfrage: ${kind} – ${v?.title ?? "allgemein"}`;
           adminPath = `/admin/anfragen?id=${id}`;
           email = r.email; salutation = `Guten Tag ${r.name},`;
-          summary = [["Art", kind], ["Fahrzeug", v?.title ?? "–"], ["Nachricht", r.message]];
+          const wish = r.preferred_date ? `${new Date(r.preferred_date + "T12:00:00").toLocaleDateString("de-DE", { weekday: "long", day: "numeric", month: "long" })}, ${r.preferred_slot ?? ""}` : r.preferred_slot;
+          summary = [["Art", kind], ["Thema", r.topic], ["Wunschtermin", wish], ["Fahrzeug", v?.title ?? "–"], ["Nachricht", r.message]];
           rows = [["Art", kind], ["Name", r.name], ["Telefon", r.phone, r.phone ? `tel:${r.phone}` : undefined], ["E-Mail", r.email, r.email ? `mailto:${r.email}` : undefined],
-            ["Fahrzeug", v?.title, v ? `${origin}/fahrzeuge/${v.slug}` : undefined], ["Nachricht", r.message]];
+            ["Thema", r.topic], ["Wunschtermin", wish], ["Fahrzeug", v?.title, v ? `${origin}/fahrzeuge/${v.slug}` : undefined], ["Nachricht", r.message]];
         }
 
         const from = process.env["MAIL_FROM"] || "Bavaria Autoarena <onboarding@resend.dev>";

@@ -1,25 +1,26 @@
 import { useQuery } from "@tanstack/react-query";
 import { MapPin } from "lucide-react";
 import type { ReactNode } from "react";
-import { siteConfig } from "@/config/site";
+import { Ornament } from "@/components/Ornament";
 import { testimonialsQuery } from "@/lib/vehicles";
 
-export function Eyebrow({ children }: { children: ReactNode }) {
-  return <span className="sr-only">{children}</span>;
+export function Eyebrow({ children, dark = false }: { children: ReactNode; dark?: boolean }) {
+  return <p className={`eyebrow ${dark ? "text-gold-400" : "text-gold-700"}`}>{children}</p>;
 }
 
 export function H2({ eyebrow, children }: { eyebrow?: string; children: ReactNode }) {
-  return <div>{eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}<h2 className="font-display text-[1.75rem] font-semibold leading-[1.15] text-foreground md:text-4xl">{children}</h2></div>;
+  return <div>{eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}<h2 className="section-h2 mt-3 text-navy-900">{children}</h2><Ornament /></div>;
 }
 
-export function PageHero({ eyebrow, title, children, aside }: { eyebrow?: string; title: string; children?: ReactNode; aside?: ReactNode }) {
+export function PageHero({ eyebrow = "Bavaria Autoarena", title, children, aside }: { eyebrow?: string; title: string; children?: ReactNode; aside?: ReactNode }) {
   return (
-    <section className="border-b border-border">
-      <div className={`mx-auto grid max-w-[1200px] gap-10 px-6 py-16 md:px-12 md:py-24 ${aside ? "lg:grid-cols-2 lg:items-center" : ""}`}>
+    <section className="bg-navy-900 py-16 text-cream">
+      <div className={`page-container grid gap-10 ${aside ? "lg:grid-cols-2 lg:items-center" : ""}`}>
         <div>
-          <Eyebrow>{eyebrow}</Eyebrow>
-          <h1 className="max-w-4xl font-display text-3xl font-bold leading-[1.1] text-foreground sm:text-5xl">{title}</h1>
-          {children && <div className="mt-6 max-w-2xl text-[17px] leading-[1.6] text-foreground/80">{children}</div>}
+          <Eyebrow dark>{eyebrow}</Eyebrow>
+          <h1 className="display-title mt-4 max-w-4xl">{title}</h1>
+          <Ornament />
+          {children && <div className="mt-6 max-w-2xl text-lg leading-[1.6] text-silver-300">{children}</div>}
         </div>
         {aside}
       </div>
@@ -30,9 +31,9 @@ export function PageHero({ eyebrow, title, children, aside }: { eyebrow?: string
 export function MapGraphic() {
   return (
     <div>
-        <div className="relative grid min-h-80 place-items-center overflow-hidden rounded border border-border bg-darkest">
+        <div className="relative grid min-h-80 place-items-center overflow-hidden rounded-sm bg-silver-200">
         <svg viewBox="0 0 600 400" className="absolute inset-0 size-full opacity-70" aria-hidden="true"><g fill="none" stroke="currentColor" className="text-border"><path d="M-20 80 C130 130 220 20 620 120" strokeWidth="8" /><path d="M-40 270 C140 190 310 350 640 235" strokeWidth="5" /><path d="M90 -20 C180 150 110 270 210 430" strokeWidth="4" /><path d="M470 -20 C390 100 500 210 430 430" strokeWidth="7" /></g></svg>
-        <div className="relative text-center"><MapPin className="mx-auto size-7 text-silver" /><p className="mt-3 text-sm font-semibold text-foreground">Perkam</p><p className="mt-1 text-xs text-muted-foreground">bei Straubing</p></div>
+        <div className="relative text-center"><MapPin className="mx-auto size-7 text-gold-700" strokeWidth={1.5} /><p className="mt-3 font-display text-sm uppercase tracking-[.12em] text-navy-900">Perkam</p><p className="mt-1 text-xs text-muted-foreground">bei Straubing</p></div>
       </div>
       <p className="mt-4 text-center text-sm text-muted-foreground">Straubing 15 Min · Regensburg 35 Min · Landshut 45 Min · Deggendorf 35 Min</p>
     </div>
@@ -51,13 +52,13 @@ export function TestimonialsNote() {
 }
 
 export function PrivacyHint() {
-  return <p className="text-xs leading-5 text-muted-foreground">Mit dem Absenden verarbeiten wir Ihre Angaben zur Bearbeitung Ihrer Anfrage. Details in unserer <a href="/datenschutz" className="inline-flex min-h-11 items-center text-gold underline-offset-4 hover:underline">Datenschutzerklärung</a>.</p>;
+  return <p className="text-xs leading-5 text-muted-foreground">Mit dem Absenden verarbeiten wir Ihre Angaben zur Bearbeitung Ihrer Anfrage. Details in unserer <a href="/datenschutz" className="inline-flex min-h-11 items-center text-gold-700 underline underline-offset-4">Datenschutzerklärung</a>.</p>;
 }
 
 export function Chip({ active, onClick, children }: { active: boolean; onClick: () => void; children: ReactNode }) {
-  return <button type="button" role="radio" aria-checked={active} onClick={onClick} className={`h-11 rounded border px-4 text-sm font-medium transition-colors ${active ? "border-gold bg-gold text-primary-foreground" : "border-border text-foreground hover:border-gold"}`}>{children}</button>;
+  return <button type="button" role="radio" aria-checked={active} onClick={onClick} className={`h-11 rounded-sm border px-4 text-sm transition-colors ${active ? "border-navy-900 bg-navy-900 text-cream" : "border-silver-300 bg-white text-navy-900 hover:border-gold-500"}`}>{children}</button>;
 }
 
 export function PhotoPlaceholder({ label, portrait = false }: { label: string; portrait?: boolean }) {
-  return <div className={`flex items-end rounded border border-border bg-card p-5 ${portrait ? "aspect-16/10 md:aspect-4/5" : "aspect-16/10 md:aspect-3/2"}`}><p className="text-xs uppercase tracking-[0.08em] text-silver">Foto · {label}</p></div>;
+  return <div role="img" aria-label={`Foto folgt: ${label}`} className={`flex items-end rounded-sm bg-[#E4E5E7] p-4 ${portrait ? "aspect-16/10 md:aspect-4/5" : "aspect-16/10 md:aspect-3/2"}`}><p className="text-xs text-ink-500">Foto folgt</p></div>;
 }

@@ -57,3 +57,14 @@
 - [ ] Admin-Galerie um Titelbild und Sichtbarkeit erweitern
 - [ ] Startseite, Bestand und drei Details responsiv prüfen
 - [ ] Produktions-Build ausführen
+
+# Redesign v2 – Schritt C
+
+- [x] Einzelbild-Galerie: kein Zähler, großes Bild auf #E4E5E7, Lightbox öffnet
+- [x] Terminmodul (3 Schritte, Speicherung, Mail, .ics) an allen Einstiegen
+- [x] Detailseite: Kontaktwege neu, altes Formular entfernt, mobile Leiste Preis + Probefahrt
+- [x] Suchauftrag und /fahrzeuge-Kopf/Filter neu
+- [x] Unterseiten, 404 und Admin-Login im neuen Design
+- [x] Admin: Spalte Wunschtermin, Filter Termine
+- [x] Browserprüfung, Testdaten gelöscht, Produktions-Build
+- [ ] Galerien per Admin-Import (wartet auf Bildquelle); BMW 540i vorerst nicht anlegen
