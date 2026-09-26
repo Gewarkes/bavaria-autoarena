@@ -1,3 +1,4 @@
+import { sizedImage } from "@/lib/vehicleImages";
 import { useMemo, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link, useNavigate } from "@tanstack/react-router";
@@ -49,7 +50,7 @@ export default function AdminVehiclesPage() {
                 const img = (v.images as Img[] | null)?.[0];
                 return (
                   <TableRow key={v.id} className="cursor-pointer" onClick={() => navigate({ to: "/admin/fahrzeuge/$id", params: { id: v.id } })}>
-                    <TableCell><div className="h-12 w-16 overflow-hidden rounded bg-muted">{img ? <VehicleImg src={img.thumbUrl || img.url} alt="" width="64" height="48" loading="lazy" className="size-full object-cover" /> : null}</div></TableCell>
+                    <TableCell><div className="h-12 w-16 overflow-hidden rounded bg-muted">{img ? <VehicleImg src={img.thumbUrl || sizedImage(img.url, "card")} alt="" width="64" height="48" loading="lazy" className="size-full object-cover" /> : null}</div></TableCell>
                     <TableCell><span className="font-medium">{v.title}</span> {v.is_demo ? <DemoBadge /> : null}</TableCell>
                     <TableCell className="whitespace-nowrap">{formatPrice(v.price_eur)}</TableCell>
                     <TableCell>{formatFirstRegistration(v.first_registration)}</TableCell>
