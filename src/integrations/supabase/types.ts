@@ -320,6 +320,19 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      complete_trade_in_request: {
+        Args: {
+          _condition_exterior: string
+          _condition_interior: string
+          _damage_notes: string
+          _hu_until: string
+          _id: string
+          _photo_paths: string[]
+          _previous_owners: string
+          _service_book: string
+        }
+        Returns: boolean
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]

@@ -1,0 +1,1 @@
+GRANT INSERT (id) ON public.trade_in_requests TO anon, authenticated;

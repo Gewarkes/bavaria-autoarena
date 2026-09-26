@@ -28,7 +28,7 @@ export default function VehicleDetailPage() {
   const similar = useQuery({ ...similarQuery(v ?? { id: "", body_type: "", price_eur: 1 }), enabled: !!v });
   if (!v) return null;
 
-  const isNew = Date.now() - new Date(v.created_at).getTime() < 14 * 86_400_000;
+  const isNew = !v.is_demo && Date.now() - new Date(v.created_at).getTime() < 14 * 86_400_000;
   const badge = v.status === "reserviert" ? <span className="rounded-md bg-warning px-3 py-1 text-xs font-bold text-primary-foreground">Reserviert</span>
     : isNew ? <span className="bg-gold-gradient rounded-md px-3 py-1 text-xs font-bold text-primary-foreground">Neu eingetroffen</span> : null;
   const goToForm = (k: Kind) => { setKind(k); document.getElementById("anfrage")?.scrollIntoView({ behavior: "smooth", block: "start" }); };
