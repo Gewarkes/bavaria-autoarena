@@ -32,6 +32,7 @@ import { Route as AdminFahrzeugeImportRouteImport } from './routes/admin.fahrzeu
 import { Route as AdminFahrzeugeNeuRouteImport } from './routes/admin.fahrzeuge.neu'
 import { Route as AdminInzahlungnahmeIndexRouteImport } from './routes/admin.inzahlungnahme.index'
 import { Route as AdminInzahlungnahmeIdRouteImport } from './routes/admin.inzahlungnahme.$id'
+import { Route as ApiPublicSendLeadMailRouteImport } from './routes/api/public/send-lead-mail'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -149,6 +150,11 @@ const AdminInzahlungnahmeIdRoute = AdminInzahlungnahmeIdRouteImport.update({
   path: '/inzahlungnahme/$id',
   getParentRoute: () => AdminRoute,
 } as any)
+const ApiPublicSendLeadMailRoute = ApiPublicSendLeadMailRouteImport.update({
+  id: '/api/public/send-lead-mail',
+  path: '/api/public/send-lead-mail',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -172,6 +178,7 @@ export interface FileRoutesByFullPath {
   '/admin/fahrzeuge/import': typeof AdminFahrzeugeImportRoute
   '/admin/fahrzeuge/neu': typeof AdminFahrzeugeNeuRoute
   '/admin/inzahlungnahme/$id': typeof AdminInzahlungnahmeIdRoute
+  '/api/public/send-lead-mail': typeof ApiPublicSendLeadMailRoute
   '/admin/fahrzeuge/': typeof AdminFahrzeugeIndexRoute
   '/admin/inzahlungnahme/': typeof AdminInzahlungnahmeIndexRoute
 }
@@ -194,6 +201,7 @@ export interface FileRoutesByTo {
   '/admin/fahrzeuge/import': typeof AdminFahrzeugeImportRoute
   '/admin/fahrzeuge/neu': typeof AdminFahrzeugeNeuRoute
   '/admin/inzahlungnahme/$id': typeof AdminInzahlungnahmeIdRoute
+  '/api/public/send-lead-mail': typeof ApiPublicSendLeadMailRoute
   '/admin/fahrzeuge': typeof AdminFahrzeugeIndexRoute
   '/admin/inzahlungnahme': typeof AdminInzahlungnahmeIndexRoute
 }
@@ -220,6 +228,7 @@ export interface FileRoutesById {
   '/admin/fahrzeuge/import': typeof AdminFahrzeugeImportRoute
   '/admin/fahrzeuge/neu': typeof AdminFahrzeugeNeuRoute
   '/admin/inzahlungnahme/$id': typeof AdminInzahlungnahmeIdRoute
+  '/api/public/send-lead-mail': typeof ApiPublicSendLeadMailRoute
   '/admin/fahrzeuge/': typeof AdminFahrzeugeIndexRoute
   '/admin/inzahlungnahme/': typeof AdminInzahlungnahmeIndexRoute
 }
@@ -247,6 +256,7 @@ export interface FileRouteTypes {
     | '/admin/fahrzeuge/import'
     | '/admin/fahrzeuge/neu'
     | '/admin/inzahlungnahme/$id'
+    | '/api/public/send-lead-mail'
     | '/admin/fahrzeuge/'
     | '/admin/inzahlungnahme/'
   fileRoutesByTo: FileRoutesByTo
@@ -269,6 +279,7 @@ export interface FileRouteTypes {
     | '/admin/fahrzeuge/import'
     | '/admin/fahrzeuge/neu'
     | '/admin/inzahlungnahme/$id'
+    | '/api/public/send-lead-mail'
     | '/admin/fahrzeuge'
     | '/admin/inzahlungnahme'
   id:
@@ -294,6 +305,7 @@ export interface FileRouteTypes {
     | '/admin/fahrzeuge/import'
     | '/admin/fahrzeuge/neu'
     | '/admin/inzahlungnahme/$id'
+    | '/api/public/send-lead-mail'
     | '/admin/fahrzeuge/'
     | '/admin/inzahlungnahme/'
   fileRoutesById: FileRoutesById
@@ -309,6 +321,7 @@ export interface RootRouteChildren {
   KontaktRoute: typeof KontaktRoute
   UeberUnsRoute: typeof UeberUnsRoute
   AdminLoginRoute: typeof AdminLoginRoute
+  ApiPublicSendLeadMailRoute: typeof ApiPublicSendLeadMailRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -474,6 +487,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminInzahlungnahmeIdRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/api/public/send-lead-mail': {
+      id: '/api/public/send-lead-mail'
+      path: '/api/public/send-lead-mail'
+      fullPath: '/api/public/send-lead-mail'
+      preLoaderRoute: typeof ApiPublicSendLeadMailRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -542,6 +562,7 @@ const rootRouteChildren: RootRouteChildren = {
   KontaktRoute: KontaktRoute,
   UeberUnsRoute: UeberUnsRoute,
   AdminLoginRoute: AdminLoginRoute,
+  ApiPublicSendLeadMailRoute: ApiPublicSendLeadMailRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

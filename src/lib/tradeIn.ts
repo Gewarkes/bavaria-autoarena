@@ -1,3 +1,4 @@
+import { notifyLead } from "./inquiries";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
 import { PRIVACY_NOTICE_VERSION } from "@/lib/inquiries";
@@ -77,7 +78,7 @@ export async function submitTradeIn(id: string, s1: Step1, s2: Step2, s3: Step3)
     first_name: s3.firstName, last_name: s3.lastName, phone: s3.phone ?? null, email: s3.email ?? null, zip: s3.zip ?? null,
     contact_channel: s3.channel ?? null, marketing_opt_in: s3.marketing, privacy_notice_version: PRIVACY_NOTICE_VERSION,
   });
-  if (!error) return { ok: true };
+  if (!error) { notifyLead("trade_in", id); return { ok: true }; }
   console.error("trade_in_insert_failed", error.code);
   return { ok: false, reason: error.message?.includes("rate_limited") ? "rate_limited" : "error" };
 }
