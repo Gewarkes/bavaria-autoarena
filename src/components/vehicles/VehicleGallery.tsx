@@ -69,8 +69,8 @@ export function VehicleGallery({ images, title, badge }: { images: GalleryImage[
 
   return <>
     <div className="hidden aspect-[2/1] max-h-[600px] grid-cols-4 grid-rows-2 gap-2 overflow-hidden rounded-sm bg-silver-200 lg:grid">
-      {mosaic.map((image, index) => <button key={image.url} type="button" onClick={() => openAt(index)} aria-label={`Foto ${index + 1} öffnen`} className={`relative min-h-0 overflow-hidden bg-silver-200 ${index === 0 ? "col-span-2 row-span-2" : ""}`}>
-        <VehicleImg src={sizedImage(image.url, index === 0 ? "full" : "card")} alt={image.alt || `${title} – Foto ${index + 1}`} width={index === 0 ? 1600 : 640} height={index === 0 ? 1200 : 480} loading={index === 0 ? "eager" : "lazy"} fetchPriority={index === 0 ? "high" : undefined} className="size-full object-cover object-[50%_60%] transition-transform duration-500 hover:scale-[1.02]" />
+      {mosaic.map((image, index) => <button key={image.url} type="button" onClick={() => openAt(index)} aria-label={`Foto ${index + 1} öffnen`} className={`relative min-h-0 overflow-hidden bg-silver-200 ${index === 0 ? images.length === 1 ? "col-span-4 row-span-2" : "col-span-2 row-span-2" : ""}`}>
+        <VehicleImg src={sizedImage(image.url, index === 0 ? "full" : "card")} alt={image.alt || `${title} – Foto ${index + 1}`} width={index === 0 ? 1600 : 640} height={index === 0 ? 1200 : 480} loading={index === 0 ? "eager" : "lazy"} fetchPriority={index === 0 ? "high" : undefined} className={`size-full object-[50%_60%] transition-transform duration-500 hover:scale-[1.02] ${images.length === 1 ? "object-contain" : "object-cover"}`} />
         {index === mosaic.length - 1 && images.length > 5 ? <span className="absolute inset-0 grid place-items-center bg-navy-950/20"><span className="inline-flex min-h-11 items-center gap-2 rounded-sm bg-cream px-4 font-display text-xs font-medium uppercase tracking-[.12em] text-navy-900"><Camera className="size-4" />Alle {images.length} Fotos</span></span> : null}
         {index === 0 && badge ? <span className="absolute left-4 top-4">{badge}</span> : null}
       </button>)}
