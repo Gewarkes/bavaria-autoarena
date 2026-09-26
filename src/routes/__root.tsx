@@ -9,6 +9,8 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
+import "@fontsource-variable/jost";
+import "@fontsource-variable/source-sans-3";
 import { SiteLayout } from "@/components/SiteLayout";
 import NotFoundPage from "@/pages/NotFoundPage";
 import { Toaster } from "@/components/ui/sonner";
@@ -73,7 +75,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: appCss,
       },
-      { rel: "icon", href: "/favicon.png", type: "image/png", sizes: "64x64" },
+      { rel: "icon", href: "/logo.webp", type: "image/webp", sizes: "400x400" },
       { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
       { rel: "manifest", href: "/manifest.webmanifest" },
     ],
