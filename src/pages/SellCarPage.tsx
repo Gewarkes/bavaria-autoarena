@@ -1,4 +1,3 @@
-import { Ornament } from "@/components/Ornament";
 import { getRouteApi } from "@tanstack/react-router";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { TradeInWizard } from "@/components/tradein/TradeInWizard";
@@ -26,7 +25,7 @@ export default function SellCarPage() {
       <section className="bg-navy-900 text-cream">
         <div className="page-container grid gap-10 py-16 md:py-20 lg:grid-cols-[1fr_minmax(0,560px)] lg:items-start">
           <div className="lg:pt-8">
-            <p className="eyebrow text-gold-400">Ankauf</p><h1 className="display-title mt-4">Auto verkaufen oder in Zahlung geben</h1><Ornament />
+            <p className="eyebrow text-gold-400">Ankauf</p><h1 className="display-title mt-4">Auto verkaufen oder in Zahlung geben</h1>
             <p className="mt-6 max-w-xl text-lg leading-[1.6] text-silver-300">Sie tragen die wichtigsten Daten ein. Wir sehen uns den Markt und Ihre Angaben an und melden uns am nächsten Werktag mit einem Preis. Danach entscheiden Sie.</p>
           </div>
           <TradeInWizard initialBrand={search.marke} initialModel={search.modell} initialDesiredVehicleId={search.wunschfahrzeug} />

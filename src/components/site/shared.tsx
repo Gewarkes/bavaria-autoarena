@@ -9,7 +9,7 @@ export function Eyebrow({ children, dark = false }: { children: ReactNode; dark?
 }
 
 export function H2({ eyebrow, children }: { eyebrow?: string; children: ReactNode }) {
-  return <div>{eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}<h2 className="section-h2 mt-3 text-navy-900">{children}</h2><Ornament /></div>;
+  return <div>{eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}<h2 className="section-h2 mt-3 text-navy-900">{children}</h2></div>;
 }
 
 export function PageHero({ eyebrow = "Bavaria Autoarena", title, children, aside }: { eyebrow?: string; title: string; children?: ReactNode; aside?: ReactNode }) {
@@ -19,7 +19,6 @@ export function PageHero({ eyebrow = "Bavaria Autoarena", title, children, aside
         <div>
           <Eyebrow dark>{eyebrow}</Eyebrow>
           <h1 className="display-title mt-4 max-w-4xl">{title}</h1>
-          <Ornament />
           {children && <div className="mt-6 max-w-2xl text-lg leading-[1.6] text-silver-300">{children}</div>}
         </div>
         {aside}

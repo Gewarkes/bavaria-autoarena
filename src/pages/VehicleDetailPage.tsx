@@ -14,7 +14,7 @@ const route = getRouteApi("/fahrzeuge/$slug");
 const phoneHref = `tel:${siteConfig.phone.replace(/\s/g, "")}`;
 
 export function vehicleWhatsappUrl(title: string, price: number, url?: string) {
-  const text = `Grüß Gott, ich interessiere mich für den ${title} (${formatPrice(price)}). ${url ?? ""}`.trim() + " ";
+  const text = `Hallo, ich interessiere mich für den ${title} für ${formatPrice(price)}.${url ? ` ${url}` : ""}`;
   return `https://wa.me/${siteConfig.whatsapp.replace(/\D/g, "")}?text=${encodeURIComponent(text)}`;
 }
 
@@ -40,7 +40,7 @@ export default function VehicleDetailPage() {
   ];
 
   return (
-    <div className="mx-auto max-w-7xl px-5 py-8 lg:px-6">
+    <div className="mx-auto max-w-[1280px] px-6 py-8 lg:px-10">
       <nav aria-label="Brotkrumen" className="hidden flex-wrap items-center gap-1.5 text-sm text-muted-foreground sm:flex">
         <Link to="/" className="hover:text-gold">Start</Link><ChevronRight className="size-3.5" />
         <Link to="/fahrzeuge" className="hover:text-gold">Fahrzeuge</Link><ChevronRight className="size-3.5" />
@@ -48,22 +48,22 @@ export default function VehicleDetailPage() {
       </nav>
       <Link to="/fahrzeuge" className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-gold hover:text-gold-light sm:mt-4"><ArrowLeft className="size-4" /><span className="sm:hidden">Alle Fahrzeuge</span><span className="hidden sm:inline">Zurück zur Übersicht</span></Link>
 
-      <div className="mt-2 grid gap-8 sm:mt-6 lg:grid-cols-[minmax(0,1fr)_400px] lg:gap-10">
-        <div className="contents lg:block lg:min-w-0 lg:space-y-10">
+      <div className="mt-2 grid gap-8 sm:mt-6 lg:grid-cols-12 lg:gap-8">
+        <div className="contents lg:col-span-8 lg:block lg:min-w-0 lg:space-y-10">
             <div className="order-1"><VehicleGallery images={publicGallery(v)} title={v.title} badge={badge} sealIndices={v.seal_indices} /></div>
 
           <section className="order-3"><h2 className="section-h2">Daten</h2><dl className="mt-6 grid grid-cols-2 border-t border-border sm:grid-cols-3">{facts.map(({ label, value }) => <div key={label} className="border-b border-border py-4 pr-4"><dt className="text-xs text-muted-foreground">{label}</dt><dd className="mt-1 font-semibold text-foreground">{value}</dd></div>)}</dl></section>
 
           {v.features.length ? <section className="order-4"><h2 className="section-h2">Ausstattung</h2><ul className="mt-5 grid gap-x-6 gap-y-3 sm:grid-cols-2">{v.features.map((f) => <li key={f} className="flex items-center gap-3 text-foreground"><span className="grid size-6 shrink-0 place-items-center rounded-full border border-gold/50 text-gold"><Check className="size-3.5" /></span>{f}</li>)}</ul></section> : null}
 
-           {v.description ? <section className="order-5"><h2 className="section-h2">Beschreibung</h2>{v.seal_indices.length ? <p className="mt-5 font-semibold text-navy-900">Fahrzeughistorie geprüft (carVertical)</p> : null}<p className="mt-5 max-w-3xl whitespace-pre-line leading-7 text-muted-foreground">{v.description}</p></section> : null}
+            {v.description ? <section className="order-5"><h2 className="section-h2">Beschreibung</h2>{v.seal_indices.includes(v.cover_index ?? 0) ? <p className="mt-5 font-semibold text-navy-900">Historienbericht vorhanden</p> : null}<p className="mt-5 max-w-3xl whitespace-pre-line leading-7 text-muted-foreground">{v.description}</p></section> : null}
 
           <section id="anfrage" className="order-7 scroll-mt-28 bg-navy-900 p-6 text-cream md:p-10"><h2 className="section-h2">Noch Fragen zu diesem Auto?</h2><p className="mt-4 text-silver-300">Rufen Sie an, schreiben Sie per WhatsApp oder machen Sie gleich einen Termin aus.</p><div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center"><Button asChild variant="gold"><a href={phoneHref}><Phone strokeWidth={1.5} />Anrufen</a></Button><Button type="button" variant="outline" className="border-cream text-cream" onClick={termin}>Probefahrt vereinbaren</Button><a href={wa} target="_blank" rel="noopener noreferrer" className="text-link gap-2 sm:ml-2"><MessageCircle className="size-4" strokeWidth={1.5} />Frage per WhatsApp</a></div><p className="mt-6 text-sm text-silver-400">Ihr bisheriges Auto nehmen wir gern in Zahlung – <Link to="/auto-verkaufen" search={{ wunschfahrzeug: v.id }} className="underline underline-offset-4">Bewertung anfragen</Link>.</p></section>
 
           <p className="order-8 text-xs leading-5 text-muted-foreground">Diese Seite dient der Information. Ein Kaufvertrag kommt ausschließlich vor Ort in unserem Autohaus oder nach individueller Absprache zustande. Eine verbindliche Reservierung ist über die Website nicht möglich.</p>
         </div>
 
-        <aside className="order-2 lg:sticky lg:top-28 lg:self-start">
+        <aside className="order-2 lg:col-span-4 lg:sticky lg:top-28 lg:self-start">
           <div className="border-b border-border pb-7 pt-1 lg:rounded-lg lg:border lg:bg-card lg:p-6">
              <h1 className="font-display text-2xl font-semibold leading-[1.15] text-foreground">{v.title}</h1>
             <p className="mt-2 text-sm text-muted-foreground">EZ {formatFirstRegistration(v.first_registration)} · {formatKm(v.mileage_km)} · {formatFuel(v.fuel)} · {formatTransmission(v.transmission)}{v.power_ps ? ` · ${v.power_ps} PS` : ""}</p>

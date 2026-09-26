@@ -1,9 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { lazy } from "react";
 import { seo, dealerJsonLd } from "@/lib/seo";
+import { testimonialsQuery, vehiclesQuery } from "@/lib/vehicles";
 
 const HomePage = lazy(() => import("@/pages/HomePage"));
 export const Route = createFileRoute("/")({
+  loader: async ({ context }) => {
+    await Promise.all([context.queryClient.ensureQueryData(vehiclesQuery({})), context.queryClient.ensureQueryData(testimonialsQuery())]);
+  },
   head: () => {
     const base = seo("Gebrauchtwagen in Perkam bei Straubing", "Gebrauchtwagen vom Alltagsauto bis zum Sportwagen in Perkam. Vor Ort ansehen, Probe fahren und das eigene Auto in Zahlung geben.", "/");
     const exactTitle = "Bavaria Autoarena – Gebrauchtwagen in Perkam bei Straubing";

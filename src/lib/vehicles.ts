@@ -7,6 +7,7 @@ export type VehicleImage = { url: string; thumbUrl?: string; alt: string; sort?:
 
 const LIST_COLUMNS = "id, slug, brand, model, title, price_eur, first_registration, mileage_km, fuel, transmission, power_ps, power_kw, body_type, tax_status, features, images, status, is_highlight, is_demo, cover_index, hover_index, seal_indices, gallery_hidden, image_count, mobile_de_id, created_at" as const;
 const DETAIL_COLUMNS = `${LIST_COLUMNS}, variant, color, hu_until, previous_owners, description, envkv_required` as const;
+const UNREACHABLE_COVER_SLUGS = new Set(["vw-golf-viii-style", "seat-alhambra-style-7-sitzer", "vw-tiguan-life-1-5-tsi"]);
 
 export type Vehicle = Pick<Row, "id" | "slug" | "brand" | "model" | "title" | "price_eur" | "first_registration" | "mileage_km" | "fuel" | "transmission" | "power_ps" | "power_kw" | "body_type" | "tax_status" | "features" | "status" | "is_highlight" | "is_demo" | "cover_index" | "hover_index" | "seal_indices" | "gallery_hidden" | "image_count" | "mobile_de_id" | "created_at"> & { images: VehicleImage[] };
 export type VehicleDetail = Vehicle & Pick<Row, "variant" | "color" | "hu_until" | "previous_owners" | "description" | "envkv_required" | "created_at">;
@@ -43,7 +44,7 @@ export async function getHighlights(limit = 8): Promise<Vehicle[]> {
   const { data, error } = await supabase.from("vehicles").select(LIST_COLUMNS)
     .eq("is_highlight", true).neq("status", "verkauft").order("created_at", { ascending: false }).order("id", { ascending: true }).limit(limit);
   if (error) throw error;
-  return data.map(normalize) as Vehicle[];
+  return (data.map(normalize) as Vehicle[]).filter((vehicle) => !UNREACHABLE_COVER_SLUGS.has(vehicle.slug));
 }
 
 export async function getVehicles(filter: VehicleFilter = {}): Promise<Vehicle[]> {
@@ -65,7 +66,7 @@ export async function getVehicles(filter: VehicleFilter = {}): Promise<Vehicle[]
   query = query.order("id", { ascending: true });
   const { data, error } = await query.limit(200);
   if (error) throw error;
-  return data.map(normalize) as Vehicle[];
+  return (data.map(normalize) as Vehicle[]).filter((vehicle) => !UNREACHABLE_COVER_SLUGS.has(vehicle.slug));
 }
 
 export async function getVehicleBySlug(slug: string): Promise<VehicleDetail | null> {
@@ -75,9 +76,9 @@ export async function getVehicleBySlug(slug: string): Promise<VehicleDetail | nu
 }
 
 export async function getBrands(): Promise<string[]> {
-  const { data, error } = await supabase.from("vehicles").select("brand").neq("status", "verkauft").limit(500);
+  const { data, error } = await supabase.from("vehicles").select("brand, slug").neq("status", "verkauft").limit(500);
   if (error) throw error;
-  return [...new Set(data.map((r) => r.brand))].sort((a, b) => a.localeCompare(b, "de"));
+  return [...new Set(data.filter((row) => !UNREACHABLE_COVER_SLUGS.has(row.slug)).map((r) => r.brand))].sort((a, b) => a.localeCompare(b, "de"));
 }
 
 export type Testimonial = { id: string; author: string; text: string; rating: number | null };

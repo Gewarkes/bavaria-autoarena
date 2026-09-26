@@ -1,13 +1,11 @@
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { getRouteApi, useNavigate } from "@tanstack/react-router";
 import { SlidersHorizontal } from "lucide-react";
 import { useState } from "react";
-import { Ornament } from "@/components/Ornament";
 import { SearchRequestForm } from "@/components/forms/SearchRequestForm";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetDescription, SheetTitle } from "@/components/ui/sheet";
-import { VehicleCard, VehicleCardSkeleton } from "@/components/vehicles/VehicleCard";
-import { siteConfig } from "@/config/site";
+import { VehicleCard } from "@/components/vehicles/VehicleCard";
 import { categories, priceLimits, searchToFilter, sortOptions, type VehicleSearch } from "@/lib/vehicleSearch";
 import { brandsQuery, vehiclesQuery } from "@/lib/vehicles";
 
@@ -26,7 +24,7 @@ function UnderlineSelect({ label, value, onChange, options }: { label: string; v
 }
 
 function Filters({ search, update }: { search: VehicleSearch; update: (p: Partial<VehicleSearch>) => void }) {
-  const brands = useQuery(brandsQuery()).data ?? [];
+  const { data: brands } = useSuspenseQuery(brandsQuery());
   const u = (v: string) => (v ? v : undefined);
   return <>
     <UnderlineSelect label="Marke" value={search.marke ?? ""} onChange={(v) => update({ marke: u(v) })} options={[["", "Alle Marken"], ...brands.map((b) => [b, b] as const)]} />
@@ -42,18 +40,17 @@ export default function VehiclesPage() {
   const [sheet, setSheet] = useState(false);
   const update = (patch: Partial<VehicleSearch>) => navigate({ search: (prev) => ({ ...prev, ...patch }), replace: true, resetScroll: false });
   const reset = () => navigate({ search: {}, replace: true, resetScroll: false });
-  const { data, isPending, isError } = useQuery(vehiclesQuery(searchToFilter(search)));
-  const all = useQuery(vehiclesQuery({}));
+  const { data } = useSuspenseQuery(vehiclesQuery(searchToFilter(search)));
+  const all = useSuspenseQuery(vehiclesQuery({}));
   const hasFilters = Object.entries(search).some(([k, v]) => k !== "sort" && v !== undefined);
   const sortSelect = <UnderlineSelect label="Sortierung" value={search.sort ?? "neu"} onChange={(v) => update({ sort: v === "neu" ? undefined : v })} options={sortOptions.map((o) => [o.value, o.label] as const)} />;
-  const hits = isPending ? null : `${data?.length ?? 0} ${data?.length === 1 ? "Treffer" : "Treffer"}`;
+  const hits = `${data.length} Treffer`;
 
   return <>
     <section className="bg-navy-900 py-16 text-cream">
       <div className="page-container">
         <p className="eyebrow text-gold-400">Unser Bestand</p>
         <h1 className="display-title mt-4">Unsere Fahrzeuge</h1>
-        <Ornament />
         <p className="mt-6 text-silver-300">{all.data ? `${all.data.length} Fahrzeuge vor Ort in Perkam` : "Fahrzeuge vor Ort in Perkam"} · Besichtigung nach Termin</p>
       </div>
     </section>
@@ -81,10 +78,8 @@ export default function VehiclesPage() {
     <div className="bg-silver-100">
       <div className="page-container py-12">
         {hasFilters ? <button type="button" onClick={reset} className="text-link mb-4 hidden text-navy-900 md:inline-flex">Filter zurücksetzen</button> : null}
-        <div className="grid gap-x-8 gap-y-12 sm:grid-cols-2 xl:grid-cols-3">
-          {isPending ? Array.from({ length: 6 }, (_, i) => <VehicleCardSkeleton key={i} />)
-            : isError ? <div className="col-span-full bg-white p-8 text-center text-ink-500">Die Fahrzeuge konnten gerade nicht geladen werden. <a href={siteConfig.mobileDeUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-gold-700 underline">Bestand auf mobile.de ansehen</a></div>
-            : data.length === 0 ? <div className="col-span-full bg-white p-8 text-center text-ink-500">Keine Fahrzeuge mit diesen Kriterien. <button type="button" onClick={reset} className="font-semibold text-gold-700 underline">Filter zurücksetzen</button></div>
+        <div className="grid gap-x-5 gap-y-10 md:grid-cols-2 md:gap-x-6 md:gap-y-12 lg:grid-cols-3 lg:gap-x-8">
+          {data.length === 0 ? <div className="col-span-full bg-white p-8 text-center text-ink-500">Keine Fahrzeuge mit diesen Kriterien. <button type="button" onClick={reset} className="font-semibold text-gold-700 underline">Filter zurücksetzen</button></div>
             : data.map((v, i) => <VehicleCard key={v.id} vehicle={v} eager={i < 3} />)}
         </div>
         <p className="mt-12 text-xs leading-5 text-ink-500">Alle Preise sind Endpreise in Euro. Zulassung und Überführung sind nicht enthalten und werden nur auf Wunsch gegen gesonderte Berechnung übernommen. Zwischenverkauf und Irrtum vorbehalten.</p>
@@ -95,7 +90,6 @@ export default function VehiclesPage() {
       <div className="page-container grid gap-10 lg:grid-cols-2 lg:gap-16">
         <div>
           <h2 className="section-h2">Nicht das Richtige dabei?</h2>
-          <Ornament />
           <p className="mt-6 max-w-xl leading-[1.7] text-silver-300">Unser Bestand wechselt schnell, manches Auto ist verkauft, bevor es online steht. Sagen Sie uns, was Sie suchen – ob Familienkombi oder seltenen Sportwagen. Wir melden uns, sobald wir etwas Passendes haben. Ihre Anfrage behandeln wir vertraulich.</p>
         </div>
         <SearchRequestForm />
