@@ -1,7 +1,7 @@
 import { siteConfig } from "@/config/site";
 
 const esc = (s: unknown) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]!));
-export type Row = [string, string | number | boolean | null | undefined, string?];
+export type Row = [string, string | number | boolean | null | undefined, (string | undefined)?];
 
 export const FOOTER = "Bavaria Autoarena GmbH · Gewerbestraße 7 · 94368 Perkam · Geschäftsführer: [[PLATZHALTER]] · Sitz: Perkam · Amtsgericht Straubing, HRB [[PLATZHALTER]] · USt-IdNr. [[PLATZHALTER]] · Diese E-Mail bestätigt den Eingang Ihrer Anfrage und stellt kein verbindliches Angebot dar.";
 

@@ -30,7 +30,7 @@ export const Route = createFileRoute("/api/public/send-lead-mail")({
           .eq("id", id).is("notified_at", null).gt("created_at", since).select("id");
         if (!claimed?.length) { console.log("mail skipped: already notified or unknown", id); return json({ sent: false }); }
 
-        let dealerSubject: string, rows: [string, string | number | boolean | null | undefined, string?][], adminPath: string, email: string | null, salutation: string, summary: [string, string | number | boolean | null | undefined][];
+        let dealerSubject: string, rows: [string, string | number | boolean | null | undefined, (string | undefined)?][], adminPath: string, email: string | null, salutation: string, summary: [string, string | number | boolean | null | undefined][];
         if (type === "trade_in") {
           const { data: r } = await supabaseAdmin.from("trade_in_requests").select("*").eq("id", id).single();
           if (!r) return json({ sent: false });
