@@ -10,7 +10,6 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AutoVerkaufenRouteImport } from './routes/auto-verkaufen'
 import { Route as DatenschutzRouteImport } from './routes/datenschutz'
 import { Route as FahrzeugeRouteImport } from './routes/fahrzeuge'
@@ -26,11 +25,6 @@ import { Route as FahrzeugeSlugRouteImport } from './routes/fahrzeuge.$slug'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminRoute = AdminRouteImport.update({
-  id: '/admin',
-  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AutoVerkaufenRoute = AutoVerkaufenRouteImport.update({
@@ -91,7 +85,6 @@ const FahrzeugeSlugRoute = FahrzeugeSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
   '/auto-verkaufen': typeof AutoVerkaufenRouteWithChildren
   '/datenschutz': typeof DatenschutzRoute
   '/fahrzeuge': typeof FahrzeugeRouteWithChildren
@@ -106,7 +99,6 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
   '/datenschutz': typeof DatenschutzRoute
   '/finanzierung': typeof FinanzierungRoute
   '/impressum': typeof ImpressumRoute
@@ -120,7 +112,6 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
   '/auto-verkaufen': typeof AutoVerkaufenRouteWithChildren
   '/datenschutz': typeof DatenschutzRoute
   '/fahrzeuge': typeof FahrzeugeRouteWithChildren
@@ -137,7 +128,6 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/admin'
     | '/auto-verkaufen'
     | '/datenschutz'
     | '/fahrzeuge'
@@ -152,7 +142,6 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/admin'
     | '/datenschutz'
     | '/finanzierung'
     | '/impressum'
@@ -165,7 +154,6 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
-    | '/admin'
     | '/auto-verkaufen'
     | '/datenschutz'
     | '/fahrzeuge'
@@ -181,7 +169,6 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AdminRoute: typeof AdminRoute
   AutoVerkaufenRoute: typeof AutoVerkaufenRouteWithChildren
   DatenschutzRoute: typeof DatenschutzRoute
   FahrzeugeRoute: typeof FahrzeugeRouteWithChildren
@@ -198,13 +185,6 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/admin': {
-      id: '/admin'
-      path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auto-verkaufen': {
@@ -317,7 +297,6 @@ const FahrzeugeRouteWithChildren = FahrzeugeRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AdminRoute: AdminRoute,
   AutoVerkaufenRoute: AutoVerkaufenRouteWithChildren,
   DatenschutzRoute: DatenschutzRoute,
   FahrzeugeRoute: FahrzeugeRouteWithChildren,
