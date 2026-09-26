@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { getRouteApi, Link, useNavigate } from "@tanstack/react-router";
-import { ArrowRight, SlidersHorizontal } from "lucide-react";
+import { SlidersHorizontal } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { Reveal } from "@/components/Reveal";
 import { SearchRequestForm } from "@/components/forms/SearchRequestForm";
@@ -22,7 +22,7 @@ const currentYear = new Date().getFullYear();
 const years = Array.from({ length: 20 }, (_, i) => currentYear - i);
 
 function Chip({ active, onClick, children }: { active: boolean; onClick: () => void; children: ReactNode }) {
-  return <button type="button" aria-pressed={active} onClick={onClick} className={cn("h-10 shrink-0 rounded-full border px-4 text-sm font-semibold transition-colors", active ? "bg-gold-gradient border-gold text-primary-foreground" : "border-gold/50 text-foreground hover:border-gold")}>{children}</button>;
+  return <button type="button" aria-pressed={active} onClick={onClick} className={cn("h-11 shrink-0 rounded border px-4 text-sm font-semibold transition-colors", active ? "border-gold bg-gold text-primary-foreground" : "border-border text-foreground hover:border-gold")}>{children}</button>;
 }
 
 function MoreFilters({ search, update }: { search: VehicleSearch; update: (patch: Partial<VehicleSearch>) => void }) {
@@ -50,14 +50,14 @@ export default function VehiclesPage() {
   const hasFilters = Object.entries(search).some(([k, v]) => k !== "sort" && v !== undefined);
 
   return <>
-    <section className="bg-rauten border-b border-border">
-      <div className="mx-auto flex max-w-7xl flex-col gap-6 px-5 py-14 md:flex-row md:items-end md:justify-between lg:px-6">
-        <div><p className="font-display text-xs font-bold uppercase tracking-wide text-gold">Unser Bestand</p><h1 className="mt-3 font-display text-3xl font-extrabold uppercase tracking-wide text-foreground sm:text-5xl">Gebrauchtwagen in Perkam bei Straubing</h1><p className="mt-4 text-lg text-silver">Alle Fahrzeuge geprüft, mit 12 Monaten gesetzlicher Gewährleistung.</p></div>
-        <p className="shrink-0 font-display text-lg font-bold uppercase tracking-wide text-gold" aria-live="polite">{isPending ? "…" : `${data?.length ?? 0} Fahrzeuge`}</p>
+    <section className="border-b border-border">
+      <div className="mx-auto flex max-w-[1200px] flex-col gap-5 px-6 py-12 md:flex-row md:items-end md:justify-between md:px-12">
+        <div><h1 className="font-display text-3xl font-bold leading-[1.1] text-foreground sm:text-5xl">Gebrauchtwagen in Perkam</h1><p className="mt-4 text-[17px] text-foreground/80">Jedes Auto geprüft und Probe gefahren. 12 Monate gesetzliche Gewährleistung.</p></div>
+        <p className="shrink-0 text-sm text-muted-foreground" aria-live="polite">{isPending ? "…" : `${data?.length ?? 0} Autos`}</p>
       </div>
     </section>
 
-    <div className="mx-auto max-w-7xl px-5 py-10 lg:px-6">
+    <div className="mx-auto max-w-[1200px] px-6 py-10 md:px-12">
       <div className="space-y-4">
         <div className="-mx-5 flex gap-2 overflow-x-auto px-5 pb-1 lg:mx-0 lg:flex-wrap lg:px-0">{bodyChips.map((c) => <Chip key={c.label} active={search.karosserie === c.value} onClick={() => update({ karosserie: c.value })}>{c.label}</Chip>)}</div>
         <div className="-mx-5 flex gap-2 overflow-x-auto px-5 pb-1 lg:mx-0 lg:flex-wrap lg:px-0">{priceChips.map((c) => <Chip key={c.label} active={search.preisAb === c.preisAb && search.preisBis === c.preisBis} onClick={() => update({ preisAb: c.preisAb, preisBis: c.preisBis })}>{c.label}</Chip>)}</div>
@@ -75,7 +75,7 @@ export default function VehiclesPage() {
         <CollapsibleContent className="mt-4 hidden rounded-lg border border-border bg-card p-5 md:block"><MoreFilters search={search} update={update} /></CollapsibleContent>
       </Collapsible>
 
-      <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
         {isPending ? Array.from({ length: 6 }, (_, i) => <VehicleCardSkeleton key={i} />)
           : isError ? <div className="col-span-full rounded-lg border border-border bg-card p-8 text-center text-muted-foreground">Die Fahrzeuge konnten gerade nicht geladen werden. <a href={siteConfig.mobileDeUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-gold">Bestand auf mobile.de ansehen</a></div>
           : data.length === 0 ? <div className="col-span-full rounded-lg border border-border bg-card p-8 text-center text-muted-foreground">Keine Fahrzeuge mit diesen Kriterien – <button type="button" onClick={reset} className="font-semibold text-gold hover:text-gold-light">Filter zurücksetzen</button> oder <a href={siteConfig.mobileDeUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-gold hover:text-gold-light">alle Fahrzeuge auf mobile.de ansehen</a>.</div>
@@ -83,12 +83,8 @@ export default function VehiclesPage() {
       </div>
     </div>
 
-    <Reveal className="mx-auto max-w-7xl px-5 pb-16 lg:px-6">
-      <h2 className="font-display text-2xl font-extrabold uppercase tracking-wide text-foreground sm:text-3xl">Nicht das Richtige dabei?</h2>
-      <div className="mt-8 grid gap-5 md:grid-cols-2">
-        <div className="rounded-lg border border-gold/50 bg-card p-6 md:p-8"><h3 className="font-display text-lg font-bold uppercase tracking-wide text-foreground">Fahrzeugsuchauftrag</h3><p className="mt-2 text-sm text-muted-foreground">Nennen Sie uns Ihr Wunschfahrzeug. Wir suchen für Sie und melden uns mit passenden Angeboten.</p><SearchRequestForm /></div>
-        <div className="flex flex-col rounded-lg border border-border bg-card p-6 md:p-8"><h3 className="font-display text-lg font-bold uppercase tracking-wide text-foreground">Auto in Zahlung geben</h3><p className="mt-2 text-sm text-muted-foreground">Ihr Altfahrzeug rechnen wir direkt auf Ihr neues Auto an. Kostenlos und unverbindlich bewerten lassen.</p><Button asChild variant="silver" className="mt-6 self-start"><Link to="/auto-verkaufen">Jetzt bewerten lassen<ArrowRight /></Link></Button></div>
-      </div>
+    <Reveal className="mx-auto max-w-[1200px] border-t border-border px-6 py-16 md:px-12">
+      <div className="max-w-2xl"><h2 className="section-h2">Nicht das richtige Auto dabei?</h2><p className="mt-4 text-foreground/80">Schreiben Sie uns, was Sie suchen. Wir melden uns, wenn ein passendes Auto hereinkommt.</p><div className="mt-8"><SearchRequestForm /></div></div>
       <p className="mt-10 text-xs leading-5 text-muted-foreground">Alle Preise sind Endpreise in Euro. Zulassung und Überführung sind nicht enthalten und werden nur auf Wunsch gegen gesonderte Berechnung übernommen. Zwischenverkauf und Irrtum vorbehalten.</p>
     </Reveal>
   </>;

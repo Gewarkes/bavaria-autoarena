@@ -1,9 +1,8 @@
 import { useState, type FormEvent } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { CalendarRange, Coins, Repeat, Flag } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { PageHero, H2, PrivacyHint } from "@/components/site/shared";
+import { PageHero, PrivacyHint } from "@/components/site/shared";
 import { LeadBasicsFields, LeadSubmit, LeadSuccess, useLeadForm } from "@/components/forms/LeadBasics";
 import { FinancingExample } from "@/components/FinancingExample";
 import { Reveal } from "@/components/Reveal";
@@ -13,10 +12,9 @@ import { formatPrice } from "@/lib/format";
 
 const steps = ["Fahrzeug wählen", "Wunschrate & Laufzeit besprechen", "Bonitätsprüfung durch die Bank", "Vertrag unterschreiben & losfahren"];
 const benefits = [
-  { icon: Coins, title: "Anzahlung flexibel", text: "Mit oder ohne Anzahlung – ganz nach Ihrem Budget." },
-  { icon: CalendarRange, title: "Laufzeit 12–84 Monate", text: "Die Laufzeit passen wir Ihrer Wunschrate an." },
-  { icon: Repeat, title: "Inzahlungnahme als Anzahlung", text: "Ihr bisheriges Fahrzeug senkt den Finanzierungsbetrag." },
-  { icon: Flag, title: "Schlussrate möglich", text: "Niedrigere Monatsraten durch eine Schlussrate." },
+  ["Anzahlung", "Mit, ohne oder mit dem Erlös aus Ihrer Inzahlungnahme."],
+  ["Laufzeit", "Zwischen 12 und 84 Monaten, abhängig vom Angebot der Bank."],
+  ["Schlussrate", "Kann die Monatsrate senken. Wir zeigen Ihnen auch die Gesamtkosten."],
 ];
 const rates = ["bis 150 €", "150–250 €", "250–400 €", "über 400 €"];
 
@@ -35,8 +33,8 @@ function FinancingForm() {
   }
   const lbl = "block text-xs font-semibold uppercase tracking-wide text-muted-foreground";
   return (
-    <form onSubmit={submit} noValidate className="relative space-y-4 rounded-lg border border-gold/60 bg-card p-6 shadow-gold">
-      <h2 className="font-display text-lg font-bold uppercase tracking-wide text-foreground">Finanzierung anfragen</h2>
+    <form onSubmit={submit} noValidate className="relative space-y-4 rounded border border-border bg-card p-6">
+      <h2 className="text-lg font-semibold text-foreground">Finanzierung anfragen</h2>
       <div className={lbl}>Wunschfahrzeug (optional)
         <Select value={vehicleId} onValueChange={setVehicleId}><SelectTrigger className="mt-2 h-12" aria-label="Wunschfahrzeug"><SelectValue /></SelectTrigger>
           <SelectContent><SelectItem value="keins">Noch nicht entschieden</SelectItem>{(vehicles.data ?? []).map((v) => <SelectItem key={v.id} value={v.id}>{v.title} – {formatPrice(v.price_eur)}</SelectItem>)}</SelectContent></Select>
@@ -57,19 +55,18 @@ function FinancingForm() {
 export default function FinancingPage() {
   return (
     <>
-      <PageHero eyebrow="Finanzierung & Leasing" title="Ihr Wunschauto – zu Raten, die zu Ihnen passen.">
-        Wir arbeiten mit der Santander Consumer Bank und der DKB zusammen und finden gemeinsam die passende Lösung – auch mit Inzahlungnahme Ihres bisherigen Fahrzeugs.
-        <span className="mt-5 flex flex-wrap gap-2">{siteConfig.financingPartners.map((p) => <span key={p} className="rounded-md border border-gold/50 px-3 py-1.5 font-display text-xs font-bold uppercase tracking-wide text-gold-light">{p}</span>)}</span>
+      <PageHero title="Finanzierung für Ihren Gebrauchtwagen">
+        Wir vermitteln Kredite der Santander Consumer Bank und der DKB. Im Autohaus rechnen wir Laufzeit, Anzahlung und Gesamtkosten gemeinsam durch.
       </PageHero>
-      <div className="mx-auto grid max-w-7xl gap-12 px-5 py-16 lg:grid-cols-[1fr_minmax(0,520px)] lg:px-6">
+       <div className="mx-auto grid max-w-[1200px] gap-12 px-6 py-16 md:px-12 md:py-24 lg:grid-cols-[1fr_minmax(0,520px)]">
         <div className="space-y-14">
           <Reveal>
-            <H2 eyebrow="In 4 Schritten">So läuft die Finanzierung</H2>
-            <ol className="mt-8 grid gap-4 sm:grid-cols-2">{steps.map((s, i) => <li key={s} className="rounded-lg border border-border bg-card p-5"><span className="text-gold-gradient font-display text-4xl font-extrabold">{i + 1}</span><p className="mt-2 font-semibold text-foreground">{s}</p></li>)}</ol>
+             <h2 className="section-h2">So läuft die Finanzierung</h2>
+             <ol className="mt-8 divide-y divide-border">{steps.map((s, i) => <li key={s} className="flex gap-5 py-4"><span className="text-sm text-muted-foreground">0{i + 1}</span><p className="font-semibold text-foreground">{s}</p></li>)}</ol>
           </Reveal>
           <Reveal>
-            <H2 eyebrow="Ihre Vorteile">Flexibel finanzieren</H2>
-            <ul className="mt-8 grid gap-4 sm:grid-cols-2">{benefits.map(({ icon: Icon, title, text }) => <li key={title} className="rounded-lg border border-border p-5 transition-colors hover:border-gold/50"><Icon className="size-6 text-gold" /><p className="mt-3 font-semibold text-foreground">{title}</p><p className="mt-1 text-sm text-muted-foreground">{text}</p></li>)}</ul>
+             <h2 className="section-h2">Was Sie festlegen können</h2>
+             <dl className="mt-8 divide-y divide-border">{benefits.map(([title, text]) => <div key={title} className="py-5"><dt className="font-semibold text-foreground">{title}</dt><dd className="mt-2 leading-[1.6] text-foreground/75">{text}</dd></div>)}</dl>
           </Reveal>
           {siteConfig.features.showMonthlyRate && <FinancingExample />}
         </div>
