@@ -103,7 +103,9 @@ export default function AdminVehicleFormPage({ id }: { id?: string }) {
   const drop = (to: number) => {
     if (dragIdx === null || dragIdx === to) return;
     const arr = [...f.images]; const [m] = arr.splice(dragIdx, 1); arr.splice(to, 0, m!);
-    set("images", arr.map((i, s) => ({ ...i, sort: s }))); setDragIdx(null);
+    const remap = (index: number) => index === dragIdx ? to : dragIdx < to && index > dragIdx && index <= to ? index - 1 : dragIdx > to && index >= to && index < dragIdx ? index + 1 : index;
+    setF((previous) => ({ ...previous, images: arr.map((image, sort) => ({ ...image, sort })), cover_index: previous.cover_index == null ? null : remap(previous.cover_index), hover_index: previous.hover_index == null ? null : remap(previous.hover_index), seal_indices: previous.seal_indices.map(remap), gallery_hidden: previous.gallery_hidden.map(remap) }));
+    setDragIdx(null);
   };
 
   const save = async () => {
