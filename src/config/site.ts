@@ -16,6 +16,8 @@ export const siteConfig = {
     saturday: "09:00–13:00",
     sunday: "Geschlossen",
   },
+  /** Öffentliche Domain ohne Slash am Ende, z. B. "https://www.bavaria-autoarena.de". Leer = og:image/Canonical bleiben relativ bzw. aus. */
+  siteUrl: "",
   mobileDeUrl: "https://home.mobile.de/BAVARIAAUTOARENASTRAUBINGGMBH",
   rating: { value: 4.7, count: 85, source: "mobile.de", asOf: "09/2026" },
   features: { showMonthlyRate: false },

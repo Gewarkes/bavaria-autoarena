@@ -2,6 +2,8 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { lazy } from "react";
 import { formatFirstRegistration, formatFuel, formatKm, formatPrice, formatTransmission } from "@/lib/format";
 import { vehicleQuery } from "@/lib/vehicles";
+import { absUrl, ogImageMeta } from "@/lib/seo";
+import { sizedImage } from "@/lib/vehicleImages";
 
 const VehicleDetailPage = lazy(() => import("@/pages/VehicleDetailPage"));
 const fuelSchema: Record<string, string> = { benzin: "Gasoline", diesel: "Diesel", hybrid: "Hybrid", elektro: "Electric", gas: "LPG" };
@@ -15,22 +17,25 @@ export const Route = createFileRoute("/fahrzeuge/$slug")({
   head: ({ loaderData, params }) => {
     const v = loaderData?.vehicle;
     if (!v) return { meta: [{ title: "Fahrzeug nicht gefunden | Bavaria Autoarena" }, { name: "robots", content: "noindex" }] };
-    const title = `${v.title} – ${formatPrice(v.price_eur)} | Bavaria Autoarena`;
+    const full = `${v.title} – ${formatPrice(v.price_eur)} | Bavaria Autoarena`;
+    const title = full.length <= 60 ? full : `${v.title.slice(0, 60 - 22 - formatPrice(v.price_eur).length).trim()}… – ${formatPrice(v.price_eur)}`;
     const description = `${v.title}: EZ ${formatFirstRegistration(v.first_registration)}, ${formatKm(v.mileage_km)}, ${formatFuel(v.fuel)}, ${formatTransmission(v.transmission)}${v.power_ps ? `, ${v.power_ps} PS` : ""}. Jetzt Probefahrt in Perkam bei Straubing vereinbaren.`;
-    const image = v.images[0]?.url;
+    const first = v.images[0]?.url;
+    const image = first && /^https?:/.test(first) ? sizedImage(first, "full") : undefined;
     const path = `/fahrzeuge/${params.slug}`;
     return {
       meta: [
         { title }, { name: "description", content: description },
         { property: "og:title", content: title }, { property: "og:description", content: description },
         { property: "og:type", content: "product" }, { name: "twitter:card", content: "summary_large_image" },
-        ...(image ? [{ property: "og:image", content: image }, { name: "twitter:image", content: image }] : []),
+        { property: "og:locale", content: "de_DE" }, { property: "og:url", content: absUrl(path) },
+        ...ogImageMeta(image),
       ],
-      links: [{ rel: "canonical", href: path }],
+      links: [{ rel: "canonical", href: absUrl(path) }],
       scripts: [
         { type: "application/ld+json", children: JSON.stringify({
           "@context": "https://schema.org", "@type": "Car", name: v.title, brand: { "@type": "Brand", name: v.brand }, model: v.model,
-          image: v.images.map((i) => i.url), bodyType: v.body_type, vehicleModelDate: v.first_registration.slice(0, 4),
+          image: v.images.map((i) => i.url).filter((u) => /^https?:/.test(u)), bodyType: v.body_type, vehicleModelDate: v.first_registration.slice(0, 4),
           mileageFromOdometer: { "@type": "QuantitativeValue", value: v.mileage_km, unitCode: "KMT" },
           fuelType: fuelSchema[v.fuel] ?? v.fuel, vehicleTransmission: v.transmission === "automatik" ? "AutomaticTransmission" : "ManualTransmission",
           ...(v.color ? { color: v.color } : {}),

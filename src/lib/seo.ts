@@ -1,5 +1,14 @@
+import { siteConfig } from "@/config/site";
+
+export const absUrl = (path: string) => (siteConfig.siteUrl ? `${siteConfig.siteUrl}${path}` : path);
+/** og:image nur mit absoluter Domain – relative URLs werden von Crawlern ignoriert. */
+export const ogImageMeta = (url?: string) => {
+  const abs = url && /^https?:\/\//.test(url) ? url : siteConfig.siteUrl ? `${siteConfig.siteUrl}${url ?? "/og-default.jpg"}` : null;
+  return abs ? [{ property: "og:image", content: abs }, { property: "og:image:width", content: "1200" }, { property: "og:image:height", content: "630" }, { name: "twitter:image", content: abs }] : [];
+};
+
 export function seo(title: string, description: string, path: string) {
-  const fullTitle = `${title} | Bavaria Autoarena Perkam`;
+  const fullTitle = `${title} | Bavaria Autoarena`;
   return {
     meta: [
       { title: fullTitle },
@@ -7,10 +16,13 @@ export function seo(title: string, description: string, path: string) {
       { property: "og:title", content: fullTitle },
       { property: "og:description", content: description },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: path },
+      { property: "og:url", content: absUrl(path) },
+      { property: "og:locale", content: "de_DE" },
+      { property: "og:site_name", content: "Bavaria Autoarena" },
+      ...ogImageMeta(),
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: path }],
+    links: [{ rel: "canonical", href: absUrl(path) }],
   };
 }
 export function dealerJsonLd() {
@@ -29,5 +41,5 @@ export function dealerJsonLd() {
 }
 
 export function withTitle(base: ReturnType<typeof seo>, title: string) {
-  return { ...base, meta: base.meta.map((m) => ("title" in m ? { title } : m.property === "og:title" ? { property: "og:title", content: title } : m)) };
+  return { ...base, meta: base.meta.map((m) => ("title" in m ? { title } : "property" in m && m.property === "og:title" ? { property: "og:title", content: title } : m)) };
 }
