@@ -46,11 +46,11 @@ function Highlights() {
 
 export default function HomePage() {
   return <>
-    <section className="relative min-h-[85vh] overflow-hidden">
+    <section className="relative overflow-hidden md:min-h-[85vh]">
       <img src="/hero.jpg" alt="Auto mit eingeschalteten Scheinwerfern vor dunklem Hintergrund" width="1920" height="1080" fetchPriority="high" className="absolute inset-0 size-full object-cover object-center opacity-100 md:object-[35%_center]" />
       <div className="hero-overlay absolute inset-0" />
-      <div className="relative mx-auto flex min-h-[85vh] max-w-[1200px] flex-col justify-center px-6 pb-44 pt-16 md:px-12"><div className="max-w-[560px]"><h1 className="font-display text-4xl font-bold uppercase leading-[1.05] text-foreground md:text-[56px]">Gebrauchtwagen aus Perkam.</h1><p className="mt-5 text-sm text-silver">Autohaus in Perkam bei Straubing · Gewerbestraße 7</p><p className="mt-5 max-w-[560px] text-lg leading-[1.6] text-foreground/80">Familienautos, SUV und Vans zwischen 6.000 und 25.000 Euro. Jedes Auto haben wir selbst eingekauft, angeschaut und Probe gefahren.</p><div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3"><Button asChild variant="gold"><Link to="/fahrzeuge">Fahrzeuge ansehen</Link></Button><Link to="/auto-verkaufen" className={textLink}>Auto in Zahlung geben →</Link></div></div></div>
-      <div className="absolute inset-x-0 bottom-5"><div className="mx-auto max-w-[1200px] px-6 md:px-12"><QuickSearch /></div></div>
+      <div className="relative mx-auto flex max-w-[1200px] flex-col justify-center px-6 pb-8 pt-20 md:min-h-[85vh] md:px-12 md:pb-44 md:pt-16"><div className="max-w-[560px]"><h1 className="font-display text-[2rem] font-bold uppercase leading-[1.05] text-foreground sm:text-4xl md:text-[56px]">Gebrauchtwagen aus Perkam.</h1><p className="mt-5 text-sm text-silver">Autohaus in Perkam bei Straubing · Gewerbestraße 7</p><p className="mt-5 max-w-[560px] text-lg leading-[1.6] text-foreground/80">Familienautos, SUV und Vans zwischen 6.000 und 25.000 Euro. Jedes Auto haben wir selbst eingekauft, angeschaut und Probe gefahren.</p><div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3"><Button asChild variant="gold"><Link to="/fahrzeuge">Fahrzeuge ansehen</Link></Button><Link to="/auto-verkaufen" className={textLink}>Auto in Zahlung geben →</Link></div></div></div>
+      <div className="relative pb-6 md:absolute md:inset-x-0 md:bottom-5 md:pb-0"><div className="mx-auto max-w-[1200px] px-6 md:px-12"><QuickSearch /></div></div>
     </section>
 
     <Reveal className={section}><div className="flex flex-wrap items-end justify-between gap-4"><h2 className={h2}>Zuletzt reingekommen</h2><Link to="/fahrzeuge" className={textLink}>Alle 20 Fahrzeuge →</Link></div><div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3"><Highlights /></div></Reveal>
