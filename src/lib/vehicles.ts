@@ -5,10 +5,10 @@ import type { Database } from "@/integrations/supabase/types";
 type Row = Database["public"]["Tables"]["vehicles"]["Row"];
 export type VehicleImage = { url: string; thumbUrl?: string; alt: string; sort?: number };
 
-const LIST_COLUMNS = "id, slug, brand, model, title, price_eur, first_registration, mileage_km, fuel, transmission, power_ps, power_kw, body_type, tax_status, features, images, status, is_highlight, is_demo, cover_index, hover_index, seal_indices, gallery_hidden, image_count, mobile_de_id" as const;
-const DETAIL_COLUMNS = `${LIST_COLUMNS}, created_at, variant, color, hu_until, previous_owners, description, envkv_required` as const;
+const LIST_COLUMNS = "id, slug, brand, model, title, price_eur, first_registration, mileage_km, fuel, transmission, power_ps, power_kw, body_type, tax_status, features, images, status, is_highlight, is_demo, cover_index, hover_index, seal_indices, gallery_hidden, image_count, mobile_de_id, created_at" as const;
+const DETAIL_COLUMNS = `${LIST_COLUMNS}, variant, color, hu_until, previous_owners, description, envkv_required` as const;
 
-export type Vehicle = Pick<Row, "id" | "slug" | "brand" | "model" | "title" | "price_eur" | "first_registration" | "mileage_km" | "fuel" | "transmission" | "power_ps" | "power_kw" | "body_type" | "tax_status" | "features" | "status" | "is_highlight" | "is_demo" | "cover_index" | "hover_index" | "seal_indices" | "gallery_hidden" | "image_count" | "mobile_de_id"> & { images: VehicleImage[] };
+export type Vehicle = Pick<Row, "id" | "slug" | "brand" | "model" | "title" | "price_eur" | "first_registration" | "mileage_km" | "fuel" | "transmission" | "power_ps" | "power_kw" | "body_type" | "tax_status" | "features" | "status" | "is_highlight" | "is_demo" | "cover_index" | "hover_index" | "seal_indices" | "gallery_hidden" | "image_count" | "mobile_de_id" | "created_at"> & { images: VehicleImage[] };
 export type VehicleDetail = Vehicle & Pick<Row, "variant" | "color" | "hu_until" | "previous_owners" | "description" | "envkv_required" | "created_at">;
 
 export type VehicleFilter = {
