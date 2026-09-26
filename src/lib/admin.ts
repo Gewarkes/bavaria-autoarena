@@ -16,7 +16,7 @@ export const LEAD_STATUSES: { value: LeadStatus; label: string }[] = [
 export const VEHICLE_STATUSES: { value: VehicleStatus; label: string }[] = [
   { value: "verfuegbar", label: "Verfügbar" }, { value: "reserviert", label: "Reserviert" }, { value: "verkauft", label: "Verkauft" },
 ];
-export const INTENT_LABEL: Record<string, string> = { inzahlungnahme: "Inzahlungnahme", verkauf: "Verkauf", unsicher: "Noch offen" };
+export const INTENT_LABEL: Record<string, string> = { inzahlung: "Inzahlungnahme", verkaufen: "Verkaufen", bewerten: "Nur bewerten" };
 export const KIND_LABEL: Record<string, string> = { probefahrt: "Probefahrt", anfrage: "Anfrage", rueckruf: "Rückruf", finanzierung: "Finanzierung", kontakt: "Kontakt" };
 export const BODY_TYPES = ["SUV", "Van", "Bus", "Limousine", "Kombi", "Coupé", "Cabrio", "Kleinwagen", "Camper"];
 
