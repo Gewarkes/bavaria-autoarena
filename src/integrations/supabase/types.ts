@@ -251,23 +251,29 @@ export type Database = {
           body_type: string
           brand: string
           color: string | null
+          cover_index: number | null
           created_at: string
           description: string | null
           envkv_required: boolean
           features: string[]
           first_registration: string
           fuel: Database["public"]["Enums"]["fuel_type"]
+          gallery_hidden: number[]
+          hover_index: number | null
           hu_until: string | null
           id: string
+          image_count: number | null
           images: Json
           is_demo: boolean
           is_highlight: boolean
           mileage_km: number
+          mobile_de_id: string | null
           model: string
           power_kw: number | null
           power_ps: number | null
           previous_owners: number | null
           price_eur: number
+          seal_indices: number[]
           slug: string
           status: Database["public"]["Enums"]["vehicle_status"]
           tax_status: Database["public"]["Enums"]["tax_status"]
@@ -280,23 +286,29 @@ export type Database = {
           body_type: string
           brand: string
           color?: string | null
+          cover_index?: number | null
           created_at?: string
           description?: string | null
           envkv_required?: boolean
           features?: string[]
           first_registration: string
           fuel: Database["public"]["Enums"]["fuel_type"]
+          gallery_hidden?: number[]
+          hover_index?: number | null
           hu_until?: string | null
           id?: string
+          image_count?: number | null
           images?: Json
           is_demo?: boolean
           is_highlight?: boolean
           mileage_km: number
+          mobile_de_id?: string | null
           model: string
           power_kw?: number | null
           power_ps?: number | null
           previous_owners?: number | null
           price_eur: number
+          seal_indices?: number[]
           slug: string
           status?: Database["public"]["Enums"]["vehicle_status"]
           tax_status?: Database["public"]["Enums"]["tax_status"]
@@ -309,23 +321,29 @@ export type Database = {
           body_type?: string
           brand?: string
           color?: string | null
+          cover_index?: number | null
           created_at?: string
           description?: string | null
           envkv_required?: boolean
           features?: string[]
           first_registration?: string
           fuel?: Database["public"]["Enums"]["fuel_type"]
+          gallery_hidden?: number[]
+          hover_index?: number | null
           hu_until?: string | null
           id?: string
+          image_count?: number | null
           images?: Json
           is_demo?: boolean
           is_highlight?: boolean
           mileage_km?: number
+          mobile_de_id?: string | null
           model?: string
           power_kw?: number | null
           power_ps?: number | null
           previous_owners?: number | null
           price_eur?: number
+          seal_indices?: number[]
           slug?: string
           status?: Database["public"]["Enums"]["vehicle_status"]
           tax_status?: Database["public"]["Enums"]["tax_status"]

@@ -2,7 +2,7 @@ import { useEffect, useState, type KeyboardEvent, type ReactNode } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link, useNavigate } from "@tanstack/react-router";
 import imageCompression from "browser-image-compression";
-import { ArrowLeft, GripVertical, ImagePlus, X } from "lucide-react";
+import { ArrowLeft, Eye, EyeOff, GripVertical, ImagePlus, Star, X } from "lucide-react";
 import { toast } from "sonner";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
@@ -22,9 +22,9 @@ type Form = {
   brand: string; model: string; variant: string; title: string; price: string; tax_status: AdminVehicle["tax_status"];
   month: string; year: string; km: string; fuel: AdminVehicle["fuel"]; transmission: AdminVehicle["transmission"]; ps: string;
   body_type: string; color: string; hu_until: string; previous_owners: string; features: string[]; description: string;
-  status: AdminVehicle["status"]; is_highlight: boolean; is_demo: boolean; images: Img[];
+  status: AdminVehicle["status"]; is_highlight: boolean; is_demo: boolean; images: Img[]; cover_index: number | null; hover_index: number | null; gallery_hidden: number[];
 };
-const empty: Form = { brand: "", model: "", variant: "", title: "", price: "", tax_status: "differenz", month: "01", year: "", km: "", fuel: "benzin", transmission: "automatik", ps: "", body_type: "Limousine", color: "", hu_until: "", previous_owners: "", features: [], description: "", status: "verfuegbar", is_highlight: false, is_demo: false, images: [] };
+const empty: Form = { brand: "", model: "", variant: "", title: "", price: "", tax_status: "differenz", month: "01", year: "", km: "", fuel: "benzin", transmission: "automatik", ps: "", body_type: "Limousine", color: "", hu_until: "", previous_owners: "", features: [], description: "", status: "verfuegbar", is_highlight: false, is_demo: false, images: [], cover_index: null, hover_index: null, gallery_hidden: [] };
 
 const schema = z.object({
   brand: z.string().trim().min(1, "Marke fehlt."), model: z.string().trim().min(1, "Modell fehlt."), title: z.string().trim().min(3, "Titel fehlt."),
@@ -38,6 +38,7 @@ const toForm = (v: AdminVehicle): Form => ({
   ps: v.power_ps?.toString() ?? "", body_type: v.body_type, color: v.color ?? "", hu_until: v.hu_until ?? "", previous_owners: v.previous_owners?.toString() ?? "",
   features: v.features, description: v.description ?? "", status: v.status, is_highlight: v.is_highlight, is_demo: v.is_demo,
   images: ((v.images as Img[] | null) ?? []).map((i, idx) => ({ url: i.url, thumbUrl: i.thumbUrl, alt: i.alt ?? "", sort: idx })),
+  cover_index: v.cover_index, hover_index: v.hover_index, gallery_hidden: v.gallery_hidden,
 });
 
 function F({ label, children, className }: { label: string; children: ReactNode; className?: string }) {
@@ -96,7 +97,7 @@ export default function AdminVehicleFormPage({ id }: { id?: string }) {
   const removeImg = (idx: number) => {
     const img = f.images[idx];
     if (img && !isExternal(img.url)) setRemoved((r) => [...r, bucketPath(img.url), ...(img.thumbUrl ? [bucketPath(img.thumbUrl)] : [])]);
-    set("images", f.images.filter((_, i) => i !== idx).map((i, s) => ({ ...i, sort: s })));
+    setF((previous) => ({ ...previous, images: previous.images.filter((_, i) => i !== idx).map((i, s) => ({ ...i, sort: s })), cover_index: previous.cover_index === idx ? null : previous.cover_index != null && previous.cover_index > idx ? previous.cover_index - 1 : previous.cover_index, hover_index: previous.hover_index === idx ? null : previous.hover_index != null && previous.hover_index > idx ? previous.hover_index - 1 : previous.hover_index, gallery_hidden: previous.gallery_hidden.filter((i) => i !== idx).map((i) => i > idx ? i - 1 : i) }));
   };
   const drop = (to: number) => {
     if (dragIdx === null || dragIdx === to) return;
@@ -113,7 +114,7 @@ export default function AdminVehicleFormPage({ id }: { id?: string }) {
       first_registration: `${parsed.data.year}-${f.month}-01`, mileage_km: parsed.data.km, fuel: f.fuel, transmission: f.transmission,
       power_ps: f.ps ? Number(f.ps) : null, power_kw: kw, body_type: f.body_type, color: f.color.trim() || null, hu_until: f.hu_until.trim() || null,
       previous_owners: f.previous_owners ? Number(f.previous_owners) : null, features: f.features, description: f.description.trim() || null,
-      status: f.status, is_highlight: f.is_highlight, is_demo: f.is_demo, images: f.images,
+       status: f.status, is_highlight: f.is_highlight, is_demo: f.is_demo, images: f.images, cover_index: f.cover_index, hover_index: f.hover_index, gallery_hidden: f.gallery_hidden,
     };
     try {
       if (isNew) {
@@ -173,17 +174,23 @@ export default function AdminVehicleFormPage({ id }: { id?: string }) {
           <F label="Beschreibung"><Textarea rows={6} value={f.description} onChange={(e) => set("description", e.target.value)} /></F>
         </section>
         <section className="rounded-lg border border-border bg-card p-5">
-          <div className="mb-3 flex items-center justify-between"><Label>Bilder (Reihenfolge per Drag & Drop, erstes Bild = Titelbild)</Label>
+          <div className="mb-3 flex items-center justify-between"><Label>Bildergalerie</Label>
             <Button asChild variant="silver" size="sm"><label className="cursor-pointer"><ImagePlus className="size-4" /> Bilder hinzufügen<input type="file" accept="image/*" multiple className="sr-only" onChange={(e) => { void upload(e.target.files); e.target.value = ""; }} /></label></Button>
           </div>
           {uploading > 0 ? <p className="mb-3 text-sm text-gold">{uploading} Bild(er) werden komprimiert und hochgeladen …</p> : null}
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-6">
             {f.images.map((img, i) => (
-              <div key={img.url} draggable onDragStart={() => setDragIdx(i)} onDragOver={(e) => e.preventDefault()} onDrop={() => drop(i)} className="group relative aspect-4/3 cursor-move overflow-hidden rounded-md border border-border">
+              <div key={img.url} draggable onDragStart={() => setDragIdx(i)} onDragOver={(e) => e.preventDefault()} onDrop={() => drop(i)} className={`group relative overflow-hidden rounded-sm border bg-muted ${f.gallery_hidden.includes(i) ? "border-muted-foreground opacity-60" : f.cover_index === i ? "border-gold" : "border-border"}`}>
+                <div className="aspect-4/3 overflow-hidden">
                 <VehicleImg src={img.thumbUrl || img.url} alt={img.alt} width="240" height="180" loading="lazy" className="size-full object-cover" />
+                </div>
                 <span className="absolute left-1 top-1 rounded bg-background/80 px-1.5 text-xs">{i + 1}</span>
                 <GripVertical className="absolute bottom-1 left-1 size-4 text-foreground/70" />
                 <button type="button" aria-label="Bild entfernen" onClick={() => removeImg(i)} className="absolute right-1 top-1 rounded bg-background/80 p-1"><X className="size-4" /></button>
+                <div className="grid grid-cols-2 gap-1 bg-card p-1.5">
+                   <Button type="button" variant={f.cover_index === i ? "gold" : "ghost"} size="sm" className="min-h-9 px-2 text-[10px]" onClick={() => set("cover_index", i)}><Star className="size-3" />Als Titelbild</Button>
+                  <Button type="button" variant="ghost" size="sm" className="min-h-9 px-2 text-[10px]" onClick={() => set("gallery_hidden", f.gallery_hidden.includes(i) ? f.gallery_hidden.filter((x) => x !== i) : [...f.gallery_hidden, i])}>{f.gallery_hidden.includes(i) ? <Eye className="size-3" /> : <EyeOff className="size-3" />}{f.gallery_hidden.includes(i) ? "Einblenden" : "Ausblenden"}</Button>
+                </div>
               </div>
             ))}
           </div>

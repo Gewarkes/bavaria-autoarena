@@ -8,7 +8,7 @@ import { VehicleCard } from "@/components/vehicles/VehicleCard";
 import { VehicleGallery } from "@/components/vehicles/VehicleGallery";
 import { siteConfig } from "@/config/site";
 import { formatFirstRegistration, formatFuel, formatKm, formatPrice, formatTransmission } from "@/lib/format";
-import { similarQuery, vehicleQuery } from "@/lib/vehicles";
+import { publicGallery, similarQuery, vehicleQuery } from "@/lib/vehicles";
 
 const route = getRouteApi("/fahrzeuge/$slug");
 const phoneHref = `tel:${siteConfig.phone.replace(/\s/g, "")}`;
@@ -51,13 +51,13 @@ export default function VehicleDetailPage() {
 
       <div className="mt-2 grid gap-8 sm:mt-6 lg:grid-cols-[minmax(0,1fr)_400px] lg:gap-10">
         <div className="contents lg:block lg:min-w-0 lg:space-y-10">
-          <div className="order-1"><VehicleGallery images={v.images} title={v.title} badge={badge} /></div>
+           <div className="order-1"><VehicleGallery images={publicGallery(v)} title={v.title} badge={badge} /></div>
 
           <section className="order-3"><h2 className="section-h2">Daten</h2><dl className="mt-6 grid grid-cols-2 border-t border-border sm:grid-cols-3">{facts.map(({ label, value }) => <div key={label} className="border-b border-border py-4 pr-4"><dt className="text-xs text-muted-foreground">{label}</dt><dd className="mt-1 font-semibold text-foreground">{value}</dd></div>)}</dl></section>
 
           {v.features.length ? <section className="order-4"><h2 className="section-h2">Ausstattung</h2><ul className="mt-5 grid gap-x-6 gap-y-3 sm:grid-cols-2">{v.features.map((f) => <li key={f} className="flex items-center gap-3 text-foreground"><span className="grid size-6 shrink-0 place-items-center rounded-full border border-gold/50 text-gold"><Check className="size-3.5" /></span>{f}</li>)}</ul></section> : null}
 
-          {v.description ? <section className="order-5"><h2 className="section-h2">Beschreibung</h2><p className="mt-5 max-w-3xl whitespace-pre-line leading-7 text-muted-foreground">{v.description}</p></section> : null}
+           {v.description ? <section className="order-5"><h2 className="section-h2">Beschreibung</h2>{v.seal_indices.length ? <p className="mt-5 font-semibold text-navy-900">Fahrzeughistorie geprüft (carVertical)</p> : null}<p className="mt-5 max-w-3xl whitespace-pre-line leading-7 text-muted-foreground">{v.description}</p></section> : null}
 
           <section className="order-6 border-y border-border py-7"><h2 className="text-lg font-semibold text-foreground">Ihr Auto in Zahlung geben?</h2><p className="mt-2 text-sm text-muted-foreground">Wir rechnen Ihr bisheriges Auto direkt auf dieses Angebot an.</p><Button asChild variant="silver" className="mt-4"><Link to="/auto-verkaufen" search={{ wunschfahrzeug: v.id }}>Preis anfragen →</Link></Button></section>
 

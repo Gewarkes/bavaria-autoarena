@@ -78,6 +78,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "icon", href: "/logo.webp", type: "image/webp", sizes: "400x400" },
       { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
       { rel: "manifest", href: "/manifest.webmanifest" },
+      { rel: "preconnect", href: "https://img.classistatic.de" },
     ],
   }),
   shellComponent: RootShell,

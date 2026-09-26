@@ -47,7 +47,8 @@ export default function AdminVehiclesPage() {
             <TableHeader><TableRow><TableHead className="w-20">Bild</TableHead><TableHead>Titel</TableHead><TableHead>Preis</TableHead><TableHead>EZ</TableHead><TableHead>km</TableHead><TableHead>Status</TableHead><TableHead>Highlight</TableHead></TableRow></TableHeader>
             <TableBody>
               {rows.length === 0 ? <TableRow><TableCell colSpan={7} className="py-8 text-center text-muted-foreground">Keine Fahrzeuge gefunden.</TableCell></TableRow> : rows.map((v) => {
-                const img = (v.images as Img[] | null)?.[0];
+                const images = v.images as Img[] | null;
+                const img = images?.[v.cover_index ?? 0] ?? images?.[0];
                 return (
                   <TableRow key={v.id} className="cursor-pointer" onClick={() => navigate({ to: "/admin/fahrzeuge/$id", params: { id: v.id } })}>
                     <TableCell><div className="h-12 w-16 overflow-hidden rounded bg-muted">{img ? <VehicleImg src={sizedImage(img.thumbUrl || img.url, "card")} alt="" width="64" height="48" loading="lazy" className="size-full object-cover" /> : null}</div></TableCell>

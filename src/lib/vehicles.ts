@@ -5,10 +5,10 @@ import type { Database } from "@/integrations/supabase/types";
 type Row = Database["public"]["Tables"]["vehicles"]["Row"];
 export type VehicleImage = { url: string; thumbUrl?: string; alt: string; sort?: number };
 
-const LIST_COLUMNS = "id, slug, brand, model, title, price_eur, first_registration, mileage_km, fuel, transmission, power_ps, power_kw, body_type, tax_status, features, images, status, is_highlight, is_demo" as const;
-const DETAIL_COLUMNS = `${LIST_COLUMNS}, created_at, variant, color, hu_until, previous_owners, description, envkv_required` as const;
+const LIST_COLUMNS = "id, slug, brand, model, title, price_eur, first_registration, mileage_km, fuel, transmission, power_ps, power_kw, body_type, tax_status, features, images, status, is_highlight, is_demo, cover_index, hover_index, seal_indices, gallery_hidden, image_count, mobile_de_id, created_at" as const;
+const DETAIL_COLUMNS = `${LIST_COLUMNS}, variant, color, hu_until, previous_owners, description, envkv_required` as const;
 
-export type Vehicle = Pick<Row, "id" | "slug" | "brand" | "model" | "title" | "price_eur" | "first_registration" | "mileage_km" | "fuel" | "transmission" | "power_ps" | "power_kw" | "body_type" | "tax_status" | "features" | "status" | "is_highlight" | "is_demo"> & { images: VehicleImage[] };
+export type Vehicle = Pick<Row, "id" | "slug" | "brand" | "model" | "title" | "price_eur" | "first_registration" | "mileage_km" | "fuel" | "transmission" | "power_ps" | "power_kw" | "body_type" | "tax_status" | "features" | "status" | "is_highlight" | "is_demo" | "cover_index" | "hover_index" | "seal_indices" | "gallery_hidden" | "image_count" | "mobile_de_id" | "created_at"> & { images: VehicleImage[] };
 export type VehicleDetail = Vehicle & Pick<Row, "variant" | "color" | "hu_until" | "previous_owners" | "description" | "envkv_required" | "created_at">;
 
 export type VehicleFilter = {
@@ -26,6 +26,17 @@ export type VehicleFilter = {
 function normalize<T extends { images: unknown }>(row: T) {
   const images = Array.isArray(row.images) ? (row.images as VehicleImage[]).filter((i) => i && typeof i.url === "string") : [];
   return { ...row, images };
+}
+
+export function coverImage(vehicle: Pick<Vehicle, "images" | "cover_index">) {
+  return vehicle.images[vehicle.cover_index ?? 0] ?? vehicle.images[0];
+}
+
+export function publicGallery(vehicle: Pick<Vehicle, "images" | "cover_index" | "gallery_hidden">) {
+  const hidden = new Set(vehicle.gallery_hidden);
+  const indexed = vehicle.images.map((image, originalIndex) => ({ ...image, originalIndex })).filter((image) => !hidden.has(image.originalIndex));
+  const cover = indexed.findIndex((image) => image.originalIndex === (vehicle.cover_index ?? 0));
+  return cover > 0 ? [indexed[cover]!, ...indexed.slice(0, cover), ...indexed.slice(cover + 1)] : indexed;
 }
 
 export async function getHighlights(limit = 8): Promise<Vehicle[]> {

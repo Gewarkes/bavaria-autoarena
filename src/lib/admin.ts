@@ -62,7 +62,7 @@ export async function deleteInquiry(id: string) {
   if (error) throw error;
 }
 
-const VEH_COLS = "id, slug, brand, model, variant, title, price_eur, first_registration, mileage_km, power_kw, power_ps, fuel, transmission, body_type, color, tax_status, hu_until, previous_owners, features, description, images, status, is_highlight, is_demo, envkv_required, created_at, updated_at" as const;
+const VEH_COLS = "id, slug, brand, model, variant, title, price_eur, first_registration, mileage_km, power_kw, power_ps, fuel, transmission, body_type, color, tax_status, hu_until, previous_owners, features, description, images, status, is_highlight, is_demo, envkv_required, created_at, updated_at, mobile_de_id, cover_index, hover_index, seal_indices, gallery_hidden, image_count" as const;
 export async function listAdminVehicles(): Promise<AdminVehicle[]> {
   const { data, error } = await supabase.from("vehicles").select(VEH_COLS).order("created_at", { ascending: false }).order("id", { ascending: true }).limit(1000);
   if (error) throw error;

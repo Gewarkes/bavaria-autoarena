@@ -46,3 +46,14 @@
 - [x] Startseite mit acht neuen Bereichen und echten Bildern aufbauen
 - [x] Footer und Bildnachweise erneuern
 - [x] Desktop 1280/1440 und Mobil 375 visuell prüfen; Produktions-Build ausführen
+
+# Redesign v2 – Schritt B
+
+- [ ] Fahrzeugschema um Galerie-Metadaten erweitern
+- [ ] mobile.de-Galerien und Fahrzeugdaten einmalig importieren
+- [ ] Siegel erkennen und Titel-/Hoverbilder festlegen
+- [ ] Fahrzeugkarten und besondere Fahrzeuge neu gestalten
+- [ ] Detailgalerie und Lightbox neu bauen
+- [ ] Admin-Galerie um Titelbild und Sichtbarkeit erweitern
+- [ ] Startseite, Bestand und drei Details responsiv prüfen
+- [ ] Produktions-Build ausführen
