@@ -75,7 +75,7 @@ export default function VehiclesPage() {
         <CollapsibleContent className="mt-4 hidden rounded-lg border border-border bg-card p-5 md:block"><MoreFilters search={search} update={update} /></CollapsibleContent>
       </Collapsible>
 
-      <div className="mt-8 grid gap-4 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3">
+      <div className="mt-8 grid gap-x-8 gap-y-12 sm:grid-cols-2 xl:grid-cols-3">
         {isPending ? Array.from({ length: 6 }, (_, i) => <VehicleCardSkeleton key={i} />)
           : isError ? <div className="col-span-full rounded-lg border border-border bg-card p-8 text-center text-muted-foreground">Die Fahrzeuge konnten gerade nicht geladen werden. <a href={siteConfig.mobileDeUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-gold">Bestand auf mobile.de ansehen</a></div>
           : data.length === 0 ? <div className="col-span-full rounded-lg border border-border bg-card p-8 text-center text-muted-foreground">Keine Fahrzeuge mit diesen Kriterien – <button type="button" onClick={reset} className="font-semibold text-gold hover:text-gold-light">Filter zurücksetzen</button> oder <a href={siteConfig.mobileDeUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-gold hover:text-gold-light">alle Fahrzeuge auf mobile.de ansehen</a>.</div>
