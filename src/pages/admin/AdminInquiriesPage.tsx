@@ -10,7 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
-export default function AdminInquiriesPage({ selectedId }: { selectedId?: string }) {
+export default function AdminInquiriesPage({ selectedId }: { selectedId?: string | undefined }) {
   const qc = useQueryClient();
   const navigate = useNavigate();
   const { data, isLoading, error } = useQuery({ queryKey: ["admin", "inquiries"], queryFn: listInquiries });
