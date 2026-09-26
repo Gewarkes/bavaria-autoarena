@@ -22,3 +22,12 @@
 - [ ] C. Startseite auf sechs Bereiche reduzieren
 - [ ] D. Fahrzeugseiten, Autoankauf, Leistungen, Finanzierung und Über uns überarbeiten
 - [ ] E. Desktop- und Mobilansichten prüfen, Textsuche und Produktions-Build kontrollieren
+
+# Schritt 12
+
+- [x] Detailseite mobil neu ordnen und eigene Preis-Aktionsleiste ergänzen
+- [x] Startseite, Fahrzeugfilter und Fahrzeugkarten für 360–390 px optimieren
+- [x] Navigation, Menü, Kontaktseite und Tap-Ziele mobil verbessern
+- [x] Formulare, Funnel-Schrittwechsel und sichere Bildschirmränder anpassen
+- [x] Galerie, Bilder und mobile Ladeleistung verbessern
+- [x] Drei Handygrößen und Desktop im Browser prüfen; Produktions-Build ausführen

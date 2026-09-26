@@ -168,7 +168,7 @@ export function TradeInWizard({ initialBrand, initialModel, initialDesiredVehicl
   const nav = (backTo?: number, label = "Weiter") => (
     <div className="flex flex-col-reverse gap-3 pt-2 sm:flex-row sm:items-center sm:justify-between">
       {backTo ? <Button type="button" variant="ghost" onClick={() => go(backTo)}>Zurück</Button> : <span />}
-      <Button type="submit" variant="gold" disabled={busy} className="sm:min-w-44">{busy && <Loader2 className="animate-spin" />}{label}</Button>
+      <Button type="submit" variant="gold" disabled={busy} className="w-full sm:w-auto sm:min-w-44">{busy && <Loader2 className="animate-spin" />}{label}</Button>
     </div>
   );
 
@@ -197,7 +197,7 @@ export function TradeInWizard({ initialBrand, initialModel, initialDesiredVehicl
                 </PopoverContent>
               </Popover>
             </Field>
-            <Field label="Modell" error={errors["model"]} id="ti-model"><Input id="ti-model" className="h-12" value={s1.model ?? ""} onChange={(e) => setS1({ ...s1, model: e.target.value })} placeholder="z. B. Golf" maxLength={80} /></Field>
+            <Field label="Modell" error={errors["model"]} id="ti-model"><Input id="ti-model" className="h-12" enterKeyHint="next" value={s1.model ?? ""} onChange={(e) => setS1({ ...s1, model: e.target.value })} placeholder="z. B. Golf" maxLength={80} /></Field>
             <Field label="Erstzulassung (Jahr)" error={errors["year"]}>
               <Select value={s1.year ? String(s1.year) : ""} onValueChange={(v) => setS1({ ...s1, year: Number(v) })}>
                 <SelectTrigger className="h-12" aria-label="Erstzulassung Jahr"><SelectValue placeholder="Jahr wählen" /></SelectTrigger>
@@ -205,7 +205,7 @@ export function TradeInWizard({ initialBrand, initialModel, initialDesiredVehicl
               </Select>
             </Field>
             <Field label="Kilometerstand" error={errors["mileageKm"]} id="ti-km">
-              <div className="relative"><Input id="ti-km" inputMode="numeric" className="h-12 pr-12" value={s1.mileageText} placeholder="z. B. 90.000"
+              <div className="relative"><Input id="ti-km" inputMode="numeric" enterKeyHint="next" className="h-12 pr-12" value={s1.mileageText} placeholder="z. B. 90.000"
                 onChange={(e) => { const d = e.target.value.replace(/\D/g, "").slice(0, 7); setS1({ ...s1, mileageText: d ? Number(d).toLocaleString("de-DE") : "" }); }} />
                 <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">km</span></div>
             </Field>
@@ -250,19 +250,19 @@ export function TradeInWizard({ initialBrand, initialModel, initialDesiredVehicl
         <form onSubmit={onStep3} noValidate className="space-y-5">
           <h2 className="font-display text-lg font-bold uppercase tracking-wide text-foreground">Ihre Kontaktdaten</h2>
           <div className="grid gap-4 sm:grid-cols-2">
-            <Field label="Vorname" error={errors["firstName"]} id="ti-fn"><Input id="ti-fn" autoComplete="given-name" className="h-12" value={s3.firstName} onChange={(e) => setS3({ ...s3, firstName: e.target.value })} maxLength={60} /></Field>
-            <Field label="Nachname" error={errors["lastName"]} id="ti-ln"><Input id="ti-ln" autoComplete="family-name" className="h-12" value={s3.lastName} onChange={(e) => setS3({ ...s3, lastName: e.target.value })} maxLength={60} /></Field>
+            <Field label="Vorname" error={errors["firstName"]} id="ti-fn"><Input id="ti-fn" autoComplete="given-name" enterKeyHint="next" className="h-12" value={s3.firstName} onChange={(e) => setS3({ ...s3, firstName: e.target.value })} maxLength={60} /></Field>
+            <Field label="Nachname" error={errors["lastName"]} id="ti-ln"><Input id="ti-ln" autoComplete="family-name" enterKeyHint="next" className="h-12" value={s3.lastName} onChange={(e) => setS3({ ...s3, lastName: e.target.value })} maxLength={60} /></Field>
           </div>
           <p className="text-sm text-muted-foreground">Bitte geben Sie mindestens Telefon <em>oder</em> E-Mail an – dorthin senden wir Ihr Angebot.</p>
           <div className="grid gap-4 sm:grid-cols-2">
-            <Field label="Telefon" optional error={errors["phone"]} id="ti-phone"><Input id="ti-phone" type="tel" autoComplete="tel" className="h-12" value={s3.phone} onChange={(e) => setS3({ ...s3, phone: e.target.value })} maxLength={40} /></Field>
-            <Field label="E-Mail" optional error={errors["email"]} id="ti-email"><Input id="ti-email" type="email" autoComplete="email" className="h-12" value={s3.email} onChange={(e) => setS3({ ...s3, email: e.target.value })} maxLength={255} /></Field>
-            <Field label="PLZ" optional error={errors["zip"]} id="ti-zip"><Input id="ti-zip" inputMode="numeric" autoComplete="postal-code" className="h-12" value={s3.zip} onChange={(e) => setS3({ ...s3, zip: e.target.value.replace(/\D/g, "").slice(0, 5) })} /></Field>
+            <Field label="Telefon" optional error={errors["phone"]} id="ti-phone"><Input id="ti-phone" type="tel" inputMode="tel" autoComplete="tel" enterKeyHint="next" className="h-12" value={s3.phone} onChange={(e) => setS3({ ...s3, phone: e.target.value })} maxLength={40} /></Field>
+            <Field label="E-Mail" optional error={errors["email"]} id="ti-email"><Input id="ti-email" type="email" inputMode="email" autoComplete="email" enterKeyHint="next" className="h-12" value={s3.email} onChange={(e) => setS3({ ...s3, email: e.target.value })} maxLength={255} /></Field>
+            <Field label="PLZ" optional error={errors["zip"]} id="ti-zip"><Input id="ti-zip" inputMode="numeric" autoComplete="postal-code" enterKeyHint="next" className="h-12" value={s3.zip} onChange={(e) => setS3({ ...s3, zip: e.target.value.replace(/\D/g, "").slice(0, 5) })} /></Field>
           </div>
           <Field label="Bevorzugter Kontaktweg" optional><Chips label="Kontaktweg" value={s3.channel} onChange={(v) => setS3({ ...s3, channel: v })} options={[{ value: "anruf", label: "Anruf" }, { value: "whatsapp", label: "WhatsApp" }, { value: "email", label: "E-Mail" }]} /></Field>
-          <label className="flex cursor-pointer items-start gap-3 text-sm text-muted-foreground"><Checkbox className="mt-0.5" checked={s3.marketing} onCheckedChange={(c) => setS3({ ...s3, marketing: c === true })} />Ich möchte über passende Fahrzeuge und Aktionen per E-Mail oder WhatsApp informiert werden (jederzeit widerrufbar).</label>
+          <label className="flex min-h-11 cursor-pointer items-start gap-3 py-2 text-sm text-muted-foreground"><Checkbox className="mt-0.5" checked={s3.marketing} onCheckedChange={(c) => setS3({ ...s3, marketing: c === true })} />Ich möchte über passende Fahrzeuge und Aktionen per E-Mail oder WhatsApp informiert werden (jederzeit widerrufbar).</label>
           <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden"><label>Website<input tabIndex={-1} autoComplete="off" name="website" value={honeypot} onChange={(e) => setHoneypot(e.target.value)} /></label></div>
-          <p className="text-xs leading-5 text-muted-foreground">Mit dem Absenden verarbeiten wir Ihre Angaben zur Erstellung eines Angebots. Details in unserer <a href="/datenschutz" className="text-gold underline-offset-4 hover:underline">Datenschutzerklärung</a>.</p>
+          <p className="text-xs leading-5 text-muted-foreground">Mit dem Absenden verarbeiten wir Ihre Angaben zur Erstellung eines Angebots. Details in unserer <a href="/datenschutz" className="inline-flex min-h-11 items-center text-gold underline-offset-4 hover:underline">Datenschutzerklärung</a>.</p>
           {submitError && <p role="alert" className="rounded-md border border-destructive/50 bg-destructive/10 p-3 text-sm text-foreground">{submitError} <a href={phoneHref} className="text-gold underline">Jetzt anrufen</a></p>}
           {nav(2, "Anfrage absenden")}
         </form>
@@ -312,7 +312,7 @@ export function TradeInWizard({ initialBrand, initialModel, initialDesiredVehicl
           {submitError && <p role="alert" className="rounded-md border border-destructive/50 bg-destructive/10 p-3 text-sm text-foreground">{submitError}</p>}
           <div className="flex flex-col-reverse gap-3 pt-2 sm:flex-row sm:items-center sm:justify-between">
             <Button type="button" variant="ghost" onClick={finish} disabled={busy}>Überspringen</Button>
-            <Button type="submit" variant="gold" disabled={busy} className="sm:min-w-44">{busy && <Loader2 className="animate-spin" />}Angaben senden</Button>
+            <Button type="submit" variant="gold" disabled={busy} className="w-full sm:w-auto sm:min-w-44">{busy && <Loader2 className="animate-spin" />}Angaben senden</Button>
           </div>
         </form>
       )}

@@ -43,7 +43,7 @@ function FinancingForm() {
         <div className={lbl}>Wunschrate
           <Select value={rate} onValueChange={setRate}><SelectTrigger className="mt-2 h-12" aria-label="Wunschrate"><SelectValue placeholder="Bitte wählen" /></SelectTrigger><SelectContent>{rates.map((r) => <SelectItem key={r} value={r}>{r}</SelectItem>)}</SelectContent></Select>
         </div>
-        <label className={lbl}>Anzahlung in € (optional)<Input className="mt-2 h-12" inputMode="numeric" value={down} onChange={(e) => setDown(e.target.value.replace(/\D/g, "").slice(0, 6))} /></label>
+        <label className={lbl}>Anzahlung in € (optional)<Input className="mt-2 h-12" inputMode="numeric" enterKeyHint="next" value={down} onChange={(e) => setDown(e.target.value.replace(/\D/g, "").slice(0, 6))} /></label>
       </div>
       <LeadBasicsFields form={form} />
       <PrivacyHint />

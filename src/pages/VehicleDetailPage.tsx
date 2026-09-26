@@ -42,41 +42,41 @@ export default function VehicleDetailPage() {
 
   return (
     <div className="mx-auto max-w-7xl px-5 py-8 lg:px-6">
-      <nav aria-label="Brotkrumen" className="flex flex-wrap items-center gap-1.5 text-sm text-muted-foreground">
+      <nav aria-label="Brotkrumen" className="hidden flex-wrap items-center gap-1.5 text-sm text-muted-foreground sm:flex">
         <Link to="/" className="hover:text-gold">Start</Link><ChevronRight className="size-3.5" />
         <Link to="/fahrzeuge" className="hover:text-gold">Fahrzeuge</Link><ChevronRight className="size-3.5" />
         <span className="truncate text-foreground" aria-current="page">{v.title}</span>
       </nav>
-      <Link to="/fahrzeuge" className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-gold hover:text-gold-light"><ArrowLeft className="size-4" />Zurück zur Übersicht</Link>
+      <Link to="/fahrzeuge" className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-gold hover:text-gold-light sm:mt-4"><ArrowLeft className="size-4" /><span className="sm:hidden">Alle Fahrzeuge</span><span className="hidden sm:inline">Zurück zur Übersicht</span></Link>
 
-      <div className="mt-6 grid gap-10 lg:grid-cols-[minmax(0,1fr)_400px]">
-        <div className="min-w-0 space-y-10">
-          <VehicleGallery images={v.images} title={v.title} badge={badge} />
+      <div className="mt-2 grid gap-8 sm:mt-6 lg:grid-cols-[minmax(0,1fr)_400px] lg:gap-10">
+        <div className="contents lg:block lg:min-w-0 lg:space-y-10">
+          <div className="order-1"><VehicleGallery images={v.images} title={v.title} badge={badge} /></div>
 
-          <section><h2 className="section-h2">Daten</h2><dl className="mt-6 grid grid-cols-2 border-t border-border sm:grid-cols-3">{facts.map(({ label, value }) => <div key={label} className="border-b border-border py-4 pr-4"><dt className="text-xs text-muted-foreground">{label}</dt><dd className="mt-1 font-semibold text-foreground">{value}</dd></div>)}</dl></section>
+          <section className="order-3"><h2 className="section-h2">Daten</h2><dl className="mt-6 grid grid-cols-2 border-t border-border sm:grid-cols-3">{facts.map(({ label, value }) => <div key={label} className="border-b border-border py-4 pr-4"><dt className="text-xs text-muted-foreground">{label}</dt><dd className="mt-1 font-semibold text-foreground">{value}</dd></div>)}</dl></section>
 
-          {v.features.length ? <section><h2 className="section-h2">Ausstattung</h2><ul className="mt-5 grid gap-x-6 gap-y-3 sm:grid-cols-2">{v.features.map((f) => <li key={f} className="flex items-center gap-3 text-foreground"><span className="grid size-6 shrink-0 place-items-center rounded-full border border-gold/50 text-gold"><Check className="size-3.5" /></span>{f}</li>)}</ul></section> : null}
+          {v.features.length ? <section className="order-4"><h2 className="section-h2">Ausstattung</h2><ul className="mt-5 grid gap-x-6 gap-y-3 sm:grid-cols-2">{v.features.map((f) => <li key={f} className="flex items-center gap-3 text-foreground"><span className="grid size-6 shrink-0 place-items-center rounded-full border border-gold/50 text-gold"><Check className="size-3.5" /></span>{f}</li>)}</ul></section> : null}
 
-          {v.description ? <section><h2 className="section-h2">Beschreibung</h2><p className="mt-5 max-w-3xl whitespace-pre-line leading-7 text-muted-foreground">{v.description}</p></section> : null}
+          {v.description ? <section className="order-5"><h2 className="section-h2">Beschreibung</h2><p className="mt-5 max-w-3xl whitespace-pre-line leading-7 text-muted-foreground">{v.description}</p></section> : null}
 
-          <section className="border-y border-border py-7"><h2 className="text-lg font-semibold text-foreground">Ihr Auto in Zahlung geben?</h2><p className="mt-2 text-sm text-muted-foreground">Wir rechnen Ihr bisheriges Auto direkt auf dieses Angebot an.</p><Button asChild variant="silver" className="mt-4"><Link to="/auto-verkaufen" search={{ wunschfahrzeug: v.id }}>Preis anfragen →</Link></Button></section>
+          <section className="order-6 border-y border-border py-7"><h2 className="text-lg font-semibold text-foreground">Ihr Auto in Zahlung geben?</h2><p className="mt-2 text-sm text-muted-foreground">Wir rechnen Ihr bisheriges Auto direkt auf dieses Angebot an.</p><Button asChild variant="silver" className="mt-4"><Link to="/auto-verkaufen" search={{ wunschfahrzeug: v.id }}>Preis anfragen →</Link></Button></section>
 
-          <section id="anfrage" className="scroll-mt-28 rounded-lg border border-border bg-card p-6 md:p-8"><h2 className="section-h2">Anfrage zu diesem Fahrzeug</h2><p className="mt-2 text-sm text-muted-foreground">{v.title} · {formatPrice(v.price_eur)}</p><div className="mt-6"><VehicleInquiryForm vehicleId={v.id} vehicleTitle={v.title} kind={kind} onKindChange={setKind} /></div></section>
+          <section id="anfrage" className="order-7 scroll-mt-28 rounded-lg border border-border bg-card p-5 md:p-8"><h2 className="section-h2">Anfrage zu diesem Fahrzeug</h2><p className="mt-2 text-sm text-muted-foreground">{v.title} · {formatPrice(v.price_eur)}</p><div className="mt-6"><VehicleInquiryForm vehicleId={v.id} vehicleTitle={v.title} kind={kind} onKindChange={setKind} /></div></section>
 
-          <p className="text-xs leading-5 text-muted-foreground">Diese Seite dient der Information. Ein Kaufvertrag kommt ausschließlich vor Ort in unserem Autohaus oder nach individueller Absprache zustande. Eine verbindliche Reservierung ist über die Website nicht möglich.</p>
+          <p className="order-8 text-xs leading-5 text-muted-foreground">Diese Seite dient der Information. Ein Kaufvertrag kommt ausschließlich vor Ort in unserem Autohaus oder nach individueller Absprache zustande. Eine verbindliche Reservierung ist über die Website nicht möglich.</p>
         </div>
 
-        <aside className="lg:sticky lg:top-28 lg:self-start">
-          <div className="rounded-lg border border-border bg-card p-6">
+        <aside className="order-2 lg:sticky lg:top-28 lg:self-start">
+          <div className="border-b border-border pb-7 pt-1 lg:rounded-lg lg:border lg:bg-card lg:p-6">
              <h1 className="font-display text-2xl font-semibold leading-[1.15] text-foreground">{v.title}</h1>
             <p className="mt-2 text-sm text-muted-foreground">EZ {formatFirstRegistration(v.first_registration)} · {formatKm(v.mileage_km)} · {formatFuel(v.fuel)} · {formatTransmission(v.transmission)}{v.power_ps ? ` · ${v.power_ps} PS` : ""}</p>
-             <p className="mt-6 font-display text-4xl font-bold text-foreground">{formatPrice(v.price_eur)}</p>
+             <p className="mt-5 font-display text-3xl font-bold text-foreground lg:mt-6 lg:text-4xl">{formatPrice(v.price_eur)}</p>
             <p className="mt-2 text-xs leading-5 text-muted-foreground">{v.tax_status === "differenz" ? "Differenzbesteuert nach § 25a UStG, MwSt. nicht ausweisbar" : "inkl. 19 % MwSt., MwSt. ausweisbar"}</p>
             <p className="mt-1 text-xs leading-5 text-muted-foreground">Finanzierung über Santander Consumer Bank oder DKB, Bonität vorausgesetzt.</p>
             {siteConfig.features.showMonthlyRate ? <p className="mt-3 text-sm text-foreground">Finanzierung auf Anfrage</p> : null}
             <div className="mt-6 grid gap-3">
-               <Button variant="gold" onClick={() => goToForm("probefahrt")}>Probefahrt anfragen</Button>
-               <div className="flex flex-wrap gap-x-5 gap-y-3 text-sm"><button className="text-silver underline underline-offset-4 hover:text-gold" onClick={() => goToForm("anfrage")}>Anfrage senden</button><a className="text-silver underline underline-offset-4 hover:text-gold" href={phoneHref}>Anrufen</a><a className="text-silver underline underline-offset-4 hover:text-gold" href={vehicleWhatsappUrl(v.title, v.price_eur, pageUrl)} target="_blank" rel="noopener noreferrer">WhatsApp</a></div>
+                <Button variant="gold" className="w-full" onClick={() => goToForm("probefahrt")}>Probefahrt anfragen</Button>
+                <div className="grid grid-cols-3 gap-1 text-sm lg:flex lg:flex-wrap lg:gap-x-5 lg:gap-y-3"><button className="tap-link justify-center text-silver underline underline-offset-4 hover:text-gold" onClick={() => goToForm("anfrage")}>Anfrage</button><a className="tap-link justify-center text-silver underline underline-offset-4 hover:text-gold" href={phoneHref}>Anrufen</a><a className="tap-link justify-center text-silver underline underline-offset-4 hover:text-gold" href={vehicleWhatsappUrl(v.title, v.price_eur, pageUrl)} target="_blank" rel="noopener noreferrer">WhatsApp</a></div>
             </div>
             <ul className="mt-6 flex flex-wrap gap-x-4 gap-y-2 border-t border-border pt-4 text-xs text-muted-foreground">{["Geprüft", "12 Monate Gewährleistung", "Inzahlungnahme möglich"].map((t) => <li key={t} className="flex items-center gap-1.5"><Check className="size-3.5 text-gold" />{t}</li>)}</ul>
           </div>

@@ -16,7 +16,7 @@ const kinds: { value: Kind; label: string }[] = [
 const phoneHref = `tel:${siteConfig.phone.replace(/\s/g, "")}`;
 
 export function PrivacyNotice() {
-  return <p className="text-xs leading-5 text-muted-foreground">Mit dem Absenden verarbeiten wir Ihre Angaben zur Bearbeitung Ihrer Anfrage. Details in unserer <Link to="/datenschutz" className="font-semibold text-gold hover:text-gold-light">Datenschutzerklärung</Link>.</p>;
+  return <p className="text-xs leading-5 text-muted-foreground">Mit dem Absenden verarbeiten wir Ihre Angaben zur Bearbeitung Ihrer Anfrage. Details in unserer <Link to="/datenschutz" className="inline-flex min-h-11 items-center font-semibold text-gold hover:text-gold-light">Datenschutzerklärung</Link>.</p>;
 }
 
 export function Honeypot({ value, onChange }: { value: string; onChange: (v: string) => void }) {
@@ -24,7 +24,7 @@ export function Honeypot({ value, onChange }: { value: string; onChange: (v: str
 }
 
 export function InquirySuccess({ name }: { name: string }) {
-  return <div role="status" className="rounded border border-success/50 bg-card p-6"><CheckCircle2 className="size-8 text-success" /><p className="mt-3 text-lg font-semibold text-foreground">Vielen Dank, {name}.</p><p className="mt-2 text-muted-foreground">Wir melden uns am nächsten Werktag.</p><a href={phoneHref} className="mt-4 inline-flex items-center gap-2 font-semibold text-silver underline underline-offset-4 hover:text-gold"><Phone className="size-4" />{siteConfig.phone}</a></div>;
+  return <div role="status" className="rounded border border-success/50 bg-card p-6"><CheckCircle2 className="size-8 text-success" /><p className="mt-3 text-lg font-semibold text-foreground">Vielen Dank, {name}.</p><p className="mt-2 text-muted-foreground">Wir melden uns am nächsten Werktag.</p><a href={phoneHref} className="mt-4 inline-flex min-h-11 items-center gap-2 font-semibold text-silver underline underline-offset-4 hover:text-gold"><Phone className="size-4" />{siteConfig.phone}</a></div>;
 }
 
 export function InquiryError() {
@@ -64,14 +64,14 @@ export function VehicleInquiryForm({ vehicleId, vehicleTitle, kind, onKindChange
       <div role="radiogroup" aria-label="Art der Anfrage" className="grid grid-cols-3 gap-1 rounded-lg border border-border bg-background p-1">
         {kinds.map((k) => <button key={k.value} type="button" role="radio" aria-checked={kind === k.value} onClick={() => onKindChange(k.value)} className={cn("h-11 rounded text-sm font-semibold transition-colors", kind === k.value ? "bg-gold text-primary-foreground" : "text-muted-foreground hover:text-foreground")}>{k.label}</button>)}
       </div>
-      <Field label="Name *" error={errors["name"]}><Input value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" className="h-12" /></Field>
+      <Field label="Name *" error={errors["name"]}><Input value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" enterKeyHint="next" className="h-12" /></Field>
       <div className="grid gap-4 sm:grid-cols-2">
-        <Field label="Telefon" error={errors["phone"]}><Input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} autoComplete="tel" className="h-12" /></Field>
-        <Field label="E-Mail" error={errors["email"]}><Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" className="h-12" /></Field>
+        <Field label="Telefon" error={errors["phone"]}><Input type="tel" inputMode="tel" value={phone} onChange={(e) => setPhone(e.target.value)} autoComplete="tel" enterKeyHint="next" className="h-12" /></Field>
+        <Field label="E-Mail" error={errors["email"]}><Input type="email" inputMode="email" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" enterKeyHint="next" className="h-12" /></Field>
       </div>
       <p className="-mt-2 text-xs text-muted-foreground">Telefon oder E-Mail genügt.</p>
       <Field label="Nachricht" error={errors["message"]}><Textarea value={message} onChange={(e) => setMessage(e.target.value)} rows={4} /></Field>
-      <label className="flex items-start gap-3 text-sm text-muted-foreground"><Checkbox checked={marketing} onCheckedChange={(v) => setMarketing(v === true)} className="mt-0.5" />Ich möchte über passende Angebote informiert werden (optional, jederzeit widerrufbar).</label>
+      <label className="flex min-h-11 items-start gap-3 py-2 text-sm text-muted-foreground"><Checkbox checked={marketing} onCheckedChange={(v) => setMarketing(v === true)} className="mt-0.5" />Ich möchte über passende Angebote informiert werden (optional, jederzeit widerrufbar).</label>
       {state === "error" ? <InquiryError /> : null}
       <PrivacyNotice />
       <Button type="submit" variant="gold" className="w-full" disabled={state === "sending"}>{state === "sending" ? "Wird gesendet …" : kind === "probefahrt" ? "Probefahrt anfragen" : kind === "rueckruf" ? "Rückruf anfordern" : "Anfrage senden"}</Button>

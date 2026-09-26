@@ -6,18 +6,19 @@ import type { Vehicle } from "@/lib/vehicles";
 
 export function VehicleCard({ vehicle }: { vehicle: Vehicle }) {
   const image = vehicle.images[0];
-  const facts = `EZ ${formatFirstRegistration(vehicle.first_registration)} · ${formatKm(vehicle.mileage_km)} · ${formatFuel(vehicle.fuel)} · ${formatTransmission(vehicle.transmission)}`;
+  const firstFacts = `EZ ${formatFirstRegistration(vehicle.first_registration)} · ${formatKm(vehicle.mileage_km)}`;
+  const secondFacts = `${formatFuel(vehicle.fuel)} · ${formatTransmission(vehicle.transmission)}`;
 
   return (
-    <Link to="/fahrzeuge/$slug" params={{ slug: vehicle.slug }} className="group block overflow-hidden rounded border border-border bg-card transition-colors hover:border-gold">
-      <div className="relative aspect-4/3 overflow-hidden bg-muted">
+    <Link to="/fahrzeuge/$slug" params={{ slug: vehicle.slug }} className="group grid min-h-[130px] grid-cols-[40%_minmax(0,1fr)] overflow-hidden rounded border border-border bg-card transition-colors hover:border-gold sm:block">
+      <div className="relative min-h-full overflow-hidden bg-muted sm:aspect-4/3">
         {image ? <VehicleImg src={sizedImage(image.thumbUrl || image.url, "card")} alt={image.alt || vehicle.title} width="800" height="600" loading="lazy" className="size-full object-cover" /> : null}
         {vehicle.status === "reserviert" ? <span className="absolute left-3 top-3 rounded bg-background/95 px-2.5 py-1 text-xs font-medium text-foreground">Reserviert</span> : null}
       </div>
-      <div className="p-5">
-        <h3 className="line-clamp-2 font-display text-lg font-semibold text-foreground">{vehicle.title}</h3>
-        <p className="mt-2 truncate text-sm text-muted-foreground">{facts}</p>
-        <div className="mt-5 flex flex-wrap items-baseline gap-x-3 gap-y-1"><p className="font-display text-2xl font-bold text-foreground">{formatPrice(vehicle.price_eur)}</p><p className="text-xs text-muted-foreground">{vehicle.tax_status === "differenz" ? "§ 25a" : "MwSt. ausweisbar"}</p></div>
+      <div className="min-w-0 p-3 sm:p-5">
+        <h3 className="line-clamp-2 font-display text-[15px] font-semibold leading-5 text-foreground sm:text-lg">{vehicle.title}</h3>
+        <div className="mt-2 text-[13px] leading-5 text-muted-foreground sm:text-sm"><p>{firstFacts}</p><p>{secondFacts}</p></div>
+        <div className="mt-2 sm:mt-5 sm:flex sm:flex-wrap sm:items-baseline sm:gap-x-3 sm:gap-y-1"><p className="font-display text-xl font-bold text-foreground sm:text-2xl">{formatPrice(vehicle.price_eur)}</p><p className="text-[11px] text-muted-foreground sm:text-xs">{vehicle.tax_status === "differenz" ? "§ 25a" : "MwSt. ausweisbar"}</p></div>
       </div>
     </Link>
   );
@@ -25,12 +26,12 @@ export function VehicleCard({ vehicle }: { vehicle: Vehicle }) {
 
 export function VehicleCardSkeleton() {
   return (
-    <div className="overflow-hidden rounded border border-border bg-card" aria-hidden="true">
-      <div className="aspect-4/3 animate-pulse bg-muted" />
-      <div className="space-y-3 p-5">
+    <div className="grid min-h-[130px] grid-cols-[40%_minmax(0,1fr)] overflow-hidden rounded border border-border bg-card sm:block" aria-hidden="true">
+      <div className="min-h-full animate-pulse bg-muted sm:aspect-4/3" />
+      <div className="space-y-3 p-3 sm:p-5">
         <div className="h-4 w-4/5 animate-pulse rounded bg-muted" />
         <div className="h-4 w-3/5 animate-pulse rounded bg-muted" />
-        <div className="h-16 animate-pulse rounded bg-muted/60" />
+        <div className="h-8 animate-pulse rounded bg-muted/60 sm:h-16" />
         <div className="h-7 w-2/5 animate-pulse rounded bg-gold/20" />
       </div>
     </div>

@@ -51,7 +51,7 @@ export function TestimonialsNote() {
 }
 
 export function PrivacyHint() {
-  return <p className="text-xs leading-5 text-muted-foreground">Mit dem Absenden verarbeiten wir Ihre Angaben zur Bearbeitung Ihrer Anfrage. Details in unserer <a href="/datenschutz" className="text-gold underline-offset-4 hover:underline">Datenschutzerklärung</a>.</p>;
+  return <p className="text-xs leading-5 text-muted-foreground">Mit dem Absenden verarbeiten wir Ihre Angaben zur Bearbeitung Ihrer Anfrage. Details in unserer <a href="/datenschutz" className="inline-flex min-h-11 items-center text-gold underline-offset-4 hover:underline">Datenschutzerklärung</a>.</p>;
 }
 
 export function Chip({ active, onClick, children }: { active: boolean; onClick: () => void; children: ReactNode }) {
@@ -59,5 +59,5 @@ export function Chip({ active, onClick, children }: { active: boolean; onClick: 
 }
 
 export function PhotoPlaceholder({ label, portrait = false }: { label: string; portrait?: boolean }) {
-  return <div className={`flex items-end rounded border border-border bg-card p-5 ${portrait ? "aspect-4/5" : "aspect-3/2"}`}><p className="text-xs uppercase tracking-[0.08em] text-silver">Foto · {label}</p></div>;
+  return <div className={`flex items-end rounded border border-border bg-card p-5 ${portrait ? "aspect-16/10 md:aspect-4/5" : "aspect-16/10 md:aspect-3/2"}`}><p className="text-xs uppercase tracking-[0.08em] text-silver">Foto · {label}</p></div>;
 }

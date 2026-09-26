@@ -31,10 +31,10 @@ export function LogoMark({ size = 56, className }: { size?: number; className?: 
 /** Header-Variante: Bild + Wortmarke; unter 380px nur das Bild. */
 export function HeaderLogo() {
   return (
-    <span className="inline-flex items-center gap-3">
-      <LogoMark size={44} className="md:hidden" />
+    <span className="inline-flex items-center gap-2 md:gap-3">
+      <LogoMark size={36} className="md:hidden" />
       <LogoMark size={56} className="hidden md:block" />
-      <Logo className="max-[379px]:hidden" />
+      <Logo className="[&_span:first-child]:text-[0.42rem] [&_span:last-child]:text-[0.78rem] max-[339px]:hidden md:[&_span:first-child]:text-[0.57rem] md:[&_span:last-child]:text-[1.15rem]" />
     </span>
   );
 }
