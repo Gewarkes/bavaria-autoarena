@@ -25,9 +25,9 @@
 
 # Schritt 12
 
-- [ ] Detailseite mobil neu ordnen und eigene Preis-Aktionsleiste ergänzen
-- [ ] Startseite, Fahrzeugfilter und Fahrzeugkarten für 360–390 px optimieren
-- [ ] Navigation, Menü, Kontaktseite und Tap-Ziele mobil verbessern
-- [ ] Formulare, Funnel-Schrittwechsel und sichere Bildschirmränder anpassen
-- [ ] Galerie, Bilder und mobile Ladeleistung verbessern
-- [ ] Drei Handygrößen und Desktop im Browser prüfen; Produktions-Build ausführen
+- [x] Detailseite mobil neu ordnen und eigene Preis-Aktionsleiste ergänzen
+- [x] Startseite, Fahrzeugfilter und Fahrzeugkarten für 360–390 px optimieren
+- [x] Navigation, Menü, Kontaktseite und Tap-Ziele mobil verbessern
+- [x] Formulare, Funnel-Schrittwechsel und sichere Bildschirmränder anpassen
+- [x] Galerie, Bilder und mobile Ladeleistung verbessern
+- [x] Drei Handygrößen und Desktop im Browser prüfen; Produktions-Build ausführen
