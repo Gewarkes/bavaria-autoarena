@@ -49,7 +49,7 @@ function Header() {
           <a href={`https://wa.me/${siteConfig.whatsapp.replace(/\D/g, "")}`} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp schreiben" className="grid size-10 place-items-center rounded-full border border-border text-gold hover:border-gold/60"><WhatsAppIcon /></a>
           <Button asChild variant="gold"><Link to="/auto-verkaufen">Fahrzeug bewerten</Link></Button>
         </div>
-        <Phone className="ml-auto size-5 text-gold md:hidden" aria-hidden="true" />
+        <a href={phoneHref} aria-label="Anrufen" className="ml-auto grid size-11 place-items-center text-gold md:hidden"><Phone className="size-5" /></a>
       </div>
     </header>
   );
