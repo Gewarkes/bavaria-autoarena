@@ -153,27 +153,6 @@
   --sidebar-ring: oklch(0.551 0.027 264.364);
 }
 
-@utility bg-gold-gradient {
-  background-image: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 45%, var(--gold-dark) 100%);
-}
-
-@utility text-gold-gradient {
-  background-image: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 45%, var(--gold-dark) 100%);
-  background-clip: text;
-  color: transparent;
-}
-
-@utility text-silver-gradient {
-  background-image: linear-gradient(135deg, oklch(0.92 0.008 258), var(--silver) 48%, oklch(0.64 0.016 258));
-  background-clip: text;
-  color: transparent;
-}
-
-@utility bg-rauten {
-  background-image: radial-gradient(circle at 50% 42%, color-mix(in oklab, var(--card) 75%, transparent) 0%, transparent 58%, color-mix(in oklab, var(--darkest) 65%, transparent) 100%), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='48' viewBox='0 0 28 48'%3E%3Cpath d='M14 0 28 24 14 48 0 24Z' fill='none' stroke='%23C9A961' stroke-opacity='.04' stroke-width='1'/%3E%3C/svg%3E");
-  background-size: cover, 28px 48px;
-}
-
 @utility bg-rauten-footer {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='48' viewBox='0 0 28 48'%3E%3Cpath d='M14 0 28 24 14 48 0 24Z' fill='%23C9A961' fill-opacity='.03'/%3E%3C/svg%3E");
   background-size: 28px 48px;
@@ -182,11 +161,6 @@
 @utility gold-divider {
   height: 1px;
   background-image: linear-gradient(90deg, transparent, color-mix(in oklab, var(--gold) 75%, transparent), transparent);
-}
-
-@utility hero-image-mask {
-  mask-image: linear-gradient(to right, transparent 0%, black 42%, black 100%);
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 42%, black 100%);
 }
 
 @utility reveal {
@@ -200,8 +174,6 @@
   transform: translateY(0);
 }
 
-@utility shadow-gold { box-shadow: none; }
-@utility shadow-gold-lg { box-shadow: none; }
 @utility footer-title { font-family: var(--font-display); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--foreground); }
 
 @layer base {

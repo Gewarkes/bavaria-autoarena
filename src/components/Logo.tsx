@@ -7,8 +7,8 @@ export function Logo({ className }: { className?: string }) {
         BAVARIA
       </span>
       <span className="font-display text-[1.15rem] font-extrabold tracking-wide sm:text-[1.35rem]">
-        <span className="text-silver-gradient">AUTO</span>
-        <span className="text-gold-gradient">ARENA</span>
+        <span className="text-silver">AUTO</span>
+        <span className="text-gold">ARENA</span>
       </span>
     </div>
   );
