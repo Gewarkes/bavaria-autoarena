@@ -20,6 +20,7 @@ import {
 
 type Props = { initialBrand?: string | undefined; initialModel?: string | undefined; initialDesiredVehicleId?: string | undefined };
 type Errors = Record<string, string>;
+type Loose<T> = { [K in keyof T]?: T[K] | undefined };
 type Photo = { id: string; file: File; preview: string; state: "wartet" | "laedt" | "fertig" | "fehler"; path?: string };
 
 const phoneHref = `tel:${siteConfig.phone.replace(/\s/g, "")}`;
@@ -77,8 +78,8 @@ export function TradeInWizard({ initialBrand, initialModel, initialDesiredVehicl
   const [brandOpen, setBrandOpen] = useState(false);
 
   const initialBrandMatch = initialBrand ? brandOptions.find((b) => b.toLowerCase() === initialBrand.toLowerCase() || (initialBrand === "VW" && b === "Volkswagen")) ?? "Andere" : "";
-  const [s1, setS1] = useState<Partial<Step1> & { mileageText: string }>({ brand: initialBrandMatch, model: initialModel ?? "", mileageText: "" });
-  const [s2, setS2] = useState<Partial<Step2>>({ desiredVehicleId: initialDesiredVehicleId, intent: initialDesiredVehicleId ? "inzahlung" : undefined });
+  const [s1, setS1] = useState<Loose<Step1> & { mileageText: string }>({ brand: initialBrandMatch, model: initialModel ?? "", mileageText: "" });
+  const [s2, setS2] = useState<Loose<Step2>>({ desiredVehicleId: initialDesiredVehicleId, intent: initialDesiredVehicleId ? "inzahlung" : undefined });
   const [s3, setS3] = useState({ firstName: "", lastName: "", phone: "", email: "", zip: "", channel: undefined as Step3["channel"], marketing: false });
   const [s4, setS4] = useState({ exterior: undefined as "sehr_gut" | "gut" | "gebrauchsspuren" | undefined, interior: undefined as "sehr_gut" | "gut" | "gebrauchsspuren" | undefined, huMonth: "", huYear: "", previousOwners: undefined as "1" | "2" | "3+" | undefined, serviceBook: undefined as "ja" | "nein" | "teilweise" | undefined, damageNotes: "" });
   const [photos, setPhotos] = useState<Photo[]>([]);
