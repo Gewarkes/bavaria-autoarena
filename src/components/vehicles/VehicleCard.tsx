@@ -6,7 +6,7 @@ import { Camera } from "lucide-react";
 import { useState } from "react";
 import { coverImage, type Vehicle } from "@/lib/vehicles";
 
-export function VehicleCard({ vehicle, eager = false }: { vehicle: Vehicle; eager?: boolean }) {
+export function VehicleCard({ vehicle, eager = false, onImageError }: { vehicle: Vehicle; eager?: boolean; onImageError?: (vehicle: Vehicle) => void }) {
   const [hoverReady, setHoverReady] = useState(false);
   const image = coverImage(vehicle);
   const coverIndex = vehicle.images.indexOf(image!);
@@ -18,7 +18,7 @@ export function VehicleCard({ vehicle, eager = false }: { vehicle: Vehicle; eage
   return (
     <Link to="/fahrzeuge/$slug" params={{ slug: vehicle.slug }} onPointerEnter={() => setHoverReady(true)} className="group block overflow-hidden rounded-sm bg-card ring-1 ring-navy-900/5 transition-[box-shadow] hover:ring-gold-500/50">
       <div className="relative aspect-video overflow-hidden bg-silver-200">
-        {image ? <VehicleImg src={sizedImage(image.thumbUrl || image.url, "card")} srcSet={`${sizedImage(image.url, "card")} 640w, ${sizedImage(image.url, "medium")} 1024w`} sizes="(min-width:1280px) 400px, (min-width:768px) 50vw, 100vw" alt={image.alt || vehicle.title} width="1024" height="576" loading={eager ? "eager" : "lazy"} fetchPriority={eager ? "high" : "auto"} className={`size-full bg-silver-200 object-cover transition-transform duration-500 group-hover:scale-[1.03] ${coverHasSeal ? "origin-bottom scale-[1.06] object-[50%_100%]" : "object-[50%_60%]"}`} /> : null}
+        {image ? <VehicleImg src={sizedImage(image.thumbUrl || image.url, "card")} srcSet={`${sizedImage(image.url, "card")} 640w, ${sizedImage(image.url, "medium")} 1024w`} sizes="(min-width:1280px) 400px, (min-width:768px) 50vw, 100vw" alt={image.alt || vehicle.title} width="1024" height="576" loading={eager ? "eager" : "lazy"} fetchPriority={eager ? "high" : "auto"} onError={() => onImageError?.(vehicle)} className={`size-full bg-silver-200 object-cover transition-transform duration-500 ${coverHasSeal ? "origin-bottom scale-[1.12] object-[50%_100%] group-hover:scale-[1.15]" : "object-[50%_60%] group-hover:scale-[1.03]"}`} /> : <VehicleImg src={undefined} className="size-full" />}
         {hoverReady && hoverImage ? <VehicleImg src={sizedImage(hoverImage.url, "card")} alt="" width="1024" height="576" loading="eager" className="pointer-events-none absolute inset-0 size-full object-cover object-[50%_60%] opacity-0 transition-all duration-500 group-hover:scale-[1.03] group-hover:opacity-100 [@media(hover:none)]:hidden" /> : null}
         {vehicle.status === "reserviert" ? <span className="absolute left-3 top-3 rounded-sm bg-cream px-2.5 py-1 text-xs font-semibold text-navy-900">Reserviert</span> : isNew ? <span className="absolute left-3 top-3 rounded-sm bg-navy-900 px-2.5 py-1 text-xs font-semibold text-cream">Neu eingetroffen</span> : null}
         {(vehicle.image_count ?? vehicle.images.length) > 1 ? <span className="absolute bottom-3 right-3 inline-flex items-center gap-1.5 rounded-sm bg-navy-900/70 px-2.5 py-1 text-[11px] text-cream"><Camera className="size-3.5" strokeWidth={1.5} />{`${vehicle.image_count ?? vehicle.images.length} Fotos`}</span> : null}

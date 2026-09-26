@@ -21,6 +21,7 @@ export default function AdminVehiclesPage() {
   const navigate = useNavigate();
   const { data, isLoading, error } = useQuery({ queryKey: ["admin", "vehicles"], queryFn: listAdminVehicles });
   const [q, setQ] = useState("");
+  const [brokenImages, setBrokenImages] = useState<Set<string>>(() => new Set());
   const rows = useMemo(() => {
     const s = q.trim().toLowerCase();
     return (data ?? []).filter((v) => !s || `${v.title} ${v.brand} ${v.model}`.toLowerCase().includes(s));
@@ -51,8 +52,8 @@ export default function AdminVehiclesPage() {
                 const img = images?.[v.cover_index ?? 0] ?? images?.[0];
                 return (
                   <TableRow key={v.id} className="cursor-pointer" onClick={() => navigate({ to: "/admin/fahrzeuge/$id", params: { id: v.id } })}>
-                    <TableCell><div className="h-12 w-16 overflow-hidden rounded bg-muted">{img ? <VehicleImg src={sizedImage(img.thumbUrl || img.url, "card")} alt="" width="64" height="48" loading="lazy" className="size-full object-cover" /> : null}</div></TableCell>
-                    <TableCell><span className="font-medium">{v.title}</span> {v.is_demo ? <DemoBadge /> : null}</TableCell>
+                     <TableCell><div className="h-12 w-16 overflow-hidden rounded bg-muted">{img ? <VehicleImg src={sizedImage(img.thumbUrl || img.url, "card")} alt="" width="64" height="48" loading="lazy" onError={() => setBrokenImages((previous) => new Set(previous).add(v.id))} className="size-full object-cover" /> : null}</div></TableCell>
+                     <TableCell><span className="font-medium">{v.title}</span> {v.is_demo ? <DemoBadge /> : null}{brokenImages.has(v.id) ? <span className="mt-1 block text-xs font-semibold text-destructive">Bild nicht erreichbar</span> : null}</TableCell>
                     <TableCell className="whitespace-nowrap">{formatPrice(v.price_eur)}</TableCell>
                     <TableCell>{formatFirstRegistration(v.first_registration)}</TableCell>
                     <TableCell className="whitespace-nowrap">{formatKm(v.mileage_km)}</TableCell>

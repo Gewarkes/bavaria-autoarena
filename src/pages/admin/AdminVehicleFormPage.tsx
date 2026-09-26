@@ -22,9 +22,9 @@ type Form = {
   brand: string; model: string; variant: string; title: string; price: string; tax_status: AdminVehicle["tax_status"];
   month: string; year: string; km: string; fuel: AdminVehicle["fuel"]; transmission: AdminVehicle["transmission"]; ps: string;
   body_type: string; color: string; hu_until: string; previous_owners: string; features: string[]; description: string;
-  status: AdminVehicle["status"]; is_highlight: boolean; is_demo: boolean; images: Img[]; cover_index: number | null; hover_index: number | null; gallery_hidden: number[];
+  status: AdminVehicle["status"]; is_highlight: boolean; is_demo: boolean; images: Img[]; cover_index: number | null; hover_index: number | null; seal_indices: number[]; gallery_hidden: number[];
 };
-const empty: Form = { brand: "", model: "", variant: "", title: "", price: "", tax_status: "differenz", month: "01", year: "", km: "", fuel: "benzin", transmission: "automatik", ps: "", body_type: "Limousine", color: "", hu_until: "", previous_owners: "", features: [], description: "", status: "verfuegbar", is_highlight: false, is_demo: false, images: [], cover_index: null, hover_index: null, gallery_hidden: [] };
+const empty: Form = { brand: "", model: "", variant: "", title: "", price: "", tax_status: "differenz", month: "01", year: "", km: "", fuel: "benzin", transmission: "automatik", ps: "", body_type: "Limousine", color: "", hu_until: "", previous_owners: "", features: [], description: "", status: "verfuegbar", is_highlight: false, is_demo: false, images: [], cover_index: null, hover_index: null, seal_indices: [], gallery_hidden: [] };
 
 const schema = z.object({
   brand: z.string().trim().min(1, "Marke fehlt."), model: z.string().trim().min(1, "Modell fehlt."), title: z.string().trim().min(3, "Titel fehlt."),
@@ -38,7 +38,7 @@ const toForm = (v: AdminVehicle): Form => ({
   ps: v.power_ps?.toString() ?? "", body_type: v.body_type, color: v.color ?? "", hu_until: v.hu_until ?? "", previous_owners: v.previous_owners?.toString() ?? "",
   features: v.features, description: v.description ?? "", status: v.status, is_highlight: v.is_highlight, is_demo: v.is_demo,
   images: ((v.images as Img[] | null) ?? []).map((i, idx) => ({ url: i.url, thumbUrl: i.thumbUrl, alt: i.alt ?? "", sort: idx })),
-  cover_index: v.cover_index, hover_index: v.hover_index, gallery_hidden: v.gallery_hidden,
+  cover_index: v.cover_index, hover_index: v.hover_index, seal_indices: v.seal_indices, gallery_hidden: v.gallery_hidden,
 });
 
 function F({ label, children, className }: { label: string; children: ReactNode; className?: string }) {
@@ -61,6 +61,7 @@ export default function AdminVehicleFormPage({ id }: { id?: string }) {
   const [busy, setBusy] = useState(false);
   const [dragIdx, setDragIdx] = useState<number | null>(null);
   const [removed, setRemoved] = useState<string[]>([]);
+  const [brokenImages, setBrokenImages] = useState<Set<number>>(() => new Set());
 
   useEffect(() => { if (existing.data) setF(toForm(existing.data)); }, [existing.data]);
   const set = <K extends keyof Form>(k: K, v: Form[K]) => setF((p) => {
@@ -97,7 +98,7 @@ export default function AdminVehicleFormPage({ id }: { id?: string }) {
   const removeImg = (idx: number) => {
     const img = f.images[idx];
     if (img && !isExternal(img.url)) setRemoved((r) => [...r, bucketPath(img.url), ...(img.thumbUrl ? [bucketPath(img.thumbUrl)] : [])]);
-    setF((previous) => ({ ...previous, images: previous.images.filter((_, i) => i !== idx).map((i, s) => ({ ...i, sort: s })), cover_index: previous.cover_index === idx ? null : previous.cover_index != null && previous.cover_index > idx ? previous.cover_index - 1 : previous.cover_index, hover_index: previous.hover_index === idx ? null : previous.hover_index != null && previous.hover_index > idx ? previous.hover_index - 1 : previous.hover_index, gallery_hidden: previous.gallery_hidden.filter((i) => i !== idx).map((i) => i > idx ? i - 1 : i) }));
+    setF((previous) => ({ ...previous, images: previous.images.filter((_, i) => i !== idx).map((i, s) => ({ ...i, sort: s })), cover_index: previous.cover_index === idx ? null : previous.cover_index != null && previous.cover_index > idx ? previous.cover_index - 1 : previous.cover_index, hover_index: previous.hover_index === idx ? null : previous.hover_index != null && previous.hover_index > idx ? previous.hover_index - 1 : previous.hover_index, seal_indices: previous.seal_indices.filter((i) => i !== idx).map((i) => i > idx ? i - 1 : i), gallery_hidden: previous.gallery_hidden.filter((i) => i !== idx).map((i) => i > idx ? i - 1 : i) }));
   };
   const drop = (to: number) => {
     if (dragIdx === null || dragIdx === to) return;
@@ -114,7 +115,7 @@ export default function AdminVehicleFormPage({ id }: { id?: string }) {
       first_registration: `${parsed.data.year}-${f.month}-01`, mileage_km: parsed.data.km, fuel: f.fuel, transmission: f.transmission,
       power_ps: f.ps ? Number(f.ps) : null, power_kw: kw, body_type: f.body_type, color: f.color.trim() || null, hu_until: f.hu_until.trim() || null,
       previous_owners: f.previous_owners ? Number(f.previous_owners) : null, features: f.features, description: f.description.trim() || null,
-       status: f.status, is_highlight: f.is_highlight, is_demo: f.is_demo, images: f.images, cover_index: f.cover_index, hover_index: f.hover_index, gallery_hidden: f.gallery_hidden,
+       status: f.status, is_highlight: f.is_highlight, is_demo: f.is_demo, images: f.images, cover_index: f.cover_index, hover_index: f.hover_index, seal_indices: f.seal_indices, gallery_hidden: f.gallery_hidden,
     };
     try {
       if (isNew) {
@@ -178,12 +179,14 @@ export default function AdminVehicleFormPage({ id }: { id?: string }) {
             <Button asChild variant="silver" size="sm"><label className="cursor-pointer"><ImagePlus className="size-4" /> Bilder hinzufügen<input type="file" accept="image/*" multiple className="sr-only" onChange={(e) => { void upload(e.target.files); e.target.value = ""; }} /></label></Button>
           </div>
           {uploading > 0 ? <p className="mb-3 text-sm text-gold">{uploading} Bild(er) werden komprimiert und hochgeladen …</p> : null}
+          {f.images.length ? <label className="mb-4 flex items-center gap-3 text-sm"><Switch checked={f.seal_indices.includes(f.cover_index ?? 0)} onCheckedChange={(checked) => { const cover = f.cover_index ?? 0; set("seal_indices", checked ? [...new Set([...f.seal_indices, cover])] : f.seal_indices.filter((index) => index !== cover)); }} />Titelbild hat Siegel</label> : null}
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-6">
             {f.images.map((img, i) => (
               <div key={img.url} draggable onDragStart={() => setDragIdx(i)} onDragOver={(e) => e.preventDefault()} onDrop={() => drop(i)} className={`group relative overflow-hidden rounded-sm border bg-muted ${f.gallery_hidden.includes(i) ? "border-muted-foreground opacity-60" : f.cover_index === i ? "border-gold" : "border-border"}`}>
                 <div className="aspect-4/3 overflow-hidden">
-                <VehicleImg src={img.thumbUrl || img.url} alt={img.alt} width="240" height="180" loading="lazy" className="size-full object-cover" />
+                <VehicleImg src={img.thumbUrl || img.url} alt={img.alt} width="240" height="180" loading="lazy" onError={() => setBrokenImages((previous) => new Set(previous).add(i))} className="size-full object-cover" />
                 </div>
+                {brokenImages.has(i) ? <span className="absolute inset-x-1 bottom-14 bg-navy-900 px-1 py-0.5 text-center text-[10px] text-gold-400">Bild nicht erreichbar</span> : null}
                 <span className="absolute left-1 top-1 rounded bg-background/80 px-1.5 text-xs">{i + 1}</span>
                 <GripVertical className="absolute bottom-1 left-1 size-4 text-foreground/70" />
                 <button type="button" aria-label="Bild entfernen" onClick={() => removeImg(i)} className="absolute right-1 top-1 rounded bg-background/80 p-1"><X className="size-4" /></button>
