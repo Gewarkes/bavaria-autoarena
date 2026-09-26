@@ -1,7 +1,8 @@
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
 
-export const PRIVACY_NOTICE_VERSION = "2026-09-v1";
+import { PRIVACY_VERSION } from "@/config/site";
+export const PRIVACY_NOTICE_VERSION = PRIVACY_VERSION;
 export const MIN_FILL_MS = 3000;
 
 const optionalText = (max: number) => z.string().trim().max(max).optional().transform((v) => (v ? v : undefined));
