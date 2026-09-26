@@ -4,7 +4,7 @@ import { seo } from "@/lib/seo";
 import { validateVehicleSearch } from "@/lib/vehicleSearch";
 
 const VehiclesPage = lazy(() => import("@/pages/VehiclesPage"));
-const title = "Gebrauchtwagen kaufen in Perkam | Bavaria Autoarena";
+const title = "Fahrzeuge | Bavaria Autoarena Perkam";
 
 export const Route = createFileRoute("/fahrzeuge/")({
   validateSearch: validateVehicleSearch,

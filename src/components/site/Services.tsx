@@ -4,9 +4,9 @@ import { BadgeEuro, FileCheck2, Globe2, Repeat2, ShieldCheck, Truck } from "luci
 export const services = [
   {
     id: "ankauf", icon: Repeat2, title: "Fahrzeugankauf & Inzahlungnahme", to: "/auto-verkaufen" as const, cta: "Auto bewerten lassen",
-    short: "Wir kaufen Ihr Auto oder rechnen es direkt auf Ihr Wunschfahrzeug an. Sie erhalten ein faires Angebot innerhalb von 24 Stunden an Werktagen.",
-    long: "Sie möchten Ihr Auto verkaufen oder beim Kauf in Zahlung geben? Wir bewerten Ihr Fahrzeug ehrlich und nachvollziehbar. Den Betrag zahlen wir aus oder rechnen ihn direkt auf Ihr Wunschfahrzeug an. Die Abmeldung übernehmen wir auf Wunsch gleich mit.",
-    steps: ["Fahrzeugdaten online oder per WhatsApp senden", "Angebot innerhalb von 24 Stunden erhalten", "Kurz besichtigen, unterschreiben, fertig"],
+    short: "Wir kaufen Ihr Auto oder rechnen es direkt auf Ihr nächstes Auto an. Sie erhalten am nächsten Werktag ein Angebot.",
+    long: "Sie möchten Ihr Auto verkaufen oder beim Kauf in Zahlung geben? Den Betrag zahlen wir aus oder rechnen ihn direkt auf Ihr nächstes Auto an. Die Abmeldung übernehmen wir auf Wunsch gleich mit.",
+    steps: ["Autodaten online oder per WhatsApp senden", "Angebot am nächsten Werktag erhalten", "Kurz besichtigen, unterschreiben, fertig"],
   },
   {
     id: "finanzierung", icon: BadgeEuro, title: "Finanzierung & Leasing", to: "/finanzierung" as const, cta: "Finanzierung anfragen",

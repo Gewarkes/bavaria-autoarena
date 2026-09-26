@@ -31,7 +31,7 @@ function Chips<T extends string>({ options, value, onChange, label }: { options:
       {options.map((o) => {
         const active = value === o.value;
         return <button key={o.value} type="button" role="radio" aria-checked={active} onClick={() => onChange(active ? undefined : o.value)}
-          className={cn("h-11 rounded-md border px-4 text-sm font-medium transition-colors", active ? "border-gold bg-gold-gradient text-primary-foreground" : "border-gold/40 text-foreground hover:border-gold")}>{o.label}</button>;
+          className={cn("h-11 rounded border px-4 text-sm font-medium transition-colors", active ? "border-gold bg-gold text-primary-foreground" : "border-border text-foreground hover:border-gold")}>{o.label}</button>;
       })}
     </div>
   );
@@ -173,17 +173,17 @@ export function TradeInWizard({ initialBrand, initialModel, initialDesiredVehicl
   );
 
   return (
-    <div ref={topRef} id="bewertung" className="scroll-mt-28 rounded-lg border border-gold/60 bg-card p-5 shadow-gold sm:p-7">
+    <div ref={topRef} id="bewertung" className="scroll-mt-28 rounded border border-border bg-card p-5 sm:p-7">
       <div className="mb-6">
         <div className="flex items-baseline justify-between text-xs font-semibold uppercase tracking-wide"><span className="text-gold">Schritt {step} von 4</span><span className="text-muted-foreground">{titles[step - 1]}</span></div>
         <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-border" role="progressbar" aria-valuemin={1} aria-valuemax={4} aria-valuenow={step} aria-label="Fortschritt">
-          <div className="bg-gold-gradient h-full rounded-full transition-all duration-500 motion-reduce:transition-none" style={{ width: `${step * 25}%` }} />
+          <div className="h-full rounded-full bg-gold transition-all duration-500 motion-reduce:transition-none" style={{ width: `${step * 25}%` }} />
         </div>
       </div>
 
       {step === 1 && (
         <form onSubmit={onStep1} noValidate className="space-y-5">
-          <h2 className="font-display text-lg font-bold uppercase tracking-wide text-foreground">Ihr Fahrzeug</h2>
+           <h2 className="text-lg font-semibold text-foreground">Ihr Auto</h2>
           <div className="grid gap-4 sm:grid-cols-2">
             <Field label="Marke" error={errors["brand"]}>
               <Popover open={brandOpen} onOpenChange={setBrandOpen}>
@@ -220,7 +220,7 @@ export function TradeInWizard({ initialBrand, initialModel, initialDesiredVehicl
 
       {step === 2 && (
         <form onSubmit={onStep2} noValidate className="space-y-5">
-          <h2 className="font-display text-lg font-bold uppercase tracking-wide text-foreground">Ihr Wunsch</h2>
+           <h2 className="text-lg font-semibold text-foreground">Was möchten Sie machen?</h2>
           <Field label="Was möchten Sie?" error={errors["intent"]}>
             <ChoiceCards label="Absicht" value={s2.intent} onChange={(v) => setS2({ ...s2, intent: v })} options={[
               { value: "inzahlung", label: "In Zahlung geben", hint: "Auf ein Fahrzeug aus unserem Bestand anrechnen", icon: <CarFront className="size-5" /> },
@@ -229,9 +229,9 @@ export function TradeInWizard({ initialBrand, initialModel, initialDesiredVehicl
             ]} />
           </Field>
           {s2.intent === "inzahlung" && (
-            <Field label="Wunschfahrzeug" optional>
+             <Field label="Ihr nächstes Auto" optional>
               <Select value={s2.desiredVehicleId ?? "keins"} onValueChange={(v) => setS2({ ...s2, desiredVehicleId: v === "keins" ? undefined : v })}>
-                <SelectTrigger className="h-12" aria-label="Wunschfahrzeug"><SelectValue placeholder="Fahrzeug wählen" /></SelectTrigger>
+                 <SelectTrigger className="h-12" aria-label="Ihr nächstes Auto"><SelectValue placeholder="Auto wählen" /></SelectTrigger>
                 <SelectContent>
                   <SelectItem value="keins">Noch nicht entschieden</SelectItem>
                   {(vehicles.data ?? []).map((v) => <SelectItem key={v.id} value={v.id}>{v.title} – {formatPrice(v.price_eur)}</SelectItem>)}

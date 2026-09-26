@@ -28,15 +28,15 @@ function FinancingForm() {
   function submit(e: FormEvent) {
     e.preventDefault();
     const v = vehicles.data?.find((x) => x.id === vehicleId);
-    const lines = [v ? `Wunschfahrzeug: ${v.title} (${formatPrice(v.price_eur)})` : "Wunschfahrzeug: noch offen", `Wunschrate: ${rate || "keine Angabe"}`, `Anzahlung: ${down ? `${down} €` : "keine Angabe"}`];
+    const lines = [v ? `Nächstes Auto: ${v.title} (${formatPrice(v.price_eur)})` : "Nächstes Auto: noch offen", `Wunschrate: ${rate || "keine Angabe"}`, `Anzahlung: ${down ? `${down} €` : "keine Angabe"}`];
     void form.send({ kind: "finanzierung", vehicleId: v ? v.id : null, message: lines.join("\n") });
   }
   const lbl = "block text-xs font-semibold uppercase tracking-wide text-muted-foreground";
   return (
     <form onSubmit={submit} noValidate className="relative space-y-4 rounded border border-border bg-card p-6">
       <h2 className="text-lg font-semibold text-foreground">Finanzierung anfragen</h2>
-      <div className={lbl}>Wunschfahrzeug (optional)
-        <Select value={vehicleId} onValueChange={setVehicleId}><SelectTrigger className="mt-2 h-12" aria-label="Wunschfahrzeug"><SelectValue /></SelectTrigger>
+      <div className={lbl}>Ihr nächstes Auto (optional)
+        <Select value={vehicleId} onValueChange={setVehicleId}><SelectTrigger className="mt-2 h-12" aria-label="Ihr nächstes Auto"><SelectValue /></SelectTrigger>
           <SelectContent><SelectItem value="keins">Noch nicht entschieden</SelectItem>{(vehicles.data ?? []).map((v) => <SelectItem key={v.id} value={v.id}>{v.title} – {formatPrice(v.price_eur)}</SelectItem>)}</SelectContent></Select>
       </div>
       <div className="grid gap-4 sm:grid-cols-2">

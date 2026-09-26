@@ -25,8 +25,8 @@ export function ContactForm() {
   }
   const lbl = "block text-xs font-semibold uppercase tracking-wide text-muted-foreground";
   return (
-    <form onSubmit={submit} noValidate className="relative space-y-4 rounded-lg border border-gold/60 bg-card p-6 shadow-gold">
-      <h2 className="font-display text-lg font-bold uppercase tracking-wide text-foreground">Schreiben Sie uns</h2>
+    <form onSubmit={submit} noValidate className="relative space-y-4 rounded border border-border bg-card p-6">
+      <h2 className="text-lg font-semibold text-foreground">Schreiben Sie uns</h2>
       <div className={lbl}>Anliegen<div role="radiogroup" aria-label="Anliegen" className="mt-2 flex flex-wrap gap-2 normal-case tracking-normal">{topics.map((t) => <Chip key={t} active={topic === t} onClick={() => setTopic(t)}>{t}</Chip>)}</div></div>
       <LeadBasicsFields form={form} />
       <div className="grid gap-4 sm:grid-cols-2">
@@ -48,11 +48,9 @@ export default function ContactPage() {
     setStatus({ open: isOpenNow(), text: currentOpeningStatus() });
   }, []);
   return (
-    <section className="bg-rauten">
-      <div className="mx-auto max-w-7xl px-5 py-14 md:py-20 lg:px-6">
-        <p className="font-display text-xs font-bold uppercase tracking-wide text-gold">Kontakt & Anfahrt</p>
-        <h1 className="mt-4 font-display text-3xl font-extrabold uppercase tracking-wide text-foreground sm:text-5xl">Besuchen Sie uns in Perkam.</h1>
-        <div className="mt-6 h-px w-20 bg-gold-gradient" />
+    <section>
+      <div className="mx-auto max-w-[1200px] px-6 py-16 md:px-12 md:py-24">
+        <h1 className="font-display text-3xl font-bold text-foreground sm:text-5xl">Kontakt und Anfahrt</h1>
         <div className="mt-10 grid gap-8 lg:grid-cols-2">
           <div className="space-y-6">
             <div className="rounded-lg border border-border bg-card p-6">

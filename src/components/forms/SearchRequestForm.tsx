@@ -18,10 +18,10 @@ export function SearchRequestForm() {
     e.preventDefault();
     const isMail = contact.includes("@");
     const input = { kind: "anfrage" as const, name, phone: isMail ? "" : contact, email: isMail ? contact : "", vehicleId: null,
-      message: `Fahrzeugsuchauftrag\nWunschfahrzeug: ${wish.trim() || "-"}\nBudget: ${budget.trim() || "-"}` };
+      message: `Autosuchauftrag\nGesuchtes Auto: ${wish.trim() || "-"}\nBudget: ${budget.trim() || "-"}` };
     const parsed = inquirySchema.safeParse(input);
     const next: Record<string, string> = {};
-    if (!wish.trim()) next["wish"] = "Bitte beschreiben Sie Ihr Wunschfahrzeug.";
+    if (!wish.trim()) next["wish"] = "Bitte beschreiben Sie das gesuchte Auto.";
     if (!parsed.success) for (const i of parsed.error.issues) next[i.path[0] === "email" || i.path[0] === "phone" ? "contact" : String(i.path[0])] ??= i.message;
     if (Object.keys(next).length) { setErrors(next); return; }
     setErrors({}); setState("sending");
@@ -33,7 +33,7 @@ export function SearchRequestForm() {
   return (
     <form onSubmit={submit} noValidate className="relative mt-6 space-y-4">
       <Honeypot value={honeypot} onChange={setHoneypot} />
-      <Field label="Wunschfahrzeug *" error={errors["wish"]}><Input value={wish} onChange={(e) => setWish(e.target.value)} placeholder="z. B. VW Tiguan, Automatik, AHK" className="h-12" maxLength={200} /></Field>
+      <Field label="Gesuchtes Auto *" error={errors["wish"]}><Input value={wish} onChange={(e) => setWish(e.target.value)} placeholder="z. B. VW Tiguan, Automatik, AHK" className="h-12" maxLength={200} /></Field>
       <Field label="Budget"><Input value={budget} onChange={(e) => setBudget(e.target.value)} placeholder="z. B. bis 20.000 €" className="h-12" maxLength={60} /></Field>
       <Field label="Name *" error={errors["name"]}><Input value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" className="h-12" /></Field>
       <Field label="Telefon oder E-Mail *" error={errors["contact"]}><Input value={contact} onChange={(e) => setContact(e.target.value)} className="h-12" /></Field>
