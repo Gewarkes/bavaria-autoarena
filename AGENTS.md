@@ -13,3 +13,4 @@
 - Fahrzeug-/Bewertungsdaten laufen über src/lib/vehicles.ts (Browser-Client + React Query, explizite Spaltenlisten), damit RLS greift und Queries zentral bleiben.
 - Das öffentliche Designsystem nutzt Jost Variable, Source Sans 3 Variable und die Navy/Gold/Silber-Tokens aus src/styles.css; so bleiben alle Seiten markenkonsistent.
 - Siegelkennzeichnungen werden ausschließlich manuell über `seal_indices` gepflegt; Admin-Speichern darf keine automatische Bilderkennung ausführen, damit Händlerangaben erhalten bleiben.
+- Fahrzeugbilder werden öffentlich durchgängig im 4:3-Rahmen mit `object-cover` und zentrierter Position gezeigt; eingebrannte Siegel bleiben sichtbar und steuern nur den Historienhinweis.

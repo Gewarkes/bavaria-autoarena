@@ -76,3 +76,13 @@
 - [x] Ankauf- und Kundenstimmenbilder fest vorgeben
 - [x] Admin-Schalter „Titelbild hat Siegel“ ergänzen und Werte erhalten
 - [x] Startseite, Bestand und Detail bei 1440/390 px prüfen; Produktions-Build ausführen
+
+# Redesign v3 – Schritt E
+
+- [ ] Audi-Titelbild und Bildnachweis ersetzen
+- [ ] Fahrzeugbilder überall auf 4:3 ohne Siegel-Zuschnitt umstellen
+- [ ] Startseite neu ordnen und Marken-/Historienbereiche ergänzen
+- [ ] Typografie, Raster, Kopfzeile und mobile Leiste vereinheitlichen
+- [ ] Fahrzeugzahlen, Filterdaten und Detailseite angleichen
+- [ ] Startseite, Bestand, R8-Detail und Ankauf bei 1440/1280/390 px prüfen
+- [ ] Produktions-Build ausführen
