@@ -29,14 +29,10 @@ export function dealerJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "AutoDealer",
-    name: "Bavaria Autoarena GmbH",
-    address: { "@type": "PostalAddress", streetAddress: "Gewerbestraße 7", postalCode: "94368", addressLocality: "Perkam", addressCountry: "DE" },
-    telephone: "+49 9421 000000",
-    sameAs: ["https://home.mobile.de/BAVARIAAUTOARENASTRAUBINGGMBH"],
-    openingHoursSpecification: [
-      { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "09:00", closes: "18:00" },
-      { "@type": "OpeningHoursSpecification", dayOfWeek: "Saturday", opens: "09:00", closes: "13:00" },
-    ],
+    name: siteConfig.name,
+    address: { "@type": "PostalAddress", streetAddress: siteConfig.street, postalCode: siteConfig.zip, addressLocality: siteConfig.city, addressCountry: "DE" },
+    telephone: siteConfig.phoneInternational,
+    sameAs: [siteConfig.mobileDeUrl, siteConfig.reviewsUrl, siteConfig.social.facebook, siteConfig.social.tiktok],
   };
 }
 
