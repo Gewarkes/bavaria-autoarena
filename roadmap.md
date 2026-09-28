@@ -100,5 +100,5 @@
 
 - [x] Hero-Spalten auf eine gemeinsame feste Höhe setzen
 - [x] Überschrift und Buttons für die breitere Textspalte anpassen
-- [ ] Startseite bei 1280/1440/1920/390 px prüfen
-- [ ] Produktions-Build prüfen
+- [x] Startseite bei 1280/1440/1920/390 px prüfen
+- [x] Produktions-Build prüfen
