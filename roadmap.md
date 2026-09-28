@@ -93,5 +93,5 @@
 - [x] Servicefoto ersetzen und Inhaltskante am Container ausrichten
 - [x] Kartenhöhen, Markenabschluss und Highlight-Bereich angleichen
 - [x] Kundenstimmen ohne Fahrzeugkacheln neu anordnen
-- [ ] Porsche-Bilder entfernen und Ansichten bei 1440/1280/390 px prüfen
-- [ ] Produktions-Build ausführen
+- [x] Porsche-Bilder entfernen und Ansichten bei 1440/1280/390 px prüfen
+- [x] Produktions-Build ausführen
