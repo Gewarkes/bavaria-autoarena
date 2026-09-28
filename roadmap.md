@@ -145,7 +145,7 @@
 
 # Redesign v3 – Variante C Original-Logo
 
-- [ ] Fake-Logo entfernen und sauberes Rolltor wiederherstellen
-- [ ] Original-Logo pixelgetreu freistellen und perspektivisch montieren
-- [ ] Hero und Detailansicht bei 1440 px prüfen
-- [ ] Produktions-Build ausführen
+- [x] Fake-Logo entfernen und sauberes Rolltor wiederherstellen
+- [x] Original-Logo pixelgetreu freistellen und perspektivisch montieren
+- [x] Hero und Detailansicht bei 1440 px prüfen
+- [x] Produktions-Build ausführen
