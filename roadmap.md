@@ -136,9 +136,9 @@
 
 # Echte Firmendaten
 
-- [ ] Zentrale Firmendaten und Kontaktwege aktualisieren
-- [ ] Header, Kontaktband, Kontaktseite, Footer, Bottom-Bar und Anfahrt umstellen
-- [ ] Impressum, Datenschutz und JSON-LD vervollständigen
-- [ ] Bewertungen auf echte Kennzahl ohne Zitate umstellen
-- [ ] Verbleibende Platzhalter und TODOs prüfen
+- [x] Zentrale Firmendaten und Kontaktwege aktualisieren
+- [x] Header, Kontaktband, Kontaktseite, Footer, Bottom-Bar und Anfahrt umstellen
+- [x] Impressum, Datenschutz und JSON-LD vervollständigen
+- [x] Bewertungen auf echte Kennzahl ohne Zitate umstellen
+- [x] Verbleibende Platzhalter und TODOs prüfen
 - [ ] Produktions-Build und Browserdarstellung prüfen

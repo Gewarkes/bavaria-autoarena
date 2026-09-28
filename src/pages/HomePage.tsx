@@ -71,7 +71,7 @@ function Services() {
 }
 
 function TestimonialsSection() {
-  return <section className="section-space bg-navy-900 text-cream"><div className="page-container grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end"><Heading eyebrow="Bewertungen" dark>Von Kunden bewertet</Heading><div><p className="text-lg text-silver-200">4,7 von 5 Sternen · 85 Bewertungen auf mobile.de</p><a href={siteConfig.reviewsUrl} target="_blank" rel="noopener noreferrer" className={`${textLink} mt-5 inline-flex text-gold-400`}>Alle Bewertungen ansehen</a></div></div></section>;
+  return <section className="section-space bg-navy-900 text-cream"><div className="page-container grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end"><Heading eyebrow="Bewertungen" dark>Von Kunden bewertet</Heading><div><p className="text-lg text-silver-200">{siteConfig.rating.value.toLocaleString("de-DE")} von 5 Sternen · {siteConfig.rating.count} Bewertungen auf {siteConfig.rating.source}</p><a href={siteConfig.reviewsUrl} target="_blank" rel="noopener noreferrer" className={`${textLink} mt-5 inline-flex text-gold-400`}>Alle Bewertungen ansehen</a></div></div></section>;
 }
 
 function MapArtwork() {

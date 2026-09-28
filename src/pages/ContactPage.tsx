@@ -1,4 +1,4 @@
-import { useEffect, useState, type FormEvent } from "react";
+import { useState, type FormEvent } from "react";
 import { ExternalLink, MapPin, MessageCircle, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -59,15 +59,6 @@ export default function ContactPage() {
               </div>
               <div className="mt-6"><h2 className="font-display text-sm font-medium uppercase tracking-[.14em] text-navy-900">Besichtigung und Probefahrt</h2><p className="mt-3 text-muted-foreground">{siteConfig.appointmentHours}</p></div>
               <Button asChild variant="outline" className="mt-6"><a href={mapsRouteUrl} target="_blank" rel="noopener noreferrer"><ExternalLink />Route in Google Maps öffnen</a></Button>
-            </div>
-            <div className="border-b border-border pb-6 text-sm leading-7 text-muted-foreground">
-              <h2 className="font-display text-sm font-medium uppercase tracking-[.14em] text-navy-900">Anfahrt</h2>
-              <ul className="mt-3 space-y-1">
-                <li>Von Straubing: etwa 15 Minuten</li>
-                <li>Von Regensburg: ca. 35 Min</li>
-                <li>Von Landshut: ca. 45 Min</li>
-                <li>Von Deggendorf: ca. 35 Min</li>
-              </ul>
             </div>
           </div>
           <div className="min-w-0 space-y-8"><MapGraphic /></div>

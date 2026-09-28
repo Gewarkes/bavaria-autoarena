@@ -64,8 +64,8 @@ export function TerminFlow({ vehicle, initialTopic, dark = false }: { vehicle?: 
     <div role="status" className={text}>
       <p className="font-display text-2xl font-light uppercase tracking-[.06em]">Danke, {firstName}!</p>
       <p className="mt-4 text-lg leading-[1.6]">
-        {callMe ? <>Wir rufen Sie zurück{vehicle ? <> wegen des {vehicle.title}</> : null} – während der Öffnungszeiten meist innerhalb einer Stunde.</>
-          : <>Ihr Wunschtermin: {date ? longLabel(date) : ""}, {time} Uhr{vehicle ? <> für den {vehicle.title}</> : null}. Wir bestätigen ihn kurz per Anruf oder WhatsApp – während der Öffnungszeiten meist innerhalb einer Stunde.</>}
+        {callMe ? <>Wir rufen Sie zurück{vehicle ? <> wegen des {vehicle.title}</> : null}.</>
+          : <>Ihr Wunschtermin: {date ? longLabel(date) : ""}, {time} Uhr{vehicle ? <> für den {vehicle.title}</> : null}. Wir bestätigen ihn kurz per Anruf oder WhatsApp.</>}
       </p>
       <p className="mt-4 text-sm">Bitte Führerschein mitbringen.</p>
       <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3">
