@@ -56,7 +56,7 @@
 - [ ] Detailgalerie und Lightbox neu bauen
 - [ ] Admin-Galerie um Titelbild und Sichtbarkeit erweitern
 - [ ] Startseite, Bestand und drei Details responsiv prüfen
-- [ ] Produktions-Build ausführen
+- [x] Produktions-Build ausführen
 
 # Redesign v2 – Schritt C
 
@@ -108,5 +108,5 @@
 - [x] Zwei Audi-A5-Titelbildvarianten mit modernem Haus erstellen und prüfen
 - [x] Bessere Variante für Desktop und Mobil einbinden
 - [x] Bildnachweis und Projektdokumentation aktualisieren
-- [ ] Hero bei 1280/1440/1920/390 px prüfen
-- [ ] Produktions-Build ausführen
+- [x] Hero bei 1280/1440/1920/390 px prüfen
+- [x] Produktions-Build ausführen
