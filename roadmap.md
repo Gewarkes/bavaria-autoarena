@@ -142,3 +142,10 @@
 - [x] Bewertungen auf echte Kennzahl ohne Zitate umstellen
 - [x] Verbleibende Platzhalter und TODOs prüfen
 - [x] Produktions-Build und Browserdarstellung prüfen
+
+# Redesign v3 – Variante C Original-Logo
+
+- [x] Fake-Logo entfernen und sauberes Rolltor wiederherstellen
+- [x] Original-Logo pixelgetreu freistellen und perspektivisch montieren
+- [x] Hero und Detailansicht bei 1440 px prüfen
+- [x] Produktions-Build ausführen
