@@ -125,4 +125,4 @@
 - [x] Logo, Fahrzeugkanten, Schatten, Felgen und Kies vergrößert prüfen
 - [x] Realistischere Fassung nur in der Vorschau als Hero einsetzen
 - [x] Beide Fassungen auf `/hero-vorschau` ergänzen
-- [ ] Produktions-Build und Browserdarstellung prüfen
+- [x] Produktions-Build und Browserdarstellung prüfen
