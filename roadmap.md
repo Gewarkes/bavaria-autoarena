@@ -116,5 +116,5 @@
 - [x] Drei Autohaus-/Audi-Montagen in hoher Auflösung erstellen und prüfen
 - [x] Beste Variante im bestehenden Hero-Layout einsetzen
 - [x] Nicht indexierte Auswahlseite `/hero-vorschau` ergänzen
-- [ ] Hero und Auswahlseite im Browser prüfen
-- [ ] Produktions-Build ausführen
+- [x] Hero und Auswahlseite im Browser prüfen
+- [x] Produktions-Build ausführen
