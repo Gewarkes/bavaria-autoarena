@@ -14,7 +14,7 @@ export default function ImprintPage() {
       <S title="Angaben gemäß § 5 DDG"><p>{siteConfig.name}<br />{siteConfig.street}<br />{siteConfig.zip} {siteConfig.city}</p><p>Vertreten durch die Geschäftsführer: {l.managingDirectors.join(", ")}</p></S>
       <S title="Kontakt"><p>Telefon: <a href={siteConfig.phoneHref} className="text-gold-700 hover:underline">{siteConfig.phone}</a><br />Mobil: <a href={siteConfig.mobileHref} className="text-gold-700 hover:underline">{siteConfig.mobile}</a><br />Kontakt: Telefon / <a href="/kontakt" className="text-gold-700 hover:underline">Kontaktformular</a></p></S>
       <S title="Registereintrag"><p>Registergericht: {l.registerCourt}<br />Registernummer: {l.registerNumber}</p></S>
-      <S title="Umsatzsteuer-ID"><p>{l.vatId ?? l.vatIdPreviewText}</p></S>
+      {import.meta.env.DEV && <S title="Umsatzsteuer-ID"><p>{l.vatId ?? l.vatIdPreviewText}</p></S>}
       <S title="Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV"><p>{l.responsibleMStV}</p></S>
       <S title="EU-Streitschlichtung"><p>Die Europäische Kommission stellt Informationen zur außergerichtlichen Streitbeilegung für Verbraucher bereit. Wir sind nicht verpflichtet, eine Online-Streitbeilegungsplattform zu verlinken.</p></S>
       <S title="Verbraucherstreitbeilegung"><p>Wir sind nicht bereit und nicht verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen (§ 36 VSBG).</p></S>

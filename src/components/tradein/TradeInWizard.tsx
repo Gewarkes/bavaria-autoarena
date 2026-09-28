@@ -161,7 +161,7 @@ export function TradeInWizard({ initialBrand, initialModel, initialDesiredVehicl
 
   const whatsappPhotos = useMemo(() => {
     const text = `Fotos zu meiner Anfrage ${s3.firstName} ${s3.lastName}, ${s1.brand ?? ""} ${s1.model ?? ""}`.replace(/\s+/g, " ").trim();
-    return `https://wa.me/${siteConfig.whatsapp.replace(/\D/g, "")}?text=${encodeURIComponent(text)}`;
+    return `https://wa.me/${siteConfig.whatsappNumber}?text=${encodeURIComponent(text)}`;
   }, [s3.firstName, s3.lastName, s1.brand, s1.model]);
 
   const titles = ["Ihr Fahrzeug", "Ihr Wunsch", "Ihre Kontaktdaten", "Zustand und Fotos"];

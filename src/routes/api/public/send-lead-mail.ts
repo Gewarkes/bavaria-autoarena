@@ -57,12 +57,15 @@ export const Route = createFileRoute("/api/public/send-lead-mail")({
         }
 
         const from = process.env["MAIL_FROM"] || "Bavaria Autoarena <onboarding@resend.dev>";
-        const dealerTo = process.env["DEALER_NOTIFY_EMAIL"] || "info@bavaria-autoarena.de";
+        // TODO: DEALER_NOTIFY_EMAIL mit der bestätigten internen Empfängeradresse konfigurieren.
+        const dealerTo = process.env["DEALER_NOTIFY_EMAIL"];
         let sent = 0;
         try {
           const d = renderMail({ heading: dealerSubject, intro: ["Über die Website ist eine neue Anfrage eingegangen."], rows, cta: { href: `${origin}${adminPath}`, label: "In der Verwaltung öffnen" }, origin });
-          await sendResend(key, { from, to: dealerTo, subject: dealerSubject, ...d, ...(email ? { reply_to: email } : {}) });
-          sent++;
+          if (dealerTo) {
+            await sendResend(key, { from, to: dealerTo, subject: dealerSubject, ...d, ...(email ? { reply_to: email } : {}) });
+            sent++;
+          }
         } catch (e) { console.log("dealer mail failed", id, e instanceof Error ? e.message : "error"); }
         if (email) {
           try {

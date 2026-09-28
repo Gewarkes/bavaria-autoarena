@@ -3,7 +3,7 @@ import { siteConfig } from "@/config/site";
 const esc = (s: unknown) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]!));
 export type Row = [string, string | number | boolean | null | undefined, (string | undefined)?];
 
-export const FOOTER = "Bavaria Autoarena GmbH · Gewerbestraße 7 · 94368 Perkam · Geschäftsführer: [[PLATZHALTER]] · Sitz: Perkam · Amtsgericht Straubing, HRB [[PLATZHALTER]] · USt-IdNr. [[PLATZHALTER]] · Diese E-Mail bestätigt den Eingang Ihrer Anfrage und stellt kein verbindliches Angebot dar.";
+export const FOOTER = "Bavaria Autoarena GmbH · Gewerbestraße 7 · 94368 Perkam · Geschäftsführer: Edmond Mando, Tomas Younan · Sitz: Perkam · Amtsgericht Straubing, HRB 13339 · Diese E-Mail bestätigt den Eingang Ihrer Anfrage und stellt kein verbindliches Angebot dar.";
 
 const fmt = (v: Row[1]) => (v === true ? "Ja" : v === false ? "Nein" : v == null || v === "" ? "–" : String(v));
 
@@ -25,8 +25,8 @@ ${opts.cta ? `<p><a href="${esc(opts.cta.href)}" style="display:inline-block;bac
 }
 
 export const dealerContactRows = (): Row[] => [
-  ["Telefon", siteConfig.phone, `tel:${siteConfig.phone.replace(/\s/g, "")}`],
-  ["E-Mail", siteConfig.email, `mailto:${siteConfig.email}`],
+  ["Telefon", siteConfig.phone, siteConfig.phoneHref],
+  ["Mobil", siteConfig.mobile, siteConfig.mobileHref],
   ["Adresse", `${siteConfig.street}, ${siteConfig.zip} ${siteConfig.city}`],
 ];
 
