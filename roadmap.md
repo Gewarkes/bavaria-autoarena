@@ -102,3 +102,11 @@
 - [x] Überschrift und Buttons für die breitere Textspalte anpassen
 - [x] Startseite bei 1280/1440/1920/390 px prüfen
 - [x] Produktions-Build prüfen
+
+# Redesign v3 – Schritt H
+
+- [ ] Zwei Audi-A5-Titelbildvarianten mit modernem Haus erstellen und prüfen
+- [ ] Bessere Variante für Desktop und Mobil einbinden
+- [ ] Bildnachweis und Projektdokumentation aktualisieren
+- [ ] Hero bei 1280/1440/1920/390 px prüfen
+- [ ] Produktions-Build ausführen
