@@ -141,4 +141,4 @@
 - [x] Impressum, Datenschutz und JSON-LD vervollständigen
 - [x] Bewertungen auf echte Kennzahl ohne Zitate umstellen
 - [x] Verbleibende Platzhalter und TODOs prüfen
-- [ ] Produktions-Build und Browserdarstellung prüfen
+- [x] Produktions-Build und Browserdarstellung prüfen
