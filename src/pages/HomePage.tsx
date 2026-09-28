@@ -7,12 +7,12 @@ import { Ornament } from "@/components/Ornament";
 import { Button } from "@/components/ui/button";
 import { VehicleCard } from "@/components/vehicles/VehicleCard";
 import { VehicleImg } from "@/components/vehicles/VehicleImg";
-import { mapsRouteUrl, openingRows, phoneHref, siteConfig, whatsappHref } from "@/config/site";
+import { mapsRouteUrl, phoneHref, siteConfig, whatsappHref } from "@/config/site";
 import { formatFirstRegistration, formatKm, formatPrice, formatTransmission } from "@/lib/format";
 import { sizedImage } from "@/lib/vehicleImages";
 import { openTermin } from "@/lib/termin";
 import { categories } from "@/lib/vehicleSearch";
-import { coverImage, testimonialsQuery, vehiclesQuery, type Vehicle } from "@/lib/vehicles";
+import { coverImage, vehiclesQuery, type Vehicle } from "@/lib/vehicles";
 
 const textLink = "tap-link font-display text-[13px] font-medium uppercase tracking-[.12em] underline decoration-current/50 underline-offset-[6px] transition-colors hover:text-gold-600";
 
@@ -34,11 +34,12 @@ function Hero({ count }: { count: number }) {
 
 function ContactBand() {
   const cells = [
-    { label: "Anrufen", text: siteConfig.phone, href: phoneHref, icon: <Phone />, detail: "Mo–Fr 9–18 · Sa 9–13 Uhr" },
+    { label: "Festnetz", text: siteConfig.phone, href: phoneHref, icon: <Phone />, detail: "Termine nach Vereinbarung" },
+    { label: "Mobil / WhatsApp", text: siteConfig.mobile, href: whatsappHref(), icon: <MessageCircle />, detail: "Nachricht schreiben" },
     { label: "Termin anfragen", text: "Probefahrt oder Besichtigung", href: "/kontakt#termin", icon: <MessageCircle />, detail: "Wir bestätigen kurz per Anruf." },
     { label: "Besuchen Sie uns", text: `${siteConfig.street}, ${siteConfig.zip} ${siteConfig.city}`, href: mapsRouteUrl, icon: <MapPin />, detail: "Route planen" },
   ];
-  return <div className="relative z-10 bg-navy-900 text-cream lg:mx-auto lg:grid lg:max-w-[1120px] lg:grid-cols-3 lg:divide-x lg:divide-cream/10">{cells.map((cell, index) => <a key={cell.label} href={cell.href} onClick={index === 1 ? (event) => { event.preventDefault(); openTermin(); } : undefined} target={index === 2 ? "_blank" : undefined} rel={index === 2 ? "noopener noreferrer" : undefined} className="group grid min-h-16 grid-cols-[44px_minmax(0,1fr)_auto] items-center border-b border-cream/10 px-5 transition-colors hover:bg-navy-800 lg:block lg:border-0 lg:px-8 lg:py-8"><span className="grid size-11 place-items-center text-gold-400 lg:hidden [&_svg]:size-5">{cell.icon}</span><span className="min-w-0"><span className="eyebrow block text-gold-400">{cell.label}</span><span className={`mt-2 hidden font-display font-light lg:block ${index === 0 ? "text-[26px]" : "text-lg"}`}>{cell.text}</span><span className="block truncate text-sm lg:hidden">{cell.text}</span><span className="mt-2 hidden text-sm text-silver-400 lg:block">{cell.detail}</span></span><ChevronRight className="size-4 text-silver-400 lg:hidden" /></a>)}</div>;
+  return <div className="relative z-10 bg-navy-900 text-cream lg:mx-auto lg:grid lg:max-w-[1280px] lg:grid-cols-4 lg:divide-x lg:divide-cream/10">{cells.map((cell, index) => <a key={cell.label} href={cell.href} onClick={index === 2 ? (event) => { event.preventDefault(); openTermin(); } : undefined} target={index === 1 || index === 3 ? "_blank" : undefined} rel={index === 1 || index === 3 ? "noopener noreferrer" : undefined} className="group grid min-h-16 grid-cols-[44px_minmax(0,1fr)_auto] items-center border-b border-cream/10 px-5 transition-colors hover:bg-navy-800 lg:block lg:border-0 lg:px-6 lg:py-8"><span className="grid size-11 place-items-center text-gold-400 lg:hidden [&_svg]:size-5">{cell.icon}</span><span className="min-w-0"><span className="eyebrow block text-gold-400">{cell.label}</span><span className={`mt-2 hidden font-display font-light lg:block ${index < 2 ? "text-xl" : "text-lg"}`}>{cell.text}</span><span className="block truncate text-sm lg:hidden">{cell.text}</span><span className="mt-2 hidden text-sm text-silver-400 lg:block">{cell.detail}</span></span><ChevronRight className="size-4 text-silver-400 lg:hidden" /></a>)}</div>;
 }
 
 function CurrentStock({ vehicles, onImageError }: { vehicles: Vehicle[]; onImageError: (vehicle: Vehicle) => void }) {
@@ -70,8 +71,7 @@ function Services() {
 }
 
 function TestimonialsSection() {
-  const { data } = useSuspenseQuery(testimonialsQuery());
-  return <section className="section-space bg-navy-900 text-cream"><div className="page-container"><div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end"><Heading eyebrow="Bewertungen" dark>Was unsere Kunden schreiben</Heading><p className="text-sm text-silver-400">4,7 von 5 · 85 Bewertungen auf mobile.de (Stand 09/2026)</p></div><div className="mt-8 grid gap-0 divide-y divide-cream/10 lg:mt-12 lg:grid-cols-3 lg:divide-x lg:divide-y-0">{data.slice(0, 3).map((testimonial) => <figure key={testimonial.id} className="py-7 first:pt-0 lg:px-8 lg:py-0 lg:first:pl-0 lg:last:pr-0"><blockquote className="text-lg italic leading-[1.55]">„{testimonial.text}“</blockquote><figcaption className="mt-5"><span className="eyebrow block text-gold-400">{testimonial.author}</span><span className="mt-2 block text-sm text-silver-400">Bewertung auf mobile.de</span></figcaption></figure>)}</div></div></section>;
+  return <section className="section-space bg-navy-900 text-cream"><div className="page-container grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end"><Heading eyebrow="Bewertungen" dark>Von Kunden bewertet</Heading><div><p className="text-lg text-silver-200">{siteConfig.rating.value.toLocaleString("de-DE")} von 5 Sternen · {siteConfig.rating.count} Bewertungen auf {siteConfig.rating.source}</p><a href={siteConfig.reviewsUrl} target="_blank" rel="noopener noreferrer" className={`${textLink} mt-5 inline-flex text-gold-400`}>Alle Bewertungen ansehen</a></div></div></section>;
 }
 
 function MapArtwork() {
@@ -84,7 +84,6 @@ export default function HomePage() {
   const visibleVehicles = vehicles.filter((vehicle) => !brokenVehicleIds.has(vehicle.id));
   const markImageBroken = (vehicle: Vehicle) => setBrokenVehicleIds((previous) => previous.has(vehicle.id) ? previous : new Set(previous).add(vehicle.id));
   const featured = visibleVehicles.find((vehicle) => vehicle.is_highlight || vehicle.price_eur >= 40000);
-  const today = new Intl.DateTimeFormat("de-DE", { weekday: "long", timeZone: "Europe/Berlin" }).format(new Date());
   return <>
     <Hero count={visibleVehicles.length} />
     <CurrentStock vehicles={visibleVehicles} onImageError={markImageBroken} />
@@ -93,8 +92,8 @@ export default function HomePage() {
     <HistoryBand />
     <section className="section-space bg-silver-100"><div className="page-container grid gap-12 lg:grid-cols-12 lg:items-center"><div className="lg:col-span-5"><Heading eyebrow="Ankauf & Inzahlungnahme">Wir kaufen Ihr Auto</Heading><p className="mt-8 max-w-[52ch] text-lg leading-[1.65] text-navy-900/80">Ob Sie verkaufen oder auf ein Auto von uns anrechnen wollen: Sie schicken uns ein paar Angaben, wir melden uns am nächsten Werktag mit einem Preis.</p><Button asChild variant="gold" className="mt-8 w-full sm:w-auto"><Link to="/auto-verkaufen">Auto bewerten lassen</Link></Button></div><div className="aspect-[4/3] overflow-hidden bg-[#D6D6D3] lg:col-span-7"><VehicleImg src="https://img.classistatic.de/api/v1/mo-prod/images/65/65594664-fed2-4381-939b-048d6c7c7cda?rule=mo-1600.jpg" alt="Roter Ford Focus ST-Line" width={1200} height={900} loading="lazy" className="size-full object-cover object-center" /></div></div></section>
     <Services />
-    <section className="section-space bg-silver-100"><div className="page-container grid gap-12 lg:grid-cols-2"><div><Heading eyebrow="Grüß Gott" ornament>Willkommen bei Bavaria Autoarena</Heading><p className="mt-8 max-w-[680px] text-lg leading-[1.6] text-navy-900/80 lg:text-xl">Wir sind ein inhabergeführtes Autohaus in der Gewerbestraße 7 in Perkam, eine Viertelstunde von Straubing. Beim Alltagsauto nehmen wir uns genauso viel Zeit wie beim Sportwagen.</p></div><ul className="divide-y divide-silver-300 border-y border-silver-300 text-lg text-navy-900 lg:self-end">{["Inhabergeführt", "Probefahrt nach Termin", "Inzahlungnahme möglich"].map((fact) => <li key={fact} className="py-5 font-display">{fact}</li>)}</ul></div></section>
+    <section className="section-space bg-silver-100"><div className="page-container grid gap-12 lg:grid-cols-2"><div><Heading eyebrow="Grüß Gott" ornament>Willkommen bei Bavaria Autoarena</Heading><p className="mt-8 max-w-[680px] text-lg leading-[1.6] text-navy-900/80 lg:text-xl">Seit 2018 sind wir im Gebrauchtwagenhandel tätig. Aus der Bavaria Autoarena Straubing hervorgegangen, finden Sie uns seit 2026 in der Gewerbestraße 7 in Perkam.</p></div><ul className="divide-y divide-silver-300 border-y border-silver-300 text-lg text-navy-900 lg:self-end">{["Seit 2018 am Markt", "Probefahrt nach Termin", "Inzahlungnahme möglich"].map((fact) => <li key={fact} className="py-5 font-display">{fact}</li>)}</ul></div></section>
     <TestimonialsSection />
-    <section className="section-space bg-silver-100"><div className="page-container grid gap-12 lg:grid-cols-2 lg:items-center"><div><Heading eyebrow="Anfahrt">So finden Sie uns</Heading><p className="mt-8 max-w-[54ch] text-lg leading-[1.65] text-navy-900/80">Gewerbestraße 7, 94368 Perkam. Von Straubing sind es 15 Minuten. Zur Probefahrt bitte den Führerschein mitbringen.</p><table className="mt-8 w-full max-w-md text-base"><tbody>{openingRows.map(([label, key]) => <tr key={key} className={`border-b border-silver-300 ${today.toLowerCase() === label.toLowerCase() ? "font-semibold" : ""}`}><th className="py-3 text-left font-normal text-ink-500">{label}</th><td className="py-3 text-right tabular-nums text-navy-900">{siteConfig.openingHours[key]}</td></tr>)}</tbody></table><Button asChild variant="gold" className="mt-8 w-full sm:w-auto"><a href={mapsRouteUrl} target="_blank" rel="noopener noreferrer">Route planen</a></Button></div><MapArtwork /></div></section>
+    <section className="section-space bg-silver-100"><div className="page-container grid gap-12 lg:grid-cols-2 lg:items-center"><div><Heading eyebrow="Anfahrt">So finden Sie uns</Heading><p className="mt-8 max-w-[54ch] text-lg leading-[1.65] text-navy-900/80">{siteConfig.name}, {siteConfig.street}, {siteConfig.zip} {siteConfig.city}. Zur Probefahrt bitte den Führerschein mitbringen.</p><p className="mt-6 border-y border-silver-300 py-4 text-lg text-navy-900">{siteConfig.appointmentHours}</p><Button asChild variant="gold" className="mt-8 w-full sm:w-auto"><a href={mapsRouteUrl} target="_blank" rel="noopener noreferrer">Route planen</a></Button></div><MapArtwork /></div></section>
   </>;
 }
