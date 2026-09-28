@@ -118,3 +118,11 @@
 - [x] Nicht indexierte Auswahlseite `/hero-vorschau` ergänzen
 - [x] Hero und Auswahlseite im Browser prüfen
 - [x] Produktions-Build ausführen
+
+# Redesign v3 – Schritt I2
+
+- [x] Tageslicht- und Dämmerungsfassung realistischer neu aufbauen
+- [x] Logo, Fahrzeugkanten, Schatten, Felgen und Kies vergrößert prüfen
+- [x] Realistischere Fassung nur in der Vorschau als Hero einsetzen
+- [x] Beide Fassungen auf `/hero-vorschau` ergänzen
+- [ ] Produktions-Build und Browserdarstellung prüfen

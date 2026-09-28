@@ -1,5 +1,17 @@
 const variants = [
   {
+    number: "I2-A",
+    label: "Realistisch · Tageslicht",
+    description: "Bewölktes Tageslicht, zurückhaltende Goldbeschriftung und natürliche Fahrzeug- und Kiesstruktur.",
+    src: "/hero-varianten/autohaus-audi-real-a.webp",
+  },
+  {
+    number: "I2-B",
+    label: "Realistisch · Frühe Dämmerung",
+    description: "Kühle frühe Dämmerung mit dezentem Innenlicht und angeglichener Fahrzeugbeleuchtung.",
+    src: "/hero-varianten/autohaus-audi-real-b.webp",
+  },
+  {
     number: 1,
     label: "Freundlicher Tag",
     description: "Heller Himmel, warmes Fensterlicht und ein klarer Blick auf Fahrzeug und Fassade.",
@@ -26,7 +38,7 @@ export default function HeroPreviewPage() {
         <p className="eyebrow text-gold-700">Interne Auswahl</p>
         <h1 className="section-h2 mt-4 text-navy-900">Titelbild-Varianten</h1>
         <p className="mt-5 max-w-[60ch] text-lg leading-[1.6] text-ink-500">
-          Drei Entwürfe mit dem Autohaus in Perkam und dem dunkelgrünen Audi A5 Sportback.
+          Neue realistische Fassungen und die bisherigen Entwürfe mit dem Autohaus in Perkam und dem dunkelgrünen Audi A5 Sportback.
         </p>
 
         <div className="mt-10 space-y-16 lg:mt-14 lg:space-y-24">
@@ -46,7 +58,7 @@ export default function HeroPreviewPage() {
                 alt={`Titelbild Variante ${variant.number}: dunkelgrüner Audi A5 Sportback vor der Bavaria Autoarena`}
                 width="2400"
                 height="1340"
-                loading={variant.number === 1 ? "eager" : "lazy"}
+                loading={variant.number === "I2-A" ? "eager" : "lazy"}
                 className="block h-auto w-full bg-silver-300 object-contain"
               />
             </section>
