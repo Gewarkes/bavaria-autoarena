@@ -7,7 +7,7 @@ import { coverImage, type Vehicle } from "@/lib/vehicles";
 
 export function VehicleCard({ vehicle, eager = false, onImageError }: { vehicle: Vehicle; eager?: boolean; onImageError?: (vehicle: Vehicle) => void }) {
   const image = coverImage(vehicle);
-  const coverIndex = vehicle.images.indexOf(image!);
+  const coverIndex = image ? vehicle.images.indexOf(image) : -1;
   const coverHasSeal = vehicle.seal_indices.includes(coverIndex);
   const isNew = !vehicle.is_demo && Date.now() - new Date(vehicle.created_at).getTime() < 14 * 86_400_000;
   const meta = `${formatFirstRegistration(vehicle.first_registration)} · ${formatKm(vehicle.mileage_km)} · ${formatFuel(vehicle.fuel)} · ${formatTransmission(vehicle.transmission)}`;
@@ -23,7 +23,7 @@ export function VehicleCard({ vehicle, eager = false, onImageError }: { vehicle:
         <p className="font-display text-xs font-medium uppercase tracking-[.2em] text-ink-500">{vehicle.brand}</p>
         <h3 className="mt-1 truncate font-display text-xl font-normal text-navy-900">{vehicle.title.replace(new RegExp(`^${vehicle.brand}\\s*`, "i"), "")}</h3>
         <p className="mt-2 text-sm tabular-nums text-ink-500 lg:text-[15px]">{meta}</p>
-        <p className={`mt-2 min-h-6 text-sm ${coverHasSeal ? "text-gold-700" : "text-transparent"}`} aria-hidden={!coverHasSeal}>{coverHasSeal ? "Historienbericht vorhanden" : "Kein Historienhinweis"}</p>
+        {coverHasSeal ? <p className="mt-2 min-h-6 text-sm text-gold-700">Historienbericht vorhanden</p> : <span className="mt-2 min-h-6" aria-hidden="true" />}
         <div className="mt-auto border-t border-silver-300 pt-4"><p className="font-display text-2xl font-medium tabular-nums text-navy-900 lg:text-[26px]">{formatPrice(vehicle.price_eur)}</p><p className="text-xs text-ink-500">{vehicle.tax_status === "differenz" ? "§ 25a UStG" : "MwSt. ausweisbar"}</p></div>
       </div>
     </Link>
