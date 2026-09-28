@@ -2,7 +2,6 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import { ChevronRight, MapPin, MessageCircle, Phone } from "lucide-react";
 import { useState } from "react";
-import heroImage from "@/assets/titelbild-autohaus-perkam.webp.asset.json";
 import serviceImage from "@/assets/service-autoschluessel.webp.asset.json";
 import { Ornament } from "@/components/Ornament";
 import { Button } from "@/components/ui/button";
@@ -27,7 +26,7 @@ function Hero({ count }: { count: number }) {
       <div className="order-2 flex h-full items-center px-6 py-10 lg:order-1 lg:col-span-6 lg:py-0 lg:pb-16 lg:pl-[max(2.5rem,calc((100vw-1280px)/2+2.5rem))] lg:pr-10 2xl:col-span-5">
         <div className="min-w-0 max-w-[600px]"><p className="eyebrow text-gold-400">Autohaus in Perkam bei Straubing</p><h1 className="display-title mt-4 text-balance text-cream lg:!text-[52px] lg:!leading-[1.05] xl:!text-[56px]">Ihr nächstes Auto steht in Perkam.</h1><p className="mt-5 text-lg leading-[1.6] text-silver-200 lg:text-xl">Vom sparsamen Alltagsauto bis zum Sportwagen – ausgesucht, durchgesehen und vor Ort Probe zu fahren.</p><div className="mt-7 grid gap-3 lg:flex lg:flex-nowrap"><Button asChild variant="gold" className="w-full lg:w-auto 2xl:px-4 2xl:text-xs 2xl:tracking-[.08em]"><Link to="/fahrzeuge">Fahrzeuge ansehen ({count})</Link></Button><Button type="button" variant="outline" className="w-full border-cream text-cream lg:w-auto 2xl:px-4 2xl:text-xs 2xl:tracking-[.08em]" onClick={() => openTermin()}>Termin vereinbaren</Button></div></div>
       </div>
-      <div className="order-1 aspect-[3/2] h-full overflow-hidden lg:order-2 lg:col-span-6 lg:aspect-auto 2xl:col-span-7"><img src={heroImage.url} alt="Bavaria Autoarena in Perkam – Ausstellungshalle mit Fahrzeugen" width="1280" height="766" fetchPriority="high" className="size-full object-cover object-[60%_55%]" /></div>
+      <div className="order-1 aspect-[3/2] h-full overflow-hidden lg:order-2 lg:col-span-6 lg:aspect-auto 2xl:col-span-7"><picture><source media="(max-width: 1023px)" srcSet="/hero-varianten/b-mobile.webp" /><img src="/hero-varianten/b-desktop.webp" alt="Dunkelgrüner Audi A5 Sportback vor einem modernen anthrazitfarbenen Haus" width="2400" height="1600" fetchPriority="high" className="size-full object-cover object-center" /></picture></div>
     </section>
     <ContactBand />
   </>;

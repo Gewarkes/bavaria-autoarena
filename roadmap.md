@@ -105,8 +105,8 @@
 
 # Redesign v3 – Schritt H
 
-- [ ] Zwei Audi-A5-Titelbildvarianten mit modernem Haus erstellen und prüfen
-- [ ] Bessere Variante für Desktop und Mobil einbinden
-- [ ] Bildnachweis und Projektdokumentation aktualisieren
+- [x] Zwei Audi-A5-Titelbildvarianten mit modernem Haus erstellen und prüfen
+- [x] Bessere Variante für Desktop und Mobil einbinden
+- [x] Bildnachweis und Projektdokumentation aktualisieren
 - [ ] Hero bei 1280/1440/1920/390 px prüfen
 - [ ] Produktions-Build ausführen
