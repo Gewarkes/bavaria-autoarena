@@ -23,11 +23,11 @@ function Heading({ eyebrow, children, dark = false, ornament = false }: { eyebro
 
 function Hero({ count }: { count: number }) {
   return <>
-    <section className="flex flex-col bg-navy-900 text-cream lg:grid lg:h-[620px] lg:grid-cols-12">
-      <div className="order-2 flex items-center px-6 py-10 lg:order-1 lg:col-span-5 lg:py-16 lg:pl-[max(2.5rem,calc((100vw-1280px)/2+2.5rem))] lg:pr-10">
-        <div className="max-w-[520px]"><p className="eyebrow text-gold-400">Autohaus in Perkam bei Straubing</p><h1 className="display-title mt-4 text-cream">Ihr nächstes Auto steht in Perkam.</h1><p className="mt-5 text-lg leading-[1.6] text-silver-200 lg:text-xl">Vom sparsamen Alltagsauto bis zum Sportwagen – ausgesucht, durchgesehen und vor Ort Probe zu fahren.</p><div className="mt-7 grid max-w-[320px] gap-3"><Button asChild variant="gold" className="w-full"><Link to="/fahrzeuge">Fahrzeuge ansehen ({count})</Link></Button><Button type="button" variant="outline" className="w-full border-cream text-cream" onClick={() => openTermin()}>Termin vereinbaren</Button></div></div>
+    <section className="flex flex-col bg-navy-900 text-cream lg:grid lg:h-[600px] lg:grid-cols-12 xl:h-[640px]">
+      <div className="order-2 flex h-full items-center px-6 py-10 lg:order-1 lg:col-span-6 lg:py-0 lg:pb-16 lg:pl-[max(2.5rem,calc((100vw-1280px)/2+2.5rem))] lg:pr-10 2xl:col-span-5">
+        <div className="min-w-0 max-w-[600px]"><p className="eyebrow text-gold-400">Autohaus in Perkam bei Straubing</p><h1 className="display-title mt-4 text-balance text-cream lg:!text-[52px] lg:!leading-[1.05] xl:!text-[56px]">Ihr nächstes Auto steht in Perkam.</h1><p className="mt-5 text-lg leading-[1.6] text-silver-200 lg:text-xl">Vom sparsamen Alltagsauto bis zum Sportwagen – ausgesucht, durchgesehen und vor Ort Probe zu fahren.</p><div className="mt-7 grid gap-3 lg:flex lg:flex-wrap"><Button asChild variant="gold" className="w-full lg:w-auto"><Link to="/fahrzeuge">Fahrzeuge ansehen ({count})</Link></Button><Button type="button" variant="outline" className="w-full border-cream text-cream lg:w-auto" onClick={() => openTermin()}>Termin vereinbaren</Button></div></div>
       </div>
-      <div className="order-1 aspect-[3/2] overflow-hidden lg:order-2 lg:col-span-7 lg:aspect-auto lg:h-full"><img src={heroImage.url} alt="Bavaria Autoarena in Perkam – Ausstellungshalle mit Fahrzeugen" width="1280" height="766" fetchPriority="high" className="size-full object-cover object-[55%_50%]" /></div>
+      <div className="order-1 aspect-[3/2] h-full overflow-hidden lg:order-2 lg:col-span-6 lg:aspect-auto 2xl:col-span-7"><img src={heroImage.url} alt="Bavaria Autoarena in Perkam – Ausstellungshalle mit Fahrzeugen" width="1280" height="766" fetchPriority="high" className="size-full object-cover object-[60%_55%]" /></div>
     </section>
     <ContactBand />
   </>;
