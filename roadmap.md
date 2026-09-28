@@ -131,5 +131,5 @@
 
 - [x] Variante C mit freier Fassade und matter Torbeschriftung erstellen
 - [x] Variante C im Vorschau-Hero und auf `/hero-vorschau` ergänzen
-- [ ] Desktop- und Mobildarstellung prüfen
-- [ ] Produktions-Build ausführen
+- [x] Desktop- und Mobildarstellung prüfen
+- [x] Produktions-Build ausführen
