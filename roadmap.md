@@ -133,3 +133,12 @@
 - [x] Variante C im Vorschau-Hero und auf `/hero-vorschau` ergänzen
 - [x] Desktop- und Mobildarstellung prüfen
 - [x] Produktions-Build ausführen
+
+# Echte Firmendaten
+
+- [ ] Zentrale Firmendaten und Kontaktwege aktualisieren
+- [ ] Header, Kontaktband, Kontaktseite, Footer, Bottom-Bar und Anfahrt umstellen
+- [ ] Impressum, Datenschutz und JSON-LD vervollständigen
+- [ ] Bewertungen auf echte Kennzahl ohne Zitate umstellen
+- [ ] Verbleibende Platzhalter und TODOs prüfen
+- [ ] Produktions-Build und Browserdarstellung prüfen
