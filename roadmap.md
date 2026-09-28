@@ -110,3 +110,11 @@
 - [x] Bildnachweis und Projektdokumentation aktualisieren
 - [x] Hero bei 1280/1440/1920/390 px prüfen
 - [x] Produktions-Build ausführen
+
+# Redesign v3 – Schritt I
+
+- [x] Drei Autohaus-/Audi-Montagen in hoher Auflösung erstellen und prüfen
+- [x] Beste Variante im bestehenden Hero-Layout einsetzen
+- [x] Nicht indexierte Auswahlseite `/hero-vorschau` ergänzen
+- [x] Hero und Auswahlseite im Browser prüfen
+- [x] Produktions-Build ausführen
