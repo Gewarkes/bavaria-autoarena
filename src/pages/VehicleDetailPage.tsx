@@ -11,11 +11,11 @@ import { openTermin } from "@/lib/termin";
 import { sizedImage } from "@/lib/vehicleImages";
 
 const route = getRouteApi("/fahrzeuge/$slug");
-const phoneHref = `tel:${siteConfig.phone.replace(/\s/g, "")}`;
+const phoneHref = siteConfig.phoneHref;
 
 export function vehicleWhatsappUrl(title: string, price: number, url?: string) {
   const text = `Hallo, ich interessiere mich für den ${title} für ${formatPrice(price)}.${url ? ` ${url}` : ""}`;
-  return `https://wa.me/${siteConfig.whatsapp.replace(/\D/g, "")}?text=${encodeURIComponent(text)}`;
+  return `https://wa.me/${siteConfig.whatsappNumber}?text=${encodeURIComponent(text)}`;
 }
 
 export default function VehicleDetailPage() {
@@ -30,7 +30,7 @@ export default function VehicleDetailPage() {
   const cover = coverImage(v);
   const termin = () => openTermin({ topic: "Probefahrt", vehicle: { id: v.id, title: v.title, price: formatPrice(v.price_eur), image: cover ? sizedImage(cover.url, "card") : undefined } });
   const wa = vehicleWhatsappUrl(v.title, v.price_eur);
-  const phoneLabel = siteConfig.phone.replace(/^\+49\s?/, "0");
+  const phoneLabel = siteConfig.phone;
 
   const facts = [
     { label: "Erstzulassung", value: formatFirstRegistration(v.first_registration) }, { label: "Kilometer", value: formatKm(v.mileage_km) },

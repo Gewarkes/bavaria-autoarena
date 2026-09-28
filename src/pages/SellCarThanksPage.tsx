@@ -21,7 +21,7 @@ export default function SellCarThanksPage() {
           Wir prüfen Ihre Angaben und melden uns am nächsten Werktag{channel ? ` per ${channel}` : ""} mit einem unverbindlichen Angebot. Der endgültige Preis steht nach der Besichtigung fest.
         </p>
         <p className="mt-8 text-muted-foreground">Schneller geht es telefonisch:</p>
-        <Button asChild variant="gold" className="mt-3"><a href={`tel:${siteConfig.phone.replace(/\s/g, "")}`}><Phone />{siteConfig.phone}</a></Button>
+        <Button asChild variant="gold" className="mt-3"><a href={siteConfig.phoneHref}><Phone />{siteConfig.phone}</a></Button>
         <div className="mt-6"><Link to="/" className="text-sm text-gold-700 hover:underline">Zur Startseite</Link></div>
       </section>
       {showVehicles && (
