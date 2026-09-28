@@ -89,9 +89,9 @@
 
 # Redesign v3 – Schritt F
 
-- [ ] Hero teilen und Kennzeichen im Originalfoto anonymisieren
-- [ ] Servicefoto ersetzen und Inhaltskante am Container ausrichten
-- [ ] Kartenhöhen, Markenabschluss und Highlight-Bereich angleichen
-- [ ] Kundenstimmen ohne Fahrzeugkacheln neu anordnen
-- [ ] Porsche-Bilder entfernen und Ansichten bei 1440/390 px prüfen
+- [x] Hero teilen und echtes Autohausfoto unverändert einsetzen
+- [x] Servicefoto ersetzen und Inhaltskante am Container ausrichten
+- [x] Kartenhöhen, Markenabschluss und Highlight-Bereich angleichen
+- [x] Kundenstimmen ohne Fahrzeugkacheln neu anordnen
+- [ ] Porsche-Bilder entfernen und Ansichten bei 1440/1280/390 px prüfen
 - [ ] Produktions-Build ausführen
