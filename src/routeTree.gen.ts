@@ -15,6 +15,7 @@ import { Route as AutoVerkaufenRouteImport } from './routes/auto-verkaufen'
 import { Route as DatenschutzRouteImport } from './routes/datenschutz'
 import { Route as FahrzeugeRouteImport } from './routes/fahrzeuge'
 import { Route as FinanzierungRouteImport } from './routes/finanzierung'
+import { Route as HeroVorschauRouteImport } from './routes/hero-vorschau'
 import { Route as ImpressumRouteImport } from './routes/impressum'
 import { Route as KontaktRouteImport } from './routes/kontakt'
 import { Route as LeistungenRouteImport } from './routes/leistungen'
@@ -66,6 +67,11 @@ const FahrzeugeRoute = FahrzeugeRouteImport.update({
 const FinanzierungRoute = FinanzierungRouteImport.update({
   id: '/finanzierung',
   path: '/finanzierung',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HeroVorschauRoute = HeroVorschauRouteImport.update({
+  id: '/hero-vorschau',
+  path: '/hero-vorschau',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ImpressumRoute = ImpressumRouteImport.update({
@@ -187,6 +193,7 @@ export interface FileRoutesByFullPath {
   '/datenschutz': typeof DatenschutzRoute
   '/fahrzeuge': typeof FahrzeugeRouteWithChildren
   '/finanzierung': typeof FinanzierungRoute
+  '/hero-vorschau': typeof HeroVorschauRoute
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
   '/leistungen': typeof LeistungenRoute
@@ -214,6 +221,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/datenschutz': typeof DatenschutzRoute
   '/finanzierung': typeof FinanzierungRoute
+  '/hero-vorschau': typeof HeroVorschauRoute
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
   '/leistungen': typeof LeistungenRoute
@@ -245,6 +253,7 @@ export interface FileRoutesById {
   '/datenschutz': typeof DatenschutzRoute
   '/fahrzeuge': typeof FahrzeugeRouteWithChildren
   '/finanzierung': typeof FinanzierungRoute
+  '/hero-vorschau': typeof HeroVorschauRoute
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
   '/leistungen': typeof LeistungenRoute
@@ -277,6 +286,7 @@ export interface FileRouteTypes {
     | '/datenschutz'
     | '/fahrzeuge'
     | '/finanzierung'
+    | '/hero-vorschau'
     | '/impressum'
     | '/kontakt'
     | '/leistungen'
@@ -304,6 +314,7 @@ export interface FileRouteTypes {
     | '/'
     | '/datenschutz'
     | '/finanzierung'
+    | '/hero-vorschau'
     | '/impressum'
     | '/kontakt'
     | '/leistungen'
@@ -334,6 +345,7 @@ export interface FileRouteTypes {
     | '/datenschutz'
     | '/fahrzeuge'
     | '/finanzierung'
+    | '/hero-vorschau'
     | '/impressum'
     | '/kontakt'
     | '/leistungen'
@@ -365,6 +377,7 @@ export interface RootRouteChildren {
   DatenschutzRoute: typeof DatenschutzRoute
   FahrzeugeRoute: typeof FahrzeugeRouteWithChildren
   FinanzierungRoute: typeof FinanzierungRoute
+  HeroVorschauRoute: typeof HeroVorschauRoute
   ImpressumRoute: typeof ImpressumRoute
   KontaktRoute: typeof KontaktRoute
   LeistungenRoute: typeof LeistungenRoute
@@ -418,6 +431,13 @@ declare module '@tanstack/react-router' {
       path: '/finanzierung'
       fullPath: '/finanzierung'
       preLoaderRoute: typeof FinanzierungRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hero-vorschau': {
+      id: '/hero-vorschau'
+      path: '/hero-vorschau'
+      fullPath: '/hero-vorschau'
+      preLoaderRoute: typeof HeroVorschauRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/impressum': {
@@ -638,6 +658,7 @@ const rootRouteChildren: RootRouteChildren = {
   DatenschutzRoute: DatenschutzRoute,
   FahrzeugeRoute: FahrzeugeRouteWithChildren,
   FinanzierungRoute: FinanzierungRoute,
+  HeroVorschauRoute: HeroVorschauRoute,
   ImpressumRoute: ImpressumRoute,
   KontaktRoute: KontaktRoute,
   LeistungenRoute: LeistungenRoute,
