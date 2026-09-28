@@ -14,4 +14,4 @@
 - Das öffentliche Designsystem nutzt Jost Variable, Source Sans 3 Variable und die Navy/Gold/Silber-Tokens aus src/styles.css; so bleiben alle Seiten markenkonsistent.
 - Siegelkennzeichnungen werden ausschließlich manuell über `seal_indices` gepflegt; Admin-Speichern darf keine automatische Bilderkennung ausführen, damit Händlerangaben erhalten bleiben.
 - Fahrzeugbilder werden öffentlich durchgängig im 4:3-Rahmen mit `object-cover` und zentrierter Position gezeigt; eingebrannte Siegel bleiben sichtbar und steuern nur den Historienhinweis.
-- Das Startseiten-Titelbild ist das unveränderte Kundenfoto der Bavaria Autoarena-Halle; Stockfotos, Montagen und Kennzeichen-Abdeckungen dürfen dort nicht wiederverwendet werden.
+- Das Startseiten-Titelbild nutzt Variante B des bearbeiteten Dekler-Ph-Fahrzeugfotos mit modernem Haus; das Autohaus-Kundenfoto bleibt für eine spätere „Über uns“-Nutzung erhalten.
