@@ -1,5 +1,11 @@
 const variants = [
   {
+    number: "I3-C",
+    label: "Logo auf Tor",
+    description: "Matte goldene Torbeschriftung auf den sichtbaren Lamellen; die Fassade über dem Rolltor bleibt frei.",
+    src: "/hero-varianten/autohaus-audi-real-c.webp",
+  },
+  {
     number: "I2-A",
     label: "Realistisch · Tageslicht",
     description: "Bewölktes Tageslicht, zurückhaltende Goldbeschriftung und natürliche Fahrzeug- und Kiesstruktur.",
@@ -58,7 +64,7 @@ export default function HeroPreviewPage() {
                 alt={`Titelbild Variante ${variant.number}: dunkelgrüner Audi A5 Sportback vor der Bavaria Autoarena`}
                 width="2400"
                 height="1340"
-                loading={variant.number === "I2-A" ? "eager" : "lazy"}
+                loading={variant.number === "I3-C" ? "eager" : "lazy"}
                 className="block h-auto w-full bg-silver-300 object-contain"
               />
             </section>
