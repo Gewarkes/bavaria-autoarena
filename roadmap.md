@@ -126,3 +126,10 @@
 - [x] Realistischere Fassung nur in der Vorschau als Hero einsetzen
 - [x] Beide Fassungen auf `/hero-vorschau` ergänzen
 - [x] Produktions-Build und Browserdarstellung prüfen
+
+# Redesign v3 – Schritt I3
+
+- [x] Variante C mit freier Fassade und matter Torbeschriftung erstellen
+- [x] Variante C im Vorschau-Hero und auf `/hero-vorschau` ergänzen
+- [x] Desktop- und Mobildarstellung prüfen
+- [x] Produktions-Build ausführen
