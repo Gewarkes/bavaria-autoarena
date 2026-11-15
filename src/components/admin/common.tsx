@@ -10,7 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Skeleton } from "@/components/ui/skeleton";
 
 const leadTone: Record<LeadStatus, string> = {
-  neu: "border-gold/60 bg-gold/15 text-gold-light", kontaktiert: "border-silver/50 bg-silver/10 text-foreground",
+  neu: "border-primary/60 bg-primary/15 text-primary-light", kontaktiert: "border-border/50 bg-foreground/10 text-foreground",
   termin: "border-warning/60 bg-warning/15 text-warning", angebot: "border-warning/60 bg-warning/10 text-warning",
   abgeschlossen: "border-success/60 bg-success/15 text-success", abgelehnt: "border-border bg-muted text-muted-foreground",
 };
@@ -21,7 +21,7 @@ const pill = "inline-flex items-center whitespace-nowrap rounded-md border px-2 
 
 export const LeadBadge = ({ status }: { status: LeadStatus }) => <span className={cn(pill, leadTone[status])}>{LEAD_STATUSES.find((s) => s.value === status)?.label}</span>;
 export const VehicleStatusBadge = ({ status }: { status: VehicleStatus }) => <span className={cn(pill, vehTone[status])}>{VEHICLE_STATUSES.find((s) => s.value === status)?.label}</span>;
-export const DemoBadge = () => <span className={cn(pill, "border-silver/40 text-silver")}>Demo</span>;
+export const DemoBadge = () => <span className={cn(pill, "border-border/40 text-muted-foreground")}>Demo</span>;
 
 export function PageTitle({ title, children }: { title: string; children?: ReactNode }) {
   return (
@@ -36,7 +36,7 @@ export function StatusChips({ value, onChange }: { value: LeadStatus | "alle"; o
   const all = [{ value: "alle" as const, label: "Alle" }, ...LEAD_STATUSES];
   return (
     <div className="flex flex-wrap gap-2">
-      {all.map((s) => <button key={s.value} type="button" onClick={() => onChange(s.value)} className={cn("h-9 rounded-full border px-4 text-sm", value === s.value ? "border-gold bg-gold/15 text-gold-light" : "border-border text-muted-foreground hover:border-gold/50")}>{s.label}</button>)}
+      {all.map((s) => <button key={s.value} type="button" onClick={() => onChange(s.value)} className={cn("h-9 rounded-full border px-4 text-sm", value === s.value ? "border-primary bg-primary/15 text-primary-light" : "border-border text-muted-foreground hover:border-primary/50")}>{s.label}</button>)}
     </div>
   );
 }
@@ -75,7 +75,7 @@ export function LeadEditor({ status, notes, onSave, extra }: {
       <div className="space-y-2">
         <Label htmlFor="notes">Interne Notiz</Label>
         <Textarea id="notes" rows={5} value={text} onChange={(e) => setText(e.target.value)} maxLength={4000} />
-        <Button variant="gold" disabled={busy} onClick={() => run({ internal_notes: text.trim() || null }, "Notiz gespeichert.")}>Notiz speichern</Button>
+        <Button variant="brand" disabled={busy} onClick={() => run({ internal_notes: text.trim() || null }, "Notiz gespeichert.")}>Notiz speichern</Button>
       </div>
     </div>
   );

@@ -66,7 +66,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
       { name: "author", content: "Bavaria Autoarena GmbH" },
-      { name: "theme-color", content: "#1A1F35" },
+      { name: "theme-color", content: "#0A0A0C" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -75,7 +75,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: appCss,
       },
-      { rel: "icon", href: "/logo.webp", type: "image/webp", sizes: "400x400" },
+      { rel: "icon", href: "/favicon.png", type: "image/png" },
       { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
       { rel: "manifest", href: "/manifest.webmanifest" },
       { rel: "preconnect", href: "https://img.classistatic.de" },
@@ -108,7 +108,7 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       {isAdmin ? <Outlet /> : <SiteLayout><Outlet /></SiteLayout>}
-      <Toaster richColors position="top-right" />
+      <Toaster richColors theme="dark" position="top-right" />
     </QueryClientProvider>
   );
 }

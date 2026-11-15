@@ -17,7 +17,7 @@ const yn = (b: boolean | null) => (b == null ? "–" : b ? "Ja" : "Nein");
 function Group({ title, rows }: { title: string; rows: [string, ReactNode][] }) {
   return (
     <section className="rounded-lg border border-border bg-card p-5">
-      <h2 className="mb-3 font-display text-xs font-bold uppercase tracking-wide text-gold">{title}</h2>
+      <h2 className="mb-3 font-display text-xs font-bold uppercase tracking-wide text-primary">{title}</h2>
       <dl className="grid grid-cols-[10rem_1fr] gap-x-4 gap-y-2 text-sm">
         {rows.map(([k, v]) => <div key={k} className="contents"><dt className="text-muted-foreground">{k}</dt><dd className="break-words">{v || "–"}</dd></div>)}
       </dl>
@@ -69,7 +69,7 @@ export default function AdminTradeInDetailPage({ id }: { id: string }) {
 
   return (
     <div>
-      <Link to="/admin/inzahlungnahme" className="mb-4 inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-gold"><ArrowLeft className="size-4" /> Zurück zur Liste</Link>
+      <Link to="/admin/inzahlungnahme" className="mb-4 inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-tiffany-300"><ArrowLeft className="size-4" /> Zurück zur Liste</Link>
       <div className="mb-6 flex flex-wrap items-center gap-3">
         <h1 className="font-display text-2xl font-extrabold uppercase tracking-wide">{r.first_name} {r.last_name}</h1>
         <LeadBadge status={r.status} />
@@ -79,19 +79,19 @@ export default function AdminTradeInDetailPage({ id }: { id: string }) {
         <div className="space-y-5">
           <Group title="Fahrzeug" rows={[["Marke / Modell", `${r.brand} ${r.model}`], ["Erstzulassung", r.first_registration_year], ["Kilometer", formatKm(r.mileage_km)], ["Kraftstoff", r.fuel], ["Getriebe", r.transmission], ["Variante", r.engine_variant], ["Unfallstatus", r.accident_status]]} />
           <Group title="Zustand" rows={[["Außen", r.condition_exterior], ["Innen", r.condition_interior], ["HU bis", r.hu_until], ["Vorbesitzer", r.previous_owners], ["Scheckheft", r.service_book], ["Schäden", r.damage_notes], ["Finanzierung aktiv", yn(r.financing_active)]]} />
-          <Group title="Wunsch" rows={[["Absicht", INTENT_LABEL[r.intent] ?? r.intent], ["Wunschfahrzeug", r.desired_vehicle_id ? (wish.data ? <Link to="/fahrzeuge/$slug" params={{ slug: wish.data.slug }} target="_blank" className="text-gold underline">{wish.data.title}</Link> : "Fahrzeug nicht mehr verfügbar") : null]]} />
+          <Group title="Wunsch" rows={[["Absicht", INTENT_LABEL[r.intent] ?? r.intent], ["Wunschfahrzeug", r.desired_vehicle_id ? (wish.data ? <Link to="/fahrzeuge/$slug" params={{ slug: wish.data.slug }} target="_blank" className="text-primary underline">{wish.data.title}</Link> : "Fahrzeug nicht mehr verfügbar") : null]]} />
           <Group title="Kontakt" rows={[
-            ["Telefon", r.phone ? <span className="flex flex-wrap gap-3"><a className="inline-flex items-center gap-1 text-gold underline" href={`tel:${r.phone}`}><Phone className="size-3.5" />{r.phone}</a><a className="inline-flex items-center gap-1 text-gold underline" href={waLink(r.phone)} target="_blank" rel="noreferrer"><MessageCircle className="size-3.5" />WhatsApp</a></span> : null],
-            ["E-Mail", r.email ? <a className="inline-flex items-center gap-1 text-gold underline" href={`mailto:${r.email}`}><Mail className="size-3.5" />{r.email}</a> : null],
+            ["Telefon", r.phone ? <span className="flex flex-wrap gap-3"><a className="inline-flex items-center gap-1 text-primary underline" href={`tel:${r.phone}`}><Phone className="size-3.5" />{r.phone}</a><a className="inline-flex items-center gap-1 text-primary underline" href={waLink(r.phone)} target="_blank" rel="noreferrer"><MessageCircle className="size-3.5" />WhatsApp</a></span> : null],
+            ["E-Mail", r.email ? <a className="inline-flex items-center gap-1 text-primary underline" href={`mailto:${r.email}`}><Mail className="size-3.5" />{r.email}</a> : null],
             ["PLZ", r.zip], ["Bevorzugter Kontaktweg", r.contact_channel], ["Werbekontakt", yn(r.marketing_opt_in)], ["Datenschutzhinweis", r.privacy_notice_version],
           ]} />
-          <section className="rounded-lg border border-border bg-card p-5"><h2 className="mb-3 font-display text-xs font-bold uppercase tracking-wide text-gold">Fotos</h2><Photos paths={r.photo_paths} /></section>
+          <section className="rounded-lg border border-border bg-card p-5"><h2 className="mb-3 font-display text-xs font-bold uppercase tracking-wide text-primary">Fotos</h2><Photos paths={r.photo_paths} /></section>
         </div>
         <div className="space-y-5">
           <LeadEditor status={r.status} notes={r.internal_notes} onSave={save} extra={
             <div className="space-y-2">
               <Label htmlFor="val">Interne Bewertung (€)</Label>
-              <div className="flex gap-2"><Input id="val" inputMode="numeric" value={valuation} onChange={(e) => setValuation(e.target.value)} className="h-12" placeholder="z. B. 12500" /><Button variant="silver" onClick={saveValuation}>Speichern</Button></div>
+              <div className="flex gap-2"><Input id="val" inputMode="numeric" value={valuation} onChange={(e) => setValuation(e.target.value)} className="h-12" placeholder="z. B. 12500" /><Button variant="plain" onClick={saveValuation}>Speichern</Button></div>
               {r.internal_valuation_eur != null ? <p className="text-xs text-muted-foreground">Aktuell: {formatPrice(r.internal_valuation_eur)}</p> : null}
             </div>
           } />

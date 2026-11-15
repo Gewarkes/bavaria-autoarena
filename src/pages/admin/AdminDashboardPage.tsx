@@ -30,9 +30,9 @@ export default function AdminDashboardPage() {
       {err ? <ErrorBox error={err} /> : null}
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {kpis.map((k) => (
-          <Link key={k.label} to={k.to} className="rounded-lg border border-border bg-card p-5 transition-colors hover:border-gold/50">
+          <Link key={k.label} to={k.to} className="rounded-lg border border-border bg-card p-5 transition-colors hover:border-primary/50">
             <p className="text-xs uppercase tracking-wide text-muted-foreground">{k.label}</p>
-            {loading ? <Skeleton className="mt-3 h-9 w-20" /> : <p className="text-gold-gradient mt-2 font-display text-3xl font-extrabold">{k.value}</p>}
+            {loading ? <Skeleton className="mt-3 h-9 w-20" /> : <p className="text-primary-gradient mt-2 font-display text-3xl font-extrabold">{k.value}</p>}
           </Link>
         ))}
       </div>
@@ -42,13 +42,13 @@ export default function AdminDashboardPage() {
           {latest.length === 0 ? <p className="p-5 text-sm text-muted-foreground">Noch keine Anfragen.</p> : latest.map((l) => (
             l.trade ? <Link key={l.id} to="/admin/inzahlungnahme/$id" params={{ id: l.id }} className="flex flex-wrap items-center gap-x-4 gap-y-1 p-4 hover:bg-muted/40">
               <span className="w-36 text-xs text-muted-foreground">{fmtDateTime(l.at)}</span>
-              <span className="w-32 text-xs font-semibold uppercase text-gold">{l.type}</span>
+              <span className="w-32 text-xs font-semibold uppercase text-primary">{l.type}</span>
               <span className="font-medium">{l.name}</span>
               <span className="text-sm text-muted-foreground">{l.info}</span>
               <span className="ml-auto"><LeadBadge status={l.status} /></span>
             </Link> : <Link key={l.id} to="/admin/anfragen" search={{ id: l.id }} className="flex flex-wrap items-center gap-x-4 gap-y-1 p-4 hover:bg-muted/40">
               <span className="w-36 text-xs text-muted-foreground">{fmtDateTime(l.at)}</span>
-              <span className="w-32 text-xs font-semibold uppercase text-gold">{l.type}</span>
+              <span className="w-32 text-xs font-semibold uppercase text-primary">{l.type}</span>
               <span className="font-medium">{l.name}</span>
               <span className="text-sm text-muted-foreground">{l.info}</span>
               <span className="ml-auto"><LeadBadge status={l.status} /></span>

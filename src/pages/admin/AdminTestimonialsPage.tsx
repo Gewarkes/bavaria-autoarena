@@ -43,7 +43,7 @@ export default function AdminTestimonialsPage() {
 
   return (
     <div className="max-w-4xl">
-      <PageTitle title="Kundenstimmen"><Button variant="gold" onClick={() => setDraft({ author: "", text: "", rating: 5, source: "mobile.de", approved_at: "" })}><Plus className="size-4" /> Neue Kundenstimme</Button></PageTitle>
+      <PageTitle title="Kundenstimmen"><Button variant="brand" onClick={() => setDraft({ author: "", text: "", rating: 5, source: "mobile.de", approved_at: "" })}><Plus className="size-4" /> Neue Kundenstimme</Button></PageTitle>
       <p className="mb-6 rounded-md border border-warning/50 bg-warning/10 p-3 text-sm text-warning">Nur mit Zustimmung des Verfassers veröffentlichen.</p>
       {error ? <ErrorBox error={error} /> : isLoading ? <TableSkeleton rows={3} /> : (
         <div className="space-y-3">
@@ -51,7 +51,7 @@ export default function AdminTestimonialsPage() {
             <div key={t.id} className="flex gap-4 rounded-lg border border-border bg-card p-4">
               <div className="flex flex-col gap-1"><Button variant="ghost" size="sm" aria-label="Nach oben" disabled={i === 0} onClick={() => move(i, -1)}><ArrowUp className="size-4" /></Button><Button variant="ghost" size="sm" aria-label="Nach unten" disabled={i === (data?.length ?? 0) - 1} onClick={() => move(i, 1)}><ArrowDown className="size-4" /></Button></div>
               <div className="min-w-0 flex-1">
-                <p className="font-semibold">{t.author} <span className="ml-2 inline-flex">{Array.from({ length: t.rating ?? 0 }, (_, k) => <Star key={k} className="size-3.5 fill-gold text-gold" />)}</span></p>
+                <p className="font-semibold">{t.author} <span className="ml-2 inline-flex">{Array.from({ length: t.rating ?? 0 }, (_, k) => <Star key={k} className="size-3.5 fill-primary text-primary" />)}</span></p>
                 <p className="mt-1 line-clamp-3 text-sm text-muted-foreground">{t.text}</p>
                 <p className="mt-1 text-xs text-muted-foreground">{t.source}{t.approved_at ? ` · Freigabe ${new Date(t.approved_at).toLocaleDateString("de-DE")}` : ""}</p>
               </div>
@@ -69,10 +69,10 @@ export default function AdminTestimonialsPage() {
           {draft ? <div className="space-y-4">
             <div className="space-y-2"><Label>Autor</Label><Input value={draft.author} onChange={(e) => setDraft({ ...draft, author: e.target.value })} /></div>
             <div className="space-y-2"><Label>Text</Label><Textarea rows={5} value={draft.text} onChange={(e) => setDraft({ ...draft, text: e.target.value })} /></div>
-            <div className="space-y-2"><Label>Sterne</Label><div className="flex gap-1">{[1, 2, 3, 4, 5].map((n) => <button key={n} type="button" aria-label={`${n} Sterne`} onClick={() => setDraft({ ...draft, rating: n })}><Star className={n <= draft.rating ? "size-6 fill-gold text-gold" : "size-6 text-muted-foreground"} /></button>)}</div></div>
+            <div className="space-y-2"><Label>Sterne</Label><div className="flex gap-1">{[1, 2, 3, 4, 5].map((n) => <button key={n} type="button" aria-label={`${n} Sterne`} onClick={() => setDraft({ ...draft, rating: n })}><Star className={n <= draft.rating ? "size-6 fill-primary text-primary" : "size-6 text-muted-foreground"} /></button>)}</div></div>
             <div className="grid grid-cols-2 gap-3"><div className="space-y-2"><Label>Quelle</Label><Input value={draft.source} onChange={(e) => setDraft({ ...draft, source: e.target.value })} /></div><div className="space-y-2"><Label>Freigabe-Datum</Label><Input type="date" value={draft.approved_at} onChange={(e) => setDraft({ ...draft, approved_at: e.target.value })} /></div></div>
             <p className="text-xs text-warning">Nur mit Zustimmung des Verfassers veröffentlichen.</p>
-            <Button variant="gold" className="w-full" onClick={save}>Speichern</Button>
+            <Button variant="brand" className="w-full" onClick={save}>Speichern</Button>
           </div> : null}
         </DialogContent>
       </Dialog>

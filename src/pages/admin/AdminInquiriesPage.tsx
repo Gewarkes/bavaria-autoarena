@@ -39,11 +39,11 @@ export default function AdminInquiriesPage({ selectedId }: { selectedId?: string
 
   return (
     <div>
-      <PageTitle title="Fahrzeuganfragen"><Button variant="silver" onClick={exportCsv} disabled={!rows.length}><Download className="size-4" /> CSV-Export</Button></PageTitle>
+      <PageTitle title="Fahrzeuganfragen"><Button variant="plain" onClick={exportCsv} disabled={!rows.length}><Download className="size-4" /> CSV-Export</Button></PageTitle>
       <CleanupNotice onDone={() => void qc.invalidateQueries({ queryKey: ["admin"] })} />
       <div className="mb-4 flex flex-col gap-3 lg:flex-row lg:items-center">
         <StatusChips value={status} onChange={setStatus} />
-        <Button variant={onlyAppointments ? "gold" : "silver"} size="sm" aria-pressed={onlyAppointments} onClick={() => setOnlyAppointments(!onlyAppointments)}>Termine</Button>
+        <Button variant={onlyAppointments ? "brand" : "plain"} size="sm" aria-pressed={onlyAppointments} onClick={() => setOnlyAppointments(!onlyAppointments)}>Termine</Button>
         <div className="relative lg:ml-auto lg:w-72"><Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" /><Input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Name, Fahrzeug" className="h-10 pl-9" aria-label="Suche" /></div>
       </div>
       {error ? <ErrorBox error={error} /> : isLoading ? <TableSkeleton /> : (
@@ -56,7 +56,7 @@ export default function AdminInquiriesPage({ selectedId }: { selectedId?: string
                   <TableCell className="whitespace-nowrap text-xs text-muted-foreground">{fmtDateTime(r.created_at)}</TableCell>
                   <TableCell>{KIND_LABEL[r.kind] ?? r.kind}</TableCell>
                   <TableCell className="font-medium">{r.name}</TableCell>
-                  <TableCell>{r.vehicles ? <Link to="/fahrzeuge/$slug" params={{ slug: r.vehicles.slug }} target="_blank" onClick={(e) => e.stopPropagation()} className="text-gold underline">{r.vehicles.title}</Link> : "–"}</TableCell>
+                  <TableCell>{r.vehicles ? <Link to="/fahrzeuge/$slug" params={{ slug: r.vehicles.slug }} target="_blank" onClick={(e) => e.stopPropagation()} className="text-primary underline">{r.vehicles.title}</Link> : "–"}</TableCell>
                   <TableCell className="whitespace-nowrap text-sm">{wish(r)}{r.topic ? <span className="block text-xs text-muted-foreground">{r.topic}</span> : null}</TableCell>
                   <TableCell className="text-sm">{r.phone ?? r.email ?? "–"}</TableCell>
                   <TableCell><LeadBadge status={r.status} /></TableCell>
@@ -74,9 +74,9 @@ export default function AdminInquiriesPage({ selectedId }: { selectedId?: string
               <dl className="grid grid-cols-[8rem_1fr] gap-y-2">
                 <dt className="text-muted-foreground">Eingang</dt><dd>{fmtDateTime(sel.created_at)}</dd>
                 <dt className="text-muted-foreground">Art</dt><dd>{KIND_LABEL[sel.kind] ?? sel.kind}</dd>
-                <dt className="text-muted-foreground">Fahrzeug</dt><dd>{sel.vehicles ? <Link to="/fahrzeuge/$slug" params={{ slug: sel.vehicles.slug }} target="_blank" className="text-gold underline">{sel.vehicles.title}</Link> : "–"}</dd>
-                <dt className="text-muted-foreground">Telefon</dt><dd>{sel.phone ? <span className="flex flex-wrap gap-3"><a className="inline-flex items-center gap-1 text-gold underline" href={`tel:${sel.phone}`}><Phone className="size-3.5" />{sel.phone}</a><a className="inline-flex items-center gap-1 text-gold underline" href={waLink(sel.phone)} target="_blank" rel="noreferrer"><MessageCircle className="size-3.5" />WhatsApp</a></span> : "–"}</dd>
-                <dt className="text-muted-foreground">E-Mail</dt><dd>{sel.email ? <a className="inline-flex items-center gap-1 text-gold underline" href={`mailto:${sel.email}`}><Mail className="size-3.5" />{sel.email}</a> : "–"}</dd>
+                <dt className="text-muted-foreground">Fahrzeug</dt><dd>{sel.vehicles ? <Link to="/fahrzeuge/$slug" params={{ slug: sel.vehicles.slug }} target="_blank" className="text-primary underline">{sel.vehicles.title}</Link> : "–"}</dd>
+                <dt className="text-muted-foreground">Telefon</dt><dd>{sel.phone ? <span className="flex flex-wrap gap-3"><a className="inline-flex items-center gap-1 text-primary underline" href={`tel:${sel.phone}`}><Phone className="size-3.5" />{sel.phone}</a><a className="inline-flex items-center gap-1 text-primary underline" href={waLink(sel.phone)} target="_blank" rel="noreferrer"><MessageCircle className="size-3.5" />WhatsApp</a></span> : "–"}</dd>
+                <dt className="text-muted-foreground">E-Mail</dt><dd>{sel.email ? <a className="inline-flex items-center gap-1 text-primary underline" href={`mailto:${sel.email}`}><Mail className="size-3.5" />{sel.email}</a> : "–"}</dd>
                 <dt className="text-muted-foreground">Datenschutz</dt><dd>{sel.privacy_notice_version}</dd>
               </dl>
               <div><p className="mb-1 text-muted-foreground">Nachricht</p><p className="whitespace-pre-wrap rounded-md border border-border bg-muted/30 p-3">{sel.message || "–"}</p></div>

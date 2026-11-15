@@ -22,11 +22,11 @@ export default function SellCarPage() {
   const search = route.useSearch();
   return (
     <>
-      <section className="bg-navy-900 text-cream">
+      <section className="bg-ink-900 text-foreground">
         <div className="page-container grid gap-10 py-16 md:py-20 lg:grid-cols-[1fr_minmax(0,560px)] lg:items-start">
           <div className="lg:pt-8">
-            <p className="eyebrow text-gold-400">Ankauf</p><h1 className="display-title mt-4">Auto verkaufen oder in Zahlung geben</h1>
-            <p className="mt-6 max-w-xl text-lg leading-[1.6] text-silver-300">Sie tragen die wichtigsten Daten ein. Wir sehen uns den Markt und Ihre Angaben an und melden uns am nächsten Werktag mit einem Preis. Danach entscheiden Sie.</p>
+            <p className="eyebrow text-primary">Ankauf</p><h1 className="display-title mt-4">Auto verkaufen oder in Zahlung geben</h1>
+            <p className="mt-6 max-w-xl text-lg leading-[1.6] text-muted-foreground">Sie tragen die wichtigsten Daten ein. Wir sehen uns den Markt und Ihre Angaben an und melden uns am nächsten Werktag mit einem Preis. Danach entscheiden Sie.</p>
           </div>
           <TradeInWizard initialBrand={search.marke} initialModel={search.modell} initialDesiredVehicleId={search.wunschfahrzeug} />
         </div>
@@ -39,12 +39,12 @@ export default function SellCarPage() {
             <li key={s.title} className="py-7 md:px-8 md:py-0 first:pl-0">
               <span className="text-sm text-muted-foreground">0{i + 1}</span>
               <h3 className="mt-3 text-lg font-semibold text-foreground">{s.title}</h3>
-              <p className="mt-2 leading-[1.6] text-ink-500">{s.text}</p>
+              <p className="mt-2 leading-[1.6] text-muted-foreground">{s.text}</p>
             </li>
           ))}
         </ol>
         <h2 className="section-h2 mt-16">Was wir übernehmen</h2><ul className="mt-8 max-w-3xl space-y-3">
-          {benefits.map((title) => <li key={title} className="border-b border-border pb-3 leading-[1.6] text-ink-500">{title}</li>)}
+          {benefits.map((title) => <li key={title} className="border-b border-border pb-3 leading-[1.6] text-muted-foreground">{title}</li>)}
         </ul>
       </Reveal>
 

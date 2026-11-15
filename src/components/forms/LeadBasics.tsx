@@ -34,7 +34,7 @@ export function LeadBasicsFields({ form }: { form: ReturnType<typeof useLeadForm
   const lbl = "block text-xs font-semibold uppercase tracking-wide text-muted-foreground";
   return (
     <>
-      <label className={lbl}>Name <span className="text-gold">*</span><Input className="mt-2 h-12" autoComplete="name" enterKeyHint="next" maxLength={100} value={basics.name} onChange={(e) => setBasics({ ...basics, name: e.target.value })} /></label>
+      <label className={lbl}>Name <span className="text-primary">*</span><Input className="mt-2 h-12" autoComplete="name" enterKeyHint="next" maxLength={100} value={basics.name} onChange={(e) => setBasics({ ...basics, name: e.target.value })} /></label>
       {errors["name"] && <p className="text-sm text-destructive">{errors["name"]}</p>}
       <p className="text-sm text-muted-foreground">Telefon oder E-Mail – mindestens eines davon.</p>
       <div className="grid gap-4 sm:grid-cols-2">
@@ -50,8 +50,8 @@ export function LeadBasicsFields({ form }: { form: ReturnType<typeof useLeadForm
 export function LeadSubmit({ form, label }: { form: ReturnType<typeof useLeadForm>; label: string }) {
   return (
     <>
-      {form.state === "error" && <p role="alert" className="rounded-md border border-destructive/50 bg-destructive/10 p-3 text-sm text-foreground">Das hat leider nicht geklappt. Bitte versuchen Sie es erneut oder rufen Sie uns an: <a href={phoneHref} className="text-gold underline">{siteConfig.phone}</a></p>}
-      <Button type="submit" variant="gold" disabled={form.state === "busy"} className="w-full sm:w-auto">{form.state === "busy" && <Loader2 className="animate-spin" />}{label}</Button>
+      {form.state === "error" && <p role="alert" className="rounded-md border border-destructive/50 bg-destructive/10 p-3 text-sm text-foreground">Das hat leider nicht geklappt. Bitte versuchen Sie es erneut oder rufen Sie uns an: <a href={phoneHref} className="text-primary underline">{siteConfig.phone}</a></p>}
+      <Button type="submit" variant="brand" disabled={form.state === "busy"} className="w-full sm:w-auto">{form.state === "busy" && <Loader2 className="animate-spin" />}{label}</Button>
     </>
   );
 }

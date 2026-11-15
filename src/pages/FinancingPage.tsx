@@ -66,7 +66,7 @@ export default function FinancingPage() {
           </Reveal>
           <Reveal>
              <h2 className="section-h2">Was Sie festlegen können</h2>
-             <dl className="mt-8 divide-y divide-border">{benefits.map(([title, text]) => <div key={title} className="py-5"><dt className="font-semibold text-foreground">{title}</dt><dd className="mt-2 leading-[1.6] text-ink-500">{text}</dd></div>)}</dl>
+             <dl className="mt-8 divide-y divide-border">{benefits.map(([title, text]) => <div key={title} className="py-5"><dt className="font-semibold text-foreground">{title}</dt><dd className="mt-2 leading-[1.6] text-muted-foreground">{text}</dd></div>)}</dl>
           </Reveal>
           {siteConfig.features.showMonthlyRate && <FinancingExample />}
         </div>

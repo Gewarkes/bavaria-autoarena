@@ -149,3 +149,15 @@
 - [x] Original-Logo pixelgetreu freistellen und perspektivisch montieren
 - [x] Hero und Detailansicht bei 1440 px prüfen
 - [x] Produktions-Build ausführen
+
+# Redesign v4 – Premium Tiffany
+
+- [x] Neues Logo (SVG) für Header, Footer, Admin, 404; Favicon, App-Icons, OG-Bild, theme-color
+- [x] Dunkles Farbsystem ink/tiffany in oklch, Gold/Navy/Cream/Silber entfernt
+- [x] Buttons (brand/outline), Karten, Formfelder, Rauten-Muster (Service, Footer)
+- [x] Header mit Blur beim Scrollen, Vollbildmenü, Footer mit Verlaufslinie, mobile Aktionsleiste
+- [x] Startseite neu: Vollbild-Hero, Kontaktband, Markenband, Bestand, Highlight, Ankauf, Service 01–06, Über uns, Bewertungen, Anfahrt
+- [x] Hero-Bild ohne altes Logo, neues Logo matt auf Fassade, dunkler gegradet, Desktop/Mobil
+- [x] /hero-vorschau und public/hero-varianten entfernt
+- [x] E-Mail-Vorlage, Fehlerseite, Toasts umgefärbt
+- [x] Prüfung 390/1440, Produktions-Build, TypeScript

@@ -10,8 +10,8 @@ import { submitInquiry } from "@/lib/inquiries";
 import { buildIcs, CALL_ME, chipLabel, closeTermin, longLabel, nextOpeningDays, slotsFor, TERMIN_TOPICS, useTerminState, type TerminTopic, type TerminVehicle } from "@/lib/termin";
 import { cn } from "@/lib/utils";
 
-const chip = (active: boolean) => cn("h-11 shrink-0 rounded-sm border px-4 text-sm tabular-nums transition-colors", active ? "border-navy-900 bg-navy-900 text-cream" : "border-silver-300 bg-white text-navy-900 hover:border-gold-500");
-const label = "block font-display text-[12px] font-medium uppercase tracking-[.14em] text-ink-500";
+const chip = (active: boolean) => cn("h-11 shrink-0 rounded-sm border px-4 text-sm tabular-nums transition-colors", active ? "border-foreground bg-ink-900 text-foreground" : "border-border bg-card text-foreground hover:border-primary");
+const label = "block font-display text-[12px] font-medium uppercase tracking-[.14em] text-muted-foreground";
 
 export function TerminFlow({ vehicle, initialTopic, dark = false }: { vehicle?: TerminVehicle | undefined; initialTopic?: TerminTopic | undefined; dark?: boolean }) {
   const [step, setStep] = useState<1 | 2 | 3 | 4>(initialTopic ? 2 : 1);
@@ -57,7 +57,7 @@ export function TerminFlow({ vehicle, initialTopic, dark = false }: { vehicle?: 
     setTimeout(() => URL.revokeObjectURL(a.href), 2000);
   }
 
-  const text = dark ? "text-cream" : "text-navy-900";
+  const text = dark ? "text-foreground" : "text-foreground";
   const firstName = name.trim().split(/\s+/)[0];
 
   if (step === 4) return (
@@ -69,7 +69,7 @@ export function TerminFlow({ vehicle, initialTopic, dark = false }: { vehicle?: 
       </p>
       <p className="mt-4 text-sm">Bitte Führerschein mitbringen.</p>
       <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3">
-        {!callMe ? <Button type="button" variant="gold" onClick={downloadIcs}>In Kalender eintragen (.ics)</Button> : null}
+        {!callMe ? <Button type="button" variant="brand" onClick={downloadIcs}>In Kalender eintragen (.ics)</Button> : null}
         <a href={mapsRouteUrl} target="_blank" rel="noopener noreferrer" className="text-link">Route planen</a>
       </div>
       <p className="mt-6 text-xs opacity-75">{siteConfig.street}, {siteConfig.zip} {siteConfig.city}</p>
@@ -79,13 +79,13 @@ export function TerminFlow({ vehicle, initialTopic, dark = false }: { vehicle?: 
   return (
     <div className={text}>
       <ol aria-label="Fortschritt" className="flex items-center gap-2 font-display text-sm tabular-nums tracking-[.1em]">
-        {[1, 2, 3].map((n, i) => <li key={n} className="flex items-center gap-2">{i ? <span aria-hidden className="opacity-40">·</span> : null}<span aria-current={step === n ? "step" : undefined} className={step === n ? "text-gold-600 font-semibold" : step > n ? "" : "opacity-40"}>{n}</span></li>)}
+        {[1, 2, 3].map((n, i) => <li key={n} className="flex items-center gap-2">{i ? <span aria-hidden className="opacity-40">·</span> : null}<span aria-current={step === n ? "step" : undefined} className={step === n ? "text-primary font-semibold" : step > n ? "" : "opacity-40"}>{n}</span></li>)}
       </ol>
-      {vehicle ? <div className="mt-5 flex items-center gap-4 border-y border-silver-300/60 py-3">{vehicle.image ? <img src={vehicle.image} alt="" width={96} height={54} className="h-[54px] w-24 shrink-0 rounded-sm bg-[#E4E5E7] object-cover" /> : null}<div className="min-w-0"><p className="truncate font-semibold">{vehicle.title}</p><p className="text-sm tabular-nums opacity-80">{vehicle.price}</p></div></div> : null}
+      {vehicle ? <div className="mt-5 flex items-center gap-4 border-y border-border/60 py-3">{vehicle.image ? <img src={vehicle.image} alt="" width={96} height={54} className="h-[54px] w-24 shrink-0 rounded-sm bg-image-placeholder object-cover" /> : null}<div className="min-w-0"><p className="truncate font-semibold">{vehicle.title}</p><p className="text-sm tabular-nums opacity-80">{vehicle.price}</p></div></div> : null}
 
       {step === 1 ? <section className="mt-6">
         <h3 className="font-display text-2xl font-light uppercase tracking-[.06em]">Worum geht's?</h3>
-        <div className="mt-5 grid gap-3 sm:grid-cols-2">{TERMIN_TOPICS.map((t) => <button key={t} type="button" onClick={() => { setTopic(t); setStep(2); }} className={cn("min-h-20 rounded-sm border p-5 text-left text-lg transition-colors", topic === t ? "border-gold-500 bg-gold-500/10" : "border-silver-300 bg-white text-navy-900 hover:border-gold-500")}>{t}</button>)}</div>
+        <div className="mt-5 grid gap-3 sm:grid-cols-2">{TERMIN_TOPICS.map((t) => <button key={t} type="button" onClick={() => { setTopic(t); setStep(2); }} className={cn("min-h-20 rounded-sm border p-5 text-left text-lg transition-colors", topic === t ? "border-primary bg-primary/10" : "border-border bg-card text-foreground hover:border-primary")}>{t}</button>)}</div>
       </section> : null}
 
       {step === 2 ? <section className="mt-6">
@@ -99,7 +99,7 @@ export function TerminFlow({ vehicle, initialTopic, dark = false }: { vehicle?: 
         </div>
         <div className="mt-7 flex items-center gap-4">
           {!initialTopic ? <button type="button" onClick={() => setStep(1)} className="inline-flex min-h-11 items-center gap-1 text-sm underline underline-offset-[6px]"><ArrowLeft className="size-4" strokeWidth={1.5} />Zurück</button> : null}
-          <Button type="button" variant="gold" disabled={!time} onClick={() => setStep(3)}>Weiter</Button>
+          <Button type="button" variant="brand" disabled={!time} onClick={() => setStep(3)}>Weiter</Button>
         </div>
       </section> : null}
 
@@ -107,15 +107,15 @@ export function TerminFlow({ vehicle, initialTopic, dark = false }: { vehicle?: 
         <h3 className="font-display text-2xl font-light uppercase tracking-[.06em]">Wie erreichen wir Sie?</h3>
         <p className="text-sm opacity-80">{topic}{callMe ? ` · ${CALL_ME}` : date ? ` · ${chipLabel(date)}, ${time} Uhr` : ""}</p>
         <Honeypot value={honeypot} onChange={setHoneypot} />
-        <label className={label}>Name *<Input value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" enterKeyHint="next" maxLength={100} className="mt-2 h-12 bg-white text-navy-900" aria-invalid={!!errors["name"]} /></label>
+        <label className={label}>Name *<Input value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" enterKeyHint="next" maxLength={100} className="mt-2 h-12 bg-card text-foreground" aria-invalid={!!errors["name"]} /></label>
         {errors["name"] ? <p className="-mt-3 text-sm text-destructive">{errors["name"]}</p> : null}
-        <label className={label}>Telefon *<Input type="tel" inputMode="tel" autoComplete="tel" enterKeyHint="next" maxLength={40} value={phone} onChange={(e) => setPhone(e.target.value)} className="mt-2 h-12 bg-white text-navy-900" aria-invalid={!!errors["phone"]} /></label>
+        <label className={label}>Telefon *<Input type="tel" inputMode="tel" autoComplete="tel" enterKeyHint="next" maxLength={40} value={phone} onChange={(e) => setPhone(e.target.value)} className="mt-2 h-12 bg-card text-foreground" aria-invalid={!!errors["phone"]} /></label>
         {errors["phone"] ? <p className="-mt-3 text-sm text-destructive">{errors["phone"]}</p> : null}
-        <label className={label}>Anmerkung<Input value={note} onChange={(e) => setNote(e.target.value)} maxLength={300} enterKeyHint="send" className="mt-2 h-12 bg-white text-navy-900" /></label>
+        <label className={label}>Anmerkung<Input value={note} onChange={(e) => setNote(e.target.value)} maxLength={300} enterKeyHint="send" className="mt-2 h-12 bg-card text-foreground" /></label>
         {failed ? <p role="alert" className="text-sm">Das hat leider nicht geklappt. Bitte versuchen Sie es erneut oder rufen Sie uns an: <a href={phoneHref} className="font-semibold underline">{siteConfig.phone}</a></p> : null}
         <div className="flex items-center gap-4">
           <button type="button" onClick={() => setStep(2)} className="inline-flex min-h-11 items-center gap-1 text-sm underline underline-offset-[6px]"><ArrowLeft className="size-4" strokeWidth={1.5} />Zurück</button>
-          <Button type="submit" variant="gold" disabled={busy} className="flex-1 sm:flex-none">{busy ? "Wird gesendet …" : "Termin anfragen"}</Button>
+          <Button type="submit" variant="brand" disabled={busy} className="flex-1 sm:flex-none">{busy ? "Wird gesendet …" : "Termin anfragen"}</Button>
         </div>
         <p className="text-xs leading-5 opacity-75">Mit dem Absenden verarbeiten wir Ihre Angaben zur Terminvereinbarung. Details in der <Link to="/datenschutz" className="underline underline-offset-4">Datenschutzerklärung</Link>.</p>
       </form> : null}
@@ -129,8 +129,8 @@ export function TerminHost() {
   useEffect(() => { const m = window.matchMedia("(max-width: 767px)"); const f = () => setMobile(m.matches); f(); m.addEventListener("change", f); return () => m.removeEventListener("change", f); }, []);
   return (
     <Sheet open={s.open} onOpenChange={(o) => { if (!o) closeTermin(); }}>
-      <SheetContent side={mobile ? "bottom" : "right"} className={cn("overflow-y-auto border-0 bg-silver-100 p-6 sm:p-10", mobile ? "h-[100dvh] pt-12" : "w-full sm:max-w-[560px]")}>
-        <SheetTitle className="font-display text-sm font-medium uppercase tracking-[.16em] text-gold-700">Termin vereinbaren</SheetTitle>
+      <SheetContent side={mobile ? "bottom" : "right"} className={cn("overflow-y-auto border-0 bg-background p-6 sm:p-10", mobile ? "h-[100dvh] pt-12" : "w-full sm:max-w-[560px]")}>
+        <SheetTitle className="font-display text-sm font-medium uppercase tracking-[.16em] text-primary">Termin vereinbaren</SheetTitle>
         <SheetDescription className="sr-only">In drei Schritten einen Wunschtermin anfragen.</SheetDescription>
         <div className="mt-6"><TerminFlow key={s.key} vehicle={s.vehicle} initialTopic={s.topic} /></div>
       </SheetContent>

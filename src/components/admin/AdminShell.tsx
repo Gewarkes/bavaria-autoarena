@@ -3,7 +3,7 @@ import { Link, Outlet, useNavigate } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
 import { CarFront, ClipboardList, LayoutDashboard, LogOut, Menu, MessageSquareQuote, Repeat2, ShieldAlert } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { Logo, LogoMark } from "@/components/Logo";
+import { Logo } from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetClose, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -52,7 +52,7 @@ function NavLinks({ wrap }: { wrap?: (n: ReactNode, key: string) => ReactNode })
   return (
     <nav className="flex flex-col gap-1">
       {nav.map(({ to, label, icon: Icon, exact }) => {
-        const link = <Link key={to} to={to} activeOptions={{ exact: !!exact }} activeProps={{ className: "bg-muted text-gold" }} className="flex items-center gap-3 rounded-md px-3 py-3 text-sm font-medium text-muted-foreground hover:bg-muted/60 hover:text-foreground"><Icon className="size-4" />{label}</Link>;
+        const link = <Link key={to} to={to} activeOptions={{ exact: !!exact }} activeProps={{ className: "bg-muted text-primary" }} className="flex items-center gap-3 rounded-md px-3 py-3 text-sm font-medium text-muted-foreground hover:bg-muted/60 hover:text-foreground"><Icon className="size-4" />{label}</Link>;
         return wrap ? wrap(link, to) : link;
       })}
     </nav>
@@ -76,27 +76,27 @@ export function AdminShell() {
           <ShieldAlert className="mx-auto size-10 text-warning" />
           <h1 className="mt-4 font-display text-xl font-bold uppercase tracking-wide">Kein Zugriff</h1>
           <p className="mt-2 text-sm text-muted-foreground">Das Konto {auth.email} hat keine Berechtigung für den Verwaltungsbereich.</p>
-          <Button variant="silver" className="mt-6" onClick={signOut}><LogOut /> Abmelden</Button>
+          <Button variant="plain" className="mt-6" onClick={signOut}><LogOut /> Abmelden</Button>
         </div>
       </div>
     );
   }
   return (
     <div className="min-h-screen bg-background lg:grid lg:grid-cols-[16rem_1fr]">
-      <aside className="sticky top-0 hidden h-screen flex-col border-r border-border bg-darkest p-4 lg:flex">
-        <Link to="/admin" className="mb-8 flex items-center gap-3 px-2 pt-2"><LogoMark size={44} /><Logo /></Link>
+      <aside className="sticky top-0 hidden h-screen flex-col border-r border-border bg-ink-950 p-4 lg:flex">
+        <Link to="/admin" className="mb-8 flex items-center gap-3 px-2 pt-2"><Logo className="h-9" /></Link>
         <NavLinks />
       </aside>
       <div className="min-w-0">
         <header className="sticky top-0 z-30 flex h-16 items-center gap-3 border-b border-border bg-background/90 px-4 backdrop-blur lg:px-8">
           <Sheet>
             <SheetTrigger asChild><Button variant="ghost" size="icon" className="lg:hidden" aria-label="Menü öffnen"><Menu /></Button></SheetTrigger>
-            <SheetContent side="left" className="w-72 bg-darkest pt-12">
-              <SheetTitle className="mb-6 px-2"><Logo /></SheetTitle>
+            <SheetContent side="left" className="w-72 bg-ink-950 pt-12">
+              <SheetTitle className="mb-6 px-2"><Logo className="h-9" /></SheetTitle>
               <NavLinks wrap={(n, k) => <SheetClose asChild key={k}>{n}</SheetClose>} />
             </SheetContent>
           </Sheet>
-          <span className="font-display text-xs font-bold uppercase tracking-wide text-gold">Verwaltung</span>
+          <span className="font-display text-xs font-bold uppercase tracking-wide text-primary">Verwaltung</span>
           <div className="ml-auto flex items-center gap-3">
             <span className="hidden text-sm text-muted-foreground sm:inline">{auth.email}</span>
             <Button variant="ghost" size="sm" onClick={signOut}><LogOut className="size-4" /> Abmelden</Button>

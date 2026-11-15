@@ -141,7 +141,7 @@ export default function AdminVehicleFormPage({ id }: { id?: string }) {
   const years = Array.from({ length: 40 }, (_, i) => String(new Date().getFullYear() - i));
   return (
     <div className="max-w-5xl">
-      <Link to="/admin/fahrzeuge" className="mb-4 inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-gold"><ArrowLeft className="size-4" /> Zurück zur Liste</Link>
+      <Link to="/admin/fahrzeuge" className="mb-4 inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-tiffany-300"><ArrowLeft className="size-4" /> Zurück zur Liste</Link>
       <h1 className="mb-6 font-display text-2xl font-extrabold uppercase tracking-wide">{isNew ? "Neues Fahrzeug" : f.title}</h1>
       <div className="space-y-6">
         <section className="grid gap-4 rounded-lg border border-border bg-card p-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -178,22 +178,22 @@ export default function AdminVehicleFormPage({ id }: { id?: string }) {
         </section>
         <section className="rounded-lg border border-border bg-card p-5">
           <div className="mb-3 flex items-center justify-between"><Label>Bildergalerie</Label>
-            <Button asChild variant="silver" size="sm"><label className="cursor-pointer"><ImagePlus className="size-4" /> Bilder hinzufügen<input type="file" accept="image/*" multiple className="sr-only" onChange={(e) => { void upload(e.target.files); e.target.value = ""; }} /></label></Button>
+            <Button asChild variant="plain" size="sm"><label className="cursor-pointer"><ImagePlus className="size-4" /> Bilder hinzufügen<input type="file" accept="image/*" multiple className="sr-only" onChange={(e) => { void upload(e.target.files); e.target.value = ""; }} /></label></Button>
           </div>
-          {uploading > 0 ? <p className="mb-3 text-sm text-gold">{uploading} Bild(er) werden komprimiert und hochgeladen …</p> : null}
+          {uploading > 0 ? <p className="mb-3 text-sm text-primary">{uploading} Bild(er) werden komprimiert und hochgeladen …</p> : null}
           {f.images.length ? <label className="mb-4 flex items-center gap-3 text-sm"><Switch checked={f.seal_indices.includes(f.cover_index ?? 0)} onCheckedChange={(checked) => { const cover = f.cover_index ?? 0; set("seal_indices", checked ? [...new Set([...f.seal_indices, cover])] : f.seal_indices.filter((index) => index !== cover)); }} />Titelbild hat Siegel</label> : null}
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-6">
             {f.images.map((img, i) => (
-              <div key={img.url} draggable onDragStart={() => setDragIdx(i)} onDragOver={(e) => e.preventDefault()} onDrop={() => drop(i)} className={`group relative overflow-hidden rounded-sm border bg-muted ${f.gallery_hidden.includes(i) ? "border-muted-foreground opacity-60" : f.cover_index === i ? "border-gold" : "border-border"}`}>
+              <div key={img.url} draggable onDragStart={() => setDragIdx(i)} onDragOver={(e) => e.preventDefault()} onDrop={() => drop(i)} className={`group relative overflow-hidden rounded-sm border bg-muted ${f.gallery_hidden.includes(i) ? "border-muted-foreground opacity-60" : f.cover_index === i ? "border-primary" : "border-border"}`}>
                 <div className="aspect-4/3 overflow-hidden">
                 <VehicleImg src={img.thumbUrl || img.url} alt={img.alt} width="240" height="180" loading="lazy" onError={() => setBrokenImages((previous) => new Set(previous).add(i))} className="size-full object-cover" />
                 </div>
-                {brokenImages.has(i) ? <span className="absolute inset-x-1 bottom-14 bg-navy-900 px-1 py-0.5 text-center text-[10px] text-gold-400">Bild nicht erreichbar</span> : null}
+                {brokenImages.has(i) ? <span className="absolute inset-x-1 bottom-14 bg-ink-900 px-1 py-0.5 text-center text-[10px] text-primary">Bild nicht erreichbar</span> : null}
                 <span className="absolute left-1 top-1 rounded bg-background/80 px-1.5 text-xs">{i + 1}</span>
                 <GripVertical className="absolute bottom-1 left-1 size-4 text-foreground/70" />
                 <button type="button" aria-label="Bild entfernen" onClick={() => removeImg(i)} className="absolute right-1 top-1 rounded bg-background/80 p-1"><X className="size-4" /></button>
                 <div className="grid grid-cols-2 gap-1 bg-card p-1.5">
-                   <Button type="button" variant={f.cover_index === i ? "gold" : "ghost"} size="sm" className="min-h-9 px-2 text-[10px]" onClick={() => set("cover_index", i)}><Star className="size-3" />Als Titelbild</Button>
+                   <Button type="button" variant={f.cover_index === i ? "brand" : "ghost"} size="sm" className="min-h-9 px-2 text-[10px]" onClick={() => set("cover_index", i)}><Star className="size-3" />Als Titelbild</Button>
                   <Button type="button" variant="ghost" size="sm" className="min-h-9 px-2 text-[10px]" onClick={() => set("gallery_hidden", f.gallery_hidden.includes(i) ? f.gallery_hidden.filter((x) => x !== i) : [...f.gallery_hidden, i])}>{f.gallery_hidden.includes(i) ? <Eye className="size-3" /> : <EyeOff className="size-3" />}{f.gallery_hidden.includes(i) ? "Einblenden" : "Ausblenden"}</Button>
                 </div>
               </div>
@@ -201,7 +201,7 @@ export default function AdminVehicleFormPage({ id }: { id?: string }) {
           </div>
           {!f.images.length ? <p className="text-sm text-muted-foreground">Noch keine Bilder.</p> : null}
         </section>
-        <div className="flex gap-3"><Button variant="gold" onClick={save} disabled={busy || uploading > 0}>{busy ? "Speichern …" : "Speichern"}</Button><Button asChild variant="ghost"><Link to="/admin/fahrzeuge">Abbrechen</Link></Button></div>
+        <div className="flex gap-3"><Button variant="brand" onClick={save} disabled={busy || uploading > 0}>{busy ? "Speichern …" : "Speichern"}</Button><Button asChild variant="ghost"><Link to="/admin/fahrzeuge">Abbrechen</Link></Button></div>
       </div>
     </div>
   );

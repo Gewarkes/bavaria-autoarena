@@ -59,9 +59,9 @@ export const Route = createFileRoute("/fahrzeuge/$slug")({
 });
 
 function VehicleNotFound() {
-  return <div className="mx-auto max-w-3xl px-5 py-24 text-center"><h1 className="font-display text-3xl font-extrabold uppercase tracking-wide text-foreground">Fahrzeug nicht gefunden</h1><p className="mt-4 text-muted-foreground">Dieses Fahrzeug ist nicht mehr verfügbar oder wurde bereits verkauft.</p><Link to="/fahrzeuge" className="mt-8 inline-block font-semibold text-gold hover:text-gold-light">Zum aktuellen Bestand →</Link></div>;
+  return <div className="mx-auto max-w-3xl px-5 py-24 text-center"><h1 className="font-display text-3xl font-extrabold uppercase tracking-wide text-foreground">Fahrzeug nicht gefunden</h1><p className="mt-4 text-muted-foreground">Dieses Fahrzeug ist nicht mehr verfügbar oder wurde bereits verkauft.</p><Link to="/fahrzeuge" className="mt-8 inline-block font-semibold text-primary hover:text-tiffany-300-light">Zum aktuellen Bestand →</Link></div>;
 }
 
 function VehicleError() {
-  return <div className="mx-auto max-w-3xl px-5 py-24 text-center"><h1 className="font-display text-3xl font-extrabold uppercase tracking-wide text-foreground">Fahrzeug konnte nicht geladen werden</h1><p className="mt-4 text-muted-foreground">Bitte versuchen Sie es später erneut.</p><Link to="/fahrzeuge" className="mt-8 inline-block font-semibold text-gold hover:text-gold-light">Zum Bestand →</Link></div>;
+  return <div className="mx-auto max-w-3xl px-5 py-24 text-center"><h1 className="font-display text-3xl font-extrabold uppercase tracking-wide text-foreground">Fahrzeug konnte nicht geladen werden</h1><p className="mt-4 text-muted-foreground">Bitte versuchen Sie es später erneut.</p><Link to="/fahrzeuge" className="mt-8 inline-block font-semibold text-primary hover:text-tiffany-300-light">Zum Bestand →</Link></div>;
 }

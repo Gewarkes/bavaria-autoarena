@@ -38,8 +38,8 @@ export default function AdminVehiclesPage() {
   return (
     <div>
       <PageTitle title="Fahrzeuge">
-        <Button asChild variant="silver"><Link to="/admin/fahrzeuge/import"><Upload className="size-4" /> CSV importieren</Link></Button>
-        <Button asChild variant="gold"><Link to="/admin/fahrzeuge/neu"><Plus className="size-4" /> Neues Fahrzeug</Link></Button>
+        <Button asChild variant="plain"><Link to="/admin/fahrzeuge/import"><Upload className="size-4" /> CSV importieren</Link></Button>
+        <Button asChild variant="brand"><Link to="/admin/fahrzeuge/neu"><Plus className="size-4" /> Neues Fahrzeug</Link></Button>
       </PageTitle>
       <div className="relative mb-4 max-w-sm"><Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" /><Input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Titel, Marke, Modell" className="h-10 pl-9" aria-label="Suche" /></div>
       {error ? <ErrorBox error={error} /> : isLoading ? <TableSkeleton /> : (
@@ -65,7 +65,7 @@ export default function AdminVehiclesPage() {
                     </TableCell>
                     <TableCell onClick={(e) => e.stopPropagation()}>
                       <button type="button" aria-label={v.is_highlight ? "Highlight entfernen" : "Als Highlight markieren"} onClick={() => patch(v, { is_highlight: !v.is_highlight }, v.is_highlight ? "Highlight entfernt." : "Als Highlight markiert.")} className="p-2">
-                        <Star className={cn("size-5", v.is_highlight ? "fill-gold text-gold" : "text-muted-foreground")} />
+                        <Star className={cn("size-5", v.is_highlight ? "fill-primary text-primary" : "text-muted-foreground")} />
                       </button>
                     </TableCell>
                   </TableRow>

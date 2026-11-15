@@ -1,23 +1,19 @@
 import { cn } from "@/lib/utils";
 
+/** Querformat-Logo (public/logo.svg, 705.75 × 225). Höhe über className steuern, Breite folgt automatisch. */
 export function Logo({ className }: { className?: string }) {
-  return <LogoMark size={96} {...(className ? { className } : {})} />;
+  return <img src="/logo.svg" alt="Bavaria Autoarena" width={706} height={225} className={cn("h-16 w-auto shrink-0", className)} />;
 }
 
-/** Original-Wappenlogo (public/logo.webp). */
-export function LogoMark({ size = 56, className }: { size?: number; className?: string }) {
-  return (
-    <img
-      src="/logo.webp"
-      alt="Bavaria Autoarena Wappen"
-      width={size}
-      height={size}
-      className={cn("aspect-square shrink-0 object-cover [clip-path:circle(48%)]", className)}
-    />
-  );
+/** Nur das Wappenschild (public/logo-schild.svg, 128 × 162). */
+export function LogoMark({ className }: { className?: string }) {
+  return <img src="/logo-schild.svg" alt="Bavaria Autoarena" width={128} height={162} className={cn("h-10 w-auto shrink-0", className)} />;
 }
 
-/** Header-Variante: Bild + Wortmarke; unter 380px nur das Bild. */
-export function HeaderLogo() {
-  return <LogoMark size={56} className="size-10 md:size-14" />;
+/** Header: Querformat-Logo, unter 360 px nur das Schild. */
+export function HeaderLogo({ compact = false }: { compact?: boolean }) {
+  return <>
+    <LogoMark className="h-10 min-[360px]:hidden" />
+    <Logo className={cn("hidden h-10 transition-[height] duration-300 min-[360px]:block", compact ? "lg:h-11" : "lg:h-[52px]")} />
+  </>;
 }

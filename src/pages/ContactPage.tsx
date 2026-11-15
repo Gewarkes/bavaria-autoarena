@@ -45,19 +45,19 @@ export default function ContactPage() {
   return (
     <>
     <PageHero eyebrow="Kontakt" title="Termin und Anfahrt" />
-    <section id="termin" className="scroll-mt-24 bg-silver-100 py-12 md:py-16"><div className="page-container"><div className="max-w-3xl rounded-sm bg-white p-6 ring-1 ring-navy-900/5 md:p-10"><p className="eyebrow mb-5 text-gold-700">Termin vereinbaren</p><TerminFlow /></div></div></section>
+    <section id="termin" className="scroll-mt-24 bg-background py-12 md:py-16"><div className="page-container"><div className="max-w-3xl rounded-sm bg-card p-6 ring-1 ring-foreground/5 md:p-10"><p className="eyebrow mb-5 text-primary">Termin vereinbaren</p><TerminFlow /></div></div></section>
     <section>
       <div className="page-container py-16 md:py-24">
         <div className="grid min-w-0 gap-8 lg:grid-cols-2">
           <div className="min-w-0 space-y-6">
             <div className="min-w-0 border-y border-border py-6 md:border md:p-6">
-              <p className="flex gap-3 text-foreground"><MapPin className="size-5 shrink-0 text-gold-700" />{siteConfig.name}<br />{siteConfig.street}, {siteConfig.zip} {siteConfig.city}</p>
+              <p className="flex gap-3 text-foreground"><MapPin className="size-5 shrink-0 text-primary" />{siteConfig.name}<br />{siteConfig.street}, {siteConfig.zip} {siteConfig.city}</p>
               <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                <Button asChild variant="gold"><a href={phoneHref}><Phone />{siteConfig.phone}</a></Button>
+                <Button asChild variant="brand"><a href={phoneHref}><Phone />{siteConfig.phone}</a></Button>
                 <Button asChild variant="outline"><a href={siteConfig.mobileHref}><Phone />Mobil {siteConfig.mobile}</a></Button>
                 <Button asChild variant="outline"><a href={whatsappHref()} target="_blank" rel="noopener noreferrer"><MessageCircle />WhatsApp</a></Button>
               </div>
-              <div className="mt-6"><h2 className="font-display text-sm font-medium uppercase tracking-[.14em] text-navy-900">Besichtigung und Probefahrt</h2><p className="mt-3 text-muted-foreground">{siteConfig.appointmentHours}</p></div>
+              <div className="mt-6"><h2 className="font-display text-sm font-medium uppercase tracking-[.14em] text-foreground">Besichtigung und Probefahrt</h2><p className="mt-3 text-muted-foreground">{siteConfig.appointmentHours}</p></div>
               <Button asChild variant="outline" className="mt-6"><a href={mapsRouteUrl} target="_blank" rel="noopener noreferrer"><ExternalLink />Route in Google Maps öffnen</a></Button>
             </div>
           </div>

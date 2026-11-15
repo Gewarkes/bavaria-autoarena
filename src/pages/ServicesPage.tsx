@@ -16,8 +16,8 @@ export default function ServicesPage() {
   return <>
     <PageHero title="Was wir rund ums Auto erledigen">Vom Ankauf bis zur Zulassung: Hier steht, was wir übernehmen und wo noch eine individuelle Absprache nötig ist.</PageHero>
     <div className="page-container ">
-      {services.map(([title, text, to, cta], index) => <section key={title} className="grid gap-10 border-b border-border py-16 md:grid-cols-2 md:py-24"><div className={index % 2 ? "md:order-2" : ""}><p className="text-sm text-muted-foreground">0{index + 1}</p><h2 className="section-h2 mt-4">{title}</h2><p className="mt-6 max-w-[640px] leading-[1.6] text-ink-500">{text}</p><Button asChild variant="outline" className="mt-7"><Link to={to}>{cta}</Link></Button></div><PhotoPlaceholder label={title} /></section>)}
+      {services.map(([title, text, to, cta], index) => <section key={title} className="grid gap-10 border-b border-border py-16 md:grid-cols-2 md:py-24"><div className={index % 2 ? "md:order-2" : ""}><p className="text-sm text-muted-foreground">0{index + 1}</p><h2 className="section-h2 mt-4">{title}</h2><p className="mt-6 max-w-[640px] leading-[1.6] text-muted-foreground">{text}</p><Button asChild variant="outline" className="mt-7"><Link to={to}>{cta}</Link></Button></div><PhotoPlaceholder label={title} /></section>)}
     </div>
-    <div className="page-container py-16  md:py-24"><div className="max-w-2xl"><h2 className="section-h2">Leistung anfragen</h2><p className="mt-6 text-ink-500">Nennen Sie uns einen Wunschtermin und das Thema als Anmerkung. Wir rufen Sie kurz zurück.</p><div className="mt-8 rounded-sm bg-white p-6 ring-1 ring-navy-900/5 md:p-8"><TerminFlow initialTopic="Beratung / Finanzierung" /></div></div></div>
+    <div className="page-container py-16  md:py-24"><div className="max-w-2xl"><h2 className="section-h2">Leistung anfragen</h2><p className="mt-6 text-muted-foreground">Nennen Sie uns einen Wunschtermin und das Thema als Anmerkung. Wir rufen Sie kurz zurück.</p><div className="mt-8 rounded-sm bg-card p-6 ring-1 ring-foreground/5 md:p-8"><TerminFlow initialTopic="Beratung / Finanzierung" /></div></div></div>
   </>;
 }

@@ -16,7 +16,7 @@ const kinds: { value: Kind; label: string }[] = [
 const phoneHref = `tel:${siteConfig.phone.replace(/\s/g, "")}`;
 
 export function PrivacyNotice() {
-  return <p className="text-xs leading-5 text-muted-foreground">Mit dem Absenden verarbeiten wir Ihre Angaben zur Bearbeitung Ihrer Anfrage. Details in unserer <Link to="/datenschutz" className="inline-flex min-h-11 items-center font-semibold text-gold hover:text-gold-light">Datenschutzerklärung</Link>.</p>;
+  return <p className="text-xs leading-5 text-muted-foreground">Mit dem Absenden verarbeiten wir Ihre Angaben zur Bearbeitung Ihrer Anfrage. Details in unserer <Link to="/datenschutz" className="inline-flex min-h-11 items-center font-semibold text-primary hover:text-tiffany-300-light">Datenschutzerklärung</Link>.</p>;
 }
 
 export function Honeypot({ value, onChange }: { value: string; onChange: (v: string) => void }) {
@@ -24,11 +24,11 @@ export function Honeypot({ value, onChange }: { value: string; onChange: (v: str
 }
 
 export function InquirySuccess({ name }: { name: string }) {
-  return <div role="status" className="rounded border border-success/50 bg-card p-6"><CheckCircle2 className="size-8 text-success" /><p className="mt-3 text-lg font-semibold text-foreground">Vielen Dank, {name}.</p><p className="mt-2 text-muted-foreground">Wir melden uns am nächsten Werktag.</p><a href={phoneHref} className="mt-4 inline-flex min-h-11 items-center gap-2 font-semibold text-silver underline underline-offset-4 hover:text-gold"><Phone className="size-4" />{siteConfig.phone}</a></div>;
+  return <div role="status" className="rounded border border-success/50 bg-card p-6"><CheckCircle2 className="size-8 text-success" /><p className="mt-3 text-lg font-semibold text-foreground">Vielen Dank, {name}.</p><p className="mt-2 text-muted-foreground">Wir melden uns am nächsten Werktag.</p><a href={phoneHref} className="mt-4 inline-flex min-h-11 items-center gap-2 font-semibold text-muted-foreground underline underline-offset-4 hover:text-tiffany-300"><Phone className="size-4" />{siteConfig.phone}</a></div>;
 }
 
 export function InquiryError() {
-  return <p role="alert" className="rounded-md border border-warning/50 bg-card p-3 text-sm text-foreground">Ihre Anfrage konnte gerade nicht gesendet werden. Bitte versuchen Sie es erneut oder rufen Sie uns an: <a href={phoneHref} className="font-semibold text-gold">{siteConfig.phone}</a></p>;
+  return <p role="alert" className="rounded-md border border-warning/50 bg-card p-3 text-sm text-foreground">Ihre Anfrage konnte gerade nicht gesendet werden. Bitte versuchen Sie es erneut oder rufen Sie uns an: <a href={phoneHref} className="font-semibold text-primary">{siteConfig.phone}</a></p>;
 }
 
 export function VehicleInquiryForm({ vehicleId, vehicleTitle, kind, onKindChange }: { vehicleId: string; vehicleTitle: string; kind: Kind; onKindChange: (k: Kind) => void }) {
@@ -62,7 +62,7 @@ export function VehicleInquiryForm({ vehicleId, vehicleTitle, kind, onKindChange
     <form onSubmit={submit} noValidate className="relative space-y-4">
       <Honeypot value={honeypot} onChange={setHoneypot} />
       <div role="radiogroup" aria-label="Art der Anfrage" className="grid grid-cols-3 gap-1 rounded-lg border border-border bg-background p-1">
-        {kinds.map((k) => <button key={k.value} type="button" role="radio" aria-checked={kind === k.value} onClick={() => onKindChange(k.value)} className={cn("h-11 rounded text-sm font-semibold transition-colors", kind === k.value ? "bg-gold text-primary-foreground" : "text-muted-foreground hover:text-foreground")}>{k.label}</button>)}
+        {kinds.map((k) => <button key={k.value} type="button" role="radio" aria-checked={kind === k.value} onClick={() => onKindChange(k.value)} className={cn("h-11 rounded text-sm font-semibold transition-colors", kind === k.value ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground")}>{k.label}</button>)}
       </div>
       <Field label="Name *" error={errors["name"]}><Input value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" enterKeyHint="next" className="h-12" /></Field>
       <div className="grid gap-4 sm:grid-cols-2">
@@ -74,7 +74,7 @@ export function VehicleInquiryForm({ vehicleId, vehicleTitle, kind, onKindChange
       <label className="flex min-h-11 items-start gap-3 py-2 text-sm text-muted-foreground"><Checkbox checked={marketing} onCheckedChange={(v) => setMarketing(v === true)} className="mt-0.5" />Ich möchte über passende Angebote informiert werden (optional, jederzeit widerrufbar).</label>
       {state === "error" ? <InquiryError /> : null}
       <PrivacyNotice />
-      <Button type="submit" variant="gold" className="w-full" disabled={state === "sending"}>{state === "sending" ? "Wird gesendet …" : kind === "probefahrt" ? "Probefahrt anfragen" : kind === "rueckruf" ? "Rückruf anfordern" : "Anfrage senden"}</Button>
+      <Button type="submit" variant="brand" className="w-full" disabled={state === "sending"}>{state === "sending" ? "Wird gesendet …" : kind === "probefahrt" ? "Probefahrt anfragen" : kind === "rueckruf" ? "Rückruf anfordern" : "Anfrage senden"}</Button>
     </form>
   );
 }

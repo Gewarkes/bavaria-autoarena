@@ -27,7 +27,7 @@ export default function AdminTradeInsPage() {
 
   return (
     <div>
-      <PageTitle title="Inzahlungnahme-Anfragen"><Button variant="silver" onClick={exportCsv} disabled={!rows.length}><Download className="size-4" /> CSV-Export</Button></PageTitle>
+      <PageTitle title="Inzahlungnahme-Anfragen"><Button variant="plain" onClick={exportCsv} disabled={!rows.length}><Download className="size-4" /> CSV-Export</Button></PageTitle>
       <CleanupNotice onDone={() => void qc.invalidateQueries({ queryKey: ["admin"] })} />
       <div className="mb-4 flex flex-col gap-3 lg:flex-row lg:items-center">
         <StatusChips value={status} onChange={setStatus} />

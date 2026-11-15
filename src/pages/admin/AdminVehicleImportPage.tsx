@@ -108,7 +108,7 @@ export default function AdminVehicleImportPage() {
 
   return (
     <div>
-      <Link to="/admin/fahrzeuge" className="mb-4 inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-gold"><ArrowLeft className="size-4" /> Zurück zur Liste</Link>
+      <Link to="/admin/fahrzeuge" className="mb-4 inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-tiffany-300"><ArrowLeft className="size-4" /> Zurück zur Liste</Link>
       <h1 className="mb-2 font-display text-2xl font-extrabold uppercase tracking-wide">CSV importieren</h1>
       <p className="mb-6 text-sm text-muted-foreground">mobile.de-Export oder eigene CSV (Trennzeichen ; oder ,). Duplikate werden über Marke + Modell + EZ + km erkannt.</p>
       <input type="file" accept=".csv,text/csv" onChange={(e) => void onFile(e.target.files?.[0])} className="mb-6 block text-sm file:mr-4 file:h-12 file:rounded-md file:border-0 file:bg-muted file:px-4 file:text-foreground" />
@@ -133,9 +133,9 @@ export default function AdminVehicleImportPage() {
             ))}</TableBody>
           </Table>
         </div>
-        <Button variant="gold" onClick={run} disabled={busy || !mapped.some((m) => m.valid)}>{busy ? "Import läuft …" : "Import starten"}</Button>
+        <Button variant="brand" onClick={run} disabled={busy || !mapped.some((m) => m.valid)}>{busy ? "Import läuft …" : "Import starten"}</Button>
       </> : null}
-      {report ? <div className="mt-6 rounded-lg border border-gold/50 bg-card p-5 text-sm"><p className="font-semibold">Ergebnis</p><p>{report.ok} importiert · {report.dup} Duplikate übersprungen · {report.invalid} ungültige Zeilen</p></div> : null}
+      {report ? <div className="mt-6 rounded-lg border border-primary/50 bg-card p-5 text-sm"><p className="font-semibold">Ergebnis</p><p>{report.ok} importiert · {report.dup} Duplikate übersprungen · {report.invalid} ungültige Zeilen</p></div> : null}
     </div>
   );
 }
