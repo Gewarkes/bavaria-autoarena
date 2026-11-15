@@ -2,6 +2,9 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, CalendarDays, ChevronRight, MapPin, MessageCircle, Navigation, Phone, Star } from "lucide-react";
 import { useState } from "react";
+import heroImage from "@/assets/autohaus-perkam-tageslicht.webp.asset.json";
+import heroSmallImage from "@/assets/autohaus-perkam-tageslicht-1280.webp.asset.json";
+import heroMobileImage from "@/assets/autohaus-perkam-tageslicht-mobil.webp.asset.json";
 import ankaufImage from "@/assets/ankauf-bewertung.webp";
 import serviceImage from "@/assets/service-schluesseluebergabe.webp";
 import { Ornament } from "@/components/Ornament";
@@ -25,17 +28,17 @@ function Heading({ eyebrow, children, ornament = false }: { eyebrow: string; chi
 function Hero({ count, videoSrc }: { count: number; videoSrc?: string }) {
   const value = siteConfig.rating.value.toLocaleString("de-DE");
   const facts = [<><Star aria-hidden="true" className="mr-1.5 inline size-3.5 -translate-y-px fill-current text-primary" strokeWidth={1.5} />{value} auf {siteConfig.rating.source}</>, <>Seit 2018 am Markt</>, <>Finanzierung über Santander und DKB</>];
-  const alt = "Visualisierung: Ausstellungshalle der Bavaria Autoarena in Perkam zur blauen Stunde mit Leuchtlogo über der Glasfront";
-  return <section className="relative isolate flex flex-col overflow-hidden bg-ink-950 text-foreground lg:h-[88vh] lg:min-h-[640px] lg:flex-row lg:items-center">
+  const alt = "Foto des Autohauses Bavaria Autoarena in Perkam bei Tageslicht, Original-Logo als Visualisierung mittig über dem Rolltor";
+  return <section className="relative isolate flex flex-col overflow-hidden bg-ink-950 text-foreground lg:h-[88vh] lg:max-h-[calc(100vw*0.5984375)] lg:min-h-[640px] lg:flex-row lg:items-center">
     <div className="relative aspect-[4/5] w-full md:aspect-[16/10] lg:absolute lg:inset-0 lg:-z-10 lg:aspect-auto">
-      {videoSrc ? <video className="size-full object-cover object-[62%_center]" src={videoSrc} poster="/hero-autohaus.webp" autoPlay muted loop playsInline aria-hidden="true" /> : <picture className="block size-full">
-        <source media="(max-width: 767px)" srcSet="/hero-autohaus-mobil.webp" width={960} height={1200} />
-        <img src="/hero-autohaus.webp" srcSet="/hero-autohaus-1280.webp 1280w, /hero-autohaus.webp 2560w" sizes="100vw" alt={alt} width={2560} height={1109} fetchPriority="high" decoding="async" className="size-full object-cover object-center md:object-[72%_center] lg:object-[62%_center]" />
+      {videoSrc ? <video className="size-full object-cover object-left-top" src={videoSrc} poster={heroImage.url} autoPlay muted loop playsInline aria-hidden="true" /> : <picture className="block size-full">
+        <source media="(max-width: 767px)" srcSet={heroMobileImage.url} width={960} height={1200} />
+        <img src={heroImage.url} srcSet={`${heroSmallImage.url} 1280w, ${heroImage.url} 2560w`} sizes="100vw" alt={alt} width={2560} height={1532} fetchPriority="high" decoding="async" className="size-full object-cover object-left-top" />
       </picture>}
-      <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(to_top,var(--ink-950)_0%,transparent_22%),linear-gradient(to_bottom,color-mix(in_oklab,var(--ink-950)_60%,transparent),transparent_18%)] lg:bg-[linear-gradient(to_right,var(--ink-950)_0%,color-mix(in_oklab,var(--ink-950)_80%,transparent)_22%,transparent_45%),linear-gradient(to_top,var(--ink-950)_0%,transparent_28%),linear-gradient(to_bottom,color-mix(in_oklab,var(--ink-950)_55%,transparent),transparent_20%)]" />
+      <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(to_top,var(--ink-950)_0%,transparent_22%),linear-gradient(to_bottom,color-mix(in_oklab,var(--ink-950)_60%,transparent),transparent_18%)] lg:bg-[linear-gradient(to_left,var(--ink-950)_0%,color-mix(in_oklab,var(--ink-950)_96%,transparent)_47%,transparent_62%),linear-gradient(to_top,var(--ink-950)_0%,transparent_28%),linear-gradient(to_bottom,color-mix(in_oklab,var(--ink-950)_55%,transparent),transparent_12%)]" />
     </div>
     <div className="page-container relative -mt-6 pb-14 md:-mt-10 lg:mt-0 lg:pb-0 lg:pt-24">
-      <div className="max-w-[640px]">
+      <div className="max-w-[640px] lg:ml-auto lg:w-[52%]">
         <p className="eyebrow text-primary">Autohaus in Perkam bei Straubing</p>
         <h1 className="mt-5 text-balance font-display text-[40px] font-light leading-[1.05] text-foreground md:text-[60px] lg:text-[80px]">Ihr nächstes Auto steht in <span className="text-primary">Perkam.</span></h1>
         <p className="mt-6 max-w-[46ch] text-lg leading-[1.6] text-foreground/85">Vom sparsamen Alltagsauto bis zum Sportwagen – ausgesucht, durchgesehen und vor Ort Probe zu fahren.</p>

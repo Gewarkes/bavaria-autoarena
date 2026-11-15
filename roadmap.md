@@ -181,3 +181,12 @@
 - [x] Ankauf-Schritte und Danke-Seite angeglichen
 - [ ] Ankauf Schritt 4 nicht im Browser geprüft (nur nach echtem Absenden erreichbar)
 - [ ] Admin-Bereich weiterhin nicht überarbeitet
+
+## Redesign v4 – Schritt 4 Nur Startseiten-Titelbild
+- [x] Original-Hallenfoto: Architektur erhalten, Fahrzeuge und Unordnung gezielt entfernt, kühles Tageslicht
+- [x] Original-Logo ohne Unterzeile über dem Rolltor perspektivisch montiert, Tiefe und dezenter Schatten
+- [x] Separate Startseiten-Bilder: Desktop 2560 px, Mobil 960 × 1200; andere Seitenbilder unverändert
+- [x] Bildnachweis aktualisiert; OG-Bild geprüft und unverändert (enthält nur Logo)
+- [x] Browserprüfung 390/1440/1920: kein horizontales Scrollen, Tor und Logo sichtbar; Überschrift ≥ 9,6:1 und Tiffany-Wort ≥ 7,9:1
+- [x] Automatischer Produktions-Build ohne Fehler; keine Veröffentlichung
+- Grenzen: Originalfoto 1280 × 766 auf 2560 px hochskaliert; verdeckte untere Fensterflächen und Garage nach Fahrzeugentfernung rekonstruiert; Logo bleibt erkennbare Visualisierung
