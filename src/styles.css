@@ -95,7 +95,7 @@
   --background: var(--ink-950);
   --foreground: oklch(0.9716 0.0021 197.12); /* #F4F6F6 */
   --subtle: oklch(0.6080 0.0113 229.00); /* #7C8488 */
-  --card: var(--ink-800);
+  --card: oklch(0.1745 0.0047 285.9); /* #131316 */
   --card-foreground: var(--foreground);
   --popover: var(--ink-800);
   --popover-foreground: var(--foreground);
@@ -109,7 +109,7 @@
   --accent-foreground: var(--foreground);
   --destructive: oklch(0.6368 0.2078 25.33);
   --destructive-foreground: var(--foreground);
-  --border: oklch(1 0 0 / 11%);
+  --border: oklch(1 0 0 / 8%);
   --input: oklch(1 0 0 / 14%);
   --ring: var(--tiffany-500);
   --success: oklch(0.72 0.14 160);
@@ -225,12 +225,12 @@
   .scroll-cue { animation: none; }
 }
 
-@utility display-title { max-width: 16ch; font-family: var(--font-display); font-size: 2.5rem; font-weight: 300; line-height: 1.06; letter-spacing: .03em; text-transform: uppercase; }
-@utility section-h2 { font-family: var(--font-display); font-size: 1.875rem; font-weight: 300; line-height: 1.15; letter-spacing: .02em; text-transform: uppercase; }
+@utility display-title { max-width: 16ch; font-family: var(--font-display); font-size: 2.5rem; font-weight: 300; line-height: 1.05; letter-spacing: 0; }
+@utility section-h2 { font-family: var(--font-display); font-size: 2.0625rem; font-weight: 300; line-height: 1.08; letter-spacing: -.005em; }
 @utility section-h3 { font-family: var(--font-display); font-size: 1.125rem; font-weight: 400; letter-spacing: .08em; text-transform: uppercase; }
-@utility eyebrow { font-family: var(--font-display); font-size: .75rem; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; }
+@utility eyebrow { font-family: var(--font-display); font-size: .6875rem; font-weight: 500; letter-spacing: .15em; text-transform: uppercase; }
 @utility page-container { width: 100%; max-width: 1280px; margin-inline: auto; padding-inline: 1.5rem; }
-@utility section-space { padding-block: 4.5rem; }
+@utility section-space { padding-block: 5rem; }
 @utility scroll-cue { transform-origin: top; animation: scroll-cue 2.4s ease-in-out infinite; }
 
 @media (min-width: 768px) {
@@ -238,11 +238,11 @@
 }
 @media (min-width: 1024px) {
   .display-title { font-size: 4.5rem; }
-  .section-h2 { font-size: 2.75rem; }
+  .section-h2 { font-size: 3.75rem; }
   .section-h3 { font-size: 1.375rem; }
-  .eyebrow { font-size: .8125rem; }
+  .eyebrow { font-size: .75rem; }
   .page-container { padding-inline: 2.5rem; }
-  .section-space { padding-block: 8rem; }
+  .section-space { padding-block: 9rem; }
 }
 
 @utility text-link { display: inline-flex; min-height: 2.75rem; align-items: center; font-family: var(--font-display); font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: .16em; text-decoration: underline; text-underline-offset: 6px; text-decoration-color: color-mix(in oklab, var(--primary) 70%, transparent); transition: color 200ms ease, text-decoration-color 200ms ease; }

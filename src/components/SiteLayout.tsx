@@ -24,7 +24,7 @@ function WhatsAppIcon({ className = "size-5" }: { className?: string }) {
   return <svg viewBox="0 0 24 24" className={`${className} fill-current`} aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2c0 1.3.9 2.5 1 2.7.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z" /></svg>;
 }
 
-function Header() {
+function Header({ overlay }: { overlay: boolean }) {
   const [compact, setCompact] = useState(false);
   useEffect(() => {
     const onScroll = () => setCompact(window.scrollY > 60);
@@ -33,7 +33,7 @@ function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
   return (
-    <header className={`sticky top-0 z-50 text-foreground transition-colors duration-300 ${compact ? "border-b border-border bg-ink-950/85 backdrop-blur-md" : "border-b border-transparent bg-ink-950"}`}>
+    <header className={`fixed inset-x-0 top-0 z-50 text-foreground transition-colors duration-300 ${compact ? "border-b border-border bg-ink-950/85 backdrop-blur-md" : overlay ? "border-b border-transparent bg-transparent" : "border-b border-border bg-ink-950"}`}>
       <div className={`page-container flex items-center gap-4 transition-[height] duration-300 ${compact ? "h-[72px] lg:h-20" : "h-[72px] lg:h-24"}`}>
         <Link to="/" aria-label="Bavaria Autoarena Startseite" className="flex shrink-0 items-center"><HeaderLogo compact={compact} /></Link>
         <nav aria-label="Hauptnavigation" className="mx-auto hidden items-center gap-8 lg:flex">
@@ -41,9 +41,11 @@ function Header() {
         </nav>
         <div className="ml-auto hidden items-center gap-6 lg:ml-0 lg:flex">
           <a href={phoneHref} className="text-right"><span className="block font-display text-base font-normal text-foreground transition-colors hover:text-tiffany-300">{siteConfig.phone}</span><span className="block text-[13px] text-subtle">Termine nach Vereinbarung</span></a>
-          <Button type="button" variant="brand" onClick={() => openTermin()}>Termin vereinbaren</Button>
+          <a href={whatsappHref("Hallo Bavaria Autoarena, ich habe eine Frage.")} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp schreiben" className="grid size-11 place-items-center text-foreground transition-colors hover:text-tiffany-300"><WhatsAppIcon /></a>
+          <Button type="button" variant="outline" onClick={() => openTermin()}>Termin vereinbaren</Button>
         </div>
-        <a href={phoneHref} aria-label="Anrufen" className="ml-auto grid size-11 place-items-center text-primary lg:hidden"><Phone className="size-5" strokeWidth={1.5} /></a>
+        <a href={whatsappHref("Hallo Bavaria Autoarena, ich habe eine Frage.")} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp schreiben" className="ml-auto grid size-11 place-items-center text-foreground lg:hidden"><WhatsAppIcon /></a>
+        <a href={phoneHref} aria-label="Anrufen" className="grid size-11 place-items-center text-primary lg:hidden"><Phone className="size-5" strokeWidth={1.5} /></a>
         <div className="lg:hidden">
           <Sheet>
             <SheetTrigger asChild><Button variant="ghost" size="icon" aria-label="Menü öffnen" className="size-11 text-foreground hover:bg-ink-800"><Menu /></Button></SheetTrigger>
@@ -89,5 +91,5 @@ export function SiteLayout({ children }: { children: ReactNode }) {
   const [url, setUrl] = useState<string>();
   useEffect(() => { setUrl(slug ? window.location.href : undefined); }, [slug]);
   const hideBar = pathname === "/auto-verkaufen";
-  return <div className={hideBar ? "min-h-screen bg-background" : "min-h-screen bg-background pb-20 md:pb-0"}><Header /><main>{children}</main><Footer /><TerminHost />{hideBar ? null : slug && vehicle && url ? <MobileBottomBar show vehicleTitle={vehicle.title} price={formatPrice(vehicle.price_eur)} url={url} terminVehicle={{ id: vehicle.id, title: vehicle.title, price: formatPrice(vehicle.price_eur), image: coverImage(vehicle) ? sizedImage(coverImage(vehicle)!.url, "card") : undefined }} /> : <MobileBottomBar show />}</div>;
+  return <div className={hideBar ? "min-h-screen bg-background" : "min-h-screen bg-background pb-20 md:pb-0"}><Header overlay={pathname === "/"} /><main className={pathname === "/" ? undefined : "pt-[72px] lg:pt-24"}>{children}</main><Footer /><TerminHost />{hideBar ? null : slug && vehicle && url ? <MobileBottomBar show vehicleTitle={vehicle.title} price={formatPrice(vehicle.price_eur)} url={url} terminVehicle={{ id: vehicle.id, title: vehicle.title, price: formatPrice(vehicle.price_eur), image: coverImage(vehicle) ? sizedImage(coverImage(vehicle)!.url, "card") : undefined }} /> : <MobileBottomBar show />}</div>;
 }
