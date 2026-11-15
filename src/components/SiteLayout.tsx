@@ -34,7 +34,7 @@ function Header() {
   }, []);
   return (
     <header className={`sticky top-0 z-50 text-foreground transition-colors duration-300 ${compact ? "border-b border-border bg-ink-950/85 backdrop-blur-md" : "border-b border-transparent bg-ink-950"}`}>
-      <div className={`page-container flex items-center gap-4 transition-[height] duration-300 ${compact ? "h-16 lg:h-[72px]" : "h-16 lg:h-[88px]"}`}>
+      <div className={`page-container flex items-center gap-4 transition-[height] duration-300 ${compact ? "h-[72px] lg:h-20" : "h-[72px] lg:h-24"}`}>
         <Link to="/" aria-label="Bavaria Autoarena Startseite" className="flex shrink-0 items-center"><HeaderLogo compact={compact} /></Link>
         <nav aria-label="Hauptnavigation" className="mx-auto hidden items-center gap-8 lg:flex">
           {navItems.map((item) => <Link key={item.to} to={item.to} activeProps={{ className: "!text-primary border-primary" }} className="border-b border-transparent py-2 font-display text-[13px] font-normal uppercase tracking-[.16em] text-foreground/85 transition-colors hover:text-tiffany-300">{item.label}</Link>)}
@@ -65,8 +65,8 @@ function Header() {
 
 function Footer() {
   const pages = [...navItems.slice(0, 3), { label: "Finanzierung", to: "/finanzierung" as const }, ...navItems.slice(3)];
-  return <footer className="bg-rauten relative bg-ink-950 pb-24 pt-20 text-foreground md:pb-8"><div aria-hidden="true" className="brand-line absolute inset-x-0 top-0 h-px" /><div className="page-container grid gap-12 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
-    <div><Logo className="h-16" /><p className="mt-6 max-w-xs text-sm leading-6 text-muted-foreground">Gebrauchtwagen in Perkam bei Straubing – vom Alltagsauto bis zum Sportwagen.</p></div>
+  return <footer className="bg-rauten relative bg-ink-950 pb-28 pt-20 text-foreground md:pb-10 lg:pt-28"><div aria-hidden="true" className="brand-line absolute inset-x-0 top-0 h-px" /><div className="page-container grid gap-12 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
+    <div><Logo className="h-20" /><p className="mt-6 max-w-xs text-sm leading-6 text-muted-foreground">Gebrauchtwagen in Perkam bei Straubing – vom Alltagsauto bis zum Sportwagen.</p></div>
     <div><h2 className="footer-title">Kontakt</h2><div className="mt-5 flex flex-col text-sm text-muted-foreground"><a className="tap-link text-foreground hover:text-tiffany-300" href={phoneHref}>{siteConfig.phone}</a><a className="tap-link hover:text-tiffany-300" href={siteConfig.mobileHref}>Mobil: {siteConfig.mobile}</a><a className="tap-link hover:text-tiffany-300" href={whatsappHref()} target="_blank" rel="noopener noreferrer">WhatsApp schreiben</a><Link className="tap-link hover:text-tiffany-300" to="/kontakt">Kontaktformular</Link></div></div>
     <div><h2 className="footer-title">Standort &amp; Termine</h2><address className="mt-5 text-sm not-italic leading-7 text-muted-foreground">{siteConfig.street}<br />{siteConfig.zip} {siteConfig.city}<br /><span className="mt-3 block">{siteConfig.appointmentHours}</span></address></div>
     <div><h2 className="footer-title">Seiten</h2><nav className="mt-5 grid grid-cols-2 gap-x-4 text-sm text-muted-foreground">{pages.map((item) => <Link key={item.to} to={item.to} className="tap-link hover:text-tiffany-300">{item.label}</Link>)}</nav></div>

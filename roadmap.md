@@ -161,3 +161,13 @@
 - [x] /hero-vorschau und public/hero-varianten entfernt
 - [x] E-Mail-Vorlage, Fehlerseite, Toasts umgefärbt
 - [x] Prüfung 390/1440, Produktions-Build, TypeScript
+
+## Redesign v4 – Schritt 2 Premium-Feinschliff
+- [x] Titelbild neu: eigenes Autohaus + Logo, markenlose dunkle Limousine, Desktop- und Mobil-Zuschnitt
+- [x] Ankauf-, Service- und Finanzierungsbild ohne Hersteller-Logos, einheitlich gegradet
+- [x] Einblend-Effekt repariert (nichts bleibt unsichtbar), Abstände 72/128 px
+- [x] Header-Logo größer (44/60 px), Footer größer
+- [x] Kennzahlen-Band, Faktenzeile, Scroll-Hinweis, Bewertungen mit Sternen, Anfahrt-Abschluss
+- [x] Fahrzeugkarten, Detailseite, Seitenköpfe, Leistungen, Finanzierung, Über uns, Rechtstexte
+- [ ] Wizard-Schritte 2–4 und Danke-Seite nur teilweise neu gestaltet
+- [ ] Admin-Bereich optisch nicht überarbeitet

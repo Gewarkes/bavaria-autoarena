@@ -10,7 +10,7 @@ export default function ImprintPage() {
   const l = siteConfig.legal;
   return (
     <><PageHero eyebrow="Rechtliches" title="Impressum" />
-    <div className="page-container max-w-3xl space-y-10 py-14">
+    <div className="page-container max-w-[calc(72ch+5rem)] space-y-12 py-16 lg:py-24">
       <S title="Angaben gemäß § 5 DDG"><p>{siteConfig.name}<br />{siteConfig.street}<br />{siteConfig.zip} {siteConfig.city}</p><p>Vertreten durch die Geschäftsführer: {l.managingDirectors.join(", ")}</p></S>
       <S title="Kontakt"><p>Telefon: <a href={siteConfig.phoneHref} className="text-primary hover:underline">{siteConfig.phone}</a><br />Mobil: <a href={siteConfig.mobileHref} className="text-primary hover:underline">{siteConfig.mobile}</a><br />Kontakt: Telefon / <a href="/kontakt" className="text-primary hover:underline">Kontaktformular</a></p></S>
       <S title="Registereintrag"><p>Registergericht: {l.registerCourt}<br />Registernummer: {l.registerNumber}</p></S>
@@ -20,7 +20,7 @@ export default function ImprintPage() {
       <S title="Verbraucherstreitbeilegung"><p>Wir sind nicht bereit und nicht verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen (§ 36 VSBG).</p></S>
       <S title="Haftung für Inhalte"><p>Als Diensteanbieter sind wir für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Wir sind jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen. Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine Haftung ist erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden entsprechender Rechtsverletzungen entfernen wir diese Inhalte umgehend.</p></S>
       <S title="Haftung für Links"><p>Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Für diese fremden Inhalte übernehmen wir keine Gewähr; verantwortlich ist stets der jeweilige Anbieter oder Betreiber der Seiten. Zum Zeitpunkt der Verlinkung waren keine Rechtsverstöße erkennbar. Bei Bekanntwerden von Rechtsverletzungen entfernen wir derartige Links umgehend.</p></S>
-      <S title="Urheberrecht"><p>Die durch uns erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechts bedürfen der schriftlichen Zustimmung der {siteConfig.name}.</p><p>Bildnachweis: Titelbild: Autohausfoto © Bavaria Autoarena GmbH; Fahrzeugfoto Dekler Ph / Unsplash, Bildmontage bearbeitet. Service-Foto: Renaldo Matamoro / Unsplash (Unsplash License). Fahrzeugfotos © Bavaria Autoarena GmbH.</p></S>
+      <S title="Urheberrecht"><p>Die durch uns erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechts bedürfen der schriftlichen Zustimmung der {siteConfig.name}.</p><p>Bildnachweis: Titelbild: Autohausfoto © Bavaria Autoarena GmbH, das gezeigte Fahrzeug ist digital eingefügt und kein Verkaufsfahrzeug. Stimmungsbilder zu Ankauf, Service und Finanzierung sind KI-generiert. Fahrzeugfotos im Bestand © Bavaria Autoarena GmbH.</p></S>
     </div></>
   );
 }

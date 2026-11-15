@@ -26,12 +26,12 @@ const sections: { id: string; title: string; body: ReactNode }[] = [
 export default function PrivacyPage() {
   return (<>
     <PageHero eyebrow="Rechtliches" title="Datenschutzerklärung" />
-    <div className="page-container grid gap-10 py-14 lg:grid-cols-[260px_1fr]">
+    <div className="page-container grid gap-12 py-16 lg:grid-cols-[260px_1fr] lg:gap-16 lg:py-24">
       <nav aria-label="Inhalt" className="lg:sticky lg:top-28 lg:self-start">
         <p className="font-display text-xs font-medium uppercase tracking-wide text-primary">Inhalt</p>
         <ol className="mt-4 space-y-2 text-sm">{sections.map((s, i) => <li key={s.id}><a href={`#${s.id}`} className="text-muted-foreground hover:text-tiffany-300">{i + 1}. {s.title}</a></li>)}</ol>
       </nav>
-      <div className="max-w-3xl space-y-10">
+      <div className="max-w-[72ch] space-y-12">
         <p className="text-muted-foreground">Informationen nach Art. 13 DSGVO zur Verarbeitung Ihrer personenbezogenen Daten auf dieser Website.</p>
         {sections.map((s, i) => <section key={s.id} id={s.id} className="scroll-mt-28 space-y-3"><h2 className="font-display text-lg font-light uppercase tracking-[.06em] text-foreground">{i + 1}. {s.title}</h2><div className="space-y-3 leading-7 text-muted-foreground">{s.body}</div></section>)}
       </div>

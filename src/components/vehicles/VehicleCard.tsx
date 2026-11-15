@@ -2,7 +2,7 @@ import { sizedImage } from "@/lib/vehicleImages";
 import { Link } from "@tanstack/react-router";
 import { formatFirstRegistration, formatFuel, formatKm, formatPrice, formatTransmission } from "@/lib/format";
 import { VehicleImg } from "./VehicleImg";
-import { Camera } from "lucide-react";
+import { Camera, ChevronRight } from "lucide-react";
 import { coverImage, type Vehicle } from "@/lib/vehicles";
 
 export function VehicleCard({ vehicle, eager = false, onImageError }: { vehicle: Vehicle; eager?: boolean; onImageError?: (vehicle: Vehicle) => void }) {
@@ -10,21 +10,21 @@ export function VehicleCard({ vehicle, eager = false, onImageError }: { vehicle:
   const coverIndex = image ? vehicle.images.indexOf(image) : -1;
   const coverHasSeal = vehicle.seal_indices.includes(coverIndex);
   const isNew = !vehicle.is_demo && Date.now() - new Date(vehicle.created_at).getTime() < 14 * 86_400_000;
-  const meta = `${formatFirstRegistration(vehicle.first_registration)} · ${formatKm(vehicle.mileage_km)} · ${formatFuel(vehicle.fuel)} · ${formatTransmission(vehicle.transmission)}`;
+  const meta = [formatFirstRegistration(vehicle.first_registration), formatKm(vehicle.mileage_km), formatFuel(vehicle.fuel), formatTransmission(vehicle.transmission)];
 
   return (
-    <Link to="/fahrzeuge/$slug" params={{ slug: vehicle.slug }} className="group flex h-full flex-col overflow-hidden rounded-sm bg-card ring-1 ring-foreground/5 transition-[box-shadow] hover:ring-primary">
+    <Link to="/fahrzeuge/$slug" params={{ slug: vehicle.slug }} className="group relative flex h-full flex-col overflow-hidden rounded-sm bg-card ring-1 ring-foreground/8 transition-[box-shadow,background-color] duration-300 hover:ring-primary/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
       <div className="relative aspect-[4/3] overflow-hidden bg-image-placeholder">
-        {image ? <VehicleImg src={sizedImage(image.thumbUrl || image.url, "card")} srcSet={`${sizedImage(image.url, "card")} 640w, ${sizedImage(image.url, "medium")} 1024w`} sizes="(min-width:1024px) 400px, (min-width:768px) 50vw, 100vw" alt={image.alt || vehicle.title} width="1024" height="768" loading={eager ? "eager" : "lazy"} fetchPriority={eager ? "high" : "auto"} onError={() => onImageError?.(vehicle)} className="size-full bg-image-placeholder object-cover object-center transition-transform duration-500 motion-safe:[@media(hover:hover)]:group-hover:scale-[1.03]" /> : <VehicleImg src={undefined} className="size-full" />}
+        {image ? <VehicleImg src={sizedImage(image.thumbUrl || image.url, "card")} srcSet={`${sizedImage(image.url, "card")} 640w, ${sizedImage(image.url, "medium")} 1024w`} sizes="(min-width:1024px) 400px, (min-width:768px) 50vw, 100vw" alt={image.alt || vehicle.title} width="1024" height="768" loading={eager ? "eager" : "lazy"} fetchPriority={eager ? "high" : "auto"} onError={() => onImageError?.(vehicle)} className="size-full bg-image-placeholder object-cover object-center transition-transform duration-500 motion-safe:[@media(hover:hover)]:group-hover:scale-[1.04]" /> : <VehicleImg src={undefined} className="size-full" />}
         {vehicle.status === "reserviert" ? <span className="absolute left-3 top-3 rounded-sm bg-ink-800 px-2.5 py-1 text-xs font-semibold text-foreground">Reserviert</span> : isNew ? <span className="absolute left-3 top-3 rounded-sm bg-ink-900 px-2.5 py-1 text-xs font-semibold text-foreground">Neu eingetroffen</span> : null}
         {(vehicle.image_count ?? vehicle.images.length) > 1 ? <span className="absolute bottom-3 right-3 inline-flex items-center gap-1.5 rounded-sm bg-ink-900/70 px-2.5 py-1 text-[11px] text-foreground"><Camera className="size-3.5" strokeWidth={1.5} />{`${vehicle.image_count ?? vehicle.images.length} Fotos`}</span> : null}
       </div>
       <div className="flex min-w-0 flex-1 flex-col p-6">
         <p className="font-display text-xs font-medium uppercase tracking-[.2em] text-muted-foreground">{vehicle.brand}</p>
         <h3 className="mt-1 truncate font-display text-xl font-normal text-foreground">{vehicle.title.replace(new RegExp(`^${vehicle.brand}\\s*`, "i"), "")}</h3>
-        <p className="mt-2 text-sm tabular-nums text-muted-foreground lg:text-[15px]">{meta}</p>
+        <ul className="mt-3 flex flex-wrap items-center gap-y-1 text-sm tabular-nums text-muted-foreground lg:text-[15px]">{meta.map((m, i) => <li key={i} className="flex items-center">{i ? <span aria-hidden="true" className="mx-2.5 h-3 w-px bg-border" /> : null}{m}</li>)}</ul>
         {coverHasSeal ? <p className="mt-2 min-h-6 text-sm text-primary">Historienbericht vorhanden</p> : <span className="mt-2 min-h-6" aria-hidden="true" />}
-        <div className="mt-auto border-t border-border pt-4"><p className="font-display text-2xl font-medium tabular-nums text-foreground lg:text-[26px]">{formatPrice(vehicle.price_eur)}</p><p className="text-xs text-muted-foreground">{vehicle.tax_status === "differenz" ? "§ 25a UStG" : "MwSt. ausweisbar"}</p></div>
+        <div className="mt-auto flex items-end justify-between gap-4 border-t border-border pt-5"><div><p className="font-display text-[26px] font-medium leading-none tabular-nums text-foreground lg:text-[28px]">{formatPrice(vehicle.price_eur)}</p><p className="mt-1.5 text-xs text-muted-foreground">{vehicle.tax_status === "differenz" ? "Endpreis · § 25a UStG" : "Endpreis · MwSt. ausweisbar"}</p></div><span className="inline-flex items-center gap-1 font-display text-xs font-medium uppercase tracking-[.16em] text-primary">Ansehen<ChevronRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" strokeWidth={1.5} /></span></div><span aria-hidden="true" className="brand-line absolute inset-x-0 bottom-0 h-px origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100 group-focus-visible:scale-x-100" />
       </div>
     </Link>
   );

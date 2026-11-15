@@ -7,19 +7,20 @@ export function Eyebrow({ children, dark = false }: { children: ReactNode; dark?
 }
 
 export function H2({ eyebrow, children }: { eyebrow?: string; children: ReactNode }) {
-  return <div>{eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}<h2 className="section-h2 mt-3 text-foreground">{children}</h2></div>;
+  return <div>{eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}<h2 className="section-h2 mt-3 text-foreground">{children}</h2><span aria-hidden="true" className="brand-line mt-6 block h-px w-16" /></div>;
 }
 
 export function PageHero({ eyebrow = "Bavaria Autoarena", title, children, aside }: { eyebrow?: string; title: string; children?: ReactNode; aside?: ReactNode }) {
   return (
-    <section className="bg-ink-900 py-16 text-foreground">
-      <div className={`page-container grid gap-10 ${aside ? "lg:grid-cols-2 lg:items-center" : ""}`}>
-        <div>
+    <section className="relative border-b border-border bg-ink-900 pb-14 pt-16 text-foreground lg:pb-20 lg:pt-24">
+      <div className={`page-container grid gap-10 ${aside ? "lg:grid-cols-12 lg:items-center" : ""}`}>
+        <div className={aside ? "lg:col-span-6" : ""}>
           <Eyebrow dark>{eyebrow}</Eyebrow>
-          <h1 className="display-title mt-4 max-w-4xl">{title}</h1>
-          {children && <div className="mt-6 max-w-2xl text-lg leading-[1.6] text-muted-foreground">{children}</div>}
+          <h1 lang="de" className={`display-title mt-5 max-w-4xl text-balance break-words hyphens-auto ${aside ? "lg:!text-[3rem] xl:!text-[3.5rem]" : ""}`}>{title}</h1>
+          <span aria-hidden="true" className="brand-line mt-8 block h-px w-20" />
+          {children && <div className="mt-8 max-w-[60ch] text-lg leading-[1.65] text-muted-foreground">{children}</div>}
         </div>
-        {aside}
+        {aside ? <div className="lg:col-span-6">{aside}</div> : null}
       </div>
     </section>
   );
@@ -41,7 +42,11 @@ export function PrivacyHint() {
 }
 
 export function Chip({ active, onClick, children }: { active: boolean; onClick: () => void; children: ReactNode }) {
-  return <button type="button" role="radio" aria-checked={active} onClick={onClick} className={`h-11 rounded-sm border px-4 text-sm transition-colors ${active ? "border-foreground bg-ink-900 text-foreground" : "border-border bg-card text-foreground hover:border-primary"}`}>{children}</button>;
+  return <button type="button" role="radio" aria-checked={active} onClick={onClick} className={`h-11 rounded-sm border px-4 text-sm transition-colors ${active ? "border-foreground bg-ink-800 text-foreground ring-1 ring-primary" : "border-border bg-card text-foreground hover:border-primary"}`}>{children}</button>;
+}
+
+export function PageImage({ src, alt, width, height, className = "aspect-[4/3]" }: { src: string; alt: string; width: number; height: number; className?: string }) {
+  return <div className={`overflow-hidden rounded-sm bg-image-placeholder ${className}`}><img src={src} alt={alt} width={width} height={height} loading="lazy" className="size-full object-cover object-center" /></div>;
 }
 
 export function PhotoPlaceholder({ label, portrait = false }: { label: string; portrait?: boolean }) {

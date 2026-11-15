@@ -2,6 +2,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { getRouteApi, useNavigate } from "@tanstack/react-router";
 import { SlidersHorizontal } from "lucide-react";
 import { useState } from "react";
+import { PageHero } from "@/components/site/shared";
 import { SearchRequestForm } from "@/components/forms/SearchRequestForm";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetDescription, SheetTitle } from "@/components/ui/sheet";
@@ -16,7 +17,7 @@ function UnderlineSelect({ label, value, onChange, options }: { label: string; v
   return (
     <label className="block min-w-0">
       <span className="block font-display text-[11px] font-medium uppercase tracking-[.16em] text-muted-foreground">{label}</span>
-      <select value={value} onChange={(e) => onChange(e.target.value)} className="mt-1 h-11 w-full min-w-[150px] cursor-pointer appearance-none rounded-none border-0 border-b border-foreground/25 bg-transparent bg-[url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%2212%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%231A1F35%22 stroke-width=%221.5%22><path d=%22m6 9 6 6 6-6%22/></svg>')] bg-[length:12px] bg-[right_2px_center] bg-no-repeat pr-6 text-[15px] text-foreground focus:border-primary focus:outline-none">
+      <select value={value} onChange={(e) => onChange(e.target.value)} className="mt-1 h-11 w-full min-w-[150px] cursor-pointer appearance-none rounded-none border-0 border-b border-foreground/25 bg-ink-900 px-3 bg-[url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%2212%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%23C9CDD6%22 stroke-width=%221.5%22><path d=%22m6 9 6 6 6-6%22/></svg>')] bg-[length:12px] bg-[right_2px_center] bg-no-repeat pr-6 text-[15px] text-foreground focus:border-primary focus:outline-none">
         {options.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
       </select>
     </label>
@@ -47,15 +48,9 @@ export default function VehiclesPage() {
   const hits = `${data.length} Treffer`;
 
   return <>
-    <section className="bg-ink-900 py-16 text-foreground">
-      <div className="page-container">
-        <p className="eyebrow text-primary">Unser Bestand</p>
-        <h1 className="display-title mt-4">Unsere Fahrzeuge</h1>
-        <p className="mt-6 text-muted-foreground">{all.data ? `${all.data.length} Fahrzeuge vor Ort in Perkam` : "Fahrzeuge vor Ort in Perkam"} · Besichtigung nach Termin</p>
-      </div>
-    </section>
+    <PageHero eyebrow="Unser Bestand" title="Unsere Fahrzeuge">{all.data ? `${all.data.length} Fahrzeuge vor Ort in Perkam` : "Fahrzeuge vor Ort in Perkam"} · Besichtigung nach Termin</PageHero>
 
-    <div className="sticky top-16 z-30 border-b border-border bg-background/95 backdrop-blur lg:top-[68px]">
+    <div className="sticky top-[72px] z-30 border-b border-border bg-background/95 backdrop-blur lg:top-20">
       <div className="page-container hidden items-end gap-6 py-4 md:flex">
         <div className="grid flex-1 grid-cols-4 gap-6"><Filters search={search} update={update} /></div>
         <div className="w-48">{sortSelect}</div>
@@ -76,7 +71,7 @@ export default function VehiclesPage() {
     </Sheet>
 
     <div className="bg-background">
-      <div className="page-container py-12">
+      <div className="page-container py-12 lg:py-16">
         {hasFilters ? <button type="button" onClick={reset} className="text-link mb-4 hidden text-foreground md:inline-flex">Filter zurücksetzen</button> : null}
         <div className="grid gap-x-5 gap-y-10 md:grid-cols-2 md:gap-x-6 md:gap-y-12 lg:grid-cols-3 lg:gap-x-8">
           {data.length === 0 ? <div className="col-span-full bg-card p-8 text-center text-muted-foreground">Keine Fahrzeuge mit diesen Kriterien. <button type="button" onClick={reset} className="font-semibold text-primary underline">Filter zurücksetzen</button></div>
@@ -86,10 +81,10 @@ export default function VehiclesPage() {
       </div>
     </div>
 
-    <section id="suchauftrag" className="scroll-mt-24 bg-ink-900 py-16 text-foreground md:py-20">
+    <section id="suchauftrag" className="section-space scroll-mt-24 border-t border-border bg-ink-900 text-foreground">
       <div className="page-container grid gap-10 lg:grid-cols-2 lg:gap-16">
         <div>
-          <h2 className="section-h2">Nicht das Richtige dabei?</h2>
+          <p className="eyebrow text-primary">Suchauftrag</p><h2 className="section-h2 mt-4">Nicht das Richtige dabei?</h2><span aria-hidden="true" className="brand-line mt-6 block h-px w-16" />
           <p className="mt-6 max-w-xl leading-[1.7] text-muted-foreground">Unser Bestand wechselt schnell, manches Auto ist verkauft, bevor es online steht. Sagen Sie uns, was Sie suchen – ob Familienkombi oder seltenen Sportwagen. Wir melden uns, sobald wir etwas Passendes haben. Ihre Anfrage behandeln wir vertraulich.</p>
         </div>
         <SearchRequestForm />

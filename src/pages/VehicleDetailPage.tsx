@@ -40,7 +40,7 @@ export default function VehicleDetailPage() {
   ];
 
   return (
-    <div className="mx-auto max-w-[1280px] px-6 py-8 lg:px-10">
+    <div className="page-container pb-20 pt-8 lg:pb-28 lg:pt-10">
       <nav aria-label="Brotkrumen" className="hidden flex-wrap items-center gap-1.5 text-sm text-muted-foreground sm:flex">
         <Link to="/" className="hover:text-tiffany-300">Start</Link><ChevronRight className="size-3.5" />
         <Link to="/fahrzeuge" className="hover:text-tiffany-300">Fahrzeuge</Link><ChevronRight className="size-3.5" />
@@ -52,9 +52,9 @@ export default function VehicleDetailPage() {
         <div className="contents lg:col-span-8 lg:block lg:min-w-0 lg:space-y-10">
             <div className="order-1"><VehicleGallery images={publicGallery(v)} title={v.title} badge={badge} sealIndices={v.seal_indices} /></div>
 
-          <section className="order-3"><h2 className="section-h2">Daten</h2><dl className="mt-6 grid grid-cols-2 border-t border-border sm:grid-cols-3">{facts.map(({ label, value }) => <div key={label} className="border-b border-border py-4 pr-4"><dt className="text-xs text-muted-foreground">{label}</dt><dd className="mt-1 font-semibold text-foreground">{value}</dd></div>)}</dl></section>
+          <section className="order-3"><p className="eyebrow text-primary">Technik</p><h2 className="section-h2 mt-3">Daten</h2><span aria-hidden="true" className="brand-line mt-6 block h-px w-16" /><dl className="mt-8 grid border-t border-border sm:grid-cols-2 sm:gap-x-10">{facts.map(({ label, value }) => <div key={label} className="flex items-baseline justify-between gap-6 border-b border-border py-4"><dt className="text-[15px] text-muted-foreground">{label}</dt><dd className="text-right font-semibold tabular-nums text-foreground">{value}</dd></div>)}</dl></section>
 
-          {v.features.length ? <section className="order-4"><h2 className="section-h2">Ausstattung</h2><ul className="mt-5 grid gap-x-6 gap-y-3 sm:grid-cols-2">{v.features.map((f) => <li key={f} className="flex items-center gap-3 text-foreground"><span className="grid size-6 shrink-0 place-items-center rounded-full border border-primary/50 text-primary"><Check className="size-3.5" /></span>{f}</li>)}</ul></section> : null}
+          {v.features.length ? <section className="order-4"><p className="eyebrow text-primary">Ausstattung</p><h2 className="section-h2 mt-3">Ausstattung</h2><span aria-hidden="true" className="brand-line mb-2 mt-6 block h-px w-16" /><ul className="mt-5 grid gap-x-6 gap-y-3 sm:grid-cols-2">{v.features.map((f) => <li key={f} className="flex items-center gap-3 text-foreground"><span className="grid size-6 shrink-0 place-items-center rounded-full border border-primary/50 text-primary"><Check className="size-3.5" /></span>{f}</li>)}</ul></section> : null}
 
             {v.description ? <section className="order-5"><h2 className="section-h2">Beschreibung</h2>{v.seal_indices.includes(v.cover_index ?? 0) ? <p className="mt-5 font-semibold text-foreground">Historienbericht vorhanden</p> : null}<p className="mt-5 max-w-3xl whitespace-pre-line leading-7 text-muted-foreground">{v.description}</p></section> : null}
 
@@ -64,16 +64,16 @@ export default function VehicleDetailPage() {
         </div>
 
         <aside className="order-2 lg:col-span-4 lg:sticky lg:top-28 lg:self-start">
-          <div className="border-b border-border pb-7 pt-1 lg:rounded-lg lg:border lg:bg-card lg:p-6">
-             <h1 className="font-display text-2xl font-semibold leading-[1.15] text-foreground">{v.title}</h1>
+          <div className="border-b border-border pb-7 pt-1 lg:rounded-sm lg:border lg:bg-card lg:p-8"><p className="eyebrow text-primary">{v.brand}</p>
+             <h1 className="mt-3 font-display text-2xl font-normal leading-[1.2] text-foreground lg:text-[28px]">{v.title}</h1>
             <p className="mt-2 text-sm text-muted-foreground">EZ {formatFirstRegistration(v.first_registration)} · {formatKm(v.mileage_km)} · {formatFuel(v.fuel)} · {formatTransmission(v.transmission)}{v.power_ps ? ` · ${v.power_ps} PS` : ""}</p>
-             <p className="mt-5 font-display text-3xl font-bold text-foreground lg:mt-6 lg:text-4xl">{formatPrice(v.price_eur)}</p>
+             <p className="mt-6 border-t border-border pt-6 font-display text-4xl font-medium tabular-nums text-foreground lg:text-[44px]">{formatPrice(v.price_eur)}</p>
             <p className="mt-2 text-xs leading-5 text-muted-foreground">{v.tax_status === "differenz" ? "Differenzbesteuert nach § 25a UStG, MwSt. nicht ausweisbar" : "inkl. 19 % MwSt., MwSt. ausweisbar"}</p>
             <p className="mt-1 text-xs leading-5 text-muted-foreground">Finanzierung über Santander Consumer Bank oder DKB, Bonität vorausgesetzt.</p>
             {siteConfig.features.showMonthlyRate ? <p className="mt-3 text-sm text-foreground">Finanzierung auf Anfrage</p> : null}
             <div className="mt-6 grid gap-3">
               <Button asChild variant="brand" className="w-full"><a href={phoneHref}><Phone strokeWidth={1.5} />Anrufen · {phoneLabel}</a></Button>
-              <Button type="button" className="w-full bg-ink-900 text-foreground hover:bg-ink-800" onClick={termin}>Probefahrt vereinbaren</Button>
+              <Button type="button" variant="outline" className="w-full" onClick={termin}>Probefahrt vereinbaren</Button>
               <a href={wa} target="_blank" rel="noopener noreferrer" className="text-link justify-center gap-2 text-foreground"><MessageCircle className="size-4" strokeWidth={1.5} />Frage per WhatsApp</a>
             </div>
             <ul className="mt-6 flex flex-wrap gap-x-4 gap-y-2 border-t border-border pt-4 text-xs text-muted-foreground">{["Geprüft", "12 Monate Gewährleistung", "Inzahlungnahme möglich"].map((t) => <li key={t} className="flex items-center gap-1.5"><Check className="size-3.5 text-primary" />{t}</li>)}</ul>
@@ -81,7 +81,7 @@ export default function VehicleDetailPage() {
         </aside>
       </div>
 
-      {similar.data?.length ? <section className="mt-20"><h2 className="section-h2">Ähnliche Fahrzeuge</h2><div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{similar.data.map((s) => <VehicleCard key={s.id} vehicle={s} />)}</div></section> : null}
+      {similar.data?.length ? <section className="mt-20 border-t border-border pt-16 lg:mt-28 lg:pt-24"><p className="eyebrow text-primary">Weitere Fahrzeuge</p><h2 className="section-h2 mt-3">Ähnliche Fahrzeuge</h2><span aria-hidden="true" className="brand-line mt-6 block h-px w-16" /><div className="mt-10 grid gap-5 lg:gap-8 sm:grid-cols-2 lg:grid-cols-3">{similar.data.map((s) => <VehicleCard key={s.id} vehicle={s} />)}</div></section> : null}
     </div>
   );
 }

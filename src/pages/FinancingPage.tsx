@@ -2,7 +2,8 @@ import { useState, type FormEvent } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { PageHero, PrivacyHint } from "@/components/site/shared";
+import { PageHero, PageImage, PrivacyHint } from "@/components/site/shared";
+import financingImage from "@/assets/finanzierung-vertrag.webp";
 import { LeadBasicsFields, LeadSubmit, LeadSuccess, useLeadForm } from "@/components/forms/LeadBasics";
 import { FinancingExample } from "@/components/FinancingExample";
 import { Reveal } from "@/components/Reveal";
@@ -55,10 +56,10 @@ function FinancingForm() {
 export default function FinancingPage() {
   return (
     <>
-      <PageHero title="Finanzierung für Ihren Gebrauchtwagen">
+      <PageHero eyebrow="Finanzierung" title="Finanzierung für Ihren Gebrauchtwagen" aside={<PageImage src={financingImage} alt="Unterschrift unter einen Vertrag, daneben ein Autoschlüssel" width={1200} height={900} />}>
         Wir vermitteln Kredite der Santander Consumer Bank und der DKB. Im Autohaus rechnen wir Laufzeit, Anzahlung und Gesamtkosten gemeinsam durch.
       </PageHero>
-       <div className="mx-auto grid max-w-[1200px] gap-12 px-6 py-16 md:px-12 md:py-24 lg:grid-cols-[1fr_minmax(0,520px)]">
+       <div className="page-container section-space grid gap-12 lg:grid-cols-[1fr_minmax(0,520px)] lg:gap-16">
         <div className="space-y-14">
           <Reveal>
              <h2 className="section-h2">So läuft die Finanzierung</h2>
@@ -72,7 +73,7 @@ export default function FinancingPage() {
         </div>
         <div className="lg:sticky lg:top-28 lg:self-start"><FinancingForm /></div>
       </div>
-      <p className="mx-auto max-w-7xl px-5 pb-16 text-xs leading-5 text-muted-foreground lg:px-6">Finanzierung über Santander Consumer Bank oder DKB, Bonität vorausgesetzt. Wir vermitteln Finanzierungen als ungebundener Vermittler.</p>
+      <p className="page-container pb-16 text-xs leading-5 text-muted-foreground lg:px-6">Finanzierung über Santander Consumer Bank oder DKB, Bonität vorausgesetzt. Wir vermitteln Finanzierungen als ungebundener Vermittler.</p>
     </>
   );
 }

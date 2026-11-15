@@ -13,7 +13,7 @@ export function LogoMark({ className }: { className?: string }) {
 /** Header: Querformat-Logo, unter 360 px nur das Schild. */
 export function HeaderLogo({ compact = false }: { compact?: boolean }) {
   return <>
-    <LogoMark className="h-10 min-[360px]:hidden" />
-    <Logo className={cn("hidden h-10 transition-[height] duration-300 min-[360px]:block", compact ? "lg:h-11" : "lg:h-[52px]")} />
+    <LogoMark className="h-11 min-[360px]:hidden" />
+    <Logo className={cn("hidden h-11 transition-[height] duration-300 min-[360px]:block", compact ? "lg:h-14" : "lg:h-[60px]")} />
   </>;
 }
