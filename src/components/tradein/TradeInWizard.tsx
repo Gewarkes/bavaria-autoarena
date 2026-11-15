@@ -173,17 +173,17 @@ export function TradeInWizard({ initialBrand, initialModel, initialDesiredVehicl
   );
 
   return (
-    <div ref={topRef} id="bewertung" className="scroll-mt-28 rounded border border-border bg-card p-5 sm:p-7">
+    <div ref={topRef} id="bewertung" className="scroll-mt-28 rounded-sm border border-border bg-card p-6 sm:p-10">
       <div className="mb-6">
-        <div className="flex items-baseline justify-between text-xs font-semibold uppercase tracking-wide"><span className="text-primary">Schritt {step} von 4</span><span className="text-muted-foreground">{titles[step - 1]}</span></div>
-        <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-border" role="progressbar" aria-valuemin={1} aria-valuemax={4} aria-valuenow={step} aria-label="Fortschritt">
-          <div className="h-full rounded-full bg-primary transition-all duration-500 motion-reduce:transition-none" style={{ width: `${step * 25}%` }} />
+        <div className="eyebrow flex items-baseline justify-between"><span className="text-primary">Schritt {step} von 4</span><span className="text-subtle">{titles[step - 1]}</span></div>
+        <div className="mt-3 h-px overflow-hidden bg-border" role="progressbar" aria-valuemin={1} aria-valuemax={4} aria-valuenow={step} aria-label="Fortschritt">
+          <div className="h-full bg-primary transition-all duration-500 motion-reduce:transition-none" style={{ width: `${step * 25}%` }} />
         </div>
       </div>
 
       {step === 1 && (
         <form onSubmit={onStep1} noValidate className="space-y-5">
-           <h2 className="text-lg font-semibold text-foreground">Ihr Auto</h2>
+           <h2 className="font-display text-[26px] font-light leading-tight text-foreground lg:text-[32px]">Ihr Auto</h2>
           <div className="grid gap-4 sm:grid-cols-2">
             <Field label="Marke" error={errors["brand"]}>
               <Popover open={brandOpen} onOpenChange={setBrandOpen}>
@@ -220,7 +220,7 @@ export function TradeInWizard({ initialBrand, initialModel, initialDesiredVehicl
 
       {step === 2 && (
         <form onSubmit={onStep2} noValidate className="space-y-5">
-           <h2 className="text-lg font-semibold text-foreground">Was möchten Sie machen?</h2>
+           <h2 className="font-display text-[26px] font-light leading-tight text-foreground lg:text-[32px]">Was möchten Sie machen?</h2>
           <Field label="Was möchten Sie?" error={errors["intent"]}>
             <ChoiceCards label="Absicht" value={s2.intent} onChange={(v) => setS2({ ...s2, intent: v })} options={[
               { value: "inzahlung", label: "In Zahlung geben", hint: "Auf ein Fahrzeug aus unserem Bestand anrechnen", icon: <CarFront className="size-5" /> },
@@ -248,7 +248,7 @@ export function TradeInWizard({ initialBrand, initialModel, initialDesiredVehicl
 
       {step === 3 && (
         <form onSubmit={onStep3} noValidate className="space-y-5">
-          <h2 className="font-display text-lg font-bold uppercase tracking-wide text-foreground">Ihre Kontaktdaten</h2>
+          <h2 className="font-display text-[26px] font-light leading-tight text-foreground lg:text-[32px]">Ihre Kontaktdaten</h2>
           <div className="grid gap-4 sm:grid-cols-2">
             <Field label="Vorname" error={errors["firstName"]} id="ti-fn"><Input id="ti-fn" autoComplete="given-name" enterKeyHint="next" className="h-12" value={s3.firstName} onChange={(e) => setS3({ ...s3, firstName: e.target.value })} maxLength={60} /></Field>
             <Field label="Nachname" error={errors["lastName"]} id="ti-ln"><Input id="ti-ln" autoComplete="family-name" enterKeyHint="next" className="h-12" value={s3.lastName} onChange={(e) => setS3({ ...s3, lastName: e.target.value })} maxLength={60} /></Field>
@@ -271,7 +271,7 @@ export function TradeInWizard({ initialBrand, initialModel, initialDesiredVehicl
       {step === 4 && (
         <form onSubmit={onStep4} noValidate className="space-y-5">
           <div className="flex items-start gap-3 rounded-md border border-success/40 bg-success/10 p-3 text-sm text-foreground"><Check className="mt-0.5 size-4 shrink-0 text-success" />Ihre Anfrage ist bei uns eingegangen.</div>
-          <h2 className="font-display text-lg font-bold uppercase tracking-wide text-foreground">Fast geschafft – je mehr Angaben, desto genauer unser Angebot.</h2>
+          <h2 className="font-display text-[26px] font-light leading-tight text-foreground lg:text-[32px]">Fast geschafft – je mehr Angaben, desto genauer unser Angebot.</h2>
           <Field label="Zustand außen" optional><ChoiceCards label="Zustand außen" value={s4.exterior} onChange={(v) => setS4({ ...s4, exterior: v })} options={conditionOptions} /></Field>
           <Field label="Zustand innen" optional><ChoiceCards label="Zustand innen" value={s4.interior} onChange={(v) => setS4({ ...s4, interior: v })} options={conditionOptions} /></Field>
           <div className="grid gap-4 sm:grid-cols-2">

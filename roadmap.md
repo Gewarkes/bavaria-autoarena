@@ -171,3 +171,13 @@
 - [x] Fahrzeugkarten, Detailseite, Seitenköpfe, Leistungen, Finanzierung, Über uns, Rechtstexte
 - [ ] Wizard-Schritte 2–4 und Danke-Seite nur teilweise neu gestaltet
 - [ ] Admin-Bereich optisch nicht überarbeitet
+
+## Redesign v4 – Schritt 3 Premium, Runde 2
+- [x] Neues Titelbild: Halle zur blauen Stunde, Leuchtlogo aus Original-Logo montiert, Desktop 21:9 + Mobil 4:5, im Impressum als Visualisierung gekennzeichnet
+- [x] Hero vollflächig, transparenter Header, ein Hauptbutton, Vertrauenszeile, optionales Video vorbereitet, WhatsApp in Kopfzeile
+- [x] Kontaktband und Markenband entfernt, Kennzahlen neu, Service ohne Rauten
+- [x] Typografie (Gemischtschreibung, H2 60px), Abstände 80/144px, Kartenfarbe #131316, Linien 8 %
+- [x] Fahrzeugkarte neu, Featured 60/40, Bewertungskarte
+- [x] Ankauf-Schritte und Danke-Seite angeglichen
+- [ ] Ankauf Schritt 4 nicht im Browser geprüft (nur nach echtem Absenden erreichbar)
+- [ ] Admin-Bereich weiterhin nicht überarbeitet

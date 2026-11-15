@@ -14,7 +14,7 @@
 - Das öffentliche Designsystem ist durchgehend dunkel und nutzt Jost Variable, Source Sans 3 Variable sowie die ink-/tiffany-Tokens aus src/styles.css; Komponenten verwenden nur diese semantischen Tokens, damit alle Seiten markenkonsistent bleiben.
 - Siegelkennzeichnungen werden ausschließlich manuell über `seal_indices` gepflegt; Admin-Speichern darf keine automatische Bilderkennung ausführen, damit Händlerangaben erhalten bleiben.
 - Fahrzeugbilder werden öffentlich durchgängig im 4:3-Rahmen mit `object-cover` und zentrierter Position gezeigt; eingebrannte Siegel bleiben sichtbar und steuern nur den Historienhinweis.
-- Das Startseiten-Titelbild ist eine lokale Montage (`public/hero-autohaus*.webp`, eigene Zuschnitte für Desktop und Mobil) aus eigenem Autohausfoto mit Original-Logopixeln und einem per KI eingesetzten markenlosen Fahrzeug; Logos werden nie per KI nachgezeichnet.
+- Das Startseiten-Titelbild ist eine Visualisierung (`public/hero-autohaus*.webp`: Desktop 21:9 plus eigene Mobil-Fassung 4:5) einer KI-erzeugten Halle zur blauen Stunde ohne Fahrzeug im Vordergrund; das Leuchtlogo wird per Code aus den Original-Logopixeln perspektivisch montiert, nie per KI gezeichnet. Der Hero ist vollflächig unter transparentem Header und nimmt optional ein `videoSrc`.
 
 - Stimmungsbilder (alles außer echten Bestandsfotos) zeigen keine Hersteller-Embleme oder Markenschriftzüge und liegen als kühl-dunkel gegradete Dateien in `src/assets`, damit keine fremden Marken beworben werden.
 - `Reveal` versteckt nur Inhalte, die beim Laden unterhalb des Sichtbereichs liegen, und blendet sie vor Erreichen des Rands ein, damit ohne JavaScript oder bei schnellem Scrollen nichts unsichtbar bleibt.
