@@ -9,7 +9,7 @@ export const Route = createFileRoute("/")({
     await context.queryClient.ensureQueryData(vehiclesQuery({}));
   },
   head: () => {
-    const base = seo("Gebrauchtwagen in Perkam bei Straubing", "Gebrauchtwagen vom Alltagsauto bis zum Sportwagen in Perkam. Vor Ort ansehen, Probe fahren und das eigene Auto in Zahlung geben.", "/");
+    const base = seo("Gebrauchtwagen in Perkam bei Straubing", "Ausgesuchte Gebrauchtwagen mit Finanzierung, Inzahlungnahme und Zulassung aus einer Hand. Bavaria Autoarena in Perkam bei Straubing.", "/");
     const exactTitle = "Bavaria Autoarena – Gebrauchtwagen in Perkam bei Straubing";
     return {
       ...base,

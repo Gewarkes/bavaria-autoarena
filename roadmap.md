@@ -190,3 +190,9 @@
 - [x] Browserprüfung 390/1440/1920: kein horizontales Scrollen, Tor und Logo sichtbar; Überschrift ≥ 9,6:1 und Tiffany-Wort ≥ 7,9:1
 - [x] Automatischer Produktions-Build ohne Fehler; keine Veröffentlichung
 - Grenzen: Originalfoto 1280 × 766 auf 2560 px hochskaliert; verdeckte untere Fensterflächen und Garage nach Fahrzeugentfernung rekonstruiert; Logo bleibt erkennbare Visualisierung
+
+## Redesign v4 – Schritt 5 Texte und Kennzahlen
+- [x] Sieben werbliche Gewährleistungsstellen entfernt: Startseiten-Kennzahl/Service, Leistungen, Über uns, Fahrzeugdetail, Metadaten Leistungen/Bestand; Rechtstexte und Titelbild unverändert
+- [x] Startseitentexte, Kennzahlen, Einleitungen und Metadaten aktualisiert
+- [x] Bei 390/1440 geprüft: Überschrift sauber umbrochen, Wort-Kennzahlen einzeilig, kein horizontales Scrollen; automatischer Produktions-Build fehlerfrei
+- [x] Suche in src/public/supabase: keine Garantie-/Gewährleistungsnennungen oder alter Titelclaim mehr; FAQ, strukturierte Daten und E-Mail-Vorlagen ohne Treffer

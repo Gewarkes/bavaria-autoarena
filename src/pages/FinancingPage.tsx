@@ -57,7 +57,7 @@ export default function FinancingPage() {
   return (
     <>
       <PageHero eyebrow="Finanzierung" title="Finanzierung für Ihren Gebrauchtwagen" aside={<PageImage src={financingImage} alt="Unterschrift unter einen Vertrag, daneben ein Autoschlüssel" width={1200} height={900} />}>
-        Wir vermitteln Kredite der Santander Consumer Bank und der DKB. Im Autohaus rechnen wir Laufzeit, Anzahlung und Gesamtkosten gemeinsam durch.
+        Finanzierung über unsere Partnerbanken Santander und DKB – wir bereiten die Anfrage mit Ihnen vor.
       </PageHero>
        <div className="page-container section-space grid gap-12 lg:grid-cols-[1fr_minmax(0,520px)] lg:gap-16">
         <div className="space-y-14">

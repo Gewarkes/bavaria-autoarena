@@ -6,16 +6,15 @@ import { TerminFlow } from "@/components/termin/TerminDialog";
 
 const services = [
   ["Autoankauf und Inzahlungnahme", "Sie schicken uns die Eckdaten und, wenn möglich, Fotos. Am nächsten Werktag nennen wir Ihnen einen Preis. Bei einer Inzahlungnahme ziehen wir den Betrag direkt vom Kaufpreis ab.", "/auto-verkaufen", "Bewertung anfragen"],
-  ["Finanzierung", "Über Santander Consumer Bank und DKB vermitteln wir Laufzeiten von 12 bis 84 Monaten. Anzahlung und Schlussrate sind je nach Bankangebot möglich. Bonität vorausgesetzt.", "/finanzierung", "Finanzierung anfragen"],
+  ["Finanzierung", "Finanzierung über unsere Partnerbanken Santander und DKB – wir bereiten die Anfrage mit Ihnen vor.", "/finanzierung", "Finanzierung anfragen"],
   ["Zulassung", "Ob und in welchem Umfang wir die Zulassung übernehmen können, klären wir individuell mit Ihnen.", "/kontakt", "Zulassung anfragen"],
   ["Lieferung", "Eine mögliche Fahrzeuglieferung und die Konditionen stimmen wir individuell mit Ihnen ab.", "/kontakt", "Lieferung anfragen"],
   ["Export", "Fragen zu Export und Ausfuhrkennzeichen klären wir passend zu Ihrem Fahrzeug und Zielland.", "/kontakt", "Export anfragen"],
-  ["Gewährleistung", "Bei Fragen zu Gewährleistung und möglichen Zusatzleistungen beraten wir Sie persönlich.", "/kontakt", "Frage stellen"],
 ] as const;
 
 export default function ServicesPage() {
   return <>
-    <PageHero title="Was wir rund ums Auto erledigen">Vom Ankauf bis zur Zulassung: Hier steht, was wir übernehmen und wo noch eine individuelle Absprache nötig ist.</PageHero>
+    <PageHero title="Was wir rund ums Auto erledigen">Inzahlungnahme, Finanzierung, Zulassung und Lieferung – wir stimmen die Abwicklung mit Ihnen ab.</PageHero>
     <div className="section-space page-container grid gap-12 lg:grid-cols-12">
       <div className="lg:col-span-5"><div className="overflow-hidden rounded-sm bg-image-placeholder lg:sticky lg:top-28"><img src={serviceImage} alt="Übergabe eines Autoschlüssels vor einem dunklen Fahrzeug" width={1200} height={1504} loading="lazy" className="aspect-[4/3] size-full object-cover object-center lg:aspect-[4/5]" /></div></div>
       <ol className="border-t border-border lg:col-span-7">{services.map(([title, text, to, cta], index) => <li key={title} className="grid gap-4 border-b border-border py-10 sm:grid-cols-[64px_minmax(0,1fr)] lg:py-12"><span className="font-display text-sm tabular-nums text-primary">{String(index + 1).padStart(2, "0")}</span><div><h2 className="section-h3 text-foreground">{title}</h2><p className="mt-4 max-w-[60ch] leading-[1.65] text-muted-foreground">{text}</p><Link to={to} className="text-link mt-3 text-primary">{cta}</Link></div></li>)}</ol>

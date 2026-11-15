@@ -76,7 +76,7 @@ export default function VehicleDetailPage() {
               <Button type="button" variant="outline" className="w-full" onClick={termin}>Probefahrt vereinbaren</Button>
               <a href={wa} target="_blank" rel="noopener noreferrer" className="text-link justify-center gap-2 text-foreground"><MessageCircle className="size-4" strokeWidth={1.5} />Frage per WhatsApp</a>
             </div>
-            <ul className="mt-6 flex flex-wrap gap-x-4 gap-y-2 border-t border-border pt-4 text-xs text-muted-foreground">{["Geprüft", "12 Monate Gewährleistung", "Inzahlungnahme möglich"].map((t) => <li key={t} className="flex items-center gap-1.5"><Check className="size-3.5 text-primary" />{t}</li>)}</ul>
+            <ul className="mt-6 flex flex-wrap gap-x-4 gap-y-2 border-t border-border pt-4 text-xs text-muted-foreground">{["Geprüft", "Inzahlungnahme möglich"].map((t) => <li key={t} className="flex items-center gap-1.5"><Check className="size-3.5 text-primary" />{t}</li>)}</ul>
           </div>
         </aside>
       </div>
