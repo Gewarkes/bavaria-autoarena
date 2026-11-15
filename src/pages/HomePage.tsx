@@ -2,9 +2,9 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, CalendarDays, ChevronRight, MapPin, MessageCircle, Navigation, Phone, Star } from "lucide-react";
 import { useState } from "react";
-import heroImage from "@/assets/autohaus-perkam-tageslicht.webp.asset.json";
-import heroSmallImage from "@/assets/autohaus-perkam-tageslicht-1280.webp.asset.json";
-import heroMobileImage from "@/assets/autohaus-perkam-tageslicht-mobil.webp.asset.json";
+import heroImage from "@/assets/autohaus-helles-tageslicht.webp.asset.json";
+import heroSmallImage from "@/assets/autohaus-helles-tageslicht-1280.webp.asset.json";
+import heroMobileImage from "@/assets/autohaus-helles-tageslicht-mobil.webp.asset.json";
 import ankaufImage from "@/assets/ankauf-bewertung.webp";
 import serviceImage from "@/assets/service-schluesseluebergabe.webp";
 import { Ornament } from "@/components/Ornament";
@@ -29,21 +29,21 @@ function Hero({ count, videoSrc }: { count: number; videoSrc?: string }) {
   const value = siteConfig.rating.value.toLocaleString("de-DE");
   const facts = [<>{value} <Star aria-hidden="true" className="inline size-3.5 -translate-y-px fill-current text-primary" strokeWidth={1.5} /> auf {siteConfig.rating.source}</>, <>Finanzierung über Santander und DKB</>, <>Abwicklung aus einer Hand</>];
   const alt = "Foto des Autohauses Bavaria Autoarena in Perkam bei Tageslicht, Original-Logo als Visualisierung mittig über dem Rolltor";
-  return <section className="relative isolate flex flex-col overflow-hidden bg-ink-950 text-foreground lg:h-[88vh] lg:max-h-[calc(100vw*0.5984375)] lg:min-h-[640px] lg:flex-row lg:items-center">
-    <div className="relative aspect-[4/5] w-full md:aspect-[16/10] lg:absolute lg:inset-0 lg:-z-10 lg:aspect-auto">
+  return <section className="relative isolate flex flex-col overflow-hidden bg-ink-950 text-foreground lg:h-[92vh] lg:min-h-[680px] lg:max-h-[1080px] lg:justify-end">
+    <div className="relative h-[55svh] min-h-[420px] w-full md:h-[60svh] lg:absolute lg:inset-0 lg:-z-10 lg:h-auto lg:min-h-0">
       {videoSrc ? <video className="size-full object-cover object-left-top" src={videoSrc} poster={heroImage.url} autoPlay muted loop playsInline aria-hidden="true" /> : <picture className="block size-full">
         <source media="(max-width: 767px)" srcSet={heroMobileImage.url} width={960} height={1200} />
-        <img src={heroImage.url} srcSet={`${heroSmallImage.url} 1280w, ${heroImage.url} 2560w`} sizes="100vw" alt={alt} width={2560} height={1532} fetchPriority="high" decoding="async" className="size-full object-cover object-left-top" />
+        <img src={heroImage.url} srcSet={`${heroSmallImage.url} 1280w, ${heroImage.url} 2560w`} sizes="100vw" alt={alt} width={2560} height={1440} fetchPriority="high" decoding="async" className="size-full object-cover object-[center_28%] lg:object-fill" />
       </picture>}
-      <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(to_top,var(--ink-950)_0%,transparent_22%),linear-gradient(to_bottom,color-mix(in_oklab,var(--ink-950)_60%,transparent),transparent_18%)] lg:bg-[linear-gradient(to_left,var(--ink-950)_0%,color-mix(in_oklab,var(--ink-950)_96%,transparent)_47%,transparent_62%),linear-gradient(to_top,var(--ink-950)_0%,transparent_28%),linear-gradient(to_bottom,color-mix(in_oklab,var(--ink-950)_55%,transparent),transparent_12%)]" />
+      <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(to_bottom,color-mix(in_oklab,var(--ink-950)_60%,transparent),transparent_15%)] lg:bg-[linear-gradient(to_bottom,color-mix(in_oklab,var(--ink-950)_65%,transparent),transparent_16%),linear-gradient(to_top,color-mix(in_oklab,var(--ink-950)_85%,transparent)_0%,color-mix(in_oklab,var(--ink-950)_85%,transparent)_32%,transparent_48%)]" />
     </div>
-    <div className="page-container relative -mt-6 pb-14 md:-mt-10 lg:mt-0 lg:pb-0 lg:pt-24">
-      <div className="max-w-[640px] lg:ml-auto lg:w-[52%]">
+    <div className="page-container relative py-10 lg:pb-8 lg:pt-0">
+      <div className="max-w-[640px] lg:max-w-[720px]">
         <p className="eyebrow text-primary">Bavaria Autoarena · Perkam bei Straubing</p>
-        <h1 className="mt-5 text-balance font-display text-[40px] font-light leading-[1.05] text-foreground md:text-[60px] lg:text-[80px]">Die <span className="text-primary">Arena</span> für Ihr nächstes Auto.</h1>
-        <p className="mt-6 max-w-[46ch] text-lg leading-[1.6] text-foreground/85">Ausgesuchte Gebrauchtwagen vom Alltagsauto bis zum Sportwagen – mit Finanzierung, Inzahlungnahme und Zulassung aus einer Hand.</p>
-        <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-8"><Button asChild variant="brand" className="w-full sm:w-auto"><Link to="/fahrzeuge">Fahrzeuge ansehen ({count})</Link></Button><button type="button" onClick={() => openTermin()} className="group inline-flex min-h-11 items-center justify-center gap-2 font-display text-[13px] font-medium uppercase tracking-[.15em] text-foreground transition-colors hover:text-tiffany-300">Termin vereinbaren<ArrowRight className="size-4 transition-transform group-hover:translate-x-1" strokeWidth={1.5} /></button></div>
-        <ul className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-1.5 text-sm text-foreground/75 sm:gap-x-0">{facts.map((fact, i) => <li key={i} className="whitespace-nowrap">{i ? <span aria-hidden="true" className="mx-2.5 hidden text-subtle sm:inline">·</span> : null}{fact}</li>)}</ul>
+        <h1 className="mt-5 text-balance font-display text-[40px] font-light leading-[1.05] text-foreground md:text-[60px] lg:mt-3 lg:text-[64px]">Die <span className="text-primary">Arena</span> für Ihr nächstes Auto.</h1>
+        <p className="mt-6 max-w-[46ch] text-lg leading-[1.6] text-foreground/85 lg:mt-3 lg:max-w-[64ch]">Ausgesuchte Gebrauchtwagen vom Alltagsauto bis zum Sportwagen – mit Finanzierung, Inzahlungnahme und Zulassung aus einer Hand.</p>
+        <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-8 lg:mt-4"><Button asChild variant="brand" className="w-full sm:w-auto"><Link to="/fahrzeuge">Fahrzeuge ansehen ({count})</Link></Button><button type="button" onClick={() => openTermin()} className="group inline-flex min-h-11 items-center justify-center gap-2 font-display text-[13px] font-medium uppercase tracking-[.15em] text-foreground transition-colors hover:text-tiffany-300">Termin vereinbaren<ArrowRight className="size-4 transition-transform group-hover:translate-x-1" strokeWidth={1.5} /></button></div>
+        <ul className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-1.5 text-sm text-foreground/75 sm:gap-x-0 lg:mt-4">{facts.map((fact, i) => <li key={i} className="whitespace-nowrap">{i ? <span aria-hidden="true" className="mx-2.5 hidden text-subtle sm:inline">·</span> : null}{fact}</li>)}</ul>
       </div>
     </div>
     <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-px bg-border" />
