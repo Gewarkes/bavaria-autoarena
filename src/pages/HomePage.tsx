@@ -2,9 +2,9 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, CalendarDays, ChevronRight, MapPin, MessageCircle, Navigation, Phone, Star } from "lucide-react";
 import { useState } from "react";
-import heroImage from "@/assets/autohaus-helles-tageslicht.webp.asset.json";
-import heroSmallImage from "@/assets/autohaus-helles-tageslicht-1280.webp.asset.json";
-import heroMobileImage from "@/assets/autohaus-helles-tageslicht-mobil.webp.asset.json";
+import heroImage from "@/assets/autohaus-tag-klar.webp.asset.json";
+import heroSmallImage from "@/assets/autohaus-tag-klar-1280.webp.asset.json";
+import heroMobileImage from "@/assets/autohaus-tag-klar-mobil.webp.asset.json";
 import ankaufImage from "@/assets/ankauf-bewertung.webp";
 import serviceImage from "@/assets/service-schluesseluebergabe.webp";
 import { Ornament } from "@/components/Ornament";
@@ -33,9 +33,9 @@ function Hero({ count, videoSrc }: { count: number; videoSrc?: string }) {
     <div className="relative h-[55svh] min-h-[420px] w-full md:h-[60svh] lg:absolute lg:inset-0 lg:-z-10 lg:h-auto lg:min-h-0">
       {videoSrc ? <video className="size-full object-cover object-left-top" src={videoSrc} poster={heroImage.url} autoPlay muted loop playsInline aria-hidden="true" /> : <picture className="block size-full">
         <source media="(max-width: 767px)" srcSet={heroMobileImage.url} width={960} height={1200} />
-        <img src={heroImage.url} srcSet={`${heroSmallImage.url} 1280w, ${heroImage.url} 2560w`} sizes="100vw" alt={alt} width={2560} height={1440} fetchPriority="high" decoding="async" className="size-full object-cover object-[center_28%] lg:object-fill" />
+        <img src={heroImage.url} srcSet={`${heroSmallImage.url} 1280w, ${heroImage.url} 2560w`} sizes="100vw" alt={alt} width={2560} height={1440} fetchPriority="high" decoding="async" className="size-full object-cover object-top lg:object-fill" />
       </picture>}
-      <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(to_bottom,color-mix(in_oklab,var(--ink-950)_60%,transparent),transparent_15%)] lg:bg-[linear-gradient(to_bottom,color-mix(in_oklab,var(--ink-950)_65%,transparent),transparent_16%),linear-gradient(to_top,color-mix(in_oklab,var(--ink-950)_85%,transparent)_0%,color-mix(in_oklab,var(--ink-950)_85%,transparent)_32%,transparent_48%)]" />
+      <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(to_bottom,color-mix(in_oklab,var(--ink-950)_75%,transparent),transparent_20%)] lg:bg-[linear-gradient(to_bottom,color-mix(in_oklab,var(--ink-950)_75%,transparent)_0%,color-mix(in_oklab,var(--ink-950)_65%,transparent)_9%,transparent_17%),linear-gradient(to_top,color-mix(in_oklab,var(--ink-950)_85%,transparent)_0%,color-mix(in_oklab,var(--ink-950)_85%,transparent)_43%,transparent_60%)]" />
     </div>
     <div className="page-container relative py-10 lg:pb-8 lg:pt-0">
       <div className="max-w-[640px] lg:max-w-[720px]">

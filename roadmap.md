@@ -196,3 +196,9 @@
 - [x] Startseitentexte, Kennzahlen, Einleitungen und Metadaten aktualisiert
 - [x] Bei 390/1440 geprüft: Überschrift sauber umbrochen, Wort-Kennzahlen einzeilig, kein horizontales Scrollen; automatischer Produktions-Build fehlerfrei
 - [x] Suche in src/public/supabase: keine Garantie-/Gewährleistungsnennungen oder alter Titelclaim mehr; FAQ, strukturierte Daten und E-Mail-Vorlagen ohne Treffer
+
+## Redesign v4 – Schritt 6 Hero-Nachbesserung
+- [x] Tagesfassung mit geschlossenem Lamellentor, kleinerem Original-Logo und sichtbaren oberen/unteren Fenstern
+- [x] Text unten links über Vorplatz; keine seitliche Abdunklung; mobil vollständige Halle oben und Text darunter
+- [ ] Browser 390/1440/1456/1920, Kontrast und automatischen Produktions-Build abschließend prüfen
+- Grenze: Originalfoto 1280 px; Tor, verdeckte Fenster und erweiterter Vorplatz/Himmel sind Visualisierung, kein neues hochauflösendes Foto
